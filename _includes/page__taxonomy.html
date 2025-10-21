@@ -1,0 +1,22 @@
+{% if page.taxonomy %}
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].tags_label | default: "Tags:" }} </strong>
+    <span itemprop="keywords">
+    {% for tag in page.tags %}
+      <a href="{{ tag | slugify | prepend: path_type | prepend: site.tag_archive.path | relative_url }}" class="page__taxonomy-item" rel="tag">{{ tag }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+    {% endfor %}
+    </span>
+  </p>
+{% elsif site.data.taxonomy[page.collection] %}
+  {% assign tags = site.data.taxonomy[page.collection] %}
+  {% if tags.size > 0 %}
+    <p class="page__taxonomy">
+      <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].tags_label | default: "Tags:" }} </strong>
+      <span itemprop="keywords">
+      {% for tag in tags %}
+        <a href="{{ tag | slugify | prepend: path_type | prepend: site.tag_archive.path | relative_url }}" class="page__taxonomy-item" rel="tag">{{ tag }}</a>{% unless forloop.last %}<span class="sep">, </span>{% endunless %}
+      {% endfor %}
+      </span>
+    </p>
+  {% endif %}
+{% endif %}

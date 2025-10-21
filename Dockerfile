@@ -6,10 +6,8 @@ RUN apt-get update -qq && \
     apt-get install -y --no-install-recommends \
     build-essential \
     git \
+    nodejs \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Jekyll and bundler
-RUN gem install bundler jekyll jekyll-feed jekyll-seo-tag
 
 # Set the working directory
 WORKDIR /srv/jekyll
@@ -17,6 +15,9 @@ WORKDIR /srv/jekyll
 # Copy Gemfile and install dependencies
 COPY Gemfile .
 RUN bundle install
+
+# Install the Minima theme
+RUN gem install minima -v 2.5.1
 
 # Copy the rest of the files
 COPY . .

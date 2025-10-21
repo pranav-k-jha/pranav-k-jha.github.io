@@ -1,0 +1,20 @@
+---
+---
+
+// Modern Sass setup - completely standalone
+@use "sass:color";
+
+// Define our theme variables using modern color functions
+$grey-color: #828282;
+$grey-color-light: color.adjust($grey-color, $lightness: 40%);
+$grey-color-dark: color.adjust($grey-color, $lightness: -25%);
+$brand-color: #2a7ae2;
+$text-color: #111;
+$base-font-size: 16px;
+$base-font-weight: 400;
+$spacing-unit: 1.5rem;
+
+// Import our custom styles only
+@import "minima/custom-variables";
+@import "minima/custom-base";
+@import "minima/custom-styles";

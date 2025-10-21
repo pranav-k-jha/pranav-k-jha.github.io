@@ -6,7 +6,7 @@ email: your-email@example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pranav-k-jha.github.io" # the base hostname & protocol for your site
 
-theme: minima
+# theme: minima  # Removed to use custom styles instead
 plugins:
   - jekyll-feed
   - jekyll-seo-tag

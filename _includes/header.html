@@ -1,0 +1,91 @@
+<header class="site-header" id="site-header">
+  <div class="wrapper">
+    <!-- Logo / Site Title -->
+    <div class="site-title">
+      <a href="{{ '/' | relative_url }}">
+        <span class="logo">PJ</span>
+        <span class="text">{{ site.title | default: site.github.repository_name }}</span>
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="site-nav" id="site-nav">
+      {% for link in site.navigation %}
+        <a href="{{ link.url | relative_url }}" class="page-link {% if page.url == link.url %}active{% endif %}">
+          {{ link.title }}
+        </a>
+      {% endfor %}
+      
+      <!-- Social Links -->
+      <div class="header-social">
+        <a href="https://github.com/pranav-k-jha" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/pranav-k-jha" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </div>
+    </nav>
+    
+    <!-- Mobile Menu Button -->
+    <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+</header>
+
+<!-- Add a spacer to push content below the fixed header -->
+<div class="header-spacer"></div>
+
+<script>
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const siteNav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.hamburger');
+  
+  if (menuToggle && siteNav) {
+    menuToggle.addEventListener('click', () => {
+      siteNav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      document.body.classList.toggle('menu-open');
+    });
+  }
+  
+  // Close menu when clicking on a link
+  const navLinks = document.querySelectorAll('.site-nav .page-link');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 768) {
+        siteNav.classList.remove('active');
+        hamburger.classList.remove('active');
+        document.body.classList.remove('menu-open');
+      }
+    });
+  });
+  
+  // Add scroll effect to header
+  const header = document.getElementById('site-header');
+  if (header) {
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', () => {
+      const currentScroll = window.pageYOffset;
+      
+      if (currentScroll <= 0) {
+        header.classList.remove('scrolled');
+        return;
+      }
+      
+      if (currentScroll > lastScroll && currentScroll > 100) {
+        // Scrolling down
+        header.style.transform = 'translateY(-100%)';
+      } else {
+        // Scrolling up
+        header.style.transform = 'translateY(0)';
+        header.classList.add('scrolled');
+      }
+      
+      lastScroll = currentScroll;
+    });
+  }
+</script>

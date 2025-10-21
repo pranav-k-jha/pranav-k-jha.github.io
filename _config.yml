@@ -6,6 +6,9 @@ email: your-email@example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pranav-k-jha.github.io" # the base hostname & protocol for your site
 
+# Timezone for date handling and permalinks
+timezone: America/New_York
+
 # theme: minima  # Commented out to use custom styles
 plugins:
   - jekyll-feed

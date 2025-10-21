@@ -6,20 +6,54 @@ email: your-email@example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://pranav-k-jha.github.io" # the base hostname & protocol for your site
 
-# theme: minima  # Removed to use custom styles instead
+# theme: minima  # Commented out to use custom styles
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
 
 # Build settings
 markdown: kramdown
-include: ["_pages"]
+
+# Include these directories
+include:
+  - _pages
+  - _sass
+  - assets
+  - assets/css
+  - assets/css/*
+
+# Sass settings
+sass:
+  style: compressed  # Minify CSS output
+  sass_dir: _sass   # Directory containing your sass files
+  sourcemap: never  # Disable sourcemaps in development
+
+# Exclude these from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .git
+  - .gitignore
+  - .sass-cache
+  - .jekyll-cache
+  - .jekyll-metadata
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
 # to override the default setting.
 # exclude:
 #   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor
+#   - .git
+#   - .gitignore
+#   - README.md
+#   - docker-compose.yml
+#   - Dockerfile
+#   - .dockerignore
 #   - Gemfile.lock
 #   - node_modules
 #   - vendor

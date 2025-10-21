@@ -134,7 +134,7 @@ author: "Pranav K Jha"
           
           <div class="post-card__content">
             <h3 class="post-card__title">
-              <a href="{{ post.url }}" rel="permalink">{{ post.title }}</a>
+              <a href="{{ post.url | relative_url }}" rel="permalink">{{ post.title }}</a>
             </h3>
             {% if post.excerpt %}
               <p class="post-card__excerpt">
@@ -144,7 +144,7 @@ author: "Pranav K Jha"
           </div>
           
           <div class="post-card__footer">
-            <a href="{{ post.url }}" rel="permalink" class="btn btn--primary btn--small">
+            <a href="{{ post.url | relative_url }}" rel="permalink" class="btn btn--primary btn--small">
               Read More <i class="fas fa-arrow-right"></i>
             </a>
             {% if post.read_time %}

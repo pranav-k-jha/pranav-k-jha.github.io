@@ -1,0 +1,14 @@
+services:
+  jekyll:
+    build: .
+    platform: linux/arm64
+    ports:
+      - "4000:4000"
+      - "35729:35729"  # LiveReload port
+    volumes:
+      - .:/srv/jekyll
+    environment:
+      - JEKYLL_ENV=development
+    command: >
+      /bin/sh -c "bundle install && \
+      bundle exec jekyll serve --force_polling --livereload --livereload-port 35729 --host 0.0.0.0"

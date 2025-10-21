@@ -1,0 +1,42 @@
+# Site settings
+title: Pranav's Blog
+description: AI, Python, and ML content
+author: Pranav K Jha
+email: your-email@example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://pranav-k-jha.github.io" # the base hostname & protocol for your site
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Build settings
+markdown: kramdown
+include: ["_pages"]
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor
+
+# Blog settings
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+  - scope:
+      path: ""
+    values:
+      layout: "default"

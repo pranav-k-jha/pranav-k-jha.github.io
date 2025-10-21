@@ -721,6 +721,11 @@ $shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 
   }
 }
 
+// Spacer to offset fixed header height
+.header-spacer {
+  height: 80px; // match .site-header .wrapper height
+}
+
 // Logo/Site Title
 .site-title {
   font-size: 1.7rem;

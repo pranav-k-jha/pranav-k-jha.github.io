@@ -1,15 +1,13 @@
 ---
 ---
 
-@charset "utf-8";
-
 // Modern Sass setup - completely standalone
-@use "sass:color";
+// Note: GitHub Pages' Sass does not support the module system (@use).
 
 // Define our theme variables using modern color functions
 $grey-color: #828282;
-$grey-color-light: color.adjust($grey-color, $lightness: 40%);
-$grey-color-dark: color.adjust($grey-color, $lightness: -25%);
+$grey-color-light: lighten($grey-color, 40%);
+$grey-color-dark: darken($grey-color, 25%);
 $brand-color: #2a7ae2;
 $text-color: #111;
 $base-font-size: 16px;

@@ -1,207 +1,258 @@
 import { motion } from "framer-motion";
+import {
+  FaLinkedin,
+  FaGithub,
+  FaTwitter,
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaExternalLinkAlt,
+} from "react-icons/fa";
+import {
+  SiTensorflow,
+  SiPytorch,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiOrcid,
+  SiGooglescholar,
+} from "react-icons/si";
+import { FaBrain } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  // Social media links with platform-specific styling
   const socialLinks = [
-    { name: "GitHub", url: "https://github.com/pranav-k-jha", icon: "github" },
     {
-      name: "LinkedIn",
-      url: "https://linkedin.com/in/pranav-k-jha",
-      icon: "linkedin",
+      icon: FaLinkedin,
+      href: "https://www.linkedin.com/in/pranav-k-jha",
+      label: "LinkedIn",
+      color: "text-blue-600 hover:text-blue-800",
     },
     {
-      name: "Twitter",
-      url: "https://twitter.com/pranav_kjha",
-      icon: "twitter",
+      icon: FaTwitter,
+      href: "https://x.com/pranav_kjha",
+      label: "Twitter",
+      color: "text-sky-500 hover:text-sky-700",
     },
-    { name: "Email", url: "mailto:pranav.jha@mail.concordia.ca", icon: "mail" },
+    {
+      icon: FaGithub,
+      href: "https://github.com/pranav-k-jha",
+      label: "GitHub",
+      color: "text-purple-600 hover:text-purple-800",
+    },
+    {
+      icon: SiOrcid,
+      href: "https://orcid.org/0000-0001-8053-988X",
+      label: "ORCiD",
+      color: "text-green-600 hover:text-green-800",
+    },
+    {
+      icon: SiGooglescholar,
+      href: "https://scholar.google.ca/citations?user=_KvkPzkAAAAJ&hl=en",
+      label: "Google Scholar",
+      color: "text-blue-500 hover:text-blue-700",
+    },
   ];
 
-  const getIcon = (iconName) => {
-    switch (iconName) {
-      case "github":
-        return (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-          </svg>
-        );
-      case "linkedin":
-        return (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-          </svg>
-        );
-      case "twitter":
-        return (
-          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-          </svg>
-        );
-      case "mail":
-        return (
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
+  // Technology stack icons and names
+  const techStack = [
+    { Icon: FaBrain, name: "AI/ML", color: "text-purple-600" },
+    { Icon: SiTensorflow, name: "TensorFlow", color: "text-orange-600" },
+    { Icon: SiPytorch, name: "PyTorch", color: "text-red-600" },
+    { Icon: SiNextdotjs, name: "Next.js", color: "text-black dark:text-white" },
+    { Icon: SiTailwindcss, name: "Tailwind", color: "text-teal-600" },
+  ];
+
+  // Quick navigation links
+  const quickLinks = [
+    { name: "About", href: "#about" },
+    { name: "Projects", href: "#projects" },
+    { name: "Skills", href: "#skills" },
+    { name: "Contact", href: "#contact" },
+  ];
 
   return (
-    <footer className="bg-gray-900 text-gray-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="md:col-span-2">
-            <h3 className="text-2xl font-bold text-white mb-4">Pranav Jha</h3>
-            <p className="mb-6">
-              AI Engineer passionate about building intelligent systems and
-              solving complex problems with machine learning and deep learning.
-            </p>
-            <div className="flex space-x-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
-                  aria-label={social.name}
-                >
-                  {getIcon(social.icon)}
-                </a>
-              ))}
+    <footer className="bg-gradient-to-br from-slate-50/90 via-white to-blue-50/90 dark:from-gray-900/90 dark:via-gray-950 dark:to-blue-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 py-16 px-4 sm:px-6 lg:px-8 transition-all duration-500 ease-out">
+      <div className="max-w-7xl mx-auto">
+        {/* Main Footer Content */}
+        <div className="grid md:grid-cols-4 gap-8 mb-12">
+          {/* Profile Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="space-y-6 text-center md:text-left"
+          >
+            <div className="flex justify-center md:justify-start items-center space-x-4">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-blue-500/30 ring-offset-2 ring-offset-white dark:ring-offset-gray-950 shadow-xl"
+              >
+                <img
+                  src="/profile.jpeg"
+                  alt="Pranav K Jha"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+              <div>
+                <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
+                  PRANAV K JHA
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  AI Engineer
+                </p>
+              </div>
             </div>
-          </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              Specializing in LLM fine-tuning, AI infrastructure, and
+              cutting-edge machine learning solutions that drive real-world
+              impact.
+            </p>
+          </motion.div>
 
-          <div>
-            <h4 className="text-white font-semibold text-lg mb-4">
+          {/* Contact Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="space-y-6"
+          >
+            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+              Contact Information
+            </h4>
+            <div className="space-y-3">
+              <motion.div
+                className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
+                  <FaMapMarkerAlt className="text-blue-500 dark:text-blue-400 text-sm" />
+                </div>
+                <span className="text-sm">Montreal, QC, Canada</span>
+              </motion.div>
+              <motion.div
+                className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
+                  <FaEnvelope className="text-blue-500 dark:text-blue-400 text-sm" />
+                </div>
+                <a
+                  href="mailto:pranav.jha@mail.concordia.ca"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+                >
+                  pranav.jha@mail.concordia.ca
+                </a>
+              </motion.div>
+              <motion.div
+                className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
+                  <FaPhone className="text-blue-500 dark:text-blue-400 text-sm" />
+                </div>
+                <span className="text-sm">(240) 712-2489</span>
+              </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Quick Links Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="space-y-6"
+          >
+            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
               Quick Links
             </h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="#about" className="hover:text-white transition-colors">
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#projects"
-                  className="hover:text-white transition-colors"
+            <div className="space-y-2">
+              {quickLinks.map((link, index) => (
+                <motion.a
+                  key={link.name}
+                  href={link.href}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                  whileHover={{ x: 5 }}
+                  className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group"
                 >
-                  Projects
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#skills"
-                  className="hover:text-white transition-colors"
-                >
-                  Skills
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#contact"
-                  className="hover:text-white transition-colors"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+                  <FaExternalLinkAlt className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {link.name}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
 
-          <div>
-            <h4 className="text-white font-semibold text-lg mb-4">
-              Contact Info
-            </h4>
-            <ul className="space-y-2">
-              <li className="flex items-start">
-                <svg
-                  className="w-5 h-5 mr-2 mt-0.5 text-primary-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-                <span>pranav.jha@mail.concordia.ca</span>
-              </li>
-              <li className="flex items-start">
-                <svg
-                  className="w-5 h-5 mr-2 mt-0.5 text-primary-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                  />
-                </svg>
-                <span>+1 (514) 966-4567</span>
-              </li>
-              <li className="flex items-start">
-                <svg
-                  className="w-5 h-5 mr-2 mt-0.5 text-primary-500"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                <span>Montreal, Quebec</span>
-              </li>
-            </ul>
-          </div>
+          {/* Tech Stack Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="space-y-6"
+          >
+            <div className="space-y-4">
+              <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+                Tech Stack
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {techStack.map((tech, index) => (
+                  <motion.div
+                    key={tech.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
+                    whileHover={{ scale: 1.05 }}
+                    className="flex items-center gap-2 px-2 py-1.5 bg-white/60 dark:bg-white/10 border border-gray-200/50 dark:border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+                  >
+                    <tech.Icon
+                      className={`h-3 w-3 ${tech.color}`}
+                      title={tech.name}
+                    />
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                      {tech.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
 
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-400">
-            &copy; {currentYear} Pranav Jha. All rights reserved.
-          </p>
-          <div className="mt-4 md:mt-0">
-            <a
-              href="#"
-              className="text-sm text-gray-400 hover:text-white transition-colors"
-            >
-              Privacy Policy
-            </a>
-            <span className="mx-2 text-gray-600">•</span>
-            <a
-              href="#"
-              className="text-sm text-gray-400 hover:text-white transition-colors"
-            >
-              Terms of Service
-            </a>
+        {/* Social Links & Bottom Section */}
+        <div className="border-t border-gray-200/50 dark:border-gray-800/50 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            {/* Social Links */}
+            <div className="flex justify-center space-x-6">
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`text-xl ${social.color} transition-all duration-300 hover:shadow-lg`}
+                    aria-label={social.label}
+                  >
+                    <Icon />
+                  </motion.a>
+                );
+              })}
+            </div>
+
+            {/* Copyright */}
+            <div className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-3">
+              <span>&copy; {currentYear} Pranav K Jha</span>
+              <span className="h-4 w-px bg-gray-300 dark:bg-gray-700"></span>
+              <span className="text-xs opacity-75">All Rights Reserved</span>
+            </div>
           </div>
         </div>
       </div>

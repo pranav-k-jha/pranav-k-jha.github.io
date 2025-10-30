@@ -50,7 +50,7 @@ const Hero = () => {
         {/* Hero Text */}
         <motion.div className="text-center md:text-left" variants={container}>
           <motion.p
-            className="text-blue-600 font-medium mb-4"
+            className="text-blue-600 font-semibold mb-4"
             variants={fadeInUp}
           >
             Hello, I'm

@@ -34,9 +34,15 @@ const Navbar = () => {
               className="w-10 h-10 rounded-full object-cover border-2 border-primary-600"
             />
             <div className="flex flex-col">
-              <a href="#" className="text-2xl font-bold text-primary-600">
-                PJ
+              <a
+                href="#"
+                className="text-xl font-bold bg-gradient-to-r from-orange-900 via-blue-500 to-cyan-500 bg-clip-text text-transparent"
+              >
+                PRANAV K JHA
               </a>
+              <span className="text-sm font-medium bg-gradient-to-r from-orange-900 via-blue-500 to-cyan-500 bg-clip-text text-transparent">
+                AI Engineer
+              </span>
             </div>
           </div>
 

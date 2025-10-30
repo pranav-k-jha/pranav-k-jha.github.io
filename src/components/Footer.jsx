@@ -87,7 +87,7 @@ const Footer = () => {
             <div className="flex justify-center md:justify-start items-center space-x-4">
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="w-16 h-16 rounded-full overflow-hidden ring-2 ring-blue-500/30 ring-offset-2 ring-offset-white dark:ring-offset-gray-950 shadow-xl"
+                className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-500/30 ring-offset-2 ring-offset-white dark:ring-offset-gray-950 shadow-xl"
               >
                 <img
                   src="/profile.jpeg"
@@ -96,7 +96,7 @@ const Footer = () => {
                 />
               </motion.div>
               <div>
-                <h3 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
+                <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
                   PRANAV K JHA
                 </h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">

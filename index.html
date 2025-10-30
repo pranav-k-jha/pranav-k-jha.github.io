@@ -1,130 +1,215 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pranav Jha | Portfolio</title>
-  <link rel="stylesheet" href="css/style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <title>Pranav Jha | AI Engineer</title>
+  <meta name="description" content="AI Engineer specializing in Machine Learning, Deep Learning, and Computer Vision">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6c63ff',
+            secondary: '#9d97ff',
+            dark: '#2d2e32',
+            light: '#f9f9f9',
+            textColor: '#333',
+            textLight: '#666',
+            blue: {
+              500: '#0ea5e9',
+              600: '#0284c7'
+            },
+            cyan: {
+              400: '#38bdf8',
+              500: '#22d3ee'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            float: 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .text-gradient {
+        @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
+      }
+      .btn {
+        @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 ease-in-out inline-flex items-center justify-center;
+      }
+      .btn-primary {
+        @apply bg-gradient-to-r from-primary to-secondary text-white hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5;
+      }
+      .btn-outline {
+        @apply border-2 border-primary text-primary hover:bg-primary/10 hover:-translate-y-0.5;
+      }
+      .tech-badge {
+        @apply bg-white text-slate-800 text-sm font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border border-slate-100;
+      }
+      .progress-bar {
+        @apply w-full h-2 bg-[#f0f2f5] rounded-full overflow-hidden;
+      }
+      .progress {
+        @apply h-2 rounded-full bg-gradient-to-r from-primary to-secondary relative overflow-hidden;
+      }
+      .progress::after {
+        content: '';
+        @apply absolute top-0 left-0 w-full h-full bg-white/20;
+        animation: shimmer 2s infinite;
+      }
+    }
+  </style>
 </head>
-<body>
-    
-  <!-- Navigation -->
-  <nav id="navbar">
-    <div class="container">
-      <div class="logo">PranavJha</div>
-      <ul class="nav-links">
-        <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-      <div class="hamburger">&#9776;</div>
+<body class="bg-light text-textColor font-sans">
+
+  <!-- Navbar -->
+  <nav class="fixed w-full bg-white/80 backdrop-blur-md shadow-sm z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="#" class="text-2xl font-bold text-primary">Pranav<span class="text-dark">Jha</span></a>
+      <div class="hidden md:flex items-center space-x-8">
+        <a href="#home" class="text-dark hover:text-primary font-medium transition-colors">Home</a>
+        <a href="#about" class="text-dark hover:text-primary font-medium transition-colors">About</a>
+        <a href="#skills" class="text-dark hover:text-primary font-medium transition-colors">Skills</a>
+        <a href="#projects" class="text-dark hover:text-primary font-medium transition-colors">Projects</a>
+        <a href="#contact" class="btn btn-primary">Contact Me</a>
+      </div>
+      <button id="mobile-menu-button" class="md:hidden text-dark hover:text-primary">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden flex-col space-y-4 mt-4 px-6 pb-4">
+      <a href="#home" class="text-dark hover:text-primary font-medium">Home</a>
+      <a href="#about" class="text-dark hover:text-primary font-medium">About</a>
+      <a href="#skills" class="text-dark hover:text-primary font-medium">Skills</a>
+      <a href="#projects" class="text-dark hover:text-primary font-medium">Projects</a>
+      <a href="#contact" class="btn btn-primary">Contact Me</a>
     </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header id="home">
-    <div class="header-content container">
-      <h1>Hi, I'm Pranav</h1>
-      <p class="tagline">AI Engineer | Machine Learning Specialist | Deep Learning Enthusiast</p>
-      <p>Building intelligent systems and solving complex problems with AI/ML</p>
-      <div class="cta-buttons">
-        <a href="#projects" class="btn btn-primary">View My Projects</a>
-        <a href="#contact" class="btn btn-outline">Contact Me</a>
-      </div>
-    </div>
-    <div class="shape shape1"></div>
-    <div class="shape shape2"></div>
-  </header>
-
-  <!-- About Section -->
-  <section id="about">
-    <div class="container about-content">
-      <div class="about-text">
-        <h2>About Me</h2>
-        <p>I'm an AI Engineer passionate about developing intelligent systems and solving complex problems using machine learning and deep learning. With expertise in Python, TensorFlow, and PyTorch, I specialize in building and deploying AI models that deliver real-world impact.</p>
-        
-        <div class="about-details">
-          <div class="about-detail">
-            <h4>Education</h4>
-            <p>PhD in Computer Science, AI Specialization</p>
-          </div>
-          <div class="about-detail">
-            <h4>Experience</h4>
-            <p>3+ years in AI/ML Development</p>
-          </div>
-          <div class="about-detail">
-            <h4>Location</h4>
-            <p>Canada</p>
-          </div>
+  <!-- Hero -->
+  <header id="home" class="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden">
+    <div class="container mx-auto px-6 md:px-12 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+      <div class="text-center md:text-left">
+        <p class="text-primary font-medium mb-4">Hello, I'm</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+          <span class="block">Pranav Jha</span>
+          <span class="text-gradient">AI Engineer</span>
+        </h1>
+        <p class="text-lg md:text-xl text-textLight mb-8 max-w-xl mx-auto md:mx-0">
+          Building intelligent systems and solving complex problems with Machine Learning and Deep Learning.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+          <a href="#projects" class="btn btn-primary">View My Work</a>
+          <a href="#contact" class="btn btn-outline">Let's Talk</a>
+        </div>
+        <div class="mt-12 flex flex-wrap gap-4 justify-center md:justify-start">
+          <div class="tech-badge">Python</div>
+          <div class="tech-badge">TensorFlow</div>
+          <div class="tech-badge">PyTorch</div>
+          <div class="tech-badge">OpenCV</div>
+          <div class="tech-badge">NLP</div>
         </div>
       </div>
-      <div class="about-image">
-        <div class="image-placeholder"></div>
+      <div class="relative hidden md:block">
+        <div class="absolute -top-6 -left-6 w-72 h-72 bg-primary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
+        <div class="absolute -bottom-8 -right-4 w-72 h-72 bg-secondary rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-float"></div>
       </div>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section id="about" class="py-20 bg-light">
+    <div class="container mx-auto px-6 md:px-12 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="text-3xl font-bold mb-4 text-dark">About Me</h2>
+        <p class="text-textLight mb-6">
+          I'm an AI Engineer passionate about developing intelligent systems and solving complex problems using machine learning and deep learning.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div><h4 class="text-primary font-semibold mb-1">Education</h4><p class="text-textLight">PhD in Computer Science</p></div>
+          <div><h4 class="text-primary font-semibold mb-1">Experience</h4><p class="text-textLight">3+ years in AI/ML</p></div>
+          <div><h4 class="text-primary font-semibold mb-1">Location</h4><p class="text-textLight">Canada</p></div>
+        </div>
+      </div>
+      <div class="w-full h-72 rounded-2xl bg-gradient-to-br from-primary to-secondary"></div>
     </div>
   </section>
 
-  <!-- Skills Section -->
-  <section id="skills">
-    <div class="container">
-      <h2>Skills</h2>
-      <div class="skills">
-        <div class="skill-item">
-          <div class="skill-info">
-            <span>HTML & CSS</span>
-            <span>90%</span>
-          </div>
+  <!-- Skills -->
+  <section id="skills" class="py-20">
+    <div class="container mx-auto px-6 md:px-12">
+      <h2 class="text-3xl font-bold mb-10 text-dark text-center">Skills</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div>
+          <div class="flex justify-between mb-2 font-medium text-textColor">HTML & CSS <span>90%</span></div>
           <div class="progress-bar"><div class="progress" style="width:90%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-info">
-            <span>JavaScript</span>
-            <span>85%</span>
-          </div>
+        <div>
+          <div class="flex justify-between mb-2 font-medium text-textColor">JavaScript <span>85%</span></div>
           <div class="progress-bar"><div class="progress" style="width:85%"></div></div>
         </div>
-        <div class="skill-item">
-          <div class="skill-info">
-            <span>React</span>
-            <span>80%</span>
-          </div>
+        <div>
+          <div class="flex justify-between mb-2 font-medium text-textColor">React <span>80%</span></div>
           <div class="progress-bar"><div class="progress" style="width:80%"></div></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section id="projects">
-    <div class="container">
-      <h2>Projects</h2>
-      <div class="projects-grid">
-        <div class="project-card">Project 1</div>
-        <div class="project-card">Project 2</div>
-        <div class="project-card">Project 3</div>
+  <!-- Projects -->
+  <section id="projects" class="py-20 bg-light">
+    <div class="container mx-auto px-6 md:px-12">
+      <h2 class="text-3xl font-bold mb-10 text-dark text-center">Projects</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all text-center">Project 1</div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all text-center">Project 2</div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-all text-center">Project 3</div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact">
-    <div class="container">
-      <h2>Contact Me</h2>
-      <p>Let's work together! Reach out via email or connect on LinkedIn.</p>
+  <!-- Contact -->
+  <section id="contact" class="py-20 text-center">
+    <div class="container mx-auto px-6 md:px-12">
+      <h2 class="text-3xl font-bold mb-6 text-dark">Contact Me</h2>
+      <p class="text-textLight mb-6">Let's work together! Reach out via email or LinkedIn.</p>
       <a href="mailto:pranav@example.com" class="btn btn-primary">Email Me</a>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <div class="container">
-      &copy; 2025 Pranav Jha. All rights reserved.
-    </div>
+  <footer class="py-6 text-center text-textLight bg-light">
+    &copy; 2025 Pranav Jha. All rights reserved.
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  </script>
+
 </body>
 </html>

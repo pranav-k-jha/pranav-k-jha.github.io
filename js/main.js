@@ -74,8 +74,6 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 });
 
 // Add shadow to navbar on scroll
-let lastScroll = 0;
-
 window.addEventListener("scroll", () => {
   const currentScroll = window.pageYOffset;
 
@@ -86,8 +84,6 @@ window.addEventListener("scroll", () => {
     navbar.classList.remove("shadow-lg", "bg-white/95");
     navbar.classList.add("bg-white/80");
   }
-
-  lastScroll = currentScroll;
 });
 
 // Add animation on scroll

@@ -46,7 +46,7 @@ const Hero = () => {
       animate="show"
       variants={container}
     >
-      <div className="container mx-auto px-6 md:px-12 relative z-10 grid md:grid-cols-2 gap-12 items-center">
+      <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10 grid md:grid-cols-2 gap-12 items-center">
         {/* Hero Text */}
         <motion.div className="text-center md:text-left" variants={container}>
           <motion.p

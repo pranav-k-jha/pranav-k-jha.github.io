@@ -152,7 +152,7 @@ const Footer = () => {
                 <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
                   <FaPhone className="text-blue-500 dark:text-blue-400 text-sm" />
                 </div>
-                <span className="text-sm">(240) 712-2489</span>
+                <span className="text-sm">(514) 885-2490</span>
               </motion.div>
             </div>
           </motion.div>

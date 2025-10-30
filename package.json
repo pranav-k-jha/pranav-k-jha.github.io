@@ -6,8 +6,8 @@
   "homepage": "https://pranav-k-jha.github.io",
   "scripts": {
     "dev": "vite --force",
-    "build": "vite build --outDir dist",
-    "preview": "vite preview --outDir dist",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

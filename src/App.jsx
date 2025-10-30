@@ -2,10 +2,7 @@ import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import About from "./components/About";
-import Projects from "./components/Projects";
-import Skills from "./components/Skills";
-import Contact from "./components/Contact";
+
 import Footer from "./components/Footer";
 
 function App() {
@@ -21,6 +18,7 @@ function App() {
             top: targetElement.offsetTop - 80,
             behavior: "smooth",
           });
+          window.history.pushState({}, "", targetId);
         }
       }
     };
@@ -30,10 +28,23 @@ function App() {
       link.addEventListener("click", handleAnchorClick);
     });
 
+    const handlePopState = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
     return () => {
       anchorLinks.forEach((link) => {
         link.removeEventListener("click", handleAnchorClick);
       });
+      window.removeEventListener("popstate", handlePopState);
     };
   }, []);
 
@@ -47,10 +58,6 @@ function App() {
             element={
               <>
                 <Hero />
-                {/* <About />
-                <Projects />
-                <Skills />
-                <Contact /> */}
               </>
             }
           />

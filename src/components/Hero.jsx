@@ -32,7 +32,7 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
-      className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50"
+      className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 font-sans"
       initial="hidden"
       animate="show"
       variants={container}
@@ -192,7 +192,16 @@ const Hero = () => {
                 <div className="bg-slate-900 p-4 rounded-lg">
                   <pre className="text-green-400 text-sm md:text-base overflow-x-auto">
                     <code>
-                      {`class AIEngineer {\n  def __init__(self):\n      self.name = "Pranav Jha"\n      self.role = "AI Engineer"\n      self.skills = ["Machine Learning", \n                    "Deep Learning", \n                    "Computer Vision"]\n  \n  def build_ai_solutions(self):\n      return "Transforming ideas into intelligent systems"`}
+                      {`class AIEngineer:
+    def __init__(self):
+        self.name = "Pranav Jha"
+        self.role = "AI Engineer"
+        self.skills = ["Machine Learning", 
+                      "Deep Learning", 
+                      "Computer Vision"]
+        
+    def build_ai_solutions(self):
+        return "Transforming ideas into intelligent systems"`}
                     </code>
                   </pre>
                 </div>

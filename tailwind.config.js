@@ -2,9 +2,16 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    fontFamily: {
+      sans: ["Inter", "system-ui", "sans-serif"],
+    },
     extend: {
       colors: {
-        primary: "#0ea5e9",
+        primary: {
+          500: "#0ea5e9",
+          600: "#0284c7",
+          700: "#0369a1",
+        },
       },
       animation: {
         float: "float 6s ease-in-out infinite",

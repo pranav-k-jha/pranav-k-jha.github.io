@@ -29,6 +29,15 @@ const Hero = () => {
     },
   };
 
+  const techContainer = {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  };
+
   return (
     <motion.section
       id="home"
@@ -109,9 +118,11 @@ const Hero = () => {
             </p>
             <motion.div
               className="flex flex-wrap gap-4 justify-center md:justify-start"
-              variants={container}
+              variants={techContainer}
+              initial="hidden"
+              animate="show"
             >
-              {techStack.map((tech, index) => (
+              {techStack.map((tech) => (
                 <motion.div
                   key={tech}
                   variants={item}

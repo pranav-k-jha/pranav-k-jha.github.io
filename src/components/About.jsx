@@ -1,7 +1,14 @@
 import { motion } from "framer-motion";
+import { useTheme } from "../context/ThemeContext";
 import { FaBrain, FaSearch, FaRobot } from "react-icons/fa";
 
 const About = () => {
+  const { theme } = useTheme();
+  const buttonGradient =
+    theme === "dark"
+      ? "from-blue-700 to-cyan-600 hover:shadow-blue-900/50"
+      : "from-blue-600 to-cyan-500 hover:shadow-blue-500/30";
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -11,6 +18,7 @@ const About = () => {
       },
     },
   };
+
   const fadeInUp = {
     hidden: { opacity: 0, y: 40 },
     show: {
@@ -22,11 +30,6 @@ const About = () => {
         damping: 20,
       },
     },
-  };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
   };
 
   return (
@@ -67,13 +70,13 @@ const About = () => {
                 <div className="flex flex-wrap gap-4">
                   <a
                     href="#contact"
-                    className="px-6 py-3 bg-primary-600 text-white font-medium rounded-lg hover:bg-primary-700 transition-colors"
+                    className={`px-6 py-3 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center bg-gradient-to-r ${buttonGradient} hover:shadow-lg`}
                   >
                     Contact Me
                   </a>
                   <a
                     href="#projects"
-                    className="px-6 py-3 border-2 border-primary-600 text-primary-600 font-medium rounded-lg hover:bg-primary-50 transition-colors"
+                    className="px-6 py-3 text-blue-600 dark:text-blue-400 font-medium rounded-lg border-2 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 hover:-translate-y-0.5"
                   >
                     View My Work
                   </a>
@@ -112,7 +115,7 @@ const About = () => {
             {/* LLM Development Card */}
             <motion.div
               variants={fadeInUp}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border hover:border-l-blue-500 dark:border-gray-700"
             >
               <div className="text-blue-500 text-4xl mb-4">
                 <FaBrain className="inline-block" />
@@ -139,7 +142,7 @@ const About = () => {
             {/* RAG Systems Card */}
             <motion.div
               variants={fadeInUp}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border hover:border-l-blue-500 dark:border-gray-700"
             >
               <div className="text-blue-500 text-4xl mb-4">
                 <FaSearch className="inline-block" />
@@ -166,7 +169,7 @@ const About = () => {
             {/* Agentic AI & GenAI Card */}
             <motion.div
               variants={fadeInUp}
-              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border hover:border-l-blue-500 dark:border-gray-700"
             >
               <div className="text-blue-500 text-4xl mb-4">
                 <FaRobot className="inline-block" />

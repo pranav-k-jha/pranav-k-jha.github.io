@@ -1,18 +1,15 @@
-import React from "react";
 import { motion } from "framer-motion";
+import ThemeToggle from "../context/ToggleButton";
+import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
+  const { theme } = useTheme(); // Get current theme from context
   const techStack = ["Python", "TensorFlow", "PyTorch", "OpenCV", "NLP"];
 
   // Animation variants
   const container = {
     hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
 
   const item = {
@@ -22,26 +19,34 @@ const Hero = () => {
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6 },
-    },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
   const techContainer = {
     hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
+    show: { transition: { staggerChildren: 0.15 } },
   };
+
+  // Dynamic background gradients
+  const bgGradient =
+    theme === "dark"
+      ? "bg-gradient-to-br from-gray-900 via-purple-900 to-blue-950"
+      : "bg-gradient-to-br from-blue-50 via-white to-cyan-50";
+
+  const headingGradient =
+    theme === "dark"
+      ? "bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300"
+      : "bg-gradient-to-r from-blue-800 via-purple-800 to-emerald-800";
+
+  const buttonGradient =
+    theme === "dark"
+      ? "from-blue-700 to-cyan-600 hover:shadow-blue-900/50"
+      : "from-blue-600 to-cyan-500 hover:shadow-blue-500/30";
 
   return (
     <motion.section
       id="home"
-      className="relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden bg-gradient-to-br from-blue-50 via-white to-cyan-50 font-sans"
+      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden font-sans transition-colors duration-500 ${bgGradient}`}
       initial="hidden"
       animate="show"
       variants={container}
@@ -50,22 +55,30 @@ const Hero = () => {
         {/* Hero Text */}
         <motion.div className="text-center md:text-left" variants={container}>
           <motion.p
-            className="text-blue-600 font-semibold mb-4"
+            className={`font-semibold mb-4 ${
+              theme === "dark" ? "text-cyan-300" : "text-blue-600"
+            }`}
             variants={fadeInUp}
           >
             Hello, I'm
           </motion.p>
           <motion.h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
+            className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
+              theme === "dark" ? "text-white" : "text-gray-900"
+            }`}
             variants={fadeInUp}
           >
             <span className="block">Pranav Jha</span>
-            <span className="bg-gradient-to-r from-blue-600 to-cyan-400 bg-clip-text text-transparent">
+            <span
+              className={`bg-clip-text text-transparent ${headingGradient}`}
+            >
               AI Engineer
             </span>
           </motion.h1>
           <motion.p
-            className="text-lg md:text-xl text-slate-600 mb-8 max-w-xl mx-auto md:mx-0"
+            className={`text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${
+              theme === "dark" ? "text-gray-300" : "text-slate-600"
+            }`}
             variants={fadeInUp}
           >
             Building intelligent systems and solving complex problems with
@@ -78,7 +91,7 @@ const Hero = () => {
           >
             <a
               href="#projects"
-              className="px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-500 text-white rounded-lg font-medium transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/30 hover:-translate-y-0.5 inline-flex items-center"
+              className={`px-6 py-3 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center bg-gradient-to-r ${buttonGradient}`}
             >
               View My Work
               <svg
@@ -96,7 +109,11 @@ const Hero = () => {
             </a>
             <a
               href="#contact"
-              className="px-6 py-3 border-2 border-blue-600 text-blue-600 rounded-lg font-medium transition-all duration-300 hover:bg-blue-50 hover:-translate-y-0.5 inline-flex items-center"
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center ${
+                theme === "dark"
+                  ? "border border-cyan-300 text-cyan-300 hover:bg-gray-800/50"
+                  : "border border-blue-600 text-blue-600 hover:bg-blue-50"
+              }`}
             >
               Let's Talk
               <svg
@@ -113,7 +130,11 @@ const Hero = () => {
 
           {/* Tech Stack */}
           <motion.div className="mt-12" variants={fadeInUp}>
-            <p className="text-sm text-slate-500 mb-4">
+            <p
+              className={`text-sm mb-4 ${
+                theme === "dark" ? "text-gray-400" : "text-slate-500"
+              }`}
+            >
               TECHNOLOGIES I WORK WITH
             </p>
             <motion.div
@@ -126,7 +147,11 @@ const Hero = () => {
                 <motion.div
                   key={tech}
                   variants={item}
-                  className="bg-white text-slate-800 text-sm font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border border-slate-100"
+                  className={`text-sm font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border ${
+                    theme === "dark"
+                      ? "bg-gray-800 text-cyan-300 border-gray-700"
+                      : "bg-white text-slate-800 border-slate-100"
+                  }`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -152,12 +177,10 @@ const Hero = () => {
                 y: [0, -50, 20, 0],
                 scale: [1, 1.1, 0.9, 1],
               }}
-              transition={{
-                duration: 7,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
-              className="absolute -top-6 -left-6 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+              className={`absolute -top-6 -left-6 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${
+                theme === "dark" ? "bg-purple-700" : "bg-blue-500"
+              }`}
             />
             <motion.div
               animate={{
@@ -171,7 +194,9 @@ const Hero = () => {
                 delay: 2,
                 ease: "easeInOut",
               }}
-              className="absolute -bottom-8 -right-4 w-72 h-72 bg-cyan-400 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              className={`absolute -bottom-8 -right-4 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${
+                theme === "dark" ? "bg-blue-700" : "bg-cyan-400"
+              }`}
             />
             <motion.div
               animate={{
@@ -185,41 +210,56 @@ const Hero = () => {
                 delay: 4,
                 ease: "easeInOut",
               }}
-              className="absolute -top-8 -right-4 w-72 h-72 bg-indigo-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+              className={`absolute -top-8 -right-4 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${
+                theme === "dark" ? "bg-teal-600" : "bg-indigo-500"
+              }`}
             />
 
             {/* Code Block */}
             <motion.div
-              className="relative z-10 p-1 bg-white/30 backdrop-blur-sm rounded-2xl shadow-2xl border border-white/20"
+              className={`relative z-10 p-1 rounded-2xl shadow-2xl border ${
+                theme === "dark"
+                  ? "bg-gray-800/50 border-gray-700"
+                  : "bg-white/30 border-white/20"
+              }`}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <div className="bg-white/80 p-6 rounded-xl">
+              <div
+                className={`p-6 rounded-xl ${
+                  theme === "dark" ? "bg-gray-800/80" : "bg-white/80"
+                }`}
+              >
                 <div className="flex space-x-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-red-400" />
                   <div className="w-3 h-3 rounded-full bg-yellow-400" />
                   <div className="w-3 h-3 rounded-full bg-green-400" />
                 </div>
-                <div className="bg-slate-900 p-4 rounded-lg">
+                <div
+                  className={`p-4 rounded-lg ${
+                    theme === "dark" ? "bg-gray-900" : "bg-slate-900"
+                  }`}
+                >
                   <pre className="text-green-400 text-sm md:text-base overflow-x-auto">
-                    <code>
-                      {`class AIEngineer:
+                    <code>{`class AIEngineer:
     def __init__(self):
         self.name = "Pranav Jha"
         self.role = "AI Engineer"
-        self.skills = ["Machine Learning", 
-                      "Deep Learning", 
-                      "Computer Vision"]
+        self.skills = ["Machine Learning", "Deep Learning", "Computer Vision"]
         
     def build_ai_solutions(self):
-        return "Transforming ideas into intelligent systems"`}
-                    </code>
+        return "Transforming ideas into intelligent systems"`}</code>
                   </pre>
                 </div>
               </div>
             </motion.div>
           </div>
         </motion.div>
+      </div>
+
+      {/* Theme Toggle */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <ThemeToggle />
       </div>
     </motion.section>
   );

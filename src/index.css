@@ -72,3 +72,7 @@
     @apply py-16 md:py-24;
   }
 }
+
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

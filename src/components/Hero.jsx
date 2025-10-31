@@ -5,7 +5,7 @@ import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
   const { theme } = useTheme(); // Get current theme from context
-  const techStack = ["Python", "TensorFlow", "PyTorch", "OpenCV", "NLP"];
+  const techStack = ["Python", "TensorFlow", "NLP", "LLM", "RAG", "Gen AI"];
 
   // Animation variants
   const container = {

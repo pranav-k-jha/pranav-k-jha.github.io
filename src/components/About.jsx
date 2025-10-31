@@ -1,6 +1,5 @@
-import React from "react";
 import { motion } from "framer-motion";
-import { FaUserTie, FaCode, FaServer } from "react-icons/fa";
+import { FaBrain, FaSearch, FaRobot } from "react-icons/fa";
 
 const About = () => {
   const container = {
@@ -12,12 +11,16 @@ const About = () => {
       },
     },
   };
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    show: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: {
+        type: "spring",
+        stiffness: 120,
+        damping: 20,
+      },
     },
   };
 
@@ -40,7 +43,6 @@ const About = () => {
             <h2 className="text-4xl font-bold text-gray-800 mb-4">About Me</h2>
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
           </motion.div>
-
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
             <div className="grid md:grid-cols-2 gap-12 items-center">
               <motion.div
@@ -49,9 +51,6 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
               >
-                <h3 className="text-3xl font-bold text-gray-900 mb-6">
-                  Hi, I'm <span className="text-primary-600">Pranav Jha</span>
-                </h3>
                 <p className="text-lg text-gray-600 mb-6">
                   I'm an AI Engineer with a passion for building intelligent
                   systems that solve real-world problems. I specialize in
@@ -110,46 +109,85 @@ const About = () => {
             viewport={{ once: true }}
             className="grid md:grid-cols-3 gap-8"
           >
+            {/* LLM Development Card */}
             <motion.div
-              variants={item}
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              variants={fadeInUp}
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
             >
               <div className="text-blue-500 text-4xl mb-4">
-                <FaUserTie className="inline-block" />
+                <FaBrain className="inline-block" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">Who I Am</h3>
-              <p className="text-gray-600">
-                A passionate developer with a keen eye for design and a love for
-                creating beautiful, functional web applications.
-              </p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                LLM & Fine-tuning
+              </h3>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Custom LLM development and optimization</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Domain-specific model fine-tuning</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Instruction tuning for specific tasks</span>
+                </li>
+              </ul>
             </motion.div>
 
+            {/* RAG Systems Card */}
             <motion.div
-              variants={item}
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              variants={fadeInUp}
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
             >
               <div className="text-blue-500 text-4xl mb-4">
-                <FaCode className="inline-block" />
+                <FaSearch className="inline-block" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">What I Do</h3>
-              <p className="text-gray-600">
-                I build responsive, accessible, and performant web applications
-                using modern technologies and best practices.
-              </p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                RAG Systems
+              </h3>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Vector database integration</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Context-aware retrieval systems</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Hybrid search implementations</span>
+                </li>
+              </ul>
             </motion.div>
 
+            {/* Agentic AI & GenAI Card */}
             <motion.div
-              variants={item}
-              className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300"
+              variants={fadeInUp}
+              className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 dark:bg-gray-800 border border-gray-100 dark:border-gray-700"
             >
               <div className="text-blue-500 text-4xl mb-4">
-                <FaServer className="inline-block" />
+                <FaRobot className="inline-block" />
               </div>
-              <h3 className="text-xl font-semibold mb-3">My Approach</h3>
-              <p className="text-gray-600">
-                Focused on clean code, user experience, and continuous learning
-                to deliver high-quality solutions.
-              </p>
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
+                AI Solutions
+              </h3>
+              <ul className="space-y-3 text-gray-600 dark:text-gray-300">
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Autonomous agent development</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>End-to-end GenAI applications</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-500 mr-2">•</span>
+                  <span>Multi-agent systems</span>
+                </li>
+              </ul>
             </motion.div>
           </motion.div>
         </div>

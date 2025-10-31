@@ -143,15 +143,6 @@ const Footer = () => {
                   pranav.jha@mail.concordia.ca
                 </a>
               </motion.div>
-              <motion.div
-                className="flex items-center space-x-3 text-gray-400"
-                whileHover={{ scale: 1.02 }}
-              >
-                <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
-                  <FaPhone className="text-blue-400 text-sm" />
-                </div>
-                <span className="text-sm">(514) 885-2490</span>
-              </motion.div>
             </div>
           </motion.div>
 
@@ -195,7 +186,7 @@ const Footer = () => {
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
-                {techStack.map((tech, index) => (
+                {techStack.map((tech) => (
                   <div
                     key={tech.name}
                     className="flex items-center gap-2 px-2 py-1.5 bg-white/10 border border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"

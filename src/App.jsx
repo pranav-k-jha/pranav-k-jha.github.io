@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import PublicationsPage from "./pages/PublicationsPage";
+import About from "./components/About";
 
 function App() {
   // Smooth scroll for anchor links
@@ -57,6 +58,7 @@ function App() {
           <Route path="/publications" element={<PublicationsPage />} />
         </Routes>
       </main>
+      <About />
       <Footer />
     </div>
   );

@@ -8,20 +8,12 @@ export const navigationConfig = [
     href: "#about",
   },
   {
-    title: "Projects",
-    href: "#projects",
-    subItems: [
-      {
-        title: "AI/ML Projects",
-        href: "#projects/ai-ml",
-        description: "Machine Learning and AI implementations",
-      },
-      {
-        title: "Web Applications",
-        href: "#projects/web",
-        description: "Full-stack web applications",
-      },
-    ],
+    title: "Experience",
+    href: "#experience",
+  },
+  {
+    title: "Publications",
+    href: "#publications",
   },
   {
     title: "Skills",

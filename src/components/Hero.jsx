@@ -11,17 +11,11 @@ const Hero = () => {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.1 } },
   };
-
-  const item = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0 },
-  };
-
+  const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
   const fadeInUp = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
-
   const techContainer = {
     hidden: {},
     show: { transition: { staggerChildren: 0.15 } },
@@ -62,6 +56,7 @@ const Hero = () => {
           >
             Hello, I'm
           </motion.p>
+
           <motion.h1
             className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
               theme === "dark" ? "text-white" : "text-gray-900"
@@ -75,6 +70,7 @@ const Hero = () => {
               AI Engineer
             </span>
           </motion.h1>
+
           <motion.p
             className={`text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${
               theme === "dark" ? "text-gray-300" : "text-slate-600"
@@ -85,6 +81,7 @@ const Hero = () => {
             Machine Learning and Deep Learning.
           </motion.p>
 
+          {/* Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             variants={fadeInUp}
@@ -107,6 +104,7 @@ const Hero = () => {
                 />
               </svg>
             </a>
+
             <a
               href="#contact"
               className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center ${
@@ -258,9 +256,7 @@ const Hero = () => {
       </div>
 
       {/* Theme Toggle */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <ThemeToggle />
-      </div>
+      <div className="fixed bottom-4 right-4 z-50">{/* <ThemeToggle /> */}</div>
     </motion.section>
   );
 };

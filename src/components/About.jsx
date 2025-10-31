@@ -107,7 +107,7 @@ const About = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-8"
+            className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16"
           >
             {/* LLM Development Card */}
             <motion.div

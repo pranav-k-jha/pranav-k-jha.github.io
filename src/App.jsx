@@ -54,11 +54,18 @@ function App() {
       <Navbar />
       <main className="flex-grow">
         <Routes>
-          <Route path="/" element={<Hero />} />
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <About />
+              </>
+            }
+          />
           <Route path="/publications" element={<PublicationsPage />} />
         </Routes>
       </main>
-      <About />
       <Footer />
     </div>
   );

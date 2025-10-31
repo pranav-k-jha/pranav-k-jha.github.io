@@ -4,10 +4,6 @@ export const navigationConfig = [
     href: "/", // Keep as is
   },
   {
-    title: "About",
-    href: "/about", // Remove the #
-  },
-  {
     title: "Experience",
     href: "/experience", // Remove the #
   },

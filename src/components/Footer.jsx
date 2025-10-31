@@ -73,7 +73,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-br from-slate-50/90 via-white to-blue-50/90 dark:from-gray-900/90 dark:via-gray-950 dark:to-blue-900/90 backdrop-blur-xl border-t border-gray-200/50 dark:border-gray-800/50 py-16 px-4 sm:px-6 lg:px-8 transition-all duration-500 ease-out">
+    <footer className="bg-gradient-to-br from-gray-900/90 via-gray-950 to-blue-900/90 backdrop-blur-xl border-t border-gray-800/50 py-16 px-4 sm:px-6 lg:px-8 transition-all duration-500 ease-out">
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Content */}
         <div className="grid md:grid-cols-4 gap-8 mb-12">
@@ -87,7 +87,7 @@ const Footer = () => {
             <div className="flex justify-center md:justify-start items-center space-x-4">
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-500/30 ring-offset-2 ring-offset-white dark:ring-offset-gray-950 shadow-xl"
+                className="w-12 h-12 rounded-full overflow-hidden ring-2 ring-blue-500/30 ring-offset-2 ring-offset-gray-950 shadow-xl"
               >
                 <img
                   src="/profile.jpeg"
@@ -99,12 +99,10 @@ const Footer = () => {
                 <h3 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
                   PRANAV K JHA
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  AI Engineer
-                </p>
+                <p className="text-sm text-gray-400">AI Engineer</p>
               </div>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-sm text-gray-400 leading-relaxed">
               Specializing in LLM fine-tuning, AI infrastructure, and
               cutting-edge machine learning solutions that drive real-world
               impact.
@@ -118,25 +116,25 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-6"
           >
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+            <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-4">
               Contact Information
             </h4>
             <div className="space-y-3">
               <motion.div
-                className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"
+                className="flex items-center space-x-3 text-gray-400"
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
-                  <FaMapMarkerAlt className="text-blue-500 dark:text-blue-400 text-sm" />
+                  <FaMapMarkerAlt className="text-blue-400 text-sm" />
                 </div>
                 <span className="text-sm">Montreal, QC, Canada</span>
               </motion.div>
               <motion.div
-                className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"
+                className="flex items-center space-x-3 text-gray-400"
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
-                  <FaEnvelope className="text-blue-500 dark:text-blue-400 text-sm" />
+                  <FaEnvelope className="text-blue-400 text-sm" />
                 </div>
                 <a
                   href="mailto:pranav.jha@mail.concordia.ca"
@@ -146,11 +144,11 @@ const Footer = () => {
                 </a>
               </motion.div>
               <motion.div
-                className="flex items-center space-x-3 text-gray-600 dark:text-gray-400"
+                className="flex items-center space-x-3 text-gray-400"
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
-                  <FaPhone className="text-blue-500 dark:text-blue-400 text-sm" />
+                  <FaPhone className="text-blue-400 text-sm" />
                 </div>
                 <span className="text-sm">(514) 885-2490</span>
               </motion.div>
@@ -164,7 +162,7 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-6"
           >
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-4">
+            <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-4">
               Quick Links
             </h4>
             <div className="space-y-2">
@@ -176,7 +174,7 @@ const Footer = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
                   whileHover={{ x: 5 }}
-                  className="flex items-center text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group"
+                  className="flex items-center text-sm text-gray-400 hover:text-blue-400 transition-colors group"
                 >
                   <FaExternalLinkAlt className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                   {link.name}
@@ -193,27 +191,23 @@ const Footer = () => {
             className="space-y-6"
           >
             <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+              <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-3">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
                 {techStack.map((tech, index) => (
-                  <motion.div
+                  <div
                     key={tech.name}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="flex items-center gap-2 px-2 py-1.5 bg-white/60 dark:bg-white/10 border border-gray-200/50 dark:border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+                    className="flex items-center gap-2 px-2 py-1.5 bg-white/10 border border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
                   >
                     <tech.Icon
                       className={`h-3 w-3 ${tech.color}`}
                       title={tech.name}
                     />
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                    <span className="text-xs font-medium text-gray-300">
                       {tech.name}
                     </span>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
@@ -248,9 +242,9 @@ const Footer = () => {
             </div>
 
             {/* Copyright */}
-            <div className="text-sm text-gray-600 dark:text-gray-400 flex items-center gap-3">
+            <div className="text-sm text-gray-400 flex items-center gap-3">
               <span>&copy; {currentYear} Pranav K Jha</span>
-              <span className="h-4 w-px bg-gray-300 dark:bg-gray-700"></span>
+              <span className="h-4 w-px bg-gray-700"></span>
               <span className="text-xs opacity-75">All Rights Reserved</span>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import ThemeToggle from "../context/ToggleButton";
+import { TypeAnimation } from "react-type-animation";
+
 import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
@@ -64,11 +65,31 @@ const Hero = () => {
             variants={fadeInUp}
           >
             <span className="block">Pranav Jha</span>
-            <span
-              className={`bg-clip-text text-transparent ${headingGradient}`}
-            >
-              AI Engineer
-            </span>
+            <div className="min-h-[0.6em] flex items-center">
+              <TypeAnimation
+                sequence={[
+                  "NLP Engineer",
+                  1500,
+                  "LLM Developer",
+                  1500,
+                  "RAG Specialist",
+                  1500,
+                  "AI/ML Engineer",
+                  1500,
+                  "Gen AI Expert",
+                  1500,
+                ]}
+                wrapper="span"
+                speed={50}
+                style={{
+                  display: "inline-block",
+                  lineHeight: "1.2",
+                  padding: "0.2em 0",
+                }}
+                repeat={Infinity}
+                className={`bg-clip-text text-transparent ${headingGradient}`}
+              />
+            </div>
           </motion.h1>
 
           <motion.p

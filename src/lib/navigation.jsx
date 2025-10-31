@@ -1,27 +1,23 @@
 export const navigationConfig = [
   {
     title: "Home",
-    href: "#",
+    href: "/", // Keep as is
   },
   {
     title: "About",
-    href: "#about",
+    href: "/about", // Remove the #
   },
   {
     title: "Experience",
-    href: "#experience",
+    href: "/experience", // Remove the #
   },
   {
     title: "Publications",
-    href: "#publications",
-  },
-  {
-    title: "Skills",
-    href: "#skills",
+    href: "/publications", // This is correct
   },
   {
     title: "Contact",
-    href: "#contact",
+    href: "/contact", // Remove the #
   },
 ];
 

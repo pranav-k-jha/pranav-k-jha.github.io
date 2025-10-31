@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
+import PublicationsPage from "./pages/PublicationsPage";
 
 function App() {
   // Smooth scroll for anchor links
@@ -52,14 +53,8 @@ function App() {
       <Navbar />
       <main className="flex-grow">
         <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-              </>
-            }
-          />
+          <Route path="/" element={<Hero />} />
+          <Route path="/publications" element={<PublicationsPage />} />
         </Routes>
       </main>
       <Footer />

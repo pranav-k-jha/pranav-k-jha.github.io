@@ -2,13 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { navigationConfig } from "../lib/navigation";
-
-const itemVariants = {
-  hover: {
-    scale: 1.02,
-    transition: { duration: 0.2 },
-  },
-};
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -33,8 +27,8 @@ export default function Navbar() {
         onMouseEnter={() => setOpenMenu(hasSubItems ? item.title : null)}
         onMouseLeave={() => setOpenMenu(null)}
       >
-        <a
-          href={item.href}
+        <Link
+          to={item.href} // Changed from href to to
           className="relative px-4 py-2 text-sm font-medium text-navy-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-300 group/link rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
         >
           <span className="relative z-10">{item.title}</span>
@@ -45,7 +39,7 @@ export default function Navbar() {
               }`}
             />
           )}
-        </a>
+        </Link>
 
         <AnimatePresence>
           {hasSubItems && openMenu === item.title && (
@@ -59,9 +53,9 @@ export default function Navbar() {
               className="absolute top-full left-0 mt-2 w-64 bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl border border-gray-200/50 dark:border-gray-700/50 rounded-xl shadow-xl overflow-hidden divide-y divide-gray-100 dark:divide-gray-800"
             >
               {item.subItems.map((subItem) => (
-                <a
+                <Link
                   key={subItem.href}
-                  href={subItem.href}
+                  to={subItem.href} // Changed from href to to
                   className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-300 group"
                 >
                   <div className="flex flex-col">
@@ -74,7 +68,7 @@ export default function Navbar() {
                       </span>
                     )}
                   </div>
-                </a>
+                </Link>
               ))}
             </motion.div>
           )}

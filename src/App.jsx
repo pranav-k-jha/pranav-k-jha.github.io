@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
+import BentoDemo from "./components/bento-features";
 
 // Lazy load components
 const About = lazy(() => import("./components/About"));
@@ -68,6 +69,7 @@ function App() {
                   <Hero />
                   <About />
                   <AIDomains />
+                  <BentoDemo />
                 </>
               }
             />

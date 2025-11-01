@@ -103,11 +103,22 @@ const projects = [
 // Main component
 export function BentoDemo() {
   return (
-    <BentoGrid className="lg:grid-rows-3">
-      {projects.map((project) => (
-        <BentoCard key={project.name} {...project} />
-      ))}
-    </BentoGrid>
+    <section
+      id="projects"
+      className="w-full px-6 md:px-12 py-20 bg-slate-50 dark:bg-black"
+    >
+      <div className="mx-auto flex flex-col items-center space-y-4 text-center mb-16">
+        <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+          Projects <span className="font-bold">I am interested in</span>
+        </h2>
+      </div>
+      {/* Bento grid component for project showcase */}
+      <BentoGrid className="lg:grid-rows-3 max-w-7xl mx-auto">
+        {projects.map((project) => (
+          <BentoCard key={project.name} {...project} />
+        ))}
+      </BentoGrid>
+    </section>
   );
 }
 

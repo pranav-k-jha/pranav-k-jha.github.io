@@ -92,7 +92,7 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center space-x-4">
             {navigationConfig.map((item) => (
               <div key={item.href} className="relative group">
                 <Link
@@ -152,14 +152,14 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none"
+              className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 group focus:outline-none transition-colors duration-300"
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-6 w-6 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-emerald-500 group-hover:bg-clip-text group-hover:text-transparent" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-6 w-6 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-emerald-500 group-hover:bg-clip-text group-hover:text-transparent" />
               )}
             </motion.button>
           </div>
@@ -183,7 +183,7 @@ export default function Navbar() {
                     to={item.href}
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
                       location.pathname === item.href
-                        ? "bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400"
+                        ? "text-blue-600 dark:text-blue-400"
                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >

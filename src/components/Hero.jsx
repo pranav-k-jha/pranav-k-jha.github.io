@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-
+import { socialLinks } from "../lib/socialLinks";
 import { useTheme } from "../context/ThemeContext";
 
 const Hero = () => {
@@ -41,7 +41,7 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
-      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 overflow-hidden font-sans transition-colors duration-500 ${bgGradient}`}
+      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-44 lg:pb-44 overflow-hidden font-sans transition-colors duration-500 ${bgGradient}`}
       initial="hidden"
       animate="show"
       variants={container}
@@ -59,7 +59,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.h1
-            className={`text-4xl md:text-4xl lg:text-5xl font-bold mb-6 ${
+            className={`text-2xl md:text-3xl lg:text-6xl font-bold mb-6 ${
               theme === "dark" ? "text-white" : "text-gray-900"
             }`}
             variants={fadeInUp}
@@ -99,7 +99,7 @@ const Hero = () => {
           </motion.h1>
 
           <motion.p
-            className={`text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${
+            className={`text-lg  md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${
               theme === "dark" ? "text-gray-300" : "text-slate-600"
             }`}
             variants={fadeInUp}
@@ -113,7 +113,7 @@ const Hero = () => {
             className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             variants={fadeInUp}
           >
-            <a
+            {/* <a
               href="#projects"
               className={`px-6 py-3 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center bg-gradient-to-r ${buttonGradient}`}
             >
@@ -130,10 +130,10 @@ const Hero = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </a> */}
 
             <a
-              href="#contact"
+              href="mailto:pranav.jha@pranavjha.com"
               className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center ${
                 theme === "dark"
                   ? "border border-cyan-300 text-cyan-300 hover:bg-gray-800/50"
@@ -152,38 +152,27 @@ const Hero = () => {
               </svg>
             </a>
           </motion.div>
-
-          {/* Tech Stack */}
-          <motion.div className="mt-12" variants={fadeInUp}>
-            <p
-              className={`text-sm mb-4 ${
-                theme === "dark" ? "text-gray-400" : "text-slate-500"
-              }`}
-            >
-              TECHNOLOGIES I WORK WITH
-            </p>
-            <motion.div
-              className="flex flex-wrap gap-4 justify-center md:justify-start"
-              variants={techContainer}
-              initial="hidden"
-              animate="show"
-            >
-              {techStack.map((tech) => (
-                <motion.div
-                  key={tech}
-                  variants={item}
-                  className={`text-sm font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border ${
-                    theme === "dark"
-                      ? "bg-gray-800 text-cyan-300 border-gray-700"
-                      : "bg-white text-slate-800 border-slate-100"
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+          {/* Social Links */}
+          <motion.div
+            className="mt-8 flex justify-center md:justify-start space-x-6"
+            variants={fadeInUp}
+            transition={{ delay: 0.6 }}
+          >
+            {socialLinks.map((social) => {
+              const Icon = social.icon;
+              return (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-2 rounded-full transition-colors ${social.color} text-gray-600 dark:text-gray-400`}
+                  aria-label={social.label}
                 >
-                  {tech}
-                </motion.div>
-              ))}
-            </motion.div>
+                  <Icon className="h-6 w-6" />
+                </a>
+              );
+            })}
           </motion.div>
         </motion.div>
 
@@ -277,6 +266,38 @@ const Hero = () => {
                   </pre>
                 </div>
               </div>
+            </motion.div>
+            {/* Tech Stack */}
+            <motion.div className="mt-12" variants={fadeInUp}>
+              <p
+                className={`text-sm mb-4 ${
+                  theme === "dark" ? "text-gray-400" : "text-slate-500"
+                }`}
+              >
+                TECHNOLOGIES I WORK WITH
+              </p>
+              <motion.div
+                className="flex flex-wrap gap-4 justify-center md:justify-start"
+                variants={techContainer}
+                initial="hidden"
+                animate="show"
+              >
+                {techStack.map((tech) => (
+                  <motion.div
+                    key={tech}
+                    variants={item}
+                    className={`text-xs font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border ${
+                      theme === "dark"
+                        ? "bg-gray-800 text-cyan-300 border-gray-700"
+                        : "bg-white text-slate-800 border-slate-100"
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {tech}
+                  </motion.div>
+                ))}
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>

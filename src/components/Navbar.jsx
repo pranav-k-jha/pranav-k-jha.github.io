@@ -1,36 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { navigationConfig } from "../lib/navigation";
 import { Link, useLocation } from "react-router-dom";
-
-const socialLinks = [
-  {
-    icon: FaGithub,
-    href: "https://github.com/pranav-k-jha",
-    color: "hover:bg-gray-100 dark:hover:bg-gray-800",
-    label: "GitHub",
-  },
-  {
-    icon: FaLinkedin,
-    href: "https://linkedin.com/in/pranav-k-jha",
-    color: "hover:bg-blue-50 dark:hover:bg-blue-900/30",
-    label: "LinkedIn",
-  },
-  {
-    icon: FaTwitter,
-    href: "https://twitter.com/pranav_kjha",
-    color: "hover:bg-sky-50 dark:hover:bg-sky-900/30",
-    label: "Twitter",
-  },
-  {
-    icon: FaEnvelope,
-    href: "mailto:pranav.jha@mail.concordia.ca",
-    color: "hover:bg-rose-50 dark:hover:bg-rose-900/30",
-    label: "Email",
-  },
-];
+import { socialLinks } from "../lib/socialLinks";
 
 export default function Navbar() {
   const location = useLocation();
@@ -139,27 +112,6 @@ export default function Navbar() {
               </div>
             ))}
           </nav>
-
-          {/* Social Icons - Desktop */}
-          <div className="hidden md:flex items-center space-x-2 ml-4">
-            {socialLinks.map((social, index) => {
-              const Icon = social.icon;
-              return (
-                <motion.a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`p-2 rounded-full transition-colors ${social.color} text-gray-600 dark:text-gray-400`}
-                  aria-label={social.label}
-                  whileHover={{ y: -2, scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Icon className="h-5 w-5" />
-                </motion.a>
-              );
-            })}
-          </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center">

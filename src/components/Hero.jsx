@@ -64,7 +64,13 @@ const Hero = () => {
             }`}
             variants={fadeInUp}
           >
-            <span className="block">Pranav Jha</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
+              PRANAV
+            </span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-purple-600 to-blue-600 dark:from-emerald-400 dark:via-purple-400 dark:to-blue-400">
+              {" "}
+              K JHA
+            </span>
             <div className="min-h-[0.6em] flex items-center">
               <TypeAnimation
                 sequence={[

@@ -7,6 +7,14 @@ export const navigationConfig = [
     title: "Publications",
     href: "/publications",
   },
+  {
+    title: "Resources",
+    href: "/resources",
+  },
+  {
+    title: "Blog",
+    href: "/blog",
+  },
 ];
 
 export const NavItem = {

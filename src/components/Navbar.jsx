@@ -5,6 +5,8 @@ import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { navigationConfig } from "../lib/navigation";
 import { Link, useLocation } from "react-router-dom";
 
+const normalizePath = (path) => path.replace(/\/+$/, "") || "/";
+
 const socialLinks = [
   {
     icon: FaGithub,
@@ -181,7 +183,7 @@ export default function Navbar() {
                 <div key={item.href} className="space-y-1">
                   <Link
                     to={item.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
                       location.pathname === item.href
                         ? "text-blue-600 dark:text-blue-400"
                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"

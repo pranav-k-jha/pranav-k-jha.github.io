@@ -91,11 +91,16 @@ export default function Navbar() {
               <img
                 src="/profile.jpeg"
                 alt="Pranav K Jha"
-                className="h-10 w-10 rounded-full border-2 border-blue-500"
+                className="h-12 w-12 rounded-full object-cover border-2 border-blue-500 flex flex-col items-center justify-center"
               />
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
-                PRANAV K JHA
-              </span>
+              <div className="hidden sm:block">
+                <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 group-hover:from-blue-700 group-hover:via-purple-700 group-hover:to-emerald-700 dark:group-hover:from-blue-300 dark:group-hover:via-purple-300 dark:group-hover:to-emerald-300 transition-all duration-300">
+                  PRANAV K JHA
+                </span>
+                <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">
+                  AI Engineer
+                </p>
+              </div>
             </Link>
           </div>
 

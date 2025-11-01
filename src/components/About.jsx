@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useTheme } from "../context/ThemeContext";
 import { FaBrain, FaSearch, FaRobot } from "react-icons/fa";
+import BentoDemo from "./bento-features";
 
 const About = () => {
   const { theme } = useTheme();
@@ -34,9 +35,9 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 max-w-7xl mx-auto px-6 md:px-12 bg-gray-50 dark:bg-gray-900 overflow-x-hidden"
+      className="py-20  bg-gray-50 dark:bg-gray-900 overflow-x-hidden"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -270,6 +271,19 @@ const About = () => {
           </motion.div>
         </motion.div>
       </div>
+      {/* Projects Section with Bento Grid Layout */}
+      <section
+        id="projects"
+        className="w-full px-4 sm:px-6 lg:px-8 py-20 bg-slate-50 dark:bg-black"
+      >
+        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center mb-16">
+          <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+            Projects <span className="font-bold">I am interested in</span>
+          </h2>
+        </div>
+        {/* Bento grid component for project showcase */}
+        <BentoDemo />
+      </section>
     </section>
   );
 };

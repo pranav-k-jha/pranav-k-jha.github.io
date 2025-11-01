@@ -59,7 +59,7 @@ const Hero = () => {
           </motion.p>
 
           <motion.h1
-            className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
+            className={`text-4xl md:text-4xl lg:text-5xl font-bold mb-6 ${
               theme === "dark" ? "text-white" : "text-gray-900"
             }`}
             variants={fadeInUp}
@@ -69,9 +69,9 @@ const Hero = () => {
             </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-purple-600 to-blue-600 dark:from-emerald-400 dark:via-purple-400 dark:to-blue-400">
               {" "}
-              K JHA
+              JHA
             </span>
-            <div className="min-h-[0.6em] flex items-center">
+            <div className="w-full text-center md:text-left">
               <TypeAnimation
                 sequence={[
                   "NLP Engineer",
@@ -93,7 +93,7 @@ const Hero = () => {
                   padding: "0.2em 0",
                 }}
                 repeat={Infinity}
-                className={`bg-clip-text text-transparent ${headingGradient}`}
+                className={`bg-clip-text text-transparent ${headingGradient} w-full`}
               />
             </div>
           </motion.h1>

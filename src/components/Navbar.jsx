@@ -5,8 +5,6 @@ import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { navigationConfig } from "../lib/navigation";
 import { Link, useLocation } from "react-router-dom";
 
-const normalizePath = (path) => path.replace(/\/+$/, "") || "/";
-
 const socialLinks = [
   {
     icon: FaGithub,
@@ -39,6 +37,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
+
+  const isActiveLink = (path) => {
+    const currentPath = location.pathname;
+    if (path === "/") {
+      return currentPath === path;
+    }
+    return currentPath === path || currentPath.startsWith(`${path}/`);
+  };
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -180,18 +186,13 @@ export default function Navbar() {
           >
             <div className="pt-2 pb-3 space-y-1 px-4">
               {navigationConfig.map((item) => {
-                // Normalize the paths for comparison
-                const isActive =
-                  location.pathname === item.href ||
-                  (item.href !== "/" &&
-                    location.pathname.startsWith(`${item.href}/`));
-
+                const active = isActiveLink(item.href);
                 return (
                   <Link
                     key={item.href}
                     to={item.href}
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      isActive
+                      active
                         ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}

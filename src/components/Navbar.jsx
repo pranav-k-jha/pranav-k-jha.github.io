@@ -191,10 +191,10 @@ export default function Navbar() {
                   <Link
                     key={item.href}
                     to={item.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium ${
-                      active
-                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
-                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className={`block px-3 py-2 text-base font-medium ${
+                      isActiveLink(item.href)
+                        ? "text-blue-600 dark:text-blue-400" // Only text color changes
+                        : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                     }`}
                   >
                     {item.title}

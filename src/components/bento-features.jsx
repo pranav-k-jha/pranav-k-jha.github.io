@@ -42,7 +42,6 @@ const BentoCard = ({
 };
 
 // Project data
-// Project data with simplified backgrounds (only gradients)
 const projects = [
   {
     Icon: Brain,

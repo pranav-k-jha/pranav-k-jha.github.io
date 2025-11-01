@@ -3,6 +3,8 @@ import { useTheme } from "../context/ThemeContext";
 import { FaBrain, FaSearch, FaRobot } from "react-icons/fa";
 import BentoDemo from "./bento-features";
 
+import AIDomains from "../components/AIDomains";
+
 const About = () => {
   const { theme } = useTheme();
   const buttonGradient =
@@ -16,18 +18,6 @@ const About = () => {
       opacity: 1,
       transition: {
         staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.4,
-        ease: "easeOut",
       },
     },
   };
@@ -211,65 +201,7 @@ const About = () => {
           </motion.div>
         </div>
 
-        {/* Feature Cards */}
-        <motion.div
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
-          <motion.div
-            variants={fadeInUp}
-            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border hover:border-l-blue-500 dark:border-gray-700"
-          >
-            <div className="text-blue-500 text-3xl mb-4">
-              <FaBrain />
-            </div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
-              LLM & Fine-tuning
-            </h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-              <li>Custom LLM development and optimization</li>
-              <li>Domain-specific model fine-tuning</li>
-              <li>Instruction tuning for specific tasks</li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border hover:border-l-blue-500 dark:border-gray-700"
-          >
-            <div className="text-blue-500 text-3xl mb-4">
-              <FaSearch />
-            </div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
-              RAG Systems
-            </h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-              <li>Vector database integration</li>
-              <li>Context-aware retrieval systems</li>
-              <li>Hybrid search implementations</li>
-            </ul>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border hover:border-l-blue-500 dark:border-gray-700"
-          >
-            <div className="text-blue-500 text-3xl mb-4">
-              <FaRobot />
-            </div>
-            <h3 className="text-lg font-semibold mb-3 text-gray-900 dark:text-white">
-              AI Solutions
-            </h3>
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-              <li>Autonomous agent development</li>
-              <li>End-to-end GenAI applications</li>
-              <li>Multi-agent systems</li>
-            </ul>
-          </motion.div>
-        </motion.div>
+        <AIDomains />
       </div>
       {/* Projects Section with Bento Grid Layout */}
       <section

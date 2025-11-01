@@ -154,14 +154,14 @@ export default function Navbar() {
           <div className="md:hidden flex items-center">
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 group focus:outline-none transition-colors duration-300"
+              className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors duration-300"
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
-                <X className="h-6 w-6 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-emerald-500 group-hover:bg-clip-text group-hover:text-transparent" />
+                <X className="h-6 w-6" />
               ) : (
-                <Menu className="h-6 w-6 group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-emerald-500 group-hover:bg-clip-text group-hover:text-transparent" />
+                <Menu className="h-6 w-6" />
               )}
             </motion.button>
           </div>
@@ -176,36 +176,30 @@ export default function Navbar() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 overflow-hidden"
+            className="md:hidden bg-white border-b-2 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 overflow-hidden"
           >
             <div className="pt-2 pb-3 space-y-1 px-4">
-              {navigationConfig.map((item) => (
-                <div key={item.href} className="space-y-1">
+              {navigationConfig.map((item) => {
+                // Normalize the paths for comparison
+                const isActive =
+                  location.pathname === item.href ||
+                  (item.href !== "/" &&
+                    location.pathname.startsWith(`${item.href}/`));
+
+                return (
                   <Link
+                    key={item.href}
                     to={item.href}
-                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
-                      location.pathname === item.href
-                        ? "text-blue-600 dark:text-blue-400"
+                    className={`block px-3 py-2 rounded-md text-base font-medium ${
+                      isActive
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
                         : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
                     {item.title}
                   </Link>
-                  {item.subItems && (
-                    <div className="pl-4 space-y-1">
-                      {item.subItems.map((subItem) => (
-                        <Link
-                          key={subItem.href}
-                          to={subItem.href}
-                          className="block px-3 py-2 text-sm rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
-                        >
-                          {subItem.title}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
             <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-800">
               <div className="flex items-center justify-center space-x-4 px-4">

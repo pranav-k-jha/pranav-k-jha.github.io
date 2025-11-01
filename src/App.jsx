@@ -1,12 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
-import PublicationsPage from "./pages/PublicationsPage";
-import About from "./components/About";
-import BlogPage from "./pages/BlogPage";
-import BlogPost from "./components/BlogPost";
+import Loader from "./components/Loader";
+
+// Lazy load components
+const About = lazy(() => import("./components/About"));
+const PublicationsPage = lazy(() => import("./pages/PublicationsPage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const BlogPost = lazy(() => import("./components/BlogPost"));
 
 function App() {
   // Smooth scroll for anchor links
@@ -52,23 +55,26 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-200">
       <Navbar />
       <main className="flex-grow">
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <Hero />
-                <About />
-              </>
-            }
-          />
-          <Route path="/publications" element={<PublicationsPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
-        </Routes>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  <Hero />
+                  <About />
+                </>
+              }
+            />
+            <Route path="/about" element={<About />} />
+            <Route path="/publications" element={<PublicationsPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
+          </Routes>
+        </Suspense>
       </main>
       <Footer />
     </div>

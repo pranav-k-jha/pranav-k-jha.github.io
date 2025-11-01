@@ -65,9 +65,9 @@ function App() {
               </>
             }
           />
-          <Route path="/publications" element={<PublicationsPage />} />
-          <Route path="/blog" element={<BlogPage />} />
-          <Route path="/blog/:slug" element={<BlogPost />} />
+          {/* <Route path="/publications" element={<PublicationsPage />} /> */}
+          {/* <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogPost />} /> */}
         </Routes>
       </main>
       <Footer />

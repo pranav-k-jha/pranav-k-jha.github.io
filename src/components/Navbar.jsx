@@ -38,17 +38,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
 
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [mobileMenuOpen]);
-
   // Close mobile menu when route changes
   useEffect(() => {
     setMobileMenuOpen(false);
@@ -80,16 +69,16 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-sm"
-          : "bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm"
+          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
+          : "bg-white/50 dark:bg-gray-900/50"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Logo - Make it non-shrinkable */}
-          <div className="flex-shrink-0">
+          {/* Logo */}
+          <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center space-x-3">
               <img
                 src="/profile.jpeg"
@@ -102,13 +91,13 @@ export default function Navbar() {
             </Link>
           </div>
 
-          {/* Desktop Navigation - Increased spacing */}
-          <nav className="hidden md:flex items-center space-x-4">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex items-center space-x-1">
             {navigationConfig.map((item) => (
               <div key={item.href} className="relative group">
                 <Link
                   to={item.href}
-                  className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     location.pathname === item.href
                       ? "text-blue-600 dark:text-blue-400"
                       : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
@@ -119,65 +108,94 @@ export default function Navbar() {
                     {item.subItems && <ChevronDown className="ml-1 h-4 w-4" />}
                   </div>
                 </Link>
-                {/* ... rest of the dropdown code ... */}
+                {item.subItems && (
+                  <div className="absolute left-0 mt-1 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-1">
+                      {item.subItems.map((subItem) => (
+                        <Link
+                          key={subItem.href}
+                          to={subItem.href}
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          {subItem.title}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             ))}
           </nav>
 
-          {/* Social Icons - Add margin for better spacing */}
-          <div className="hidden md:flex items-center space-x-3 ml-6">
-            {socialLinks.map((s, i) => {
-              const Icon = s.icon; // ✅ define here
+          {/* Social Icons - Desktop */}
+          <div className="hidden md:flex items-center space-x-2 ml-4">
+            {socialLinks.map((social, index) => {
+              const Icon = social.icon;
               return (
                 <motion.a
-                  key={i}
-                  href={s.href}
+                  key={index}
+                  href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-2 rounded-full ${s.color} transition hover:bg-gray-100/40 dark:hover:bg-gray-800/40`}
-                  whileHover={{ y: -2 }}
+                  className={`p-2 rounded-full transition-colors ${social.color} text-gray-600 dark:text-gray-400`}
+                  aria-label={social.label}
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <Icon className="h-5 w-5" />
                 </motion.a>
               );
             })}
           </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <motion.button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-md text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white focus:outline-none"
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </motion.button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Menu - Fixed positioning and full viewport height */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden fixed top-16 left-0 right-0 bottom-0 bg-white dark:bg-gray-900 overflow-y-auto"
+            className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 overflow-hidden"
           >
-            <div className="px-4 pt-2 pb-6 space-y-1">
+            <div className="pt-2 pb-3 space-y-1 px-4">
               {navigationConfig.map((item) => (
-                <div
-                  key={item.href}
-                  className="space-y-1 border-b border-gray-100 dark:border-gray-800"
-                >
+                <div key={item.href} className="space-y-1">
                   <Link
                     to={item.href}
-                    className={`block px-4 py-3 text-base font-medium ${
+                    className={`block px-3 py-2 rounded-md text-base font-medium ${
                       location.pathname === item.href
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-700 dark:text-gray-300"
+                        ? "bg-gray-100 dark:bg-gray-800 text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
                     {item.title}
                   </Link>
                   {item.subItems && (
-                    <div className="pl-4 space-y-1 pb-2">
+                    <div className="pl-4 space-y-1">
                       {item.subItems.map((subItem) => (
                         <Link
                           key={subItem.href}
                           to={subItem.href}
-                          className="block px-4 py-2 text-sm rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"
+                          className="block px-3 py-2 text-sm rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800"
                         >
                           {subItem.title}
                         </Link>
@@ -187,22 +205,25 @@ export default function Navbar() {
                 </div>
               ))}
             </div>
-            <div className="px-4 py-4 border-t border-gray-200 dark:border-gray-800">
-              <div className="flex items-center justify-center space-x-4">
-                {socialLinks.map((social, index) => (
-                  <motion.a
-                    key={index}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-2.5 rounded-full ${social.color} text-gray-500 dark:text-gray-400`}
-                    aria-label={social.label}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </motion.a>
-                ))}
+            <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-800">
+              <div className="flex items-center justify-center space-x-4 px-4">
+                {socialLinks.map((social, index) => {
+                  const Icon = social.icon;
+                  return (
+                    <motion.a
+                      key={index}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-2 rounded-full ${social.color} text-gray-500 dark:text-gray-400`}
+                      aria-label={social.label}
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <Icon className="h-5 w-5" />
+                    </motion.a>
+                  );
+                })}
               </div>
             </div>
           </motion.div>

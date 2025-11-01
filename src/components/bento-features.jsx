@@ -111,6 +111,10 @@ export function BentoDemo() {
         <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
           Projects <span className="font-bold">I am interested in</span>
         </h2>
+        <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
+          Exploring the intersection of AI, machine learning, and scalable
+          systems to solve complex problems and drive innovation.
+        </p>
       </div>
       {/* Bento grid component for project showcase */}
       <BentoGrid className="lg:grid-rows-3 max-w-7xl mx-auto">

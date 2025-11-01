@@ -14,20 +14,19 @@ const About = () => {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.3,
+        staggerChildren: 0.1,
       },
     },
   };
 
   const fadeInUp = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 20 },
     show: {
       opacity: 1,
       y: 0,
       transition: {
-        type: "spring",
-        stiffness: 120,
-        damping: 20,
+        duration: 0.4,
+        ease: "easeOut",
       },
     },
   };
@@ -47,26 +46,215 @@ const About = () => {
             <div className="w-20 h-1 bg-blue-500 mx-auto"></div>
           </motion.div>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="grid md:grid-cols-2 gap-12 items-start">
+              {/* Left Column */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-4"
               >
-                <p className="text-lg text-gray-600 mb-6">
-                  I'm an AI Engineer with a passion for building intelligent
-                  systems that solve real-world problems. I specialize in
-                  Machine Learning, Deep Learning, and Computer Vision, with
-                  experience in developing and deploying AI models in production
-                  environments.
+                <div className="space-y-4">
+                  <h2 className="text-xl text-blue-600 dark:text-blue-400 mb-4">
+                    🧩 AI Solutions Architect
+                  </h2>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                    Designing Scalable AI Systems — From Idea to Deployment
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6">
+                    Specializing in{" "}
+                    <span className="font-medium">
+                      Large Language Models (LLMs)
+                    </span>
+                    ,{" "}
+                    <span className="font-medium">
+                      Retrieval-Augmented Generation (RAG)
+                    </span>
+                    , and{" "}
+                    <span className="font-medium">Intelligent Automation</span>{" "}
+                    for research and enterprise applications. Passionate about
+                    transforming data into actionable intelligence through
+                    robust, production-grade AI architectures.
+                  </p>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 flex items-center">
+                      <span className="mr-2">💡</span> Core Areas:
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      AI-Driven Automation • Optimized Data Workflows • CI/CD &
+                      MLOps • Real-Time Analytics • Modular AI Infrastructure
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 flex items-center">
+                      <span className="mr-2">🧩</span> Research Interests:
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300">
+                      NLP & Generative AI • RAG Systems • LangChain &
+                      Open-Source LLMs • Fine-Tuning (LoRA, QLoRA) • LLMOps &
+                      Model Deployment • Transformer Architectures
+                    </p>
+                  </div>
+                </div>
+
+                {/* GitHub Stats in Left Column */}
+                <div className="mt-8 space-y-6">
+                  <h2 className="text-xl text-blue-600 dark:text-blue-400 mb-4">
+                    📊 GitHub Stats
+                  </h2>
+
+                  {/* GitHub Streak and Top Languages in one row */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    {/* GitHub Streak */}
+                    <div className="bg-transparent dark:bg-transparent p-0">
+                      <img
+                        src="https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=default"
+                        alt="GitHub Streak"
+                        className="w-full h-auto rounded-lg"
+                        loading="lazy"
+                      />
+                    </div>
+
+                    {/* Top Languages */}
+                    <div className="bg-transparent dark:bg-transparent p-0">
+                      <img
+                        src="https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=default"
+                        alt="Top Languages"
+                        className="w-full h-auto rounded-lg"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+
+                  {/* GitHub Activity Card - Moved to first column of next row */}
+                  <div className="grid grid-cols-1 gap-6">
+                    <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                      <h4 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                        GitHub Activity
+                      </h4>
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="text-center">
+                          <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                            4.6k+
+                          </div>
+                          <div className="text-gray-600 dark:text-gray-300">
+                            Contributions
+                          </div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                            50+
+                          </div>
+                          <div className="text-gray-600 dark:text-gray-300">
+                            Repositories
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* GitHub Contributions Calendar */}
+                  <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                    <h4 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                      Contributions
+                    </h4>
+                    <img
+                      src="https://ghchart.rshah.org/pranav-k-jha"
+                      alt="GitHub Contributions"
+                      className="w-full mx-auto rounded-lg"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right Column */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="space-y-6"
+              >
+                <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl shadow-md">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
+                    <span className="mr-2">🤖</span> Current Focus
+                  </h3>
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <span className="text-blue-500 mr-3 mt-1">🧠</span>
+                      <div>
+                        <h4 className="font-medium text-gray-800 dark:text-white">
+                          In Progress
+                        </h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          Building scalable AI Solutions integrating LLMs, RAG
+                          pipelines, and multi-agent systems for enterprise
+                          automation and research applications.
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start">
+                      <span className="text-blue-500 mr-3 mt-1">🔍</span>
+                      <div>
+                        <h4 className="font-medium text-gray-800 dark:text-white">
+                          Exploring
+                        </h4>
+                        <p className="text-gray-600 dark:text-gray-300">
+                          LLMOps, vector databases, knowledge graph integration,
+                          and prompt engineering for domain-adapted
+                          intelligence.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
+                  <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
+                    Technical Expertise
+                  </h3>
+                  <div className="space-y-3">
+                    {[
+                      "Large Language Models (LLMs)",
+                      "Retrieval-Augmented Generation (RAG)",
+                      "AI/ML System Design",
+                      "MLOps & LLMOps",
+                      "Cloud Architecture",
+                      "Data Pipelines",
+                    ].map((item, index) => (
+                      <div key={index} className="flex items-center">
+                        <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                        <span className="text-gray-700 dark:text-gray-300">
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                  I design AI systems with a focus on practical impact and
+                  real-world scalability. From prototyping innovative models to
+                  deploying production-grade solutions, I build intelligent
+                  applications that solve complex challenges efficiently.
                 </p>
-                <p className="text-lg text-gray-600 mb-8">
-                  My journey in AI started with a curiosity about how machines
-                  can learn from data. Since then, I've worked on various
-                  projects involving natural language processing, computer
-                  vision, and predictive modeling.
+                <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
+                  My work blends research-driven insights with hands-on
+                  engineering, ensuring AI not only performs but also delivers
+                  measurable value across industries.
                 </p>
+                <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                  With expertise in machine learning, deep learning, and
+                  AI-driven automation, I develop models and architectures that
+                  bridge the gap between innovation and real-world application.
+                </p>
+
                 <div className="flex flex-wrap gap-4">
                   <a
                     href="#contact"
@@ -82,26 +270,6 @@ const About = () => {
                   </a>
                 </div>
               </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="relative"
-              >
-                <div className="relative z-10 w-full max-w-md mx-auto">
-                  <div className="aspect-w-3 aspect-h-4 rounded-2xl overflow-hidden">
-                    <img
-                      src="https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
-                      alt="Pranav Jha"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-primary-100 rounded-full -z-10"></div>
-                  <div className="absolute -top-6 -left-6 w-24 h-24 bg-primary-200 rounded-full -z-10"></div>
-                </div>
-              </motion.div>
             </div>
           </div>
 
@@ -110,7 +278,7 @@ const About = () => {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16"
+            className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
           >
             {/* LLM Development Card */}
             <motion.div

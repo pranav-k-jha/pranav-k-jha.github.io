@@ -275,9 +275,38 @@ const Hero = () => {
           </div>
         </motion.div>
       </div>
-
-      {/* Theme Toggle */}
-      <div className="fixed bottom-4 right-4 z-50">{/* <ThemeToggle /> */}</div>
+      {/* Fun Fact Section - Full width background with max-w-7xl content */}
+      {/* <div className="w-full relative z-10 mt-12 md:mt-16">
+        <div
+          className={`w-full ${
+            theme === "dark" ? "bg-gray-800/30" : "bg-white/60"
+          } backdrop-blur-sm`}
+        >
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            <motion.div
+              className="text-center"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <p className="text-sm md:text-base text-gray-700 dark:text-gray-300">
+                <span
+                  className={`font-semibold ${
+                    theme === "dark" ? "text-cyan-300" : "text-blue-600"
+                  }`}
+                >
+                  ⚡ Fun Fact:
+                </span>{" "}
+                Neural networks—now at the heart of AI—were first conceptualized
+                in the 1940s! But it was only with the rise of computational
+                power and big data in the 21st century that they truly began
+                transforming industries.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </div> */}
     </motion.section>
   );
 };

@@ -1,12 +1,45 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 import { navigationConfig } from "../lib/navigation";
 import { Link } from "react-router-dom";
+
+const socialLinks = [
+  {
+    icon: FaGithub,
+    href: "https://github.com/pranav-k-jha",
+    color:
+      "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white",
+    label: "GitHub",
+  },
+  {
+    icon: FaLinkedin,
+    href: "https://linkedin.com/in/pranav-k-jha",
+    color:
+      "text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300",
+    label: "LinkedIn",
+  },
+  {
+    icon: FaTwitter,
+    href: "https://twitter.com/pranav_kjha",
+    color:
+      "text-sky-500 hover:text-sky-600 dark:text-sky-400 dark:hover:text-sky-300",
+    label: "Twitter",
+  },
+  {
+    icon: FaEnvelope,
+    href: "mailto:pranav.jha@mail.concordia.ca",
+    color:
+      "text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300",
+    label: "Email",
+  },
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
 
   useEffect(() => {
@@ -28,7 +61,7 @@ export default function Navbar() {
         onMouseLeave={() => setOpenMenu(null)}
       >
         <Link
-          to={item.href} // Changed from href to to
+          to={item.href}
           className="relative px-4 py-2 text-sm font-medium text-navy-900 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-all duration-300 group/link rounded-lg hover:bg-gray-100/50 dark:hover:bg-gray-800/50"
         >
           <span className="relative z-10">{item.title}</span>
@@ -55,7 +88,7 @@ export default function Navbar() {
               {item.subItems.map((subItem) => (
                 <Link
                   key={subItem.href}
-                  to={subItem.href} // Changed from href to to
+                  to={subItem.href}
                   className="block px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-300 group"
                 >
                   <div className="flex flex-col">
@@ -103,11 +136,40 @@ export default function Navbar() {
             </div>
           </div>
 
+          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
             {navigationConfig.map(renderNavItem)}
+
+            {/* Social Icons - Desktop */}
+            <div className="flex items-center space-x-3 ml-6">
+              {socialLinks.map((social, index) => {
+                const Icon = social.icon;
+                return (
+                  <motion.a
+                    key={index}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`text-xl p-2 rounded-full ${social.color} transition-all duration-300 hover:bg-gray-100/30 dark:hover:bg-gray-800/50`}
+                    aria-label={social.label}
+                    whileHover={{ y: -2, scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 * index }}
+                  >
+                    <Icon />
+                  </motion.a>
+                );
+              })}
+            </div>
           </div>
 
-          <button className="md:hidden p-2 text-gray-700 dark:text-gray-200">
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-gray-700 dark:text-gray-200"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-6 w-6"
@@ -119,11 +181,79 @@ export default function Navbar() {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
+                d={
+                  mobileMenuOpen
+                    ? "M6 18L18 6M6 6l12 12"
+                    : "M4 6h16M4 12h16M4 18h16"
+                }
               />
             </svg>
           </button>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700"
+            >
+              <div className="px-2 pt-2 pb-3 space-y-1">
+                {navigationConfig.map((item) => (
+                  <div key={item.href}>
+                    <Link
+                      to={item.href}
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.title}
+                    </Link>
+                    {item.subItems && (
+                      <div className="pl-4">
+                        {item.subItems.map((subItem) => (
+                          <Link
+                            key={subItem.href}
+                            to={subItem.href}
+                            className="block px-3 py-2 rounded-md text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-800"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+
+                {/* Social Links - Mobile */}
+                <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-4">
+                  {socialLinks.map((social, index) => {
+                    const Icon = social.icon;
+                    return (
+                      <motion.a
+                        key={index}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`flex items-center px-3 py-2 text-base font-medium ${social.color} transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-md`}
+                        aria-label={social.label}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.3, delay: 0.1 * index }}
+                      >
+                        <Icon className="mr-3 h-5 w-5" />
+                        {social.label}
+                      </motion.a>
+                    );
+                  })}
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );

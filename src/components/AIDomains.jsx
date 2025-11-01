@@ -53,7 +53,7 @@ const AIDomains = () => {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="py-20 bg-gray-50 dark:bg-gray-900 overflow-x-hidden"
+      className="max-w-7xl mx-auto py-20 bg-transparent dark:bg-gray-900 overflow-x-hidden"
     >
       <div className="container mx-auto px-6">
         <motion.div variants={ANIMATION_VARIANTS} className="text-center mb-16">

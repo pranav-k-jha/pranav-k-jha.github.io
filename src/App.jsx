@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import AIDomains from "./components/AIDomains";
 
 // Lazy load components
 const About = lazy(() => import("./components/About"));
@@ -66,6 +67,7 @@ function App() {
                 <>
                   <Hero />
                   <About />
+                  <AIDomains />
                 </>
               }
             />

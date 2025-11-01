@@ -200,8 +200,6 @@ const About = () => {
             </div>
           </motion.div>
         </div>
-
-        <AIDomains />
       </div>
       {/* Projects Section with Bento Grid Layout */}
       <section

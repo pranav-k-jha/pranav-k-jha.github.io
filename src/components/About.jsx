@@ -32,10 +32,14 @@ const About = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
-            About Me
+          <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+            About <span className="font-bold">Me</span>
           </h2>
-          <div className="w-20 h-1 bg-blue-500 mx-auto rounded"></div>
+          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
+            I am a Solutions Architect with a focus on AI and machine learning
+            technologies. I have experience in designing and implementing AI
+            solutions for research and enterprise applications.
+          </p>
         </motion.div>
 
         {/* Two-column grid */}

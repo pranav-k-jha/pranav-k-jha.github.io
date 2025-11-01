@@ -34,7 +34,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20 bg-gray-50 dark:bg-gray-900 overflow-x-hidden"
+      className="py-20 max-w-7xl mx-auto px-6 md:px-12 bg-gray-50 dark:bg-gray-900 overflow-x-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}

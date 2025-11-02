@@ -10,15 +10,15 @@ const container = {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.03, // Reduced stagger for faster appearance
-      delayChildren: 0.05, // Reduced initial delay
+      staggerChildren: 0.01, // Further reduced stagger
+      delayChildren: 0.01, // Minimal initial delay
     },
   },
   exit: {
     opacity: 0,
     transition: {
       when: "afterChildren",
-      staggerChildren: 0.02,
+      staggerChildren: 0.01, // Faster exit stagger
       staggerDirection: -1,
     },
   },
@@ -27,8 +27,8 @@ const container = {
 const item = {
   hidden: {
     opacity: 0,
-    y: 10, // Reduced initial y-offset
-    scale: 0.98,
+    y: 5, // Reduced initial y-offset even more
+    scale: 0.99, // Closer to final scale
   },
   show: {
     opacity: 1,
@@ -36,10 +36,11 @@ const item = {
     scale: 1,
     transition: {
       type: "spring",
-      stiffness: 300, // Increased stiffness for snappier animation
-      damping: 20, // Increased damping for less bounce
-      mass: 0.5, // Lower mass for quicker movement
-      velocity: 2, // Initial velocity for smoother start
+      stiffness: 400, // Stiffer for snappier animation
+      damping: 25, // Slightly more damping
+      mass: 0.4, // Lighter for faster movement
+      velocity: 4, // Higher initial velocity
+      duration: 0.2, // Slightly faster overall
     },
   },
   exit: {
@@ -157,25 +158,39 @@ const ResourcePage = () => {
               className="space-y-3 max-h-[70vh] overflow-y-auto pr-2"
               layout
             >
-              <AnimatePresence>
-                {resources.map((resource) => (
+              <AnimatePresence mode="wait">
+                {resources.map((resource, index) => (
                   <motion.div
                     key={resource.id}
-                    variants={item}
-                    initial="hidden"
-                    animate="show"
-                    exit="exit"
-                    whileHover="hover"
-                    whileTap="tap"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                      transition: {
+                        duration: 0.3,
+                        delay: index * 0.03,
+                        ease: [0.16, 1, 0.3, 1],
+                      },
+                    }}
+                    exit={{ opacity: 0, y: -5, transition: { duration: 0.2 } }}
+                    whileHover={{
+                      y: -2,
+                      boxShadow:
+                        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+                      transition: { duration: 0.2 },
+                    }}
+                    whileTap={{
+                      scale: 0.99,
+                      transition: { duration: 0.1 },
+                    }}
                     onClick={() => handlePdfSelect(resource.pdfPath)}
                     onHoverStart={() => setHoveredCard(resource.id)}
                     onHoverEnd={() => setHoveredCard(null)}
-                    className={`relative p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                    className={`relative p-4 rounded-lg cursor-pointer ${
                       selectedPdf === resource.pdfPath
                         ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500"
-                        : "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 border border-gray-200 dark:border-gray-700"
+                        : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
                     }`}
-                    viewport={{ once: true, margin: "-50px" }}
                   >
                     <h3 className="font-medium text-gray-900 dark:text-white text-sm pr-6">
                       {resource.title}

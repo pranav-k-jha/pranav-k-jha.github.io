@@ -51,7 +51,7 @@ export default function PdfViewer({ pdfPath }) {
   const isPageLoading = pageNumber !== displayedPage;
 
   return (
-    <div className="w-full max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden my-6 border border-gray-200 dark:border-gray-700">
+    <div className="w-full max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden  border border-gray-200 dark:border-gray-700">
       {/* Header */}
       <div className="p-3 bg-gray-50 dark:bg-gray-700 flex flex-wrap justify-between items-center gap-2">
         <div className="flex items-center space-x-2">

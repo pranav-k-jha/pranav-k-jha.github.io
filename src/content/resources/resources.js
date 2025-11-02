@@ -7,7 +7,7 @@ export const resources = [
       "Comprehensive guide on applying natural language processing techniques in machine learning, covering text processing, feature extraction, and model architectures.",
     pdfPath: "/resources/pdfs/1756170671202.pdf",
     category: "Machine Learning",
-    date: "2023-11-05",
+    date: "2025-07-05",
   },
   {
     id: 2,
@@ -16,7 +16,16 @@ export const resources = [
       "Comprehensive guide to Python programming, covering fundamental concepts to advanced topics including data structures, OOP, and best practices.",
     pdfPath: "/resources/pdfs/1755575602183.pdf",
     category: "Programming",
-    date: "2023-11-05",
+    date: "2025-06-05",
+  },
+  {
+    id: 3,
+    title: "Mathematical Foundations of Gradient Descent and Backpropagation",
+    description:
+      "Comprehensive guide on mathematical foundations of gradient descent and backpropagation, covering linear algebra, calculus, and optimization techniques.",
+    pdfPath: "/resources/pdfs/1727144999481.pdf",
+    category: "Machine Learning",
+    date: "2024-06-26",
   },
 ];
 

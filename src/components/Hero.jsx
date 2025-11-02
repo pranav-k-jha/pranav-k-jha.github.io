@@ -103,7 +103,7 @@ const Hero = () => {
             Hello, I'm
           </motion.p>
           <motion.h1
-            className={`text-2xl md:text-3xl lg:text-6xl font-bold mb-6 ${styles.text.heading}`}
+            className={`text-3xl md:text-5xl lg:text-6xl font-bold mb-6 ${styles.text.heading}`}
             variants={animationVariants.fadeInUp}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">

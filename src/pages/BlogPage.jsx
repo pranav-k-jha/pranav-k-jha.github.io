@@ -54,36 +54,52 @@ export default function BlogPage() {
   if (loading) {
     return (
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6"
+        initial="hidden"
+        animate="show"
+        variants={container}
+        className="min-h-screen bg-white dark:bg-gray-900 pt-32 pb-20 px-4 sm:px-6"
       >
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <div className="h-10 bg-gray-200 dark:bg-gray-800 rounded-full w-1/4 mx-auto mb-4"></div>
-            <div className="h-4 bg-gray-200 dark:bg-gray-800 rounded w-1/3 mx-auto"></div>
-          </div>
+          <motion.div className="text-center mb-12" variants={item}>
+            <motion.h1
+              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent"
+              variants={item}
+            >
+              Blog
+            </motion.h1>
+            <motion.div
+              className="h-1 w-24 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 mx-auto rounded-full"
+              variants={item}
+            />
+          </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <motion.div
+            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            variants={container}
+          >
             {[...Array(6)].map((_, i) => (
-              <div
+              <motion.div
                 key={i}
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700"
+                className="bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700/50"
+                variants={item}
+                whileHover={{ y: -5, transition: { duration: 0.2 } }}
               >
-                <div className="h-48 bg-gray-100 dark:bg-gray-700 animate-pulse"></div>
-                <div className="p-5">
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-3"></div>
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
-                  <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-                    <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-1/3"></div>
+                <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 animate-pulse"></div>
+                <div className="p-6">
+                  <div className="h-5 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-full w-1/3 mb-4 animate-pulse"></div>
+                  <div className="h-6 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded w-4/5 mb-3 animate-pulse"></div>
+                  <div className="space-y-2">
+                    <div className="h-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded w-full animate-pulse"></div>
+                    <div className="h-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded w-5/6 animate-pulse"></div>
+                    <div className="h-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded w-2/3 animate-pulse"></div>
+                  </div>
+                  <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50">
+                    <div className="h-3 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-full w-1/3 animate-pulse"></div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     );

@@ -129,16 +129,9 @@ const PublicationsPage = () => {
     },
   };
 
+  // Loading state is handled by the global loader
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-          className="rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"
-        />
-      </div>
-    );
+    return null; // Return null to prevent double loading indicator
   }
 
   if (error) {

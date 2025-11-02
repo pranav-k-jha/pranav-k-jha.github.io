@@ -1,25 +1,101 @@
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef } from "react";
 import { resources } from "../content/resources/resources";
 import PdfViewer from "../components/PdfViewer";
 
+// Animation variants
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      when: "beforeChildren",
+      staggerChildren: 0.03, // Reduced stagger for faster appearance
+      delayChildren: 0.05, // Reduced initial delay
+    },
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      when: "afterChildren",
+      staggerChildren: 0.02,
+      staggerDirection: -1,
     },
   },
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  hidden: {
+    opacity: 0,
+    y: 10, // Reduced initial y-offset
+    scale: 0.98,
+  },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300, // Increased stiffness for snappier animation
+      damping: 20, // Increased damping for less bounce
+      mass: 0.5, // Lower mass for quicker movement
+      velocity: 2, // Initial velocity for smoother start
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -10, // Reduced exit y-offset
+    scale: 0.98,
+    transition: {
+      duration: 0.15, // Faster exit
+      ease: "easeIn",
+    },
+  },
+  hover: {
+    y: -2, // Reduced hover lift
+    boxShadow:
+      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+    transition: {
+      type: "spring",
+      stiffness: 500,
+      damping: 15,
+      mass: 0.5,
+    },
+  },
+  tap: {
+    scale: 0.99, // Reduced tap scale for subtlety
+    transition: {
+      type: "spring",
+      stiffness: 400,
+      damping: 15,
+    },
+  },
+};
+
+const pdfViewer = {
+  hidden: { opacity: 0, x: 20 },
+  show: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+    },
+  },
+  exit: {
+    opacity: 0,
+    x: 20,
+    transition: {
+      duration: 0.2,
+    },
+  },
 };
 
 const ResourcePage = () => {
   const [selectedPdf, setSelectedPdf] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState(null);
+  const containerRef = useRef(null);
 
   const handlePdfSelect = (pdfPath) => {
     setSelectedPdf(pdfPath);
@@ -29,21 +105,44 @@ const ResourcePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6">
+    <motion.div
+      className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6"
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      ref={containerRef}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header with animation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          animate={{
+            opacity: 1,
+            y: 0,
+            transition: {
+              type: "spring",
+              stiffness: 100,
+              damping: 15,
+            },
+          }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <motion.h1
+            className="text-4xl font-bold text-gray-900 dark:text-white mb-3"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+          >
             Resources
-          </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300">
+          </motion.h1>
+          <motion.p
+            className="text-xl text-gray-600 dark:text-gray-300"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15 }}
+          >
             Browse and explore our collection of resources
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -52,82 +151,158 @@ const ResourcePage = () => {
             variants={container}
             initial="hidden"
             animate="show"
-            className="md:col-span-1 space-y-3"
+            className="md:col-span-1"
           >
-            <div className="space-y-3 max-h-[70vh] overflow-y-auto pr-2">
-              {resources.map((resource) => (
-                <motion.div
-                  key={resource.id}
-                  variants={item}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => handlePdfSelect(resource.pdfPath)}
-                  className={`p-4 rounded-lg cursor-pointer transition-all duration-200 text-sm ${
-                    selectedPdf === resource.pdfPath
-                      ? "bg-blue-100 dark:bg-blue-900 border-l-4 border-blue-500"
-                      : "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700"
-                  }`}
-                >
-                  <h3 className="font-medium text-gray-900 dark:text-white text-sm">
-                    {resource.title}
-                  </h3>
-                  <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
-                    {resource.description}
-                  </p>
-                  <div className="flex justify-between items-center mt-2">
-                    <span className="text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-100 rounded-full">
-                      {resource.category}
-                    </span>
-                    <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {new Date(resource.date).toLocaleDateString()}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+            <motion.div
+              className="space-y-3 max-h-[70vh] overflow-y-auto pr-2"
+              layout
+            >
+              <AnimatePresence>
+                {resources.map((resource) => (
+                  <motion.div
+                    key={resource.id}
+                    variants={item}
+                    initial="hidden"
+                    animate="show"
+                    exit="exit"
+                    whileHover="hover"
+                    whileTap="tap"
+                    onClick={() => handlePdfSelect(resource.pdfPath)}
+                    onHoverStart={() => setHoveredCard(resource.id)}
+                    onHoverEnd={() => setHoveredCard(null)}
+                    className={`relative p-4 rounded-lg cursor-pointer transition-all duration-200 ${
+                      selectedPdf === resource.pdfPath
+                        ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500"
+                        : "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 border border-gray-200 dark:border-gray-700"
+                    }`}
+                    viewport={{ once: true, margin: "-50px" }}
+                  >
+                    <h3 className="font-medium text-gray-900 dark:text-white text-sm pr-6">
+                      {resource.title}
+                    </h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
+                      {resource.description}
+                    </p>
+                    <div className="flex justify-between items-center mt-3">
+                      <span className="text-xs px-2.5 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-100 rounded-full">
+                        {resource.category}
+                      </span>
+                      <span className="text-xs text-gray-500 dark:text-gray-400">
+                        {new Date(resource.date).toLocaleDateString(undefined, {
+                          year: "numeric",
+                          month: "short",
+                          day: "numeric",
+                        })}
+                      </span>
+                    </div>
+                    <motion.div
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500"
+                      initial={{ opacity: 0, x: -5 }}
+                      animate={{
+                        opacity: selectedPdf === resource.pdfPath ? 1 : 0,
+                        x: selectedPdf === resource.pdfPath ? 0 : -5,
+                      }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 20,
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-4 w-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </motion.div>
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </motion.div>
           </motion.div>
 
           {/* PDF Viewer with animation */}
           <motion.div
             id="pdf-viewer"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
-            className="md:col-span-2 max-w-4xl mx-auto w-full" // Added max-w-4xl and w-full
+            className="md:col-span-2 max-w-4xl mx-auto w-full"
+            layout
           >
-            {selectedPdf ? (
-              <div className="w-[95%] mx-auto ">
-                {" "}
-                {/* Added wrapper div with width control */}
-                <PdfViewer pdfPath={selectedPdf} />
-              </div>
-            ) : (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="flex flex-col items-center justify-center h-96 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg shadow w-full max-w-2xl mx-auto" // Added width constraints
-              >
-                <svg
-                  className="w-16 h-16 mb-4 text-gray-300"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            <AnimatePresence mode="wait">
+              {selectedPdf ? (
+                <motion.div
+                  key="pdf-content"
+                  variants={pdfViewer}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  className="w-[95%] mx-auto"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                <p className="text-lg">Select a resource to view</p>
-              </motion.div>
-            )}
+                  <PdfViewer pdfPath={selectedPdf} />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty-state"
+                  variants={pdfViewer}
+                  initial="hidden"
+                  animate="show"
+                  exit="exit"
+                  className="flex flex-col items-center justify-center h-96 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-xl shadow-sm w-full max-w-2xl mx-auto border-2 border-dashed border-gray-200 dark:border-gray-700"
+                >
+                  <motion.div
+                    className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4"
+                    animate={{
+                      scale: [1, 1.05, 1],
+                      rotate: [0, 5, -5, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      repeatType: "reverse",
+                    }}
+                  >
+                    <svg
+                      className="w-10 h-10 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={1.5}
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                      />
+                    </svg>
+                  </motion.div>
+                  <motion.h3
+                    className="text-xl font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    No Resource Selected
+                  </motion.h3>
+                  <motion.p
+                    className="text-gray-500 dark:text-gray-400 text-center max-w-md px-4"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 0.8, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    Select a resource from the list to view its contents
+                  </motion.p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

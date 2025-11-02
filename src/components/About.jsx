@@ -36,9 +36,9 @@ const About = () => {
             About <span className="font-bold">Me</span>
           </h2>
           <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
-            I am a Solutions Architect with a focus on AI and machine learning
-            technologies. I have experience in designing and implementing AI
-            solutions for research and enterprise applications.
+            I design and implement AI solutions that bridge the gap between
+            research and enterprise applications, with a focus on practical,
+            scalable implementations.
           </p>
         </motion.div>
 
@@ -57,15 +57,11 @@ const About = () => {
               <h2 className="text-xl text-blue-600 dark:text-blue-400 mb-4">
                 🧩 AI Solutions Architect
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                Designing Scalable AI Systems — From Idea to Deployment
-              </p>
               <p className="text-gray-600 dark:text-gray-300">
                 Specializing in <span className="font-medium">LLMs</span>,{" "}
                 <span className="font-medium">RAG</span>, and{" "}
-                <span className="font-medium">Intelligent Automation</span> for
-                research and enterprise applications. Passionate about
-                transforming data into actionable intelligence through robust,
+                <span className="font-medium">Intelligent Automation</span>.
+                Transforming data into actionable intelligence through
                 production-grade AI architectures.
               </p>
             </div>
@@ -74,20 +70,11 @@ const About = () => {
             <div className="space-y-4">
               <div>
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-1 flex items-center">
-                  <span className="mr-2">💡</span> Core Areas:
+                  <span className="mr-2">💡</span> Expertise
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  AI-Driven Automation • Optimized Data Workflows • CI/CD &
-                  MLOps • Real-Time Analytics • Modular AI Infrastructure
-                </p>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-1 flex items-center">
-                  <span className="mr-2">🧩</span> Research Interests:
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">
-                  NLP & Generative AI • RAG Systems • LangChain & Open-Source
-                  LLMs • Fine-Tuning (LoRA, QLoRA) • LLMOps & Model Deployment
+                  AI/ML System Design • LLM Applications • MLOps/LLMOps • Cloud
+                  Architecture • Data Pipelines • Intelligent Automation
                 </p>
               </div>
             </div>
@@ -143,14 +130,12 @@ const About = () => {
               </h3>
               <div className="space-y-3 text-gray-600 dark:text-gray-300 text-sm">
                 <p>
-                  🧠 Building scalable AI Solutions integrating LLMs, RAG
-                  pipelines, and multi-agent systems for enterprise automation
-                  and research.
+                  Building scalable AI solutions with LLMs, RAG, and multi-agent
+                  systems for enterprise automation.
                 </p>
                 <p>
-                  🔍 Exploring LLMOps, vector databases, knowledge graph
-                  integration, and prompt engineering for domain-adapted
-                  intelligence.
+                  Exploring LLMOps, vector databases, and knowledge graphs for
+                  domain-specific intelligence.
                 </p>
               </div>
             </div>
@@ -176,13 +161,6 @@ const About = () => {
                 ))}
               </ul>
             </div>
-
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              I design AI systems with a focus on practical impact and
-              real-world scalability. From prototyping innovative models to
-              deploying production-grade solutions, I build intelligent
-              applications that solve complex challenges efficiently.
-            </p>
 
             <div className="flex flex-wrap gap-4">
               <a

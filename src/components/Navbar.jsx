@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { navigationConfig } from "../lib/navigation";
 import { Link, useLocation } from "react-router-dom";
 import { socialLinks } from "../lib/socialLinks";
+import ThemeToggle from "../context/ToggleButton";
 
 export default function Navbar() {
   const location = useLocation();
@@ -78,43 +79,53 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-4">
-            {navigationConfig.map((item) => (
-              <div key={item.href} className="relative group">
-                <Link
-                  to={item.href}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                    location.pathname === item.href
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                  }`}
-                >
-                  <div className="flex items-center">
-                    {item.title}
-                    {item.subItems && <ChevronDown className="ml-1 h-4 w-4" />}
-                  </div>
-                </Link>
-                {item.subItems && (
-                  <div className="absolute left-0 mt-1 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                    <div className="py-1">
-                      {item.subItems.map((subItem) => (
-                        <Link
-                          key={subItem.href}
-                          to={subItem.href}
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                          {subItem.title}
-                        </Link>
-                      ))}
+          <div className="hidden md:flex items-center space-x-4">
+            <nav className="flex items-center space-x-4">
+              {navigationConfig.map((item) => (
+                <div key={item.href} className="relative group">
+                  <Link
+                    to={item.href}
+                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      location.pathname === item.href
+                        ? "text-blue-600 dark:text-blue-400"
+                        : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                    }`}
+                  >
+                    <div className="flex items-center">
+                      {item.title}
+                      {item.subItems && (
+                        <ChevronDown className="ml-1 h-4 w-4" />
+                      )}
                     </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </nav>
+                  </Link>
+                  {item.subItems && (
+                    <div className="absolute left-0 mt-1 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div className="py-1">
+                        {item.subItems.map((subItem) => (
+                          <Link
+                            key={subItem.href}
+                            to={subItem.href}
+                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </nav>
+            <div className="ml-4">
+              <ThemeToggle />
+            </div>
+          </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile menu button and theme toggle */}
+          <div className="flex items-center space-x-4 md:hidden">
+            <div className="md:hidden">
+              <ThemeToggle />
+            </div>
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors duration-300"

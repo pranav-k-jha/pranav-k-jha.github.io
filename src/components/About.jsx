@@ -54,7 +54,7 @@ const About = () => {
           >
             {/* Intro Text */}
             <div>
-              <h2 className="text-xl text-blue-600 dark:text-blue-400 mb-4">
+              <h2 className="text-xl text-gray-800 dark:text-gray-200 mb-4">
                 🧩 AI Solutions Architect
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
@@ -81,9 +81,9 @@ const About = () => {
 
             {/* GitHub Stats */}
             <div className="space-y-4">
-              <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400">
+              <h2 className="text-xl text-gray-800 dark:text-gray-200 mb-4">
                 📊 GitHub Stats
-              </h3>
+              </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <img

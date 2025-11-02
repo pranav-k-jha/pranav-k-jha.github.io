@@ -129,9 +129,8 @@ const PublicationsPage = () => {
     },
   };
 
-  // Loading state is handled by the global loader
   if (loading) {
-    return null; // Return null to prevent double loading indicator
+    return null;
   }
 
   if (error) {

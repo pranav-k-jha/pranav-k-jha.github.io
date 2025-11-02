@@ -57,7 +57,6 @@ const Hero = () => {
           >
             Hello, I'm
           </motion.p>
-
           <motion.h1
             className={`text-2xl md:text-3xl lg:text-6xl font-bold mb-6 ${
               theme === "dark" ? "text-white" : "text-gray-900"
@@ -97,7 +96,6 @@ const Hero = () => {
               />
             </div>
           </motion.h1>
-
           <motion.p
             className={`text-lg  md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${
               theme === "dark" ? "text-gray-300" : "text-slate-600"
@@ -107,20 +105,28 @@ const Hero = () => {
             Building intelligent systems and solving complex problems with
             Machine Learning and Deep Learning.
           </motion.p>
-
           {/* Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             variants={fadeInUp}
           >
-            {/* <a
-              href="#projects"
-              className={`px-6 py-3 text-white rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center bg-gradient-to-r ${buttonGradient}`}
+            <a
+              href="/resources"
+              className={`
+                px-6 py-3 rounded-lg font-medium 
+                transition-all duration-300 
+                inline-flex items-center group
+                bg-gradient-to-r ${buttonGradient}
+                text-white hover:text-gray-100 
+                transform hover:-translate-y-0.5 
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
+                shadow-md hover:shadow-lg
+              `}
             >
               View My Work
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-2"
+                className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -130,7 +136,7 @@ const Hero = () => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a> */}
+            </a>
 
             <a
               href="mailto:pranav.jha@pranavjha.com"
@@ -152,7 +158,6 @@ const Hero = () => {
               </svg>
             </a>
           </motion.div>
-
           {/* Currently Working With */}
           <motion.div
             className="flex items-center justify-center md:justify-start mt-8 space-x-3"
@@ -178,6 +183,7 @@ const Hero = () => {
               className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
             />
           </motion.div>
+
           {/* Social Links */}
           <motion.div
             className="mt-8 flex justify-center md:justify-start space-x-6"

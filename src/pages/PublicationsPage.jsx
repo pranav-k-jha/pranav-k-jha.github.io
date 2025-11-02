@@ -130,12 +130,14 @@ const PublicationsPage = () => {
 
       <motion.div variants={containerVariants} className="space-y-8">
         {publications.map((work, index) => {
-          const title =
-            work["work-summary"]?.[0]?.title?.title?.value || "Untitled";
-          const url = work["work-summary"]?.[0]?.url?.value;
-          const year =
-            work["work-summary"]?.[0]?.["publication-date"]?.year?.value;
-          const journal = work["work-summary"]?.[0]?.["journal-title"]?.value;
+          const workSummary = work["work-summary"]?.[0] || {};
+          const title = workSummary?.title?.title?.value || "Untitled";
+          const url = workSummary?.url?.value;
+          const year = workSummary?.["publication-date"]?.year?.value;
+          const journal = workSummary?.["journal-title"]?.value;
+          const doi = workSummary?.["external-ids"]?.["external-id"]?.find(
+            (id) => id["external-id-type"] === "doi"
+          )?.["external-id-value"];
           const type = work["work-summary"]?.[0]?.type;
           const authors = work["work-summary"]?.[0]?.["contributors"]?.[
             "contributor"
@@ -148,8 +150,6 @@ const PublicationsPage = () => {
               key={index}
               variants={itemVariants}
               whileHover={{ x: 4 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group"
             >
               <div className="flex items-baseline">
                 <div className="text-sm font-mono text-gray-500 dark:text-gray-400 w-16 flex-shrink-0">
@@ -166,38 +166,35 @@ const PublicationsPage = () => {
                   >
                     {title}
                   </h3>
-                  <div className="text-sm mt-1 text-gray-600 dark:text-gray-400">
-                    {authors && <span>{authors}. </span>}
-                    {journal && <span className="italic">{journal}</span>}
+                  <div className="flex flex-wrap items-center gap-2 mt-1">
+                    {journal && (
+                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                        {journal}
+                      </span>
+                    )}
                     {type && (
-                      <span className="ml-2 px-2 py-0.5 text-xs rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                      <span className="px-2 py-0.5 text-xs rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
                         {type.replace(/_/g, " ").toLowerCase()}
                       </span>
                     )}
                   </div>
-                  {url && (
-                    <motion.a
-                      href={url}
+                  {doi && (
+                    <a
+                      href={`https://doi.org/${doi}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      whileHover={{ x: 2 }}
-                      className="text-xs text-blue-600 dark:text-blue-400 hover:underline mt-1 inline-block"
+                      className="text-xs font-mono text-blue-500 dark:text-blue-400 hover:underline block mt-1"
                     >
-                      View Publication →
-                    </motion.a>
+                      {doi}
+                    </a>
+                  )}
+                  {authors && (
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      {authors}.
+                    </p>
                   )}
                 </div>
               </div>
-              {index < publications.length - 1 && (
-                <motion.div
-                  initial={{ scaleX: 0 }}
-                  animate={{ scaleX: 1 }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-                  className={`h-px my-6 origin-left ${
-                    theme === "dark" ? "bg-gray-700" : "bg-gray-200"
-                  }`}
-                />
-              )}
             </motion.div>
           );
         })}

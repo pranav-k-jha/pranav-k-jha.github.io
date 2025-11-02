@@ -29,7 +29,7 @@ const ResourcePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         {/* Header with animation */}
         <motion.div

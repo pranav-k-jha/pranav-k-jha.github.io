@@ -6,7 +6,9 @@ import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
 import BentoDemo from "./components/bento-features";
-// Lazy load components
+import ScrollToTop from "./components/ScrollToTop"; // ✅ new import
+
+// Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
 const PublicationsPage = lazy(() => import("./pages/PublicationsPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
@@ -14,7 +16,7 @@ const BlogPost = lazy(() => import("./components/BlogPost"));
 const ResourcePage = lazy(() => import("./pages/ResourcePage"));
 
 function App() {
-  // Smooth scroll for anchor links
+  // Smooth scroll for internal anchor links (#section)
   useEffect(() => {
     const handleAnchorClick = (e) => {
       const targetId = e.currentTarget.getAttribute("href");
@@ -32,33 +34,22 @@ function App() {
     };
 
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
-    anchorLinks.forEach((link) => {
-      link.addEventListener("click", handleAnchorClick);
-    });
-
-    const handlePopState = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const targetElement = document.querySelector(hash);
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: "smooth" });
-        }
-      }
-    };
-
-    window.addEventListener("popstate", handlePopState);
+    anchorLinks.forEach((link) =>
+      link.addEventListener("click", handleAnchorClick)
+    );
 
     return () => {
-      anchorLinks.forEach((link) => {
-        link.removeEventListener("click", handleAnchorClick);
-      });
-      window.removeEventListener("popstate", handlePopState);
+      anchorLinks.forEach((link) =>
+        link.removeEventListener("click", handleAnchorClick)
+      );
     };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-200">
       <Navbar />
+      <ScrollToTop />
+
       <main className="flex-grow">
         <Suspense fallback={<Loader />}>
           <Routes>
@@ -81,6 +72,7 @@ function App() {
           </Routes>
         </Suspense>
       </main>
+
       <Footer />
     </div>
   );

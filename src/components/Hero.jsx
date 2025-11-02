@@ -63,12 +63,8 @@ const Hero = () => {
             }`}
             variants={fadeInUp}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
-              PRANAV
-            </span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-purple-600 to-blue-600 dark:from-emerald-400 dark:via-purple-400 dark:to-blue-400">
-              {" "}
-              JHA
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300">
+              PRANAV JHA
             </span>
             <div className="w-full text-center md:text-left">
               <TypeAnimation

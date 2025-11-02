@@ -67,9 +67,9 @@ const Footer = () => {
   // Quick navigation links
   const quickLinks = [
     { name: "About", href: "#about" },
-    { name: "Experience", href: "#experience" },
-    { name: "Publications", href: "#publications" },
-    { name: "Contact", href: "#contact" },
+    { name: "Publications", href: "/publications" },
+    { name: "Resources", href: "/resources" },
+    { name: "Blog", href: "/blog" },
   ];
 
   return (

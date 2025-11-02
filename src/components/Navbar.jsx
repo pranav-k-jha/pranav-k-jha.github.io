@@ -83,7 +83,7 @@ export default function Navbar() {
               <div key={item.href} className="relative group">
                 <Link
                   to={item.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
                     location.pathname === item.href
                       ? "text-blue-600 dark:text-blue-400"
                       : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"

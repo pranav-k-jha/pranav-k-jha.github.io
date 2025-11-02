@@ -191,12 +191,6 @@ const About = () => {
               >
                 Contact Me
               </a>
-              <a
-                href="#projects"
-                className="px-6 py-3 text-blue-600 dark:text-blue-400 font-medium rounded-lg border-2 border-blue-600 dark:border-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                View My Work
-              </a>
             </div>
           </motion.div>
         </div>

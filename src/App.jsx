@@ -6,12 +6,12 @@ import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
 import BentoDemo from "./components/bento-features";
-
 // Lazy load components
 const About = lazy(() => import("./components/About"));
 const PublicationsPage = lazy(() => import("./pages/PublicationsPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
+const ResourcePage = lazy(() => import("./pages/ResourcePage"));
 
 function App() {
   // Smooth scroll for anchor links
@@ -77,6 +77,7 @@ function App() {
             <Route path="/publications" element={<PublicationsPage />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/resources" element={<ResourcePage />} />
           </Routes>
         </Suspense>
       </main>

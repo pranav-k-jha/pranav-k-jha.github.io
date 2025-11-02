@@ -8,6 +8,10 @@ export const navigationConfig = [
     href: "/publications",
   },
   {
+    title: "Resources",
+    href: "/resources",
+  },
+  {
     title: "Blog",
     href: "/blog",
   },

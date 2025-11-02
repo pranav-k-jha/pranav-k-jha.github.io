@@ -131,7 +131,7 @@ const Hero = () => {
                   padding: "0.2em 0",
                 }}
                 repeat={Infinity}
-                className={`bg-clip-text text-transparent ${styles.headingGradient} w-full text-gray-900 dark:text-gray-100 font-semibold text-2xl md:text-3xl lg:text-4xl`}
+                className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 w-full font-bold text-3xl md:text-4xl lg:text-5xl"
               />
             </div>
           </motion.h1>

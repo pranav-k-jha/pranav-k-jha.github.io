@@ -8,7 +8,7 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.05, delayChildren: 0.1 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
   },
   exit: {
     opacity: 0,
@@ -17,14 +17,28 @@ const container = {
 };
 
 const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
+  hidden: { opacity: 0, y: 30, scale: 0.95 },
+  show: (index) => ({
     opacity: 1,
     y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 15 },
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
+      delay: index * 0.15,
+    },
+  }),
+  exit: {
+    opacity: 0,
+    y: -20,
+    scale: 0.9,
+    transition: { duration: 0.2 },
   },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.2 } },
-  hover: { y: -5, transition: { type: "spring", stiffness: 400, damping: 10 } },
+  hover: {
+    y: -5,
+    transition: { type: "spring", stiffness: 400, damping: 10 },
+  },
   tap: { scale: 0.98 },
 };
 
@@ -146,19 +160,25 @@ export default function BlogPage() {
         <motion.div
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
           variants={container}
+          initial="hidden"
+          animate="show"
           ref={containerRef}
         >
-          <AnimatePresence>
-            {posts.map((post) => (
+          <AnimatePresence mode="wait">
+            {posts.map((post, index) => (
               <motion.article
                 key={post.slug}
                 variants={item}
+                custom={index}
+                initial="hidden"
+                animate="show"
+                exit="exit"
+                layout
                 className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col relative"
                 onHoverStart={() => setHoveredCard(post.slug)}
                 onHoverEnd={() => setHoveredCard(null)}
                 whileHover="hover"
                 whileTap="tap"
-                viewport={{ once: true, margin: "-50px" }}
               >
                 <Link to={`/blog/${post.slug}`} className="block group">
                   {/* Featured Image */}
@@ -171,9 +191,10 @@ export default function BlogPage() {
                         src={post.image}
                         alt={post.title || "Blog post image"}
                         className="w-full h-full object-cover"
-                        initial={{ opacity: 0 }}
+                        initial={{ opacity: 0, scale: 1.1 }}
                         animate={{
                           opacity: 1,
+                          scale: 1,
                           transition: { duration: 0.5 },
                         }}
                       />

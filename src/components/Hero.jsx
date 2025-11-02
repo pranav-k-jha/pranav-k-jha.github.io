@@ -41,7 +41,7 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
-      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-44 lg:pb-44 overflow-hidden font-sans transition-colors duration-500 ${bgGradient}`}
+      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-40 lg:pb-40 overflow-hidden font-sans transition-colors duration-500 ${bgGradient}`}
       initial="hidden"
       animate="show"
       variants={container}
@@ -337,19 +337,7 @@ const Hero = () => {
               variants={fadeInUp}
               transition={{ delay: 0.7 }}
             >
-              {/* Blog Posts */}
-              {/* <div
-                className={`text-xs px-3 py-1.5 rounded-full flex items-center ${
-                  theme === "dark"
-                    ? "bg-gray-800/40 text-gray-300"
-                    : "bg-white/80 text-gray-700 border border-gray-100"
-                }`}
-              >
-                <span className="mr-1.5">📝</span>
-                <span>12+ Blogs</span>
-              </div> */}
-
-              {/* Projects */}
+              {/* Publications */}
               <div
                 className={`text-xs px-3 py-1.5 rounded-full flex items-center ${
                   theme === "dark"

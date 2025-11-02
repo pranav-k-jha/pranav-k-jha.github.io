@@ -10,11 +10,48 @@ const PublicationsPage = () => {
   const [error, setError] = useState(null);
   const orcidId = "0000-0001-8053-988X";
 
+  // Manually added publications that aren't yet in ORCID
+  const additionalPublications = [
+    {
+      "work-summary": [
+        {
+          title: {
+            title: {
+              value:
+                "A Machine Learning Approach to Traffic Congestion Hotspot Identification and Prediction",
+            },
+          },
+          "publication-date": { year: { value: "2025" } },
+          "journal-title": {
+            value: "Future Transportation (ISSN 2673-7590)",
+          },
+          "journal-subtitle": {
+            value: "Accepted",
+          },
+          "external-ids": {
+            "external-id": [
+              {
+                "external-id-type": "doi",
+                "external-id-value": "10.xxxx/xxxxxx",
+              },
+            ],
+          },
+          "work-type": { value: "JOURNAL_ARTICLE" },
+          url: { value: "https://www.mdpi.com/2673-7590" },
+          manual: true,
+          "publication-status": "accepted",
+          "publication-status": "accepted",
+        },
+      ],
+    },
+  ];
+
   useEffect(() => {
     const loadPublications = async () => {
       try {
-        const works = await fetchORCIDPublications(orcidId);
-        const sortedWorks = [...(works || [])].sort((a, b) => {
+        const orcidWorks = (await fetchORCIDPublications(orcidId)) || [];
+        const allWorks = [...orcidWorks, ...additionalPublications];
+        const sortedWorks = allWorks.sort((a, b) => {
           const yearA =
             a["work-summary"]?.[0]?.["publication-date"]?.year?.value || 0;
           const yearB =
@@ -170,6 +207,11 @@ const PublicationsPage = () => {
                     {journal && (
                       <span className="text-sm text-gray-600 dark:text-gray-400">
                         {journal}
+                        {workSummary?.["journal-subtitle"]?.value && (
+                          <span className="ml-2 text-blue-500 dark:text-blue-400">
+                            • {workSummary["journal-subtitle"].value}
+                          </span>
+                        )}
                       </span>
                     )}
                     {type && (

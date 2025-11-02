@@ -21,7 +21,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-20  bg-gray-50 dark:bg-gray-900 overflow-x-hidden"
+      className="py-20 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 overflow-x-hidden"
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
@@ -68,8 +68,8 @@ const About = () => {
 
             {/* Core Areas & Research Interests */}
             <div className="space-y-4">
-              <div>
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-1 flex items-center">
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md">
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 flex items-center">
                   <span className="mr-2">💡</span> Expertise
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -87,15 +87,19 @@ const About = () => {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <img
-                  src="https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=default"
+                  src={`https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=${
+                    theme === "dark" ? "dark" : "default"
+                  }`}
                   alt="GitHub Streak"
-                  className="w-full h-auto rounded-lg max-w-full"
+                  className="w-full h-auto rounded-lg max-w-full bg-white dark:bg-gray-800 p-2"
                   loading="lazy"
                 />
                 <img
-                  src="https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=default"
+                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=${
+                    theme === "dark" ? "dark" : "default"
+                  }`}
                   alt="Top Languages"
-                  className="w-full h-auto rounded-lg max-w-full"
+                  className="w-full h-auto rounded-lg max-w-full bg-white dark:bg-gray-800 p-2"
                   loading="lazy"
                 />
               </div>
@@ -105,12 +109,16 @@ const About = () => {
                 <h4 className="text-lg font-semibold text-gray-800 dark:text-white mb-2">
                   Contributions
                 </h4>
-                <img
-                  src="https://ghchart.rshah.org/pranav-k-jha"
-                  alt="GitHub Contributions"
-                  className="w-full h-auto rounded-lg max-w-full"
-                  loading="lazy"
-                />
+                <div className="bg-white dark:bg-gray-800 p-2 rounded-lg">
+                  <img
+                    src={`https://ghchart.rshah.org/pranav-k-jha${
+                      theme === "dark" ? "?color=2d3748" : ""
+                    }`}
+                    alt="GitHub Contributions"
+                    className="w-full h-auto rounded-lg max-w-full"
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
           </motion.div>
@@ -129,13 +137,19 @@ const About = () => {
                 <span className="mr-2">🤖</span> Current Focus
               </h3>
               <div className="space-y-3 text-gray-600 dark:text-gray-300 text-sm">
-                <p>
-                  Building scalable AI solutions with LLMs, RAG, and multi-agent
-                  systems for enterprise automation.
+                <p className="flex items-start">
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
+                  <span>
+                    Building scalable AI solutions with LLMs, RAG, and
+                    multi-agent systems for enterprise automation.
+                  </span>
                 </p>
-                <p>
-                  Exploring LLMOps, vector databases, and knowledge graphs for
-                  domain-specific intelligence.
+                <p className="flex items-start">
+                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
+                  <span>
+                    Exploring LLMOps, vector databases, and knowledge graphs for
+                    domain-specific intelligence.
+                  </span>
                 </p>
               </div>
             </div>

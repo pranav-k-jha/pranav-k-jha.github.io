@@ -107,7 +107,7 @@ const ResourcePage = () => {
 
   return (
     <motion.div
-      className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6"
+      className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6"
       initial="hidden"
       animate="show"
       exit="exit"

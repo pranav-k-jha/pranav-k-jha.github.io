@@ -85,7 +85,7 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
-      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-40 lg:pb-40 overflow-hidden font-sans transition-colors duration-500 ${styles.bgColor}`}
+      className="relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-40 lg:pb-40 overflow-hidden font-sans transition-all duration-500 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50"
       initial="hidden"
       animate="show"
       variants={animationVariants.container}
@@ -106,7 +106,7 @@ const Hero = () => {
             className={`text-2xl md:text-3xl lg:text-6xl font-bold mb-6 ${styles.text.heading}`}
             variants={animationVariants.fadeInUp}
           >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400">
               PRANAV JHA
             </span>
             <div className="w-full text-center md:text-left">
@@ -131,7 +131,7 @@ const Hero = () => {
                   padding: "0.2em 0",
                 }}
                 repeat={Infinity}
-                className={`bg-clip-text text-transparent ${styles.headingGradient} w-full`}
+                className={`bg-clip-text text-transparent ${styles.headingGradient} w-full text-gray-900 dark:text-gray-100 font-semibold text-2xl md:text-3xl lg:text-4xl`}
               />
             </div>
           </motion.h1>

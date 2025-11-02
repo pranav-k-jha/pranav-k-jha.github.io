@@ -152,6 +152,32 @@ const Hero = () => {
               </svg>
             </a>
           </motion.div>
+
+          {/* Currently Working With */}
+          <motion.div
+            className="flex items-center justify-center md:justify-start mt-8 space-x-3"
+            variants={fadeInUp}
+            transition={{ delay: 0.8 }}
+          >
+            <span
+              className={`text-sm ${
+                theme === "dark" ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              Currently working with
+            </span>
+            <img
+              src="/Fujitsu-Logo.png"
+              alt="Fujitsu"
+              className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
+            />
+            <span className="text-gray-400 mx-1">•</span>
+            <img
+              src="/western-logo.svg"
+              alt="Western University"
+              className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
+            />
+          </motion.div>
           {/* Social Links */}
           <motion.div
             className="mt-8 flex justify-center md:justify-start space-x-6"
@@ -169,7 +195,7 @@ const Hero = () => {
                   className={`p-2 rounded-full transition-colors ${social.color} text-gray-600 dark:text-gray-400`}
                   aria-label={social.label}
                 >
-                  <Icon className="h-6 w-6" />
+                  <Icon className="h-5 w-5" />
                 </a>
               );
             })}

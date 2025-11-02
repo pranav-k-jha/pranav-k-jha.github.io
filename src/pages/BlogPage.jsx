@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { getAllPosts } from "../content/blog/posts";
+import { getAllPosts } from "../content/blog/clientPosts";
 import { useEffect, useState } from "react";
 
 export default function BlogPage() {
@@ -35,7 +35,7 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -50,48 +50,100 @@ export default function BlogPage() {
           </p>
         </motion.div>
 
-        <div className="space-y-5">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, index) => (
             <motion.article
-              key={post.id}
+              key={post.slug}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: index * 0.08 }}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden hover:shadow-md transition-shadow duration-200 border border-gray-100 dark:border-gray-700"
+              transition={{ duration: 0.3, delay: index * 0.05 }}
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 border border-gray-100 dark:border-gray-700 flex flex-col"
             >
               <Link to={`/blog/${post.slug}`} className="block">
-                <div className="p-4">
-                  <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-2">
-                    <span className="bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded">
+                {/* Featured Image */}
+                <div className="h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden">
+                  {post.image ? (
+                    <img
+                      src={post.image}
+                      alt={post.title || "Blog post image"}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center text-gray-400">
+                      <svg
+                        className="w-12 h-12"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-5 flex-grow flex flex-col">
+                  {/* Category */}
+                  {post.category && (
+                    <span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-full mb-3">
                       {post.category}
                     </span>
-                    <span className="mx-1.5">•</span>
-                    <time dateTime={post.date}>{post.date}</time>
-                    <span className="mx-1.5">•</span>
-                    <span>{post.readTime}</span>
-                  </div>
-                  <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-1.5 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                    {post.title}
+                  )}
+
+                  {/* Title */}
+                  <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
+                    {post.title || "Untitled Post"}
                   </h2>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center text-sm text-blue-600 dark:text-blue-400 font-medium">
-                    Read more
-                    <svg
-                      className="w-3.5 h-3.5 ml-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
+
+                  {/* Excerpt */}
+                  {post.excerpt && (
+                    <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+                      {post.excerpt}
+                    </p>
+                  )}
+
+                  {/* Author and Date */}
+                  <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center">
+                    {post.authorAvatar ? (
+                      <img
+                        src={post.authorAvatar}
+                        alt={post.author || "Author"}
+                        className="w-8 h-8 rounded-full object-cover"
                       />
-                    </svg>
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-600 flex items-center justify-center text-sm font-medium text-gray-700 dark:text-gray-200">
+                        {post.author ? post.author.charAt(0) : "U"}
+                      </div>
+                    )}
+                    <div className="ml-3">
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        <div className="font-medium text-gray-900 dark:text-gray-100">
+                          {post.author || "Author"}
+                        </div>
+                        <div className="flex items-center">
+                          {post.date && (
+                            <time dateTime={post.date}>
+                              {new Date(post.date).toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </time>
+                          )}
+                          {post.readTime && (
+                            <>
+                              <span className="mx-2">•</span>
+                              <span>{post.readTime} read</span>
+                            </>
+                          )}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Link>

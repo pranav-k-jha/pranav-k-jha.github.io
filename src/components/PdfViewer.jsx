@@ -73,7 +73,7 @@ export default function PdfViewer({ pdfPath }) {
               <svg
                 className="w-4 h-4"
                 fill="none"
-                stroke="currentColor"
+                stroke="white"
                 viewBox="0 0 24 24"
               >
                 <path
@@ -86,7 +86,7 @@ export default function PdfViewer({ pdfPath }) {
             </button>
             <button
               onClick={zoomReset}
-              className="px-2 py-1 text-xs text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
+              className="px-2 py-1 text-xs text-gray-100 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600"
               title="Reset Zoom"
             >
               {Math.round(scale * 100)}%
@@ -100,7 +100,7 @@ export default function PdfViewer({ pdfPath }) {
               <svg
                 className="w-4 h-4"
                 fill="none"
-                stroke="currentColor"
+                stroke="white"
                 viewBox="0 0 24 24"
               >
                 <path

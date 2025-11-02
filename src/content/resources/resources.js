@@ -27,6 +27,14 @@ export const resources = [
     category: "Machine Learning",
     date: "2024-06-26",
   },
+  {
+    id: 4,
+    title: "SQL: Structured Query Language in Modern Data Management",
+    description: "Comprehensive guide on SQL in modern data management.",
+    pdfPath: "/resources/pdfs/1727490596359.pdf",
+    category: "Database",
+    date: "2024-06-26",
+  },
 ];
 
 // Categories for filtering

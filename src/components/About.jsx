@@ -138,15 +138,15 @@ const About = () => {
               </h3>
               <div className="space-y-3 text-gray-600 dark:text-gray-300 text-sm">
                 <p className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                  <span>
+                  <span className="inline-block w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+                  <span className="text-gray-700 dark:text-gray-200">
                     Building scalable AI solutions with LLMs, RAG, and
                     multi-agent systems for enterprise automation.
                   </span>
                 </p>
                 <p className="flex items-start">
-                  <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                  <span>
+                  <span className="inline-block w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full mr-3 mt-1.5 flex-shrink-0"></span>
+                  <span className="text-gray-700 dark:text-gray-200">
                     Exploring LLMOps, vector databases, and knowledge graphs for
                     domain-specific intelligence.
                   </span>

@@ -18,6 +18,29 @@ const PublicationsPage = () => {
           title: {
             title: {
               value:
+                "A Grid-Enabled Framework Integrating Computer Vision and Machine Learning for Real-Time Intersection Intelligence and Autonomous Vehicle Coordination",
+            },
+          },
+          "publication-date": { year: { value: "2025" } },
+          "journal-title": {
+            value: "MDPI Applied Sciences",
+          },
+          "journal-subtitle": {
+            value: "Submitted",
+          },
+          "work-type": { value: "JOURNAL_ARTICLE" },
+          url: { value: "https://www.mdpi.com/journal/applsci" },
+          manual: true,
+          "publication-status": "submitted",
+        },
+      ],
+    },
+    {
+      "work-summary": [
+        {
+          title: {
+            title: {
+              value:
                 "A Machine Learning Approach to Traffic Congestion Hotspot Identification and Prediction",
             },
           },
@@ -39,7 +62,6 @@ const PublicationsPage = () => {
           "work-type": { value: "JOURNAL_ARTICLE" },
           url: { value: "https://www.mdpi.com/2673-7590" },
           manual: true,
-          "publication-status": "accepted",
           "publication-status": "accepted",
         },
       ],

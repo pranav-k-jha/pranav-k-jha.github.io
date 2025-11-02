@@ -88,21 +88,26 @@ const ResourcePage = () => {
           </motion.div>
 
           {/* PDF Viewer with animation */}
+          {/* PDF Viewer with animation */}
           <motion.div
             id="pdf-viewer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3 }}
-            className="md:col-span-2"
+            className="md:col-span-2 max-w-4xl mx-auto w-full" // Added max-w-4xl and w-full
           >
             {selectedPdf ? (
-              <PdfViewer pdfPath={selectedPdf} />
+              <div className="w-[95%] mx-auto">
+                {" "}
+                {/* Added wrapper div with width control */}
+                <PdfViewer pdfPath={selectedPdf} />
+              </div>
             ) : (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="flex flex-col items-center justify-center h-96 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg shadow"
+                className="flex flex-col items-center justify-center h-96 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg shadow w-full max-w-2xl mx-auto" // Added width constraints
               >
                 <svg
                   className="w-16 h-16 mb-4 text-gray-300"

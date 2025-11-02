@@ -60,7 +60,7 @@ const Footer = () => {
     { Icon: FaBrain, name: "AI/ML", color: "text-purple-600" },
     { Icon: SiTensorflow, name: "TensorFlow", color: "text-orange-600" },
     { Icon: SiPytorch, name: "PyTorch", color: "text-red-600" },
-    { Icon: SiNextdotjs, name: "Next.js", color: "text-black dark:text-white" },
+    { Icon: SiNextdotjs, name: "Next.js", color: "text-white" },
     { Icon: SiTailwindcss, name: "Tailwind", color: "text-teal-600" },
   ];
 

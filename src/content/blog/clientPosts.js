@@ -41,7 +41,11 @@ function parseFrontmatter(raw) {
 }
 
 // Vite: load all markdown files as raw strings at build time
-const files = import.meta.glob("./posts/*.md", { as: "raw", eager: true });
+const files = import.meta.glob("./posts/*.md", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
 
 const parsed = Object.entries(files)
   .map(([filePath, raw]) => {

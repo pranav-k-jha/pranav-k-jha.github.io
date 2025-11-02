@@ -350,16 +350,16 @@ const Hero = () => {
               </div> */}
 
               {/* Projects */}
-              {/* <div
+              <div
                 className={`text-xs px-3 py-1.5 rounded-full flex items-center ${
                   theme === "dark"
                     ? "bg-gray-800/40 text-gray-300"
                     : "bg-white/80 text-gray-700 border border-gray-100"
                 }`}
               >
-                <span className="mr-1.5">💻</span>
-                <span>8+ Projects</span>
-              </div> */}
+                <span className="mr-1.5">📚</span>
+                <span>8+ Publications</span>
+              </div>
 
               {/* Experience */}
               <div

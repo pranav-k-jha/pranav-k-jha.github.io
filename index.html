@@ -34,4 +34,13 @@
   <body>
     <div id="root"></div>
   </body>
+  <script>
+  // Check for a stored path in sessionStorage
+  const redirectPath = sessionStorage.getItem('redirectPath');
+  if (redirectPath) {
+    sessionStorage.removeItem('redirectPath');
+    // Use replaceState to update the URL without a page reload
+    window.history.replaceState({}, '', '/' + redirectPath);
+  }
+</script>
 </html>

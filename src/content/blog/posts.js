@@ -6,7 +6,7 @@ export const blogPosts = {
       "Learn the basics of machine learning and how to get started with your first project.",
     date: "2025-10-31",
     category: "Machine Learning",
-    readTime: "5 min read",
+    readTime: "2 min read",
     author: "Pranav K Jha",
     authorTitle: "AI Engineer",
     authorAvatar: "/profile.jpeg",
@@ -61,7 +61,7 @@ print(f"Model accuracy: {accuracy:.2f}")
       "A comprehensive introduction to deep learning concepts and applications.",
     date: "2025-11-01",
     category: "Deep Learning",
-    readTime: "8 min read",
+    readTime: "1 min read",
     author: "Pranav K Jha",
     authorTitle: "AI Engineer",
     authorAvatar: "/profile.jpeg",
@@ -90,6 +90,62 @@ model.compile(optimizer='adam',
               loss='sparse_categorical_crossentropy',
               metrics=['accuracy'])
 \`\`\`
+    `,
+  },
+  "cursor-vs-cloud-code": {
+    id: 3,
+    title: "Cursor vs Cloud Code: A Detailed Comparison for Developers",
+    excerpt:
+      "A comprehensive comparison between Cursor AI and Google Cloud Code for developers.",
+    date: "2025-11-02",
+    category: "Development Tools",
+    readTime: "2 min read",
+    author: "Pranav K Jha",
+    authorTitle: "AI Engineer",
+    authorAvatar: "/profile.jpeg",
+    content: `
+# Cursor vs Cloud Code: A Detailed Comparison for Developers
+
+In today's software development ecosystem, efficiency and automation are key. Developers rely on tools that **speed up coding**, **simplify deployment**, and **reduce repetitive tasks**. Two popular tools that have emerged in recent years are **Cursor** and **Cloud Code**. While they may seem similar at first glance, they serve very different purposes.
+
+## What is Cursor?
+
+[Cursor](https://www.cursor.so/) is an **AI-powered coding assistant** designed to help developers **write, refactor, and understand code more efficiently**.
+
+### Key Features of Cursor
+
+1. **AI Code Suggestions**
+   - Predicts your next lines of code
+   - Auto-generates functions or boilerplate code
+   - Provides smart refactoring suggestions
+
+2. **Multi-Language Support**
+   - Supports Python, JavaScript, TypeScript, Java, Go, Rust, and more
+   - Works across web frameworks and data science scripts
+
+## What is Cloud Code?
+
+[Cloud Code](https://cloud.google.com/code) is a **set of developer tools from Google Cloud** that simplifies **cloud-native application development**.
+
+### Key Features of Cloud Code
+
+1. **IDE Integration**
+   - Available for VS Code and JetBrains IDEs
+   - Provides seamless local and cloud workflows
+
+2. **Kubernetes & Cloud Run Support**
+   - Simplifies deploying apps to Kubernetes clusters
+   - Offers templates for Cloud Run
+
+
+## When to Use Which
+
+- **Use Cursor** if you want to write code faster, refactor efficiently, or learn new frameworks
+- **Use Cloud Code** if you're building and deploying cloud-native applications on Google Cloud
+
+## Conclusion
+
+Both tools are valuable but serve different purposes in the development workflow. Cursor enhances coding efficiency with AI, while Cloud Code simplifies cloud deployments and debugging.
     `,
   },
 };

@@ -10,15 +10,15 @@ const container = {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.01, // Further reduced stagger
-      delayChildren: 0.01, // Minimal initial delay
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
     },
   },
   exit: {
     opacity: 0,
     transition: {
       when: "afterChildren",
-      staggerChildren: 0.01, // Faster exit stagger
+      staggerChildren: 0.05,
       staggerDirection: -1,
     },
   },
@@ -27,33 +27,31 @@ const container = {
 const item = {
   hidden: {
     opacity: 0,
-    y: 5, // Reduced initial y-offset even more
-    scale: 0.99, // Closer to final scale
+    x: -20,
+    scale: 0.95,
   },
-  show: {
+  show: (index) => ({
     opacity: 1,
-    y: 0,
+    x: 0,
     scale: 1,
     transition: {
       type: "spring",
-      stiffness: 400, // Stiffer for snappier animation
-      damping: 25, // Slightly more damping
-      mass: 0.4, // Lighter for faster movement
-      velocity: 4, // Higher initial velocity
-      duration: 0.2, // Slightly faster overall
+      stiffness: 100,
+      damping: 15,
+      delay: index * 0.1,
     },
-  },
+  }),
   exit: {
     opacity: 0,
-    y: -10, // Reduced exit y-offset
-    scale: 0.98,
+    x: -20,
+    scale: 0.95,
     transition: {
-      duration: 0.15, // Faster exit
+      duration: 0.2,
       ease: "easeIn",
     },
   },
   hover: {
-    y: -2, // Reduced hover lift
+    y: -2,
     boxShadow:
       "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
     transition: {
@@ -64,7 +62,7 @@ const item = {
     },
   },
   tap: {
-    scale: 0.99, // Reduced tap scale for subtlety
+    scale: 0.98,
     transition: {
       type: "spring",
       stiffness: 400,
@@ -162,27 +160,13 @@ const ResourcePage = () => {
                 {resources.map((resource, index) => (
                   <motion.div
                     key={resource.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{
-                      opacity: 1,
-                      y: 0,
-                      transition: {
-                        duration: 0.3,
-                        delay: index * 0.03,
-                        ease: [0.16, 1, 0.3, 1],
-                      },
-                    }}
-                    exit={{ opacity: 0, y: -5, transition: { duration: 0.2 } }}
-                    whileHover={{
-                      y: -2,
-                      boxShadow:
-                        "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-                      transition: { duration: 0.2 },
-                    }}
-                    whileTap={{
-                      scale: 0.99,
-                      transition: { duration: 0.1 },
-                    }}
+                    variants={item}
+                    custom={index}
+                    initial="hidden"
+                    animate="show"
+                    exit="exit"
+                    whileHover="hover"
+                    whileTap="tap"
                     onClick={() => handlePdfSelect(resource.pdfPath)}
                     onHoverStart={() => setHoveredCard(resource.id)}
                     onHoverEnd={() => setHoveredCard(null)}

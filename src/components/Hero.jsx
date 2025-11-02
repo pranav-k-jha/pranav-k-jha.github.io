@@ -2,66 +2,109 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { socialLinks } from "../lib/socialLinks";
 import { useTheme } from "../context/ThemeContext";
+import { useMemo } from "react";
+
+// Animation variants - moved outside component to prevent recreation
+const animationVariants = {
+  container: {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  },
+  item: {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  },
+  fadeInUp: {
+    hidden: { opacity: 0, y: 20 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+      },
+    },
+  },
+  techContainer: {
+    hidden: {},
+    show: {
+      transition: {
+        staggerChildren: 0.15,
+      },
+    },
+  },
+};
+
+// Theme-based styles
+const themeStyles = {
+  dark: {
+    headingGradient:
+      "bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300",
+    buttonGradient: "from-blue-700 to-cyan-600 hover:shadow-blue-900/50",
+    text: {
+      primary: "text-cyan-300",
+      secondary: "text-gray-300",
+      heading: "text-white",
+    },
+    border: "border-cyan-300 hover:bg-gray-800/50",
+  },
+  light: {
+    headingGradient:
+      "bg-gradient-to-r from-blue-800 via-purple-800 to-emerald-800",
+    buttonGradient: "from-blue-600 to-cyan-500 hover:shadow-blue-500/30",
+    text: {
+      primary: "text-blue-600",
+      secondary: "text-slate-600",
+      heading: "text-gray-900",
+    },
+    border: "border-blue-600 hover:bg-blue-50",
+  },
+};
 
 const Hero = () => {
-  const { theme } = useTheme(); // Get current theme from context
-  const techStack = ["Python", "TensorFlow", "NLP", "LLM", "RAG", "Gen AI"];
+  const { theme } = useTheme();
+  const techStack = useMemo(
+    () => ["Python", "TensorFlow", "NLP", "LLM", "RAG", "Gen AI"],
+    []
+  );
 
-  // Animation variants
-  const container = {
-    hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.1 } },
-  };
-  const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } };
-  const fadeInUp = {
-    hidden: { opacity: 0, y: 20 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-  const techContainer = {
-    hidden: {},
-    show: { transition: { staggerChildren: 0.15 } },
-  };
-
-  // Dynamic background gradients
-  const bgGradient =
-    theme === "dark"
-      ? "bg-gradient-to-br from-gray-900 via-purple-900 to-blue-950"
-      : "bg-gradient-to-br from-blue-50 via-white to-cyan-50";
-
-  const headingGradient =
-    theme === "dark"
-      ? "bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-300"
-      : "bg-gradient-to-r from-blue-800 via-purple-800 to-emerald-800";
-
-  const buttonGradient =
-    theme === "dark"
-      ? "from-blue-700 to-cyan-600 hover:shadow-blue-900/50"
-      : "from-blue-600 to-cyan-500 hover:shadow-blue-500/30";
+  // Get current theme styles
+  const currentTheme = theme === "dark" ? "dark" : "light";
+  const styles = themeStyles[currentTheme] || themeStyles.light;
 
   return (
     <motion.section
       id="home"
-      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-40 lg:pb-40 overflow-hidden font-sans transition-colors duration-500 ${bgGradient}`}
+      className={`relative pt-24 pb-20 md:pt-32 md:pb-28 lg:pt-40 lg:pb-40 overflow-hidden font-sans transition-colors duration-500 ${styles.bgColor}`}
       initial="hidden"
       animate="show"
-      variants={container}
+      variants={animationVariants.container}
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10 grid md:grid-cols-2 gap-12 items-center">
         {/* Hero Text */}
-        <motion.div className="text-center md:text-left" variants={container}>
+        <motion.div
+          className="text-center md:text-left"
+          variants={animationVariants.container}
+        >
           <motion.p
-            className={`font-semibold mb-4 ${
-              theme === "dark" ? "text-cyan-300" : "text-blue-600"
-            }`}
-            variants={fadeInUp}
+            className={`font-semibold mb-4 ${styles.text.primary}`}
+            variants={animationVariants.fadeInUp}
           >
             Hello, I'm
           </motion.p>
           <motion.h1
-            className={`text-2xl md:text-3xl lg:text-6xl font-bold mb-6 ${
-              theme === "dark" ? "text-white" : "text-gray-900"
-            }`}
-            variants={fadeInUp}
+            className={`text-2xl md:text-3xl lg:text-6xl font-bold mb-6 ${styles.text.heading}`}
+            variants={animationVariants.fadeInUp}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300">
               PRANAV JHA
@@ -88,15 +131,13 @@ const Hero = () => {
                   padding: "0.2em 0",
                 }}
                 repeat={Infinity}
-                className={`bg-clip-text text-transparent ${headingGradient} w-full`}
+                className={`bg-clip-text text-transparent ${styles.headingGradient} w-full`}
               />
             </div>
           </motion.h1>
           <motion.p
-            className={`text-lg  md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${
-              theme === "dark" ? "text-gray-300" : "text-slate-600"
-            }`}
-            variants={fadeInUp}
+            className={`text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${styles.text.secondary}`}
+            variants={animationVariants.fadeInUp}
           >
             Building intelligent systems and solving complex problems with
             Machine Learning and Deep Learning.
@@ -104,7 +145,7 @@ const Hero = () => {
           {/* Buttons */}
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
-            variants={fadeInUp}
+            variants={animationVariants.fadeInUp}
           >
             <a
               href="/resources"
@@ -112,7 +153,7 @@ const Hero = () => {
                 px-6 py-3 rounded-lg font-medium 
                 transition-all duration-300 
                 inline-flex items-center group
-                bg-gradient-to-r ${buttonGradient}
+                bg-gradient-to-r ${styles.buttonGradient}
                 text-white hover:text-gray-100 
                 transform hover:-translate-y-0.5 
                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500
@@ -157,7 +198,7 @@ const Hero = () => {
           {/* Currently Working With */}
           <motion.div
             className="flex items-center justify-center md:justify-start mt-8 space-x-3"
-            variants={fadeInUp}
+            variants={animationVariants.fadeInUp}
             transition={{ delay: 0.8 }}
           >
             <span
@@ -171,19 +212,25 @@ const Hero = () => {
               src="/Fujitsu-Logo.png"
               alt="Fujitsu"
               className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
             <span className="text-gray-400 mx-1">•</span>
             <img
               src="/western-logo.svg"
               alt="Western University"
               className="h-7 object-contain opacity-90 hover:opacity-100 transition-opacity"
+              onError={(e) => {
+                e.target.style.display = "none";
+              }}
             />
           </motion.div>
 
           {/* Social Links */}
           <motion.div
             className="mt-8 flex justify-center md:justify-start space-x-6"
-            variants={fadeInUp}
+            variants={animationVariants.fadeInUp}
             transition={{ delay: 0.6 }}
           >
             {socialLinks.map((social) => {
@@ -212,51 +259,6 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="relative z-10 w-full max-w-lg mx-auto">
-            {/* Animated Blobs */}
-            <motion.div
-              animate={{
-                x: [0, 30, -20, 0],
-                y: [0, -50, 20, 0],
-                scale: [1, 1.1, 0.9, 1],
-              }}
-              transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className={`absolute -top-6 -left-6 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${
-                theme === "dark" ? "bg-purple-700" : "bg-blue-500"
-              }`}
-            />
-            <motion.div
-              animate={{
-                x: [0, 30, -20, 0],
-                y: [0, -50, 20, 0],
-                scale: [1, 1.1, 0.9, 1],
-              }}
-              transition={{
-                duration: 7,
-                repeat: Infinity,
-                delay: 2,
-                ease: "easeInOut",
-              }}
-              className={`absolute -bottom-8 -right-4 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${
-                theme === "dark" ? "bg-blue-700" : "bg-cyan-400"
-              }`}
-            />
-            <motion.div
-              animate={{
-                x: [0, 30, -20, 0],
-                y: [0, -50, 20, 0],
-                scale: [1, 1.1, 0.9, 1],
-              }}
-              transition={{
-                duration: 7,
-                repeat: Infinity,
-                delay: 4,
-                ease: "easeInOut",
-              }}
-              className={`absolute -top-8 -right-4 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-20 ${
-                theme === "dark" ? "bg-teal-600" : "bg-indigo-500"
-              }`}
-            />
-
             {/* Code Block */}
             <motion.div
               className={`relative z-10 p-1 rounded-2xl shadow-2xl border ${
@@ -296,7 +298,7 @@ const Hero = () => {
               </div>
             </motion.div>
             {/* Tech Stack */}
-            <motion.div className="mt-12" variants={fadeInUp}>
+            <motion.div className="mt-12" variants={animationVariants.fadeInUp}>
               <p
                 className={`text-sm mb-4 ${
                   theme === "dark" ? "text-gray-400" : "text-slate-500"
@@ -306,14 +308,14 @@ const Hero = () => {
               </p>
               <motion.div
                 className="flex flex-wrap gap-4 justify-center md:justify-start"
-                variants={techContainer}
+                variants={animationVariants.techContainer}
                 initial="hidden"
                 animate="show"
               >
                 {techStack.map((tech) => (
                   <motion.div
                     key={tech}
-                    variants={item}
+                    variants={animationVariants.item}
                     className={`text-xs font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border ${
                       theme === "dark"
                         ? "bg-gray-800 text-cyan-300 border-gray-700"
@@ -330,7 +332,7 @@ const Hero = () => {
             {/* Compact Stats */}
             <motion.div
               className="mt-6 flex flex-wrap gap-3"
-              variants={fadeInUp}
+              variants={animationVariants.fadeInUp}
               transition={{ delay: 0.7 }}
             >
               {/* Publications */}

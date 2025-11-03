@@ -185,11 +185,12 @@ export default function BlogPost() {
                       {...props}
                     />
                   ),
-                  blockquote: ({ children }) => (
+                  blockquote: ({ node, ...props }) => (
                     <blockquote
-                      className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-r"
-                      {...children}
-                    />
+                      className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700/70"
+                    >
+                      {props.children}
+                    </blockquote>
                   ),
                   table: ({ children }) => (
                     <div className="overflow-x-auto my-6 rounded-lg border border-gray-200 dark:border-gray-700">

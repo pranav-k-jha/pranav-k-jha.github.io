@@ -3,33 +3,58 @@ import { createContext, useContext, useState, useEffect } from "react";
 const ThemeContext = createContext();
 
 const getInitialTheme = () => {
-  if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-    return localStorage.getItem("theme");
+  // Only run on client-side
+  if (typeof window === 'undefined') {
+    return 'light'; // Default server-side theme
   }
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    return "dark";
+  
+  // Check localStorage first
+  if (localStorage.getItem('theme')) {
+    return localStorage.getItem('theme');
   }
-  return "light";
+  
+  // Then check system preference
+  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    return 'dark';
+  }
+  
+  return 'light';
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(getInitialTheme());
+  const [theme, setTheme] = useState('light'); // Start with light by default
+  const [mounted, setMounted] = useState(false);
 
+  // Set the theme on component mount
   useEffect(() => {
-    const root = window.document.documentElement;
+    setTheme(getInitialTheme());
+    setMounted(true);
+  }, []);
 
-    if (theme === "dark") {
-      root.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    } else {
-      root.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+  // Apply theme changes
+  useEffect(() => {
+    const root = document.documentElement;
+    
+    // Remove both classes first to prevent any conflicts
+    root.classList.remove('light', 'dark');
+    
+    // Add the current theme class
+    root.classList.add(theme);
+    
+    // Save to localStorage
+    if (mounted) {
+      localStorage.setItem('theme', theme);
     }
-  }, [theme]);
+  }, [theme, mounted]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
+
+  // Prevent rendering until we've determined the theme to avoid flicker
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -41,7 +66,7 @@ export const ThemeProvider = ({ children }) => {
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (context === undefined) {
-    throw new Error("useTheme must be used within a ThemeProvider");
+    throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
 };

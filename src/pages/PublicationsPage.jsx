@@ -31,34 +31,6 @@ const PublicationsPage = () => {
         },
       ],
     },
-    {
-      "work-summary": [
-        {
-          title: {
-            title: {
-              value:
-                "A Machine Learning Approach to Traffic Congestion Hotspot Identification and Prediction",
-            },
-          },
-          "publication-date": { year: { value: "2025" } },
-          "journal-title": { value: "Future Transportation (ISSN 2673-7590)" },
-          "journal-subtitle": { value: "Accepted" },
-          "work-type": { value: "JOURNAL_ARTICLE" },
-          type: "JOURNAL_ARTICLE", // Added type field
-          "external-ids": {
-            "external-id": [
-              {
-                "external-id-type": "doi",
-                "external-id-value": "10.xxxx/xxxxxx",
-              },
-            ],
-          },
-          url: { value: "https://www.mdpi.com/journal/futuretransp" },
-          manual: true,
-          "publication-status": "accepted",
-        },
-      ],
-    },
   ];
 
   useEffect(() => {

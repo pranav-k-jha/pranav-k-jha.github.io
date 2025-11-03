@@ -35,6 +35,14 @@ export const resources = [
     category: "Database",
     date: "2024-06-26",
   },
+  {
+    id: 5,
+    title: "Neural Networks Solved Questions",
+    description: "Solved questions on neural networks.",
+    pdfPath: "/resources/pdfs/1727493473454.pdf",
+    category: "Neural Networks",
+    date: "2025-11-02",
+  },
 ];
 
 // Categories for filtering

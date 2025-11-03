@@ -224,7 +224,7 @@ export default function BlogPost() {
                     </td>
                   ),
                   code: ({ inline, className, children, ...rest }) => {
-                    const match = /language-(\w+)/.exec(className || '');
+                    const match = /language-(\w+)/.exec(className || "");
                     return !inline ? (
                       <div className="bg-gray-900 text-gray-100 rounded-lg p-3 my-4 overflow-x-auto text-sm">
                         <code

@@ -1,28 +1,10 @@
 import { createContext, useContext, useState, useEffect } from "react";
+import { getInitialTheme, applyTheme } from "../utils/theme";
 
 const ThemeContext = createContext();
 
-const getInitialTheme = () => {
-  // Only run on client-side
-  if (typeof window === 'undefined') {
-    return 'light'; // Default server-side theme
-  }
-  
-  // Check localStorage first
-  if (localStorage.getItem('theme')) {
-    return localStorage.getItem('theme');
-  }
-  
-  // Then check system preference
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark';
-  }
-  
-  return 'light';
-};
-
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light'); // Start with light by default
+  const [theme, setTheme] = useState('light');
   const [mounted, setMounted] = useState(false);
 
   // Set the theme on component mount
@@ -33,17 +15,8 @@ export const ThemeProvider = ({ children }) => {
 
   // Apply theme changes
   useEffect(() => {
-    const root = document.documentElement;
-    
-    // Remove both classes first to prevent any conflicts
-    root.classList.remove('light', 'dark');
-    
-    // Add the current theme class
-    root.classList.add(theme);
-    
-    // Save to localStorage
     if (mounted) {
-      localStorage.setItem('theme', theme);
+      applyTheme(theme);
     }
   }, [theme, mounted]);
 

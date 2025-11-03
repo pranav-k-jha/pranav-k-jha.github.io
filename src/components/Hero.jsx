@@ -160,7 +160,7 @@ const Hero = () => {
                 shadow-md hover:shadow-lg
               `}
             >
-              View My Work
+              Learning Resources
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"

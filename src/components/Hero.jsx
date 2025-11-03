@@ -131,10 +131,12 @@ const Hero = () => {
                   padding: "0.2em 0",
                 }}
                 repeat={Infinity}
-                className="bg-clip-text text-transparent bg-gradient-to-r from-blue-700 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 w-full font-bold text-3xl md:text-4xl lg:text-5xl"
+                className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 via-pink-500 to-purple-400 dark:from-purple-500 dark:via-pink-400 dark:to-purple-300 w-full font-bold text-3xl md:text-4xl lg:text-6xl"
               />
             </div>
           </motion.h1>
+          {/* className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-400 dark:from-pink-400 dark:via-orange-400 dark:to-yellow-300 w-full font-bold text-3xl md:text-4xl lg:text-6xl" */}
+
           <motion.p
             className={`text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${styles.text.secondary}`}
             variants={animationVariants.fadeInUp}

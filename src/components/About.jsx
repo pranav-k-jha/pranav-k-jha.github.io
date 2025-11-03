@@ -95,20 +95,24 @@ const About = () => {
             </p>
 
             {/* Current Focus - Compact */}
-            <div className="p-3 bg-blue-50/50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-900/30">
-              <h4 className="text-sm font-semibold text-gray-800 dark:text-white mb-2 flex items-center">
+            <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-900/30 mt-4">
+              <h4 className="text-sm font-semibold text-gray-800 dark:text-white mb-3 flex items-center">
                 <Target className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
                 Current Focus
               </h4>
-              <div className="space-y-1.5 text-xs text-gray-600 dark:text-gray-300">
-                <p className="flex items-start">
-                  <span className="inline-block w-1 h-1 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                  Building scalable AI solutions with LLMs, RAG, and multi-agent
-                  systems
+              <div className="space-y-2 text-sm">
+                <p className="flex items-start text-gray-800 dark:text-gray-200">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                  <span>
+                    Building scalable AI solutions with LLMs, RAG, and
+                    multi-agent systems
+                  </span>
                 </p>
-                <p className="flex items-start">
-                  <span className="inline-block w-1 h-1 bg-blue-500 rounded-full mr-2 mt-1.5 flex-shrink-0"></span>
-                  Exploring LLMOps, vector databases, and knowledge graphs
+                <p className="flex items-start text-gray-800 dark:text-gray-200">
+                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                  <span>
+                    Exploring LLMOps, vector databases, and knowledge graphs
+                  </span>
                 </p>
               </div>
             </div>
@@ -198,7 +202,7 @@ const About = () => {
                 "MLOps & LLMOps",
                 "Cloud Architecture",
                 "Data Pipelines & ETL",
-                "Computer Vision",
+                "Natural Language Processing (NLP)",
                 "Reinforcement Learning",
               ].map((item, index) => (
                 <li key={index} className="flex items-start">

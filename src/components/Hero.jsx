@@ -302,7 +302,7 @@ const Hero = () => {
     def __init__(self):
         self.name = "Pranav Jha"
         self.role = "AI Engineer"
-        self.skills = ["Machine Learning", "Deep Learning", "Computer Vision"]
+        self.skills = ["Machine Learning", "Deep Learning", "Natural Language Processing (NLP)", "Computer Vision"]
         
     def build_ai_solutions(self):
         return "Transforming ideas into intelligent systems"`}</code>

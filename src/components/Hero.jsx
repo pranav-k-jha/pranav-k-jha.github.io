@@ -178,17 +178,28 @@ const Hero = () => {
             </a>
 
             <a
-              href="mailto:pranav.jha@pranavjha.com"
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center ${
-                theme === "dark"
-                  ? "border border-cyan-300 text-cyan-300 hover:bg-gray-800/50"
-                  : "border border-blue-600 text-blue-600 hover:bg-blue-50"
-              }`}
+              href="mailto:pranav.jha@mail.concordia.ca"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => {
+                window.location.href = "mailto:pranav.jha@mail.concordia.ca";
+                e.preventDefault();
+              }}
+              className={`px-6 py-3 rounded-lg font-medium transition-all duration-300 inline-flex items-center group border-2 
+    ${
+      theme === "dark"
+        ? "border-cyan-300 text-cyan-300 hover:bg-cyan-900/30 hover:shadow-cyan-500/20"
+        : "border-blue-600 text-blue-600 hover:bg-blue-50 hover:shadow-blue-500/20"
+    }
+    hover:shadow-lg hover:-translate-y-0.5
+    focus:outline-none focus:ring-2 focus:ring-offset-2 
+    ${theme === "dark" ? "focus:ring-cyan-400" : "focus:ring-blue-500"}
+    cursor-pointer`}
             >
               Let's Talk
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 ml-2"
+                className="h-5 w-5 ml-2 transition-transform duration-300 group-hover:translate-x-1"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >

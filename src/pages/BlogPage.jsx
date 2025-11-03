@@ -8,11 +8,11 @@ const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
-  },
-  exit: {
-    opacity: 0,
-    transition: { staggerChildren: 0.05, staggerDirection: -1 },
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+      when: "beforeChildren",
+    },
   },
 };
 
@@ -67,14 +67,14 @@ export default function BlogPage() {
 
   if (loading) {
     return (
-      <motion.div
-        initial="hidden"
-        animate="show"
-        variants={container}
-        className="min-h-screen bg-white dark:bg-gray-900 pt-32 pb-20 px-4 sm:px-6"
-      >
+      <div className="min-h-screen bg-white dark:bg-gray-900 pt-32 pb-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <motion.div className="text-center mb-12" variants={item}>
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={container}
+            className="text-center mb-12"
+          >
             <motion.h1
               className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent"
               variants={item}
@@ -88,8 +88,10 @@ export default function BlogPage() {
           </motion.div>
 
           <motion.div
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
             variants={container}
+            initial="hidden"
+            animate="show"
+            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
           >
             {[...Array(6)].map((_, i) => (
               <motion.div
@@ -115,7 +117,7 @@ export default function BlogPage() {
             ))}
           </motion.div>
         </div>
-      </motion.div>
+      </div>
     );
   }
 
@@ -164,7 +166,7 @@ export default function BlogPage() {
           animate="show"
           ref={containerRef}
         >
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {posts.map((post, index) => (
               <motion.article
                 key={post.slug}

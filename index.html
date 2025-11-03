@@ -1,6 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+  <head><script>// This script runs before React loads to prevent theme flash
+(function() {
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme');
+  
+  // Check for system preference
+  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  
+  // Determine theme
+  const theme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+  
+  // Apply theme
+  document.documentElement.classList.add(theme);
+  
+  // Save to localStorage if not already set
+  if (!savedTheme) {
+    localStorage.setItem('theme', theme);
+  }
+})();
+</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Pranav Jha - AI Engineer specializing in Machine Learning, Deep Learning, and Natural Language Processing. Building intelligent systems to solve real-world problems." />
@@ -49,7 +68,7 @@
         transition: background-color 0.35s ease, color 0.35s ease;
       }
     </style>
-    <script type="module" crossorigin src="/assets/main.Bp01xfKU.js"></script>
+    <script type="module" crossorigin src="/assets/main.BRlkC85g.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/main.UncRE2Yz.css">
   </head>
 

@@ -127,7 +127,7 @@ The journey from research to application is not a straight line but a bridge tha
 As I look out over the city from this bridge, I see endless possibilities for AI applications that can improve lives, optimize processes, and solve complex problems. The key is building the right bridges to connect our research with the real world.
 
 > "The best way to predict the future is to create it." - Peter Drucker\`,
-`,u=`---
+`,m=`---
 title: "GenAI vs Agentic AI: The Next Evolution of Intelligence"
 date: "2025-11-02"
 excerpt: "Understanding the key differences between Generative AI and the emerging Agentic AI paradigm"
@@ -140,27 +140,24 @@ slug: "genai-and-agentic-ai"
 image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
 ---
 
-Artificial Intelligence is evolving fast — and we're now moving from **Generative AI (GenAI)** to a more capable paradigm: **Agentic AI**.  
-Let's explore what sets them apart, how they work, and see real code examples for each.
+**Understanding the key differences between Generative AI and the emerging Agentic AI paradigm**
 
-## 🧠 What is Generative AI (GenAI)?
+Artificial Intelligence is evolving rapidly, transitioning from **Generative AI (GenAI)** to a more capable paradigm: **Agentic AI**. This article explores their differences, functionality, and provides practical code examples.
 
-**Generative AI** models are designed to _generate_ new data — text, code, images, or audio — based on what they have learned.
+## What is Generative AI (GenAI)?
 
-They’re powerful at:
+**Generative AI** models create new content—text, code, images, or audio—by learning from existing data. They excel at:
 
-- Writing code
-- Creating art or content
-- Summarizing text or answering questions
+- Code generation
+- Content creation
+- Text summarization
+- Question answering
 
-But — they are **reactive**.
-They respond to a prompt but **don’t plan, remember, or act autonomously**.
+However, they remain **reactive**, responding to prompts without planning, memory, or autonomous action.
 
----
+### Example: Text Generation with GenAI
 
-### 💡 Example: Text Generation with GenAI
-
-Here’s a simple Python example using the **OpenAI API** for text generation:
+The following Python example demonstrates text generation using the OpenAI API:
 
 \`\`\`python
 from openai import OpenAI
@@ -170,48 +167,35 @@ client = OpenAI()
 prompt = "Write a short poem about code and creativity."
 
 response = client.chat.completions.create(
-    model="gpt-4o",
+    model="gpt-4",
     messages=[{"role": "user", "content": prompt}]
 )
 
 print(response.choices[0].message.content)
 \`\`\`
 
-🧩 This is classic GenAI — it takes input and returns output.
+This represents traditional GenAI—processing input to produce output without further action.
 
-No planning, no follow-up action.
+## Understanding Agentic AI
 
----
+**Agentic AI** represents an advancement by incorporating decision-making, planning, and autonomous action. An AI Agent can:
 
-## 🤖 What is Agentic AI?
+- Analyze objectives
+- Make informed decisions
+- Execute code and tasks
+- Utilize memory and external tools
+- Learn from feedback
 
-**Agentic AI** goes one step further.
+### Example: Agentic AI Implementation
 
-It doesn’t just respond — it **decides** , **plans** , **remembers** , and **acts** .
-
-An **AI Agent** can:
-
-- Analyze goals
-- Make decisions
-- Execute code or tasks
-- Use memory and tools (like APIs or databases)
-- Learn from feedback loops
-
-It’s the bridge between AI **intelligence** and **autonomy** .
-
----
-
-### 🧩 Example: Agentic AI in Action
-
-Here’s a simple **Agentic AI** using the [LangChain](https://www.langchain.com/) framework:
+The following example demonstrates an AI agent using the LangChain framework:
 
 \`\`\`python
 from langchain.llms import OpenAI
 from langchain.agents import initialize_agent, Tool
 
-# Step 1: Define tools (functions the agent can use)
 def search_web(query):
-    return f"Pretending to search the web for '{query}'..."
+    return f"Searching web for: {query}"
 
 tools = [
     Tool(
@@ -221,80 +205,48 @@ tools = [
     )
 ]
 
-# Step 2: Initialize an agent with reasoning ability
 llm = OpenAI(temperature=0)
 agent = initialize_agent(tools, llm, agent_type="zero-shot-react-description")
-
-# Step 3: Run an autonomous query
 result = agent.run("Find the latest research papers about reinforcement learning.")
-
 print(result)
 \`\`\`
 
-🧠 The Agent:
+This agent demonstrates goal-oriented intelligence by interpreting objectives, selecting appropriate tools, and synthesizing results.
 
-1. Interprets the goal
-2. Decides which tool to use
-3. Executes the tool
-4. Returns a synthesized answer
+## Comparative Analysis: GenAI vs Agentic AI
 
-This is **goal-driven intelligence** , not just **prompt-driven output** .
+| Feature / Aspect     | Generative AI (GenAI)       | Agentic AI                              |
+| -------------------- | --------------------------- | --------------------------------------- |
+| **Core Function**    | Content generation          | Autonomous decision-making and action   |
+| **Memory**           | No persistent memory        | Contextual memory and recall            |
+| **Decision-Making**  | Reactive responses          | Goal-oriented, multi-step reasoning     |
+| **Tool Integration** | Limited                     | API, function, and database integration |
+| **Examples**         | ChatGPT, Midjourney, Gemini | AutoGPT, LangChain Agents, OpenDevin    |
+| **Primary Use Case** | Content creation            | Task automation, research assistance    |
 
----
+## Practical Applications
 
-## ⚔️ GenAI vs Agentic AI: Comparison
+- **GenAI Application**: "Generate a blog post about renewable energy."
 
-| Feature / Aspect    | Generative AI (GenAI)             | Agentic AI                             |
-| ------------------- | --------------------------------- | -------------------------------------- |
-| **Core Idea**       | Generate content or responses     | Think, decide, and act autonomously    |
-| **Memory**          | ❌ No persistent memory           | ✅ Can store and recall context        |
-| **Decision-Making** | ❌ Reactive only                  | ✅ Goal-oriented, multi-step reasoning |
-| **Tool Use**        | ❌ Limited                        | ✅ Can use APIs, functions, databases  |
-| **Examples**        | ChatGPT, Midjourney, Gemini       | AutoGPT, LangChain Agents, OpenDevin   |
-| **Use Case**        | Content creation, text generation | Task automation, research assistants   |
+  _Outcome_: Produces a single blog post.
 
----
+- **Agentic AI Application**: "Monitor industry news and publish weekly reports on renewable energy trends."
 
-## 🌍 Real-World Example
+  _Outcome_: Automates research, analysis, and content publication.
 
-- **GenAI:** You ask ChatGPT — _“Write me a blog post.”_
+## The Future of AI Development
 
-  → It writes it.
+While GenAI has established the foundation for AI creativity, Agentic AI introduces **autonomous functionality**. This evolution transforms AI from a responsive tool to an independent collaborator capable of managing complex workflows.
 
-- **Agentic AI:** You ask an AI Agent — _“Find trending AI topics and publish a blog post about them every week.”_
+## Key Takeaways
 
-  → It searches, writes, formats, and posts automatically.
+| Type           | Role in AI Ecosystem | Best Use Case                               |
+| -------------- | -------------------- | ------------------------------------------- |
+| **GenAI**      | Content generation   | Writing, coding, media creation             |
+| **Agentic AI** | Autonomous operation | Process automation, complex problem-solving |
 
----
-
-## 🧭 The Future: From Reactive to Proactive AI
-
-GenAI gave us creativity.
-
-Agentic AI adds **autonomy** — it’s the difference between a **smart assistant** and a **self-directed collaborator** .
-
-> 🔮 The future belongs to **Agentic AI** , where systems will manage entire workflows — not just individual tasks.
-
----
-
-## 🧱 Final Thoughts
-
-| Type           | Role in AI Ecosystem       | Best Use Case                            |
-| -------------- | -------------------------- | ---------------------------------------- |
-| **GenAI**      | Foundation for creativity  | Writing, coding, image generation        |
-| **Agentic AI** | Evolution towards autonomy | Automation, multi-step reasoning, RAG AI |
-
----
-
-✨ **In short:**
-
-- GenAI **creates** .
-- Agentic AI **acts** .
-
-  Together, they form the future of **self-improving, intelligent systems** .
-
----
-`,m=`---
+In summary, GenAI creates content, while Agentic AI takes action. Together, they form the foundation for self-improving, intelligent systems that will drive the next wave of technological advancement.
+`,p=`---
 title: "Urban Analytics: Using Computer Vision to Understand City Dynamics"
 date: "2024-12-15"
 excerpt: "Exploring how computer vision transforms urban planning and city management through data-driven insights"
@@ -564,6 +516,6 @@ def analyze_urban_heat_island(thermal_image_path):
 Standing in the heart of the city, surrounded by the complex patterns of urban life, I'm excited about the potential of computer vision to help us understand and improve our urban environments. By combining technical expertise with ethical considerations, we can create urban analytics systems that make cities more livable, sustainable, and equitable for everyone.
 
 The city is not just a collection of buildings and streets—it's a living, breathing system that we can learn to understand and optimize through the power of AI and computer vision.
-`;function p(n){if(!n.startsWith("---"))return{data:{},content:n};const e=n.indexOf(`
----`,3);if(e===-1)return{data:{},content:n};const i=n.slice(3,e).trim(),s=n.slice(e+4).replace(/^\s*\n/,""),a={};return i.split(`
-`).forEach(r=>{const o=r.indexOf(":");if(o>-1){const c=r.slice(0,o).trim();let t=r.slice(o+1).trim();(t.startsWith('"')&&t.endsWith('"')||t.startsWith("'")&&t.endsWith("'"))&&(t=t.slice(1,-1)),a[c]=t}}),{data:a,content:s}}const h=Object.assign({"./posts/building-bridges-ai-research.md":d,"./posts/genai-and-agentic-ai.md":u,"./posts/urban-analytics.md":m}),l=Object.entries(h).map(([n,e])=>{const i=n.split("/").pop().replace(/\.md$/,""),{data:s,content:a}=p(e);return{slug:i,...s,content:a}}).sort((n,e)=>new Date(e.date)-new Date(n.date));function g(){return l.map(({content:n,...e})=>e)}function f(n){return l.find(e=>e.slug===n)||null}export{f as a,g};
+`;function u(n){if(!n.startsWith("---"))return{data:{},content:n};const e=n.indexOf(`
+---`,3);if(e===-1)return{data:{},content:n};const i=n.slice(3,e).trim(),r=n.slice(e+4).replace(/^\s*\n/,""),a={};return i.split(`
+`).forEach(s=>{const o=s.indexOf(":");if(o>-1){const c=s.slice(0,o).trim();let t=s.slice(o+1).trim();(t.startsWith('"')&&t.endsWith('"')||t.startsWith("'")&&t.endsWith("'"))&&(t=t.slice(1,-1)),a[c]=t}}),{data:a,content:r}}const h=Object.assign({"./posts/building-bridges-ai-research.md":d,"./posts/genai-and-agentic-ai.md":m,"./posts/urban-analytics.md":p}),l=Object.entries(h).map(([n,e])=>{const i=n.split("/").pop().replace(/\.md$/,""),{data:r,content:a}=u(e);return{slug:i,...r,content:a}}).sort((n,e)=>new Date(e.date)-new Date(n.date));function g(){return l.map(({content:n,...e})=>e)}function f(n){return l.find(e=>e.slug===n)||null}export{f as a,g};

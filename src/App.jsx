@@ -6,8 +6,9 @@ import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
 import BentoDemo from "./components/bento-features";
-import ScrollToTop from "./components/ScrollToTop"; // ✅ new import
+import ScrollToTop from "./components/ScrollToTop";
 import Projects from "./pages/Projects";
+import ServicesPage from "./pages/ServicesPage";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -70,6 +71,7 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
+            <Route path="/services" element={<ServicesPage />} />
             <Route path="/resources" element={<ResourcePage />} />
           </Routes>
         </Suspense>

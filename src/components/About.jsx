@@ -20,19 +20,10 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`relative overflow-hidden rounded-xl p-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 ${className}`}
-      whileHover={{
-        y: -4,
-        boxShadow:
-          "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
-        transition: { duration: 0.3, ease: "easeOut" },
-      }}
-      style={{
-        boxShadow:
-          "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
-      }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5, delay }}
+      className={`relative overflow-hidden rounded-xl p-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg transition-shadow ${className}`}
+      whileHover={{ y: -3, transition: { duration: 0.2 } }}
     >
       {Icon && (
         <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-3">

@@ -10,7 +10,6 @@ const PublicationsPage = () => {
   const [error, setError] = useState(null);
   const orcidId = "0000-0001-8053-988X";
 
-  // Manually added publications
   const additionalPublications = [
     {
       "work-summary": [
@@ -25,6 +24,7 @@ const PublicationsPage = () => {
           "journal-title": { value: "MDPI Applied Sciences" },
           "journal-subtitle": { value: "Submitted" },
           "work-type": { value: "JOURNAL_ARTICLE" },
+          type: "JOURNAL_ARTICLE", // Added type field
           url: { value: "https://www.mdpi.com/journal/applsci" },
           manual: true,
           "publication-status": "submitted",
@@ -43,6 +43,8 @@ const PublicationsPage = () => {
           "publication-date": { year: { value: "2025" } },
           "journal-title": { value: "Future Transportation (ISSN 2673-7590)" },
           "journal-subtitle": { value: "Accepted" },
+          "work-type": { value: "JOURNAL_ARTICLE" },
+          type: "JOURNAL_ARTICLE", // Added type field
           "external-ids": {
             "external-id": [
               {
@@ -51,8 +53,7 @@ const PublicationsPage = () => {
               },
             ],
           },
-          "work-type": { value: "JOURNAL_ARTICLE" },
-          url: { value: "https://www.mdpi.com/2673-7590" },
+          url: { value: "https://www.mdpi.com/journal/futuretransp" },
           manual: true,
           "publication-status": "accepted",
         },

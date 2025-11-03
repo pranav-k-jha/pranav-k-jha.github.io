@@ -137,7 +137,7 @@ const ResourcePage = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15 }}
           >
-            Browse and explore our collection of resources
+            Browse and explore my collection of resources
           </motion.p>
         </motion.div>
 

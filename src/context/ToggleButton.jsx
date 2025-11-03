@@ -32,7 +32,7 @@ const ThemeToggle = () => {
 
       {/* Knob */}
       <motion.div
-        layout
+        layoutId="themeToggleKnob"
         transition={{
           type: "spring",
           stiffness: 500,
@@ -41,8 +41,11 @@ const ThemeToggle = () => {
         className={`relative z-10 w-6 h-6 rounded-full flex items-center justify-center shadow-md
           ${isLight ? "bg-white text-yellow-500" : "bg-gray-900 text-blue-400"}
         `}
+        style={{
+          x: isLight ? 0 : 28, // Using transform: translateX() instead of x for better performance
+        }}
         animate={{
-          x: isLight ? 0 : 32, // stays inside, moves precisely
+          x: isLight ? 0 : 28, // Matches the initial style
         }}
       >
         <AnimatePresence mode="wait" initial={false}>

@@ -85,23 +85,25 @@ const About = () => {
                 📊 GitHub Stats
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <img
-                  src={`https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=${
-                    theme === "dark" ? "dark" : "default"
-                  }`}
-                  alt="GitHub Streak"
-                  className="w-full h-auto rounded-lg max-w-full bg-white dark:bg-gray-800 p-2"
-                  loading="lazy"
-                />
-                <img
-                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=${
-                    theme === "dark" ? "dark" : "default"
-                  }`}
-                  alt="Top Languages"
-                  className="w-full h-auto rounded-lg max-w-full bg-white dark:bg-gray-800 p-2"
-                  loading="lazy"
-                />
+              <div className="bg-white dark:bg-gray-800 p-4 rounded-xl shadow-md">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <img
+                    src={`https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=${
+                      theme === "dark" ? "dark" : "default"
+                    }`}
+                    alt="GitHub Streak"
+                    className="w-full h-auto rounded-lg max-w-full p-2"
+                    loading="lazy"
+                  />
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=${
+                      theme === "dark" ? "dark" : "default"
+                    }`}
+                    alt="Top Languages"
+                    className="w-full h-auto rounded-lg max-w-full p-2"
+                    loading="lazy"
+                  />
+                </div>
               </div>
 
               {/* Contributions Calendar */}

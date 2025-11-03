@@ -1,15 +1,15 @@
-import { useTheme } from "../context/ThemeContext";
-import { Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
+import { useTheme } from "./ThemeContext";
 
 const ThemeToggle = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme = "dark", toggleTheme } = useTheme(); // Provide default value
   const isLight = theme === "light";
 
+  // Remove the early return to always render the button
   return (
     <motion.button
       onClick={toggleTheme}
-      whileTap={{ scale: 0.95 }}
       className={`relative flex items-center w-16 h-8 rounded-full p-1 
         transition-all duration-500 shadow-inner focus:outline-none focus:ring-2 
         focus:ring-offset-2 ${
@@ -32,7 +32,8 @@ const ThemeToggle = () => {
 
       {/* Knob */}
       <motion.div
-        layoutId="themeToggleKnob"
+        layout
+        key={theme}
         transition={{
           type: "spring",
           stiffness: 500,
@@ -42,13 +43,13 @@ const ThemeToggle = () => {
           ${isLight ? "bg-white text-yellow-500" : "bg-gray-900 text-blue-400"}
         `}
         style={{
-          x: isLight ? 0 : 28, // Using transform: translateX() instead of x for better performance
+          x: isLight ? 0 : 28,
         }}
         animate={{
-          x: isLight ? 0 : 28, // Matches the initial style
+          x: isLight ? 0 : 28,
         }}
       >
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="wait">
           <motion.div
             key={isLight ? "sun" : "moon"}
             initial={{ opacity: 0, scale: 0.8 }}

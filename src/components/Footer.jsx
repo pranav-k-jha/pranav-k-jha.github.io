@@ -143,6 +143,20 @@ const Footer = () => {
                   pranav.jha@mail.concordia.ca
                 </a>
               </motion.div>
+              <motion.div
+                className="flex items-center space-x-3 text-gray-400"
+                whileHover={{ scale: 1.02 }}
+              >
+                <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
+                  <FaEnvelope className="text-blue-400 text-sm" />
+                </div>
+                <a
+                  href="mailto:pranav.jha@fujitsu.com"
+                  className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
+                >
+                  pranav.jha@fujitsu.com
+                </a>
+              </motion.div>
             </div>
           </motion.div>
 

@@ -8,7 +8,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "genai-and-agentic-ai"
-image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
 ---
 
 Artificial Intelligence is evolving fast — and we're now moving from **Generative AI (GenAI)** to a more capable paradigm: **Agentic AI**.  

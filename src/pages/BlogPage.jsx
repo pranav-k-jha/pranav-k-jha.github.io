@@ -261,9 +261,23 @@ export default function BlogPage() {
                     </motion.p>
 
                     {/* Footer */}
-                    <motion.div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                      <span>{post.author || "Unknown Author"}</span>
+                    <motion.div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
                       <div className="flex items-center space-x-2">
+                        {post.authorAvatar && (
+                          <img
+                            src={post.authorAvatar}
+                            alt={post.author || "Author"}
+                            className="w-6 h-6 rounded-full object-cover border border-gray-200 dark:border-gray-600"
+                            onError={(e) => {
+                              e.target.style.display = "none";
+                            }}
+                          />
+                        )}
+                        <span className="text-xs text-gray-500 dark:text-gray-400">
+                          {post.author || "Unknown Author"}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
                         {post.date && (
                           <time dateTime={post.date}>
                             {new Date(post.date).toLocaleDateString("en-US", {

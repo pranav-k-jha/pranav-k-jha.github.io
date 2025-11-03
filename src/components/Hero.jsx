@@ -306,16 +306,33 @@ const Hero = () => {
               >
                 TECHNOLOGIES I WORK WITH
               </p>
+
+              {/* Container with staggered children */}
               <motion.div
                 className="flex flex-wrap gap-4 justify-center md:justify-start"
-                variants={animationVariants.techContainer}
+                variants={{
+                  hidden: {},
+                  show: {
+                    transition: {
+                      staggerChildren: 0.06, // faster stagger
+                      delayChildren: 0.1,
+                    },
+                  },
+                }}
                 initial="hidden"
                 animate="show"
               >
-                {techStack.map((tech) => (
+                {techStack.map((tech, index) => (
                   <motion.div
                     key={tech}
-                    variants={animationVariants.item}
+                    variants={{
+                      hidden: { opacity: 0, y: 10 },
+                      show: {
+                        opacity: 1,
+                        y: 0,
+                        transition: { duration: 0.3, ease: "easeOut" }, // simpler easing
+                      },
+                    }}
                     className={`text-xs font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border ${
                       theme === "dark"
                         ? "bg-gray-800 text-cyan-300 border-gray-700"
@@ -329,6 +346,7 @@ const Hero = () => {
                 ))}
               </motion.div>
             </motion.div>
+
             {/* Compact Stats */}
             <motion.div
               className="mt-6 flex flex-wrap gap-3"

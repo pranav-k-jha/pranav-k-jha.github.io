@@ -37,9 +37,9 @@
 
     <!-- Favicon & Fonts -->
     <link rel="canonical" href="https://pranav-k-jha.github.io" />
-    <link rel="icon" type="image/png" href="/pranav-k-jha.github.io/favicon_io/favicon.ico" />
-    <link rel="apple-touch-icon" href="/pranav-k-jha.github.io/favicon_io/apple-touch-icon.png" />
-    <link rel="manifest" href="/pranav-k-jha.github.io/site.webmanifest" />
+    <link rel="icon" type="image/png" href="/favicon_io/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon_io/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <title>Pranav Jha | AI Engineer</title>
@@ -68,8 +68,8 @@
         transition: background-color 0.35s ease, color 0.35s ease;
       }
     </style>
-    <script type="module" crossorigin src="/pranav-k-jha.github.io/assets/index.CvQyGJMP.js"></script>
-    <link rel="stylesheet" crossorigin href="/pranav-k-jha.github.io/assets/index.UncRE2Yz.css">
+    <script type="module" crossorigin src="/assets/main.BRlkC85g.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/main.UncRE2Yz.css">
   </head>
 
   <body>
@@ -86,17 +86,11 @@
 
     <!-- GitHub Pages redirect support -->
     <script>
-      // Handle redirects from 404.html
-      (function() {
-        const redirectPath = sessionStorage.getItem('redirectPath');
-        if (redirectPath) {
-          sessionStorage.removeItem('redirectPath');
-          // Use replaceState to update the URL without a page reload
-          window.history.replaceState(null, null, window.location.pathname + '#' + redirectPath);
-          // Force a navigation to the correct route
-          window.location.reload();
-        }
-      })();
+      const redirectPath = sessionStorage.getItem('redirectPath');
+      if (redirectPath) {
+        sessionStorage.removeItem('redirectPath');
+        window.history.replaceState({}, '', '/' + redirectPath);
+      }
     </script>
   </body>
 </html>

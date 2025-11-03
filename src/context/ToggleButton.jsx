@@ -32,21 +32,17 @@ const ThemeToggle = () => {
 
       {/* Knob */}
       <motion.div
-        layout
-        key={theme}
+        layout={false} // ❌ disable layout animation to prevent reflow jumps
         transition={{
           type: "spring",
           stiffness: 500,
           damping: 30,
         }}
         className={`relative z-10 w-6 h-6 rounded-full flex items-center justify-center shadow-md
-          ${isLight ? "bg-white text-yellow-500" : "bg-gray-900 text-blue-400"}
-        `}
-        style={{
-          x: isLight ? 0 : 28,
-        }}
+    ${isLight ? "bg-white text-yellow-500" : "bg-gray-900 text-blue-400"}
+  `}
         animate={{
-          x: isLight ? 0 : 28,
+          x: isLight ? 0 : 28, // smooth horizontal slide
         }}
       >
         <AnimatePresence mode="wait">

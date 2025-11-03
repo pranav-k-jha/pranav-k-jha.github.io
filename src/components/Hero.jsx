@@ -218,7 +218,7 @@ const Hero = () => {
             />
             <span className="text-gray-400 mx-1">•</span>
             <img
-              src="/western-logo.png"
+              src="/western-logo.svg"
               alt="Western University"
               className="h-5  object-contain opacity-90 hover:opacity-100 transition-opacity"
               onError={(e) => {

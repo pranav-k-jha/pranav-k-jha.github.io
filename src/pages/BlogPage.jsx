@@ -96,9 +96,7 @@ const BlogCard = ({ post, featured = false, index = 0 }) => {
     <motion.article
       custom={index}
       variants={cardVariants}
-      className={`group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg transition-shadow duration-300 ${
-        featured ? "h-[420px]" : "h-[400px]"
-      }`}
+      className={`group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg transition-shadow duration-300 flex flex-col h-full`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       whileHover={hoverTranslate}
@@ -139,7 +137,7 @@ const BlogCard = ({ post, featured = false, index = 0 }) => {
         </div>
 
         {/* Content */}
-        <div className="px-6 pt-5 pb-6 flex flex-col h-[calc(100%-12rem)]">
+        <div className="px-6 pt-5 pb-6 flex flex-col flex-grow">
           <div className="flex-1 flex flex-col">
             {/* Category */}
             <div className="mb-3">
@@ -149,18 +147,18 @@ const BlogCard = ({ post, featured = false, index = 0 }) => {
             </div>
 
             {/* Title */}
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight mb-3">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-tight mb-3">
               {post.title}
             </h3>
 
             {/* Excerpt */}
-            <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 flex-grow">
               {post.excerpt || "Read more about this article..."}
             </p>
           </div>
 
           {/* Meta Info */}
-          <div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700">
+          <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
                 <div className="flex items-center gap-1">

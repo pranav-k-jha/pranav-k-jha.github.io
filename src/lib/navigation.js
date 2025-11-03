@@ -11,16 +11,8 @@ export const navigationConfig = [
     title: "Resources",
     href: "/resources",
   },
-  // {
-  //   title: "Projects",
-  //   href: "/projects",
-  // },
   {
     title: "Blog",
     href: "/blog",
   },
-  // {
-  //   title: "Services",
-  //   href: "/services",
-  // },
 ];

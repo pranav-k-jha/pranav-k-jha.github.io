@@ -55,7 +55,7 @@ const About = () => {
             {/* Intro Text */}
             <div>
               <h2 className="text-xl text-gray-800 dark:text-gray-200 mb-4">
-                🧩 AI Solutions Architect
+                AI Solutions Architect
               </h2>
               <p className="text-gray-600 dark:text-gray-300">
                 Specializing in <span className="font-medium">LLMs</span>,{" "}
@@ -132,9 +132,9 @@ const About = () => {
             className="space-y-6"
           >
             {/* Current Focus */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-xl shadow-md">
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl shadow-md">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
-                <span className="mr-2">🤖</span> Current Focus
+                Current Focus
               </h3>
               <div className="space-y-3 text-gray-600 dark:text-gray-300 text-sm">
                 <p className="flex items-start">
@@ -157,7 +157,7 @@ const About = () => {
             {/* Technical Expertise */}
             <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4">
-                Technical Expertise
+                🧩 Technical Expertise
               </h3>
               <ul className="space-y-2 text-gray-700 dark:text-gray-300 text-sm">
                 {[

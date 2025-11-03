@@ -1,6 +1,11 @@
 import { motion } from "framer-motion";
 import { Brain, Bot, Zap, Cpu, Sparkles } from "lucide-react";
 
+// Check for reduced motion preference
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
 // BentoGrid component
 const BentoGrid = ({ children, className = "" }) => {
   return (
@@ -18,18 +23,65 @@ const BentoCard = ({
   href,
   background,
   className = "",
+  delay = 0,
 }) => {
   return (
     <motion.div
+      initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
       className={`relative overflow-hidden rounded-2xl p-6 h-full flex flex-col justify-between border border-gray-200 dark:border-gray-700 ${className}`}
-      whileHover={{ y: -5, borderColor: "rgba(59, 130, 246, 0.5)" }}
-      transition={{ duration: 0.3 }}
+      whileHover={
+        prefersReducedMotion
+          ? {}
+          : {
+              y: -5,
+              rotate: -1,
+              boxShadow:
+                "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+              borderColor: "rgba(59, 130, 246, 0.5)",
+              transition: { duration: 0.3, ease: "easeOut" },
+            }
+      }
+      whileTap={
+        prefersReducedMotion
+          ? {}
+          : {
+              scale: 0.98,
+              transition: { duration: 0.1 },
+            }
+      }
+      style={{
+        boxShadow:
+          "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      }}
     >
       {background}
+
+      {/* Hover glow effect */}
+      <motion.div
+        className="absolute inset-0 bg-gradient-to-br from-blue-400/0 via-purple-400/0 to-blue-400/0"
+        initial={{ opacity: 0 }}
+        whileHover={{ opacity: 0.1 }}
+        transition={{ duration: 0.3 }}
+      />
+
       <div className="relative z-10">
-        <div className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center mb-4">
+        <motion.div
+          className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center mb-4"
+          whileHover={
+            prefersReducedMotion
+              ? {}
+              : {
+                  scale: 1.1,
+                  rotate: 5,
+                  transition: { duration: 0.2 },
+                }
+          }
+        >
           <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-        </div>
+        </motion.div>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
           {name}
         </h3>
@@ -107,7 +159,13 @@ export function BentoDemo() {
       id="projects"
       className="w-full px-6 md:px-12 py-20 bg-slate-50 dark:bg-black"
     >
-      <div className="mx-auto flex flex-col items-center space-y-4 text-center mb-16">
+      <motion.div
+        className="mx-auto flex flex-col items-center space-y-4 text-center mb-16"
+        initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+      >
         <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
           Projects <span className="font-bold">I am interested in</span>
         </h2>
@@ -115,11 +173,11 @@ export function BentoDemo() {
           Exploring the intersection of AI, machine learning, and scalable
           systems to solve complex problems and drive innovation.
         </p>
-      </div>
+      </motion.div>
       {/* Bento grid component for project showcase */}
       <BentoGrid className="lg:grid-rows-3 max-w-7xl mx-auto">
-        {projects.map((project) => (
-          <BentoCard key={project.name} {...project} />
+        {projects.map((project, index) => (
+          <BentoCard key={project.name} {...project} delay={index * 0.1} />
         ))}
       </BentoGrid>
     </section>

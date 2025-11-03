@@ -134,7 +134,7 @@ const About = () => {
             className="space-y-6"
           >
             {/* Current Focus */}
-            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl shadow-md">
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl shadow-md p-6">
               <h3 className="text-xl font-semibold text-gray-800 dark:text-white mb-4 flex items-center">
                 Current Focus
               </h3>

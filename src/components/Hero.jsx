@@ -233,7 +233,7 @@ const Hero = () => {
             <img
               src="/western-logo.svg"
               alt="Western University"
-              className="h-5  object-contain opacity-90 hover:opacity-100 transition-opacity"
+              className="h-7  object-contain opacity-90 hover:opacity-100 transition-opacity"
               onError={(e) => {
                 e.target.style.display = "none";
               }}

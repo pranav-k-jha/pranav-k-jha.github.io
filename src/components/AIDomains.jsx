@@ -1,15 +1,32 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight, Brain, Database, Globe, Terminal } from "lucide-react";
 
-// Animation variants
-const ANIMATION_VARIANTS = {
-  hidden: { opacity: 0, y: 20 },
+// Optimized animation variants using best practices
+const container = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.95,
+  },
   visible: {
     opacity: 1,
     y: 0,
+    scale: 1,
     transition: {
-      duration: 0.4,
-      ease: "easeOut",
+      type: "spring",
+      stiffness: 100,
+      damping: 15,
     },
   },
 };
@@ -48,15 +65,18 @@ const aiDomains = [
 
 const AIDomains = () => {
   return (
-    <motion.section
+    <section
       id="ai-domains"
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
       className="max-w-7xl mx-auto py-20 bg-transparent dark:bg-gray-900 overflow-x-hidden"
     >
       <div className="container mx-auto px-6">
-        <motion.div variants={ANIMATION_VARIANTS} className="text-center mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="text-center mb-16"
+        >
           <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
             AI <span className="font-bold">Domains</span>
           </h2>
@@ -66,29 +86,37 @@ const AIDomains = () => {
           </p>
         </motion.div>
 
-        {/* Services grid with staggered animations */}
-        <div className="grid md:grid-cols-4 gap-6">
-          {aiDomains.map((domain, index) => (
+        {/* Services grid with optimized staggered animations */}
+        <motion.div
+          className="grid md:grid-cols-4 gap-6"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {aiDomains.map((domain) => (
             <motion.div
               key={domain.title}
-              variants={{
-                hidden: { opacity: 0, y: 20 },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  transition: {
-                    duration: 0.4,
-                    delay: index * 0.1, // Staggered animation delay
-                  },
+              variants={item}
+              whileHover={{
+                y: -5,
+                transition: {
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 10,
                 },
               }}
-              whileHover={{ scale: 1.03 }}
-              className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-400 rounded-2xl p-6 transition-all duration-300 ease-in-out"
+              whileTap={{ scale: 0.98 }}
+              className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-400 rounded-2xl p-6 transition-colors duration-300 ease-in-out"
             >
               {/* Service icon */}
-              <div className="mb-4 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+              <motion.div
+                className="mb-4 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
                 <domain.icon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
-              </div>
+              </motion.div>
               <h3 className="text-xl font-semibold mb-2 tracking-tight text-gray-900 dark:text-white">
                 {domain.title}
               </h3>
@@ -97,9 +125,9 @@ const AIDomains = () => {
               </p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

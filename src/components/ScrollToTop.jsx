@@ -49,7 +49,9 @@ const ScrollToTop = () => {
           <motion.button
             onClick={scrollToTop}
             className={`p-3 rounded-full backdrop-blur-sm transition-all duration-300 ${
-              isHovered ? "bg-white/10 shadow-lg" : "bg-black/5 dark:bg-white/5"
+              isHovered
+                ? "bg-blue-500/20 dark:bg-blue-500/30 shadow-lg"
+                : "bg-white/80 dark:bg-gray-800/80 shadow-md border border-gray-200 dark:border-gray-700"
             }`}
             aria-label="Scroll to top"
             whileTap={{ scale: 0.95 }}
@@ -57,7 +59,7 @@ const ScrollToTop = () => {
             <motion.div
               animate={{
                 y: isHovered ? -5 : 0,
-                opacity: isHovered ? 1 : 0.8,
+                opacity: isHovered ? 1 : 0.9,
               }}
               transition={{ duration: 0.3 }}
             >

@@ -7,6 +7,7 @@ import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
 import BentoDemo from "./components/bento-features";
 import ScrollToTop from "./components/ScrollToTop"; // ✅ new import
+import Projects from "./pages/Projects";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -66,6 +67,7 @@ function App() {
             />
             <Route path="/about" element={<About />} />
             <Route path="/publications" element={<PublicationsPage />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/resources" element={<ResourcePage />} />

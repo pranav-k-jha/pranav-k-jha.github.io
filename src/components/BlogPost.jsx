@@ -185,14 +185,46 @@ export default function BlogPost() {
                       {...props}
                     />
                   ),
-                  blockquote: (props) => (
+                  blockquote: ({ children }) => (
                     <blockquote
                       className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-r"
-                      {...props}
+                      {...children}
                     />
                   ),
+                  table: ({ children }) => (
+                    <div className="overflow-x-auto my-6 rounded-lg border border-gray-200 dark:border-gray-700">
+                      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        {children}
+                      </table>
+                    </div>
+                  ),
+                  thead: ({ children }) => (
+                    <thead className="bg-gray-50 dark:bg-gray-800">
+                      {children}
+                    </thead>
+                  ),
+                  tbody: ({ children }) => (
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                      {children}
+                    </tbody>
+                  ),
+                  tr: ({ children }) => (
+                    <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                      {children}
+                    </tr>
+                  ),
+                  th: ({ children }) => (
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                      {children}
+                    </th>
+                  ),
+                  td: ({ children }) => (
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                      {children}
+                    </td>
+                  ),
                   code: ({ inline, className, children, ...rest }) => {
-                    const match = /language-(\w+)/.exec(className || "");
+                    const match = /language-(\w+)/.exec(className || '');
                     return !inline ? (
                       <div className="bg-gray-900 text-gray-100 rounded-lg p-3 my-4 overflow-x-auto text-sm">
                         <code

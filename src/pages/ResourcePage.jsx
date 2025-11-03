@@ -10,16 +10,8 @@ const container = {
     opacity: 1,
     transition: {
       when: "beforeChildren",
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      when: "afterChildren",
-      staggerChildren: 0.05,
-      staggerDirection: -1,
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
   },
 };
@@ -30,7 +22,7 @@ const item = {
     x: -20,
     scale: 0.95,
   },
-  show: (index) => ({
+  show: {
     opacity: 1,
     x: 0,
     scale: 1,
@@ -38,35 +30,26 @@ const item = {
       type: "spring",
       stiffness: 100,
       damping: 15,
-      delay: index * 0.1,
     },
-  }),
+  },
   exit: {
     opacity: 0,
-    x: -20,
-    scale: 0.95,
+    scale: 0.9,
     transition: {
-      duration: 0.2,
-      ease: "easeIn",
+      duration: 0.15,
     },
   },
-  hover: {
-    y: -2,
-    boxShadow:
-      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+};
+
+const filterItem = {
+  hidden: { opacity: 0, scale: 0.8 },
+  show: {
+    opacity: 1,
+    scale: 1,
     transition: {
       type: "spring",
-      stiffness: 500,
-      damping: 15,
-      mass: 0.5,
-    },
-  },
-  tap: {
-    scale: 0.98,
-    transition: {
-      type: "spring",
-      stiffness: 400,
-      damping: 15,
+      stiffness: 200,
+      damping: 20,
     },
   },
 };
@@ -94,7 +77,17 @@ const pdfViewer = {
 const ResourcePage = () => {
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [hoveredCard, setHoveredCard] = useState(null);
+  const [activeFilter, setActiveFilter] = useState("All");
   const containerRef = useRef(null);
+
+  // Get unique categories
+  const categories = ["All", ...new Set(resources.map((r) => r.category))];
+
+  // Filter resources based on active filter
+  const filteredResources =
+    activeFilter === "All"
+      ? resources
+      : resources.filter((r) => r.category === activeFilter);
 
   const handlePdfSelect = (pdfPath) => {
     setSelectedPdf(pdfPath);
@@ -103,12 +96,16 @@ const ResourcePage = () => {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
+  const handleFilter = (category) => {
+    setActiveFilter(category);
+  };
+
   return (
     <motion.div
       className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6"
-      initial="hidden"
-      animate="show"
-      exit="exit"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto">
@@ -124,7 +121,7 @@ const ResourcePage = () => {
               damping: 15,
             },
           }}
-          className="text-center mb-12"
+          className="text-center mb-8"
         >
           <motion.h1
             className="text-4xl font-bold text-gray-900 dark:text-white mb-3"
@@ -144,33 +141,63 @@ const ResourcePage = () => {
           </motion.p>
         </motion.div>
 
+        {/* Filter Buttons */}
+        <motion.div
+          className="flex flex-wrap justify-center gap-3 mb-8"
+          variants={container}
+          initial="hidden"
+          animate="show"
+        >
+          {categories.map((category) => (
+            <motion.button
+              key={category}
+              variants={filterItem}
+              onClick={() => handleFilter(category)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                activeFilter === category
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/20"
+                  : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 border border-gray-200 dark:border-gray-700/50"
+              }`}
+            >
+              {category}
+            </motion.button>
+          ))}
+        </motion.div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Resource List with staggered animations */}
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="md:col-span-1"
-          >
+          <motion.div className="md:col-span-1">
             <motion.div
-              className="space-y-3 max-h-[70vh] overflow-y-auto pr-2"
+              className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
               layout
             >
-              <AnimatePresence mode="wait">
-                {resources.map((resource, index) => (
+              <AnimatePresence mode="popLayout">
+                {filteredResources.map((resource) => (
                   <motion.div
                     key={resource.id}
                     variants={item}
-                    custom={index}
                     initial="hidden"
                     animate="show"
                     exit="exit"
-                    whileHover="hover"
-                    whileTap="tap"
+                    layout
+                    layoutId={`resource-${resource.id}`}
                     onClick={() => handlePdfSelect(resource.pdfPath)}
                     onHoverStart={() => setHoveredCard(resource.id)}
                     onHoverEnd={() => setHoveredCard(null)}
-                    className={`relative p-4 rounded-lg cursor-pointer ${
+                    whileHover={{
+                      y: -2,
+                      boxShadow:
+                        "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                      transition: {
+                        type: "spring",
+                        stiffness: 400,
+                        damping: 10,
+                      },
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                    className={`relative p-4 rounded-lg cursor-pointer transition-colors ${
                       selectedPdf === resource.pdfPath
                         ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500"
                         : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
@@ -223,6 +250,19 @@ const ResourcePage = () => {
                   </motion.div>
                 ))}
               </AnimatePresence>
+
+              {/* Empty State for Filter */}
+              {filteredResources.length === 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center py-12"
+                >
+                  <p className="text-gray-500 dark:text-gray-400">
+                    No resources found in this category
+                  </p>
+                </motion.div>
+              )}
             </motion.div>
           </motion.div>
 

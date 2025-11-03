@@ -1,58 +1,180 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Clock, Calendar, ArrowRight } from "lucide-react";
 import { getAllPosts } from "../content/blog/clientPosts";
-import { useEffect, useState, useRef } from "react";
 
-// Animation variants
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-      when: "beforeChildren",
-    },
-  },
+// Blog Card Component
+const BlogCard = ({ post, featured = false }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <article
+      className={`group relative overflow-hidden rounded-2xl bg-white dark:bg-gray-800 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer ${
+        featured ? "h-[400px]" : "h-[380px]"
+      }`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      style={{
+        transform: isHovered ? "translateY(-4px)" : "translateY(0)",
+      }}
+    >
+      <Link to={`/blog/${post.slug}`} className="block h-full">
+        {/* Image Container */}
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={
+              post.image ||
+              "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop"
+            }
+            alt={post.title}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out"
+            style={{
+              transform: isHovered ? "scale(1.05)" : "scale(1)",
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
+
+          {/* Category Badge */}
+          {post.category && (
+            <div className="absolute top-4 left-4">
+              <span className="inline-flex items-center px-3 py-1 text-xs font-semibold text-white bg-blue-600/90 backdrop-blur-sm rounded-full">
+                {post.category}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Content */}
+        <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
+          <div className="flex-1">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              {post.title}
+            </h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-3 mb-4">
+              {post.excerpt || "Read more about this article..."}
+            </p>
+          </div>
+
+          {/* Meta Info */}
+          <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700">
+            <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+              <div className="flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5" />
+                <time dateTime={post.date}>
+                  {post.date
+                    ? new Date(post.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : "No date"}
+                </time>
+              </div>
+              <div className="flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5" />
+                <span>{post.readTime || "5 min read"}</span>
+              </div>
+            </div>
+
+            <div
+              style={{
+                transform: isHovered ? "translateX(4px)" : "translateX(0)",
+                transition: "transform 0.2s ease-out",
+              }}
+            >
+              <ArrowRight className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+            </div>
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
 };
 
-const item = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  show: (index) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 15,
-      delay: index * 0.15,
-    },
-  }),
-  exit: {
-    opacity: 0,
-    y: -20,
-    scale: 0.9,
-    transition: { duration: 0.2 },
-  },
-  hover: {
-    y: -5,
-    transition: { type: "spring", stiffness: 400, damping: 10 },
-  },
-  tap: { scale: 0.98 },
-};
+// Hero Section Component
+const HeroSection = ({ post }) => {
+  const [isHovered, setIsHovered] = useState(false);
 
-const imageHover = {
-  scale: 1.05,
-  transition: { duration: 0.3, ease: "easeOut" },
+  if (!post) return null;
+
+  return (
+    <section
+      className="relative h-[500px] rounded-3xl overflow-hidden group cursor-pointer"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <Link to={`/blog/${post.slug}`} className="block h-full">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src={
+              post.image ||
+              "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&h=900&fit=crop"
+            }
+            alt={post.title}
+            className="w-full h-full object-cover transition-transform duration-1000 ease-out"
+            style={{
+              transform: isHovered ? "scale(1.02)" : "scale(1)",
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30" />
+        </div>
+
+        {/* Content */}
+        <div className="relative h-full flex items-end">
+          <div className="p-8 sm:p-12 max-w-3xl">
+            {post.category && (
+              <span className="inline-flex items-center px-4 py-1.5 text-sm font-semibold text-white bg-blue-600/90 backdrop-blur-sm rounded-full mb-4">
+                Featured • {post.category}
+              </span>
+            )}
+
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+              {post.title}
+            </h2>
+
+            <p className="text-lg text-gray-200 mb-6 line-clamp-2">
+              {post.excerpt || "Read more about this article..."}
+            </p>
+
+            <div className="flex items-center gap-6 text-sm text-gray-300">
+              <div className="flex items-center gap-2">
+                <Calendar className="w-4 h-4" />
+                <time dateTime={post.date}>
+                  {post.date
+                    ? new Date(post.date).toLocaleDateString("en-US", {
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      })
+                    : "No date"}
+                </time>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                <span>{post.readTime || "5 min read"}</span>
+              </div>
+            </div>
+
+            <div
+              className="mt-6 inline-flex items-center text-white font-semibold transition-all"
+              style={{
+                gap: isHovered ? "12px" : "8px",
+              }}
+            >
+              Read Article
+              <ArrowRight className="w-5 h-5" />
+            </div>
+          </div>
+        </div>
+      </Link>
+    </section>
+  );
 };
 
 export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hoveredCard, setHoveredCard] = useState(null);
-  const location = useLocation();
-  const containerRef = useRef(null);
 
   useEffect(() => {
     try {
@@ -69,241 +191,73 @@ export default function BlogPage() {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 pt-32 pb-20 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial="hidden"
-            animate="show"
-            variants={container}
-            className="text-center mb-12"
-          >
-            <motion.h1
-              className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 bg-clip-text text-transparent"
-              variants={item}
-            >
-              Blog
-            </motion.h1>
-            <motion.div
-              className="h-1 w-24 bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-300 mx-auto rounded-full"
-              variants={item}
-            />
-          </motion.div>
-
-          <motion.div
-            variants={container}
-            initial="hidden"
-            animate="show"
-            className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700/50"
-                variants={item}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-              >
-                <div className="h-48 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 animate-pulse"></div>
-                <div className="p-6">
-                  <div className="h-5 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-full w-1/3 mb-4 animate-pulse"></div>
-                  <div className="h-6 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded w-4/5 mb-3 animate-pulse"></div>
-                  <div className="space-y-2">
-                    <div className="h-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded w-full animate-pulse"></div>
-                    <div className="h-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded w-5/6 animate-pulse"></div>
-                    <div className="h-3 bg-gradient-to-r from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 rounded w-2/3 animate-pulse"></div>
-                  </div>
-                  <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700/50">
-                    <div className="h-3 bg-gradient-to-r from-gray-200 to-gray-300 dark:from-gray-600 dark:to-gray-700 rounded-full w-1/3 animate-pulse"></div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          {/* Loading skeleton */}
+          <div className="space-y-12">
+            <div className="h-96 bg-gray-100 dark:bg-gray-800 rounded-2xl animate-pulse"></div>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {[...Array(6)].map((_, i) => (
+                <div
+                  key={i}
+                  className="h-80 bg-gray-100 dark:bg-gray-800 rounded-2xl animate-pulse"
+                ></div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
+  const heroPost = posts[0];
+  const featuredPosts = posts.slice(1, 3); // Get next 2 posts for featured
+  const regularPosts = posts.slice(3); // Remaining posts
+
   return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      exit="exit"
-      className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6"
-      key={location.pathname}
-    >
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            transition: { type: "spring", stiffness: 100, damping: 15 },
-          }}
-          className="text-center mb-12"
-        >
-          <motion.h1
-            className="text-4xl font-bold text-gray-900 dark:text-white mb-3"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-          >
-            Blog
-          </motion.h1>
-          <motion.p
-            className="text-lg text-gray-600 dark:text-gray-300"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
-          >
+        <header className="text-center mb-16">
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl pb-2 font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 dark:from-white dark:via-blue-400 dark:to-white bg-clip-text text-transparent mb-6">
+            The Blog
+          </h1>
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Thoughts, tutorials, and insights on AI, ML, and technology
-          </motion.p>
-        </motion.div>
+          </p>
+        </header>
 
-        {/* Posts */}
-        <motion.div
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-          variants={container}
-          initial="hidden"
-          animate="show"
-          ref={containerRef}
-        >
-          <AnimatePresence>
-            {posts.map((post, index) => (
-              <motion.article
-                key={post.slug}
-                variants={item}
-                custom={index}
-                initial="hidden"
-                animate="show"
-                exit="exit"
-                layout
-                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 dark:border-gray-700 flex flex-col relative"
-                onHoverStart={() => setHoveredCard(post.slug)}
-                onHoverEnd={() => setHoveredCard(null)}
-                whileHover="hover"
-                whileTap="tap"
-              >
-                <Link to={`/blog/${post.slug}`} className="block group">
-                  {/* Featured Image */}
-                  <motion.div
-                    className="h-48 bg-gray-100 dark:bg-gray-700 overflow-hidden relative"
-                    whileHover={imageHover}
-                  >
-                    {post.image ? (
-                      <motion.img
-                        src={post.image}
-                        alt={post.title || "Blog post image"}
-                        className="w-full h-full object-cover"
-                        initial={{ opacity: 0, scale: 1.1 }}
-                        animate={{
-                          opacity: 1,
-                          scale: 1,
-                          transition: { duration: 0.5 },
-                        }}
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-400">
-                        <svg
-                          className="w-12 h-12"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                      </div>
-                    )}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      initial={false}
-                      animate={{ opacity: hoveredCard === post.slug ? 1 : 0 }}
-                    />
-                    <motion.span
-                      className="absolute bottom-4 left-4 px-3 py-1 bg-white dark:bg-gray-900 text-sm font-medium rounded-full text-gray-900 dark:text-white shadow-md"
-                      initial={{ y: 10, opacity: 0 }}
-                      animate={{
-                        y: hoveredCard === post.slug ? 0 : 10,
-                        opacity: hoveredCard === post.slug ? 1 : 0,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
-                    >
-                      Read More
-                    </motion.span>
-                  </motion.div>
+        <div className="space-y-16">
+          {/* Hero Post */}
+          {heroPost && <HeroSection post={heroPost} />}
 
-                  {/* Card Content */}
-                  <motion.div
-                    className="p-5 flex-grow flex flex-col"
-                    initial={{ opacity: 1 }}
-                    whileHover={{
-                      backgroundColor: "rgba(255, 255, 255, 0.03)",
-                      transition: { duration: 0.2 },
-                    }}
-                  >
-                    {post.category && (
-                      <motion.span className="inline-block px-3 py-1 text-xs font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-full mb-3 w-fit">
-                        {post.category}
-                      </motion.span>
-                    )}
+          {/* Featured Posts */}
+          {featuredPosts.length > 0 && (
+            <section>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                Featured Articles
+              </h2>
+              <div className="grid gap-6 md:grid-cols-2">
+                {featuredPosts.map((post) => (
+                  <BlogCard key={post.slug} post={post} featured />
+                ))}
+              </div>
+            </section>
+          )}
 
-                    <motion.h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">
-                      {post.title || "Untitled Post"}
-                    </motion.h2>
-
-                    <motion.p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-3">
-                      {post.excerpt || "No excerpt available."}
-                    </motion.p>
-
-                    {/* Footer */}
-                    <motion.div className="mt-auto pt-4 border-t border-gray-100 dark:border-gray-700 flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        {post.authorAvatar && (
-                          <img
-                            src={post.authorAvatar}
-                            alt={post.author || "Author"}
-                            className="w-6 h-6 rounded-full object-cover border border-gray-200 dark:border-gray-600"
-                            onError={(e) => {
-                              e.target.style.display = "none";
-                            }}
-                          />
-                        )}
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {post.author || "Unknown Author"}
-                        </span>
-                      </div>
-                      <div className="flex items-center space-x-2 text-xs text-gray-500 dark:text-gray-400">
-                        {post.date && (
-                          <time dateTime={post.date}>
-                            {new Date(post.date).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "short",
-                              day: "numeric",
-                            })}
-                          </time>
-                        )}
-                        {post.readTime && (
-                          <>
-                            <span>•</span>
-                            <span>{post.readTime}</span>
-                          </>
-                        )}
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                </Link>
-              </motion.article>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+          {/* All Posts Grid */}
+          {regularPosts.length > 0 && (
+            <section>
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-8">
+                Latest Posts
+              </h2>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {regularPosts.map((post) => (
+                  <BlogCard key={post.slug} post={post} />
+                ))}
+              </div>
+            </section>
+          )}
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 }

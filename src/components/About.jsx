@@ -3,25 +3,11 @@ import { useTheme } from "../context/ThemeContext";
 
 const About = () => {
   const { theme } = useTheme();
-  const buttonGradient =
-    theme === "dark"
-      ? "from-blue-700 to-cyan-600 hover:shadow-blue-900/50"
-      : "from-blue-600 to-cyan-500 hover:shadow-blue-500/30";
-
-  const container = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
 
   return (
     <section
       id="about"
-      className="py-20 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 overflow-x-hidden"
+      className="py-16 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 overflow-x-hidden"
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}

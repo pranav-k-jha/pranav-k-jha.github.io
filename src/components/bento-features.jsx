@@ -37,7 +37,6 @@ const BentoCard = ({
           ? {}
           : {
               y: -5,
-              rotate: -1,
               boxShadow:
                 "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
               borderColor: "rgba(59, 130, 246, 0.5)",
@@ -75,7 +74,6 @@ const BentoCard = ({
               ? {}
               : {
                   scale: 1.1,
-                  rotate: 5,
                   transition: { duration: 0.2 },
                 }
           }

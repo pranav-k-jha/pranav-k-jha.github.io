@@ -16,6 +16,14 @@ const PublicationsPage = lazy(() => import("./pages/PublicationsPage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
 const ResourcePage = lazy(() => import("./pages/ResourcePage"));
+const AiMlServicePage = lazy(() => import("./pages/services/AiMlServicePage"));
+const WebDevServicePage = lazy(() =>
+  import("./pages/services/WebDevServicePage")
+);
+const DataEngServicePage = lazy(() =>
+  import("./pages/services/DataEngServicePage")
+);
+const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 function App() {
   // Smooth scroll for internal anchor links (#section)
@@ -72,6 +80,16 @@ function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/services" element={<ServicesPage />} />
+            <Route path="/services/ai-ml" element={<AiMlServicePage />} />
+            <Route
+              path="/services/web-development"
+              element={<WebDevServicePage />}
+            />
+            <Route
+              path="/services/data-engineering"
+              element={<DataEngServicePage />}
+            />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/resources" element={<ResourcePage />} />
           </Routes>
         </Suspense>

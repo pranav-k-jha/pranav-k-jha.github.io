@@ -70,6 +70,7 @@ const services = [
   {
     id: 1,
     title: "AI & Machine Learning Solutions",
+    slug: "ai-ml",
     description:
       "Custom AI models, machine learning pipelines, and intelligent automation solutions tailored to your business needs.",
     image:
@@ -94,7 +95,8 @@ const services = [
   },
   {
     id: 2,
-    title: "Full-Stack Web Development",
+    title: "Web Development",
+    slug: "web-development",
     description:
       "Modern, scalable web applications built with cutting-edge technologies and best practices.",
     image:
@@ -115,6 +117,7 @@ const services = [
   {
     id: 4,
     title: "Data Engineering & Analytics",
+    slug: "data-engineering",
     description:
       "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
     image:
@@ -193,11 +196,11 @@ const renderServiceCard = (service) => {
             <h4 className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Technologies:
             </h4>
-            <div className="flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-2">
               {service.technologies.slice(0, 3).map((tech, idx) => (
                 <span
                   key={idx}
-                  className="px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full"
+                  className="px-2 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full whitespace-nowrap"
                 >
                   {tech}
                 </span>
@@ -220,12 +223,13 @@ const renderServiceCard = (service) => {
             Get Pricing
             <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
-          <button
-            className={`w-full py-3 px-4 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center group-hover:shadow-lg transition-all duration-300`}
+          <Link
+            to={`/services/${service.slug}`}
+            className={`w-full py-3 px-4 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center hover:shadow-lg transition-all duration-300`}
           >
             Learn More
             <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
         </div>
       </div>
     </>
@@ -335,14 +339,16 @@ export default function ServicesPage() {
               and drive innovation in your organization.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
-              >
-                Get Started
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </motion.button>
+              <Link to="/contact">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold rounded-xl hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl flex items-center justify-center"
+                >
+                  Get Started
+                  <ArrowRight className="w-5 h-5 ml-2" />
+                </motion.button>
+              </Link>
             </div>
           </motion.div>
         </div>

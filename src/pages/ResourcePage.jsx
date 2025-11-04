@@ -101,45 +101,133 @@ const ResourcePage = () => {
   };
 
   return (
-    <motion.div
-      className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      ref={containerRef}
-    >
-      <div className="max-w-7xl mx-auto">
-        {/* Header with animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{
-            opacity: 1,
-            y: 0,
-            transition: {
-              type: "spring",
-              stiffness: 100,
-              damping: 15,
-            },
-          }}
-          className="text-center mb-8"
-        >
+    <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6">
+      <motion.div
+        className="max-w-7xl mx-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        ref={containerRef}
+      >
+        <div className="space-y-6 mb-12">
+          {/* Projects Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.7,
+              delay: 0.1,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 border border-purple-400/30 dark:border-purple-400/30 rounded-full text-sm font-medium text-purple-700 dark:text-purple-300"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-4 h-4"
+            >
+              <path d="m16 18 6-6-6-6" />
+              <path d="M8 6v12" />
+            </svg>
+            Featured Resources
+          </motion.div>
+
+          {/* Main Heading */}
           <motion.h1
-            className="text-4xl font-bold text-gray-900 dark:text-white mb-3"
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{
+              duration: 0.8,
+              delay: 0.3,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="text-4xl lg:text-6xl font-bold tracking-tight text-center"
           >
-            Resources
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
+              RESOURCES
+            </span>
           </motion.h1>
-          <motion.p
-            className="text-xl text-gray-600 dark:text-gray-300"
-            initial={{ opacity: 0, y: 10 }}
+
+          {/* Subtitle */}
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15 }}
+            transition={{
+              duration: 0.7,
+              delay: 0.5,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="space-y-3 text-center"
           >
-            Browse and explore my collection of resources
-          </motion.p>
-        </motion.div>
+            <h2 className="text-xl lg:text-2xl font-light text-gray-700 dark:text-gray-300">
+              Valuable Assets & Knowledge Repository
+            </h2>
+            <p className="text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              A comprehensive collection of technical resources, research
+              papers, and reference materials spanning AI, machine learning, web
+              development, and software engineering.
+            </p>
+          </motion.div>
+
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.7,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
+            className="flex justify-center gap-8 pt-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
+              className="text-center"
+            >
+              <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                {resources.length}+
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                Resources
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.9, duration: 0.5 }}
+              className="text-center"
+            >
+              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                {new Set(resources.map((r) => r.category)).size}
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                Categories
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 1.0, duration: 0.5 }}
+              className="text-center"
+            >
+              <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
+                AI/ML
+              </div>
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                Focus
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
 
         {/* Filter Buttons */}
         <motion.div
@@ -340,8 +428,8 @@ const ResourcePage = () => {
             </AnimatePresence>
           </motion.div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </div>
   );
 };
 

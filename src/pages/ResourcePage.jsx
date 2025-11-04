@@ -199,7 +199,7 @@ const ResourcePage = () => {
                       },
                     }}
                     whileTap={{ scale: 0.98 }}
-                    className={`relative p-4 rounded-lg cursor-pointer transition-colors ${
+                    className={`relative p-4 rounded-xl cursor-pointer transition-colors ${
                       selectedPdf === resource.pdfPath
                         ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500"
                         : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"

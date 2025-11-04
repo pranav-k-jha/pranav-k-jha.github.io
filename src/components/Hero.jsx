@@ -130,7 +130,7 @@ const Hero = () => {
             >
               <a
                 href="/resources"
-                className={`group relative px-8 py-4 rounded-2xl font-semibold text-white overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 ${
+                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
@@ -139,7 +139,7 @@ const Hero = () => {
                 <span className="relative z-10 flex items-center justify-center">
                   Learning Resources
                   <svg
-                    className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform"
+                    className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -157,7 +157,7 @@ const Hero = () => {
 
               <a
                 href="mailto:pranav.jha@mail.concordia.ca"
-                className={`group px-8 py-4 rounded-2xl font-semibold backdrop-blur-xl border-2 transition-all duration-300 transform hover:-translate-y-1 shadow-lg hover:shadow-xl ${
+                className={`group px-6 py-3 rounded-xl text-sm font-semibold backdrop-blur-xl border-2 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg ${
                   theme === "dark"
                     ? "bg-white/5 border-cyan-400/50 text-cyan-300 hover:bg-white/10 hover:border-cyan-400"
                     : "bg-white/50 border-blue-500/50 text-blue-700 hover:bg-white/80 hover:border-blue-600"
@@ -166,7 +166,7 @@ const Hero = () => {
                 <span className="flex items-center justify-center">
                   Let's Talk
                   <svg
-                    className="w-5 h-5 ml-2 group-hover:rotate-12 transition-transform"
+                    className="w-4 h-4 ml-1.5 group-hover:rotate-12 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -274,11 +274,11 @@ const Hero = () => {
 
                 {/* Code Window */}
                 <div
-                  className={`rounded-2xl p-6 ${
+                  className={`rounded-2xl p-6 overflow-hidden ${
                     theme === "dark" ? "bg-slate-950" : "bg-slate-900"
                   }`}
                 >
-                  <pre className="text-sm md:text-base">
+                  <pre className="text-sm md:text-base max-h-80 overflow-y-auto">
                     <code>
                       <span className="text-purple-400">class</span>{" "}
                       <span className="text-yellow-400">AIEngineer</span>
@@ -301,6 +301,19 @@ const Hero = () => {
                       <span className="text-cyan-400">role</span>
                       <span className="text-gray-400"> = </span>
                       <span className="text-green-400">"AI Engineer"</span>
+                      {"\n    "}
+                      <span className="text-orange-400">self</span>
+                      <span className="text-gray-400">.</span>
+                      <span className="text-cyan-400">skills</span>
+                      <span className="text-gray-400"> = [</span>
+                      <span className="text-green-400">"Machine Learning"</span>
+                      <span className="text-gray-400">,</span>
+                      <span className="text-green-400">"Deep Learning"</span>
+                      <span className="text-gray-400">,</span>
+                      <span className="text-green-400">"NLP"</span>
+                      <span className="text-gray-400">,</span>
+                      <span className="text-green-400">"Computer Vision"</span>
+                      <span className="text-gray-400">]</span>
                       {"\n\n  "}
                       <span className="text-purple-400">def</span>{" "}
                       <span className="text-blue-400">innovate</span>
@@ -310,7 +323,7 @@ const Hero = () => {
                       {"\n    "}
                       <span className="text-purple-400">return</span>{" "}
                       <span className="text-green-400">
-                        "Building the future"
+                        "Building intelligent systems"
                       </span>
                     </code>
                   </pre>
@@ -339,7 +352,7 @@ const Hero = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5 + i * 0.1 }}
                         whileHover={{ scale: 1.1, y: -4 }}
-                        className={`px-4 py-2 rounded-xl backdrop-blur-xl border font-medium text-sm shadow-lg ${
+                        className={`px-4 py-2 rounded-xl backdrop-blur-xl border font-medium text-xs shadow-lg ${
                           theme === "dark"
                             ? "bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border-cyan-500/20 text-cyan-300"
                             : "bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/20 text-blue-700"
@@ -370,7 +383,7 @@ const Hero = () => {
                     <motion.div
                       key={i}
                       whileHover={{ scale: 1.05 }}
-                      className={`px-4 py-2 rounded-xl backdrop-blur-xl border text-sm font-medium ${
+                      className={`px-4 py-2 rounded-xl backdrop-blur-xl border text-xs font-medium ${
                         theme === "dark"
                           ? "bg-white/5 border-white/10 text-gray-300"
                           : "bg-white/60 border-white/40 text-gray-700"

@@ -135,7 +135,6 @@ const Hero = () => {
               />
             </div>
           </motion.h1>
-          {/* className="bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-orange-500 to-yellow-400 dark:from-pink-400 dark:via-orange-400 dark:to-yellow-300 w-full font-bold text-3xl md:text-4xl lg:text-6xl" */}
 
           <motion.p
             className={`text-lg md:text-xl mb-8 max-w-xl mx-auto md:mx-0 ${styles.text.secondary}`}
@@ -272,7 +271,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
         >
           <div className="relative z-10 w-full max-w-lg mx-auto">
-            {/* Code Block */}
+            {/* Code Block - Fixed flicker issues */}
             <motion.div
               className={`relative z-10 p-1 rounded-2xl shadow-2xl border ${
                 theme === "dark"
@@ -280,12 +279,27 @@ const Hero = () => {
                   : "bg-white/30 border-white/20"
               }`}
               whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 20,
+              }}
+              style={{
+                willChange: "transform",
+                backfaceVisibility: "hidden",
+                WebkitBackfaceVisibility: "hidden",
+                transform: "translateZ(0)",
+                WebkitTransform: "translateZ(0)",
+              }}
             >
               <div
                 className={`p-6 rounded-xl ${
                   theme === "dark" ? "bg-gray-800/80" : "bg-white/80"
                 }`}
+                style={{
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                }}
               >
                 <div className="flex space-x-2 mb-4">
                   <div className="w-3 h-3 rounded-full bg-red-400" />
@@ -296,6 +310,10 @@ const Hero = () => {
                   className={`p-4 rounded-lg ${
                     theme === "dark" ? "bg-gray-900" : "bg-slate-900"
                   }`}
+                  style={{
+                    backfaceVisibility: "hidden",
+                    WebkitBackfaceVisibility: "hidden",
+                  }}
                 >
                   <pre className="text-green-400 text-sm md:text-base overflow-x-auto">
                     <code>{`class AIEngineer:
@@ -327,7 +345,7 @@ const Hero = () => {
                   hidden: {},
                   show: {
                     transition: {
-                      staggerChildren: 0.06, // faster stagger
+                      staggerChildren: 0.06,
                       delayChildren: 0.1,
                     },
                   },
@@ -335,7 +353,7 @@ const Hero = () => {
                 initial="hidden"
                 animate="show"
               >
-                {techStack.map((tech, index) => (
+                {techStack.map((tech) => (
                   <motion.div
                     key={tech}
                     variants={{
@@ -343,7 +361,7 @@ const Hero = () => {
                       show: {
                         opacity: 1,
                         y: 0,
-                        transition: { duration: 0.3, ease: "easeOut" }, // simpler easing
+                        transition: { duration: 0.3, ease: "easeOut" },
                       },
                     }}
                     className={`text-xs font-medium px-4 py-2 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 border ${
@@ -353,6 +371,11 @@ const Hero = () => {
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    style={{
+                      willChange: "transform",
+                      backfaceVisibility: "hidden",
+                      WebkitBackfaceVisibility: "hidden",
+                    }}
                   >
                     {tech}
                   </motion.div>

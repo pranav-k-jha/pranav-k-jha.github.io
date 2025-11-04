@@ -409,21 +409,41 @@ export default function BlogPage() {
           animate="visible"
           exit="hidden"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-20">
-            {/* Header with Modern Typography */}
-            <motion.header
-              className="text-center mb-16"
-              variants={headerVariants}
-            >
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
-                <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 dark:from-white dark:via-blue-400 dark:to-white bg-clip-text text-transparent">
-                  The Blog
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
+            {/* Header with Animation */}
+            <div className="space-y-4 mb-8">
+              {/* Main Heading */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.2,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
+              >
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
+                  THE BLOG
                 </span>
-              </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
-                Thoughts, tutorials, and insights on AI, ML, and technology
-              </p>
-            </motion.header>
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.3,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="space-y-2 text-center"
+              >
+                <h2 className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
+                  Thoughts, tutorials, and insights on AI, ML, and technology
+                </h2>
+              </motion.div>
+            </div>
 
             <div className="space-y-16">
               {/* Hero Post */}

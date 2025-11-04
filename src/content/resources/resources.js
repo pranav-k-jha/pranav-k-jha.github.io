@@ -43,6 +43,42 @@ export const resources = [
     category: "Neural Networks",
     date: "2025-11-02",
   },
+  {
+    id: 6,
+    title: "Designing GraphQL APIs for Modular Table Queries Using NestJS",
+    description:
+      "A detailed guide on building modular GraphQL APIs with NestJS for efficient data querying.",
+    pdfPath: "/resources/pdfs/1731868617730.pdf",
+    category: "Programming",
+    date: "2025-11-02",
+  },
+  {
+    id: 7,
+    title: "Understanding Data Normalization in Database Design",
+    description:
+      "Comprehensive notes on database normalization forms and their applications.",
+    pdfPath: "/resources/pdfs/1731361247545.pdf",
+    category: "Database",
+    date: "2025-11-02",
+  },
+  {
+    id: 8,
+    title: "Data Structures and Algorithms (DSA) Topics",
+    description:
+      "Essential topics and explanations covering key DSA concepts and problem-solving techniques.",
+    pdfPath: "/resources/pdfs/1737831281395.pdf",
+    category: "Programming",
+    date: "2025-11-02",
+  },
+  {
+    id: 9,
+    title: "Implementation and Maintenance of MySQL Databases",
+    description:
+      "Best practices and procedures for implementing and maintaining MySQL databases effectively.",
+    pdfPath: "/resources/pdfs/1731950182853.pdf",
+    category: "Database",
+    date: "2025-11-02",
+  },
 ];
 
 // Categories for filtering

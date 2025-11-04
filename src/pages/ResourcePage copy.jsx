@@ -17,28 +17,14 @@ const container = {
 };
 
 const item = {
-  hidden: {
-    opacity: 0,
-    x: -20,
-    scale: 0.95,
-  },
+  hidden: { opacity: 0, x: -20, scale: 0.95 },
   show: {
     opacity: 1,
     x: 0,
     scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 15,
-    },
+    transition: { type: "spring", stiffness: 100, damping: 15 },
   },
-  exit: {
-    opacity: 0,
-    scale: 0.9,
-    transition: {
-      duration: 0.15,
-    },
-  },
+  exit: { opacity: 0, scale: 0.9, transition: { duration: 0.15 } },
 };
 
 const filterItem = {
@@ -46,11 +32,7 @@ const filterItem = {
   show: {
     opacity: 1,
     scale: 1,
-    transition: {
-      type: "spring",
-      stiffness: 200,
-      damping: 20,
-    },
+    transition: { type: "spring", stiffness: 200, damping: 20 },
   },
 };
 
@@ -59,19 +41,9 @@ const pdfViewer = {
   show: {
     opacity: 1,
     x: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 15,
-    },
+    transition: { type: "spring", stiffness: 100, damping: 15 },
   },
-  exit: {
-    opacity: 0,
-    x: 20,
-    transition: {
-      duration: 0.2,
-    },
-  },
+  exit: { opacity: 0, x: 20, transition: { duration: 0.2 } },
 };
 
 const ResourcePage = () => {
@@ -80,10 +52,10 @@ const ResourcePage = () => {
   const [activeFilter, setActiveFilter] = useState("All");
   const containerRef = useRef(null);
 
-  // Get unique categories
+  // Unique categories
   const categories = ["All", ...new Set(resources.map((r) => r.category))];
 
-  // Filter resources based on active filter
+  // Filtered resources
   const filteredResources =
     activeFilter === "All"
       ? resources
@@ -96,9 +68,7 @@ const ResourcePage = () => {
       ?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleFilter = (category) => {
-    setActiveFilter(category);
-  };
+  const handleFilter = (category) => setActiveFilter(category);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6">
@@ -109,38 +79,38 @@ const ResourcePage = () => {
         exit={{ opacity: 0 }}
         ref={containerRef}
       >
-        <div className="space-y-4 mb-8">
-          {/* Main Heading */}
+        {/* Heading */}
+        <div className="space-y-6 mb-12 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-purple-500/10 to-blue-500/10 dark:from-purple-500/20 dark:to-blue-500/20 border border-purple-400/30 dark:border-purple-400/30 rounded-full text-sm font-medium text-purple-700 dark:text-purple-300"
+          >
+            Featured Resources
+          </motion.div>
+
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="text-4xl lg:text-6xl font-bold tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-              RESOURCES
+              RESOURCES PORTFOLIO
             </span>
           </motion.h1>
 
-          {/* Subtitle */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
+          <motion.p
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="space-y-2 text-center"
+            transition={{ duration: 0.7, delay: 0.5 }}
+            className="text-base text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed"
           >
-            <h2 className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
-              Valuable Assets & Knowledge Repository
-            </h2>
-          </motion.div>
+            A comprehensive collection of technical resources, research papers,
+            and reference materials spanning AI, ML, web development, and
+            software engineering.
+          </motion.p>
         </div>
 
         {/* Filter Buttons */}
@@ -169,7 +139,7 @@ const ResourcePage = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Resource List with staggered animations */}
+          {/* Resource List */}
           <motion.div className="md:col-span-1">
             <motion.div
               className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
@@ -184,28 +154,26 @@ const ResourcePage = () => {
                     animate="show"
                     exit="exit"
                     layout
-                    layoutId={`resource-${resource.id}`}
                     onClick={() => handlePdfSelect(resource.pdfPath)}
                     onHoverStart={() => setHoveredCard(resource.id)}
                     onHoverEnd={() => setHoveredCard(null)}
                     whileHover={{
-                      y: -2,
-                      boxShadow:
-                        "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                      scale: 1.03,
+                      boxShadow: "0 20px 30px rgba(0,0,0,0.1)",
                       transition: {
                         type: "spring",
-                        stiffness: 400,
-                        damping: 10,
+                        stiffness: 300,
+                        damping: 15,
                       },
                     }}
                     whileTap={{ scale: 0.98 }}
-                    className={`relative p-4 rounded-lg cursor-pointer transition-colors ${
+                    className={`relative p-4 rounded-2xl cursor-pointer transition-all duration-300 backdrop-blur-sm ${
                       selectedPdf === resource.pdfPath
-                        ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500"
-                        : "bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
+                        ? "bg-gradient-to-r from-blue-50/50 via-white/30 to-purple-50/50 border-2 border-blue-500 shadow-lg"
+                        : "bg-white/70 dark:bg-gray-800/60 border border-gray-200 dark:border-gray-700"
                     }`}
                   >
-                    <h3 className="font-medium text-gray-900 dark:text-white text-sm pr-6">
+                    <h3 className="font-semibold text-gray-900 dark:text-white text-sm pr-6">
                       {resource.title}
                     </h3>
                     <p className="text-xs text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">
@@ -223,52 +191,22 @@ const ResourcePage = () => {
                         })}
                       </span>
                     </div>
-                    <motion.div
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-blue-500"
-                      initial={{ opacity: 0, x: -5 }}
-                      animate={{
-                        opacity: selectedPdf === resource.pdfPath ? 1 : 0,
-                        x: selectedPdf === resource.pdfPath ? 0 : -5,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-4 w-4"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fillRule="evenodd"
-                          d="M16.707 10.293a1 1 0 010 1.414l-6 6a1 1 0 01-1.414 0l-6-6a1 1 0 111.414-1.414L9 14.586V3a1 1 0 012 0v11.586l4.293-4.293a1 1 0 011.414 0z"
-                          clipRule="evenodd"
-                        />
-                      </svg>
-                    </motion.div>
                   </motion.div>
                 ))}
               </AnimatePresence>
-
-              {/* Empty State for Filter */}
               {filteredResources.length === 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-center py-12"
+                  className="text-center py-12 text-gray-500 dark:text-gray-400"
                 >
-                  <p className="text-gray-500 dark:text-gray-400">
-                    No resources found in this category
-                  </p>
+                  No resources found in this category
                 </motion.div>
               )}
             </motion.div>
           </motion.div>
 
-          {/* PDF Viewer with animation */}
+          {/* PDF Viewer */}
           <motion.div
             id="pdf-viewer"
             className="md:col-span-2 max-w-4xl mx-auto w-full"
@@ -282,7 +220,7 @@ const ResourcePage = () => {
                   initial="hidden"
                   animate="show"
                   exit="exit"
-                  className="w-[95%] mx-auto"
+                  className="w-full rounded-3xl shadow-2xl backdrop-blur-md bg-white/70 dark:bg-gray-800/70 border border-gray-200 dark:border-gray-700 p-4"
                 >
                   <PdfViewer pdfPath={selectedPdf} />
                 </motion.div>
@@ -293,7 +231,7 @@ const ResourcePage = () => {
                   initial="hidden"
                   animate="show"
                   exit="exit"
-                  className="flex flex-col items-center justify-center h-96 text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-xl shadow-sm w-full max-w-2xl mx-auto border-2 border-dashed border-gray-200 dark:border-gray-700"
+                  className="flex flex-col items-center justify-center h-96 text-gray-500                   dark:text-gray-400 bg-white/70 dark:bg-gray-800/60 rounded-2xl shadow-lg w-full max-w-2xl mx-auto border-2 border-dashed border-gray-200 dark:border-gray-700 backdrop-blur-sm"
                 >
                   <motion.div
                     className="w-20 h-20 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-4"

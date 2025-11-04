@@ -36,12 +36,12 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
-      className="relative min-h-screen pt-20 pb-20 overflow-hidden font-sans"
+      className="relative min-h-screen pt-20 pb-20 overflow-hidden font-sans bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50"
       initial="hidden"
       animate="show"
       variants={animationVariants.container}
     >
-      <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10">
+      <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10 ">
         <div className="grid md:grid-cols-2 gap-12 items-center min-h-[calc(100vh-10rem)]">
           {/* Left Column - Hero Text */}
           <motion.div
@@ -337,7 +337,7 @@ const Hero = () => {
                         key={tech}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.7 + i * 0.1 }}
+                        transition={{ delay: 0.5 + i * 0.1 }}
                         whileHover={{ scale: 1.1, y: -4 }}
                         className={`px-4 py-2 rounded-xl backdrop-blur-xl border font-medium text-sm shadow-lg ${
                           theme === "dark"
@@ -360,7 +360,7 @@ const Hero = () => {
                   className="flex flex-wrap gap-3"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
+                  transition={{ delay: 0.5 }}
                 >
                   {[
                     { icon: "📚", text: "8+ Publications" },

@@ -17,6 +17,31 @@ const PublicationsPage = () => {
           title: {
             title: {
               value:
+                "Adversarial Machine Learning: Attacks, Defenses, and Open Challenges",
+            },
+          },
+          "publication-date": {
+            year: { value: "2025" },
+            month: { value: "02" },
+            day: { value: "08" },
+          },
+          "journal-title": { value: "arXiv" },
+          "journal-subtitle": { value: "Preprint" },
+          "work-type": { value: "JOURNAL_ARTICLE" },
+          type: "JOURNAL_ARTICLE",
+          url: { value: "https://arxiv.org/abs/2502.05637" },
+          manual: true,
+          "publication-status": "published",
+          category: "article",
+        },
+      ],
+    },
+    {
+      "work-summary": [
+        {
+          title: {
+            title: {
+              value:
                 "A Grid-Enabled Framework Integrating Computer Vision and Machine Learning for Real-Time Intersection Intelligence and Autonomous Vehicle Coordination",
             },
           },
@@ -24,7 +49,7 @@ const PublicationsPage = () => {
           "journal-title": { value: "MDPI Applied Sciences" },
           "journal-subtitle": { value: "Submitted" },
           "work-type": { value: "JOURNAL_ARTICLE" },
-          type: "JOURNAL_ARTICLE", // Added type field
+          type: "JOURNAL_ARTICLE",
           url: { value: "https://www.mdpi.com/journal/applsci" },
           manual: true,
           "publication-status": "submitted",

@@ -41,8 +41,6 @@ const Hero = () => {
       animate="show"
       variants={animationVariants.container}
     >
-
-
       <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         <div className="grid md:grid-cols-2 gap-12 items-center min-h-[calc(100vh-10rem)]">
           {/* Left Column - Hero Text */}
@@ -85,7 +83,7 @@ const Hero = () => {
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
-                <span className="block mb-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                <span className="block mb-2 font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                   PRANAV JHA
                 </span>
               </h1>

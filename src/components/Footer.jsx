@@ -67,7 +67,7 @@ const Footer = () => {
 
   // Quick navigation links
   const quickLinks = [
-    { name: "About", href: "#about" },
+    { name: "Home", href: "/" },
     { name: "Publications", href: "/publications" },
     { name: "Resources", href: "/resources" },
     { name: "Blog", href: "/blog" },
@@ -173,8 +173,8 @@ const Footer = () => {
               Quick Links
             </h4>
             <div className="space-y-2">
-              {quickLinks.map((link, index) => (
-                link.href.startsWith('#') ? (
+              {quickLinks.map((link, index) =>
+                link.href.startsWith("#") ? (
                   <motion.a
                     key={link.name}
                     href={link.href}
@@ -197,7 +197,7 @@ const Footer = () => {
                     {link.name}
                   </Link>
                 )
-              ))}
+              )}
             </div>
           </motion.div>
 

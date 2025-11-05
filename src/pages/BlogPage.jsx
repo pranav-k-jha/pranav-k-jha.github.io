@@ -238,7 +238,7 @@ const HeroSection = ({ post }) => {
         </div>
 
         {/* Content */}
-        <div className="relative h-full flex items-end">
+        <div className="relative h-full flex items-end mt-6">
           <div className="p-8 sm:p-12 max-w-3xl space-y-4">
             {post.category && (
               <motion.div

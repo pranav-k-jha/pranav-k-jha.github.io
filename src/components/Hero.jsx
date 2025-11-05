@@ -371,7 +371,7 @@ const Hero = () => {
 
                 {/* Stats Pills */}
                 <motion.div
-                  className="flex flex-wrap gap-3"
+                  className="flex flex-wrap gap-3 items-center"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5 }}
@@ -379,6 +379,15 @@ const Hero = () => {
                   {[
                     { icon: "📚", text: "8+ Publications" },
                     { icon: "🏆", text: "5+ Yrs Exp" },
+                    {
+                      component: (
+                        <img
+                          src="https://komarev.com/ghpvc/?username=pranav-k-jha&label=Profile%20views&color=0e75b6&style=flat"
+                          alt="Profile views"
+                          className="h-4"
+                        />
+                      ),
+                    },
                     { icon: "🔄", text: "Updated Nov 2024" },
                   ].map((stat, i) => (
                     <motion.div
@@ -390,10 +399,11 @@ const Hero = () => {
                           : "bg-white/60 border-white/40 text-gray-700"
                       }`}
                     >
-                      <span className="mr-2">{stat.icon}</span>
-                      {stat.text}
+                      {stat.icon && <span className="mr-2">{stat.icon}</span>}
+                      {stat.component || stat.text}
                     </motion.div>
                   ))}
+                  {/* Profile view counter is now in the stats array */}
                 </motion.div>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { TypeAnimation } from "react-type-animation";
 import { socialLinks } from "../lib/socialLinks";
 import { useTheme } from "../context/ThemeContext";
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 const animationVariants = {
   container: {
@@ -128,8 +129,8 @@ const Hero = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4"
               variants={animationVariants.fadeInUp}
             >
-              <a
-                href="/resources"
+              <Link
+                to="/resources"
                 className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
@@ -153,7 +154,7 @@ const Hero = () => {
                   </svg>
                 </span>
                 <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity" />
-              </a>
+              </Link>
 
               <a
                 href="mailto:pranav.jha@mail.concordia.ca"

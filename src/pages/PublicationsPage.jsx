@@ -104,114 +104,41 @@ const PublicationsPage = () => {
   };
 
   if (loading) {
-    // Loader skeleton for publication items only
+    // Loader skeleton
     return (
-      <main className="bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50">
-        <div className="w-full pt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="space-y-4 mb-8">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
-              >
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-                  PUBLICATIONS
-                </span>
-              </motion.h1>
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.3,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="space-y-2 text-center"
-              >
-                <h2 className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
-                  Research papers, articles, and academic contributions
-                </h2>
-              </motion.div>
-            </div>
-
-            <div className="py-12 px-4 max-w-4xl mx-auto">
-              <div className="space-y-6">
-                {[...Array(3)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: i * 0.1 }}
-                  >
-                    <div className="h-5 w-3/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-3"></div>
-                    <div className="h-4 w-1/2 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mb-4"></div>
-                    <div className="h-3 w-1/4 bg-gray-200 dark:bg-gray-700 rounded animate-pulse"></div>
-                  </motion.div>
-                ))}
+      <div
+        className={`min-h-[60vh] py-24 px-4 max-w-4xl mx-auto ${
+          theme === "dark" ? "text-gray-200" : "text-gray-800"
+        }`}
+      >
+        <motion.div className="h-8 mb-8 w-48 bg-gray-300 dark:bg-gray-700 rounded animate-pulse" />
+        <div className="space-y-6">
+          {[...Array(5)].map((_, i) => (
+            <motion.div key={i} className="flex items-start space-x-4">
+              <div className="w-16 h-4 bg-gray-300 dark:bg-gray-700 rounded animate-pulse flex-shrink-0" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 animate-pulse" />
+                <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/2 animate-pulse" />
               </div>
-            </div>
-          </div>
+            </motion.div>
+          ))}
         </div>
-      </main>
+      </div>
     );
   }
 
   if (error) {
     return (
-      <main className="bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50">
-        <div className="w-full pt-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="space-y-4 mb-8">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
-              >
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-                  PUBLICATIONS
-                </span>
-              </motion.h1>
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.3,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="space-y-2 text-center"
-              >
-                <h2 className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
-                  Research papers, articles, and academic contributions
-                </h2>
-              </motion.div>
-            </div>
-
-            <div className="py-12 px-4 max-w-4xl mx-auto text-center">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3 }}
-                className="text-red-500"
-              >
-                {error}
-              </motion.div>
-            </div>
-          </div>
-        </div>
-      </main>
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+          className="text-center text-red-500"
+        >
+          {error}
+        </motion.div>
+      </div>
     );
   }
 
@@ -231,7 +158,7 @@ const PublicationsPage = () => {
 
   return (
     <main className="bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50">
-      <div className="w-full pt-16">
+      <div className="w-full pt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="space-y-4 mb-8">
             <motion.h1
@@ -269,7 +196,7 @@ const PublicationsPage = () => {
         <motion.div
           initial="hidden"
           animate="show"
-          className="min-h-[60vh] py-12 px-4 max-w-4xl mx-auto"
+          className="min-h-[60vh] pt-4 pb-20 px-4 max-w-4xl mx-auto"
         >
           <motion.div variants={containerVariants} className="space-y-8">
             {publications.map((work, index) => {

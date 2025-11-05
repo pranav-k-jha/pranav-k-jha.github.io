@@ -70,6 +70,7 @@ const Footer = () => {
     { name: "Publications", href: "/publications" },
     { name: "Resources", href: "/resources" },
     { name: "Blog", href: "/blog" },
+    { name: "Contact", href: "/contact" },
   ];
 
   return (

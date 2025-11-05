@@ -4,17 +4,13 @@ export const navigationConfig = [
     href: "/",
   },
   {
-    title: "Publications",
-    href: "/publications",
-  },
-  {
     title: "Resources",
     href: "/resources",
   },
-  // {
-  //   title: "Services",
-  //   href: "/services",
-  // },
+  {
+    title: "Publications",
+    href: "/publications",
+  },
   {
     title: "Blog",
     href: "/blog",

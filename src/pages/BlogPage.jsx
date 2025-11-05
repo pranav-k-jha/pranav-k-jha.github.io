@@ -316,7 +316,7 @@ const HeroSection = ({ post }) => {
 // Loading Skeleton with Animation
 const BlogSkeleton = () => (
   <motion.div
-    className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 pt-20 pb-20"
+    className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 py-20"
     initial={{ opacity: 0 }}
     animate={{ opacity: 1 }}
     exit={{ opacity: 0 }}
@@ -409,7 +409,7 @@ export default function BlogPage() {
           animate="visible"
           exit="hidden"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             {/* Header with Animation */}
             <div className="space-y-4 mb-8">
               {/* Main Heading */}
@@ -445,7 +445,7 @@ export default function BlogPage() {
               </motion.div>
             </div>
 
-            <div className="space-y-16">
+            <div className="space-y-2">
               {/* Hero Post */}
               {heroPost && <HeroSection post={heroPost} />}
 

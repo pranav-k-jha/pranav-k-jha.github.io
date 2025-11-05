@@ -1,19 +1,75 @@
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-import { ArrowLeft, CheckCircle, Clock, Users, Code, Zap } from "lucide-react";
+import { useState } from "react";
+import { ArrowLeft, CheckCircle, Zap, ArrowRight, Star } from "lucide-react";
+
+// Check for reduced motion preference
+const prefersReducedMotion =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const ServiceTemplate = ({
-  title,
-  description,
-  image,
-  icon: Icon,
-  features,
-  technologies,
-  pricing,
-  faqs,
-  color,
+  title = "AI Solutions Development",
+  description = "Transform your business with cutting-edge artificial intelligence solutions tailored to your specific needs.",
+  icon: Icon = Zap,
+  features = [
+    "Custom AI model development",
+    "End-to-end pipeline integration",
+    "Real-time monitoring & optimization",
+    "Scalable cloud infrastructure",
+    "24/7 technical support",
+    "Regular performance reports",
+  ],
+  technologies = [
+    "Python",
+    "PyTorch",
+    "TensorFlow",
+    "LangChain",
+    "Docker",
+    "AWS",
+  ],
+  pricing = [
+    {
+      name: "Starter",
+      price: "150",
+      type: "hourly",
+      description: "Perfect for small projects",
+      features: [
+        "10 hours consulting",
+        "Basic implementation",
+        "Email support",
+      ],
+      popular: false,
+    },
+    {
+      name: "Professional",
+      price: "5000",
+      type: "project",
+      description: "Most popular for businesses",
+      features: [
+        "Full project delivery",
+        "Custom development",
+        "Priority support",
+        "3 months maintenance",
+      ],
+      popular: true,
+    },
+  ],
+  faqs = [
+    {
+      question: "How long does a typical project take?",
+      answer:
+        "Project timelines vary based on complexity, but most projects are completed within 4-8 weeks.",
+    },
+    {
+      question: "Do you provide ongoing support?",
+      answer:
+        "Yes, we offer maintenance packages and ongoing support to ensure your AI solutions continue to perform optimally.",
+    },
+  ],
+  color = "from-blue-600 to-purple-600",
 }) => {
+  const [activeFaq, setActiveFaq] = useState(null);
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -26,7 +82,7 @@ const ServiceTemplate = ({
   };
 
   const itemVariants = {
-    hidden: { y: 20, opacity: 0 },
+    hidden: prefersReducedMotion ? {} : { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -36,98 +92,101 @@ const ServiceTemplate = ({
     },
   };
 
-  // Scroll to top when component mounts
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  // Handle back navigation
-  const handleBackClick = (e) => {
-    e.preventDefault();
-    // Use history API to navigate back
-    window.history.back();
-    // Scroll to top after navigation
-    window.scrollTo(0, 0);
-  };
-
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-200">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30 pt-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
         {/* Back Button */}
         <motion.div
-          initial={{ opacity: 0, x: -10 }}
+          initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.3 }}
           className="mb-8"
         >
-          <a
-            href="#"
-            onClick={handleBackClick}
-            className="inline-flex items-center text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors font-medium"
+          <button
+            onClick={() => window.history.back()}
+            className="group inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors font-medium"
           >
-            <ArrowLeft className="w-4 h-4 mr-2" />
+            <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Services
-          </a>
+          </button>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
           {/* Main Content */}
-          <div className="lg:col-span-2">
-            {/* Header */}
+          <div className="lg:col-span-2 space-y-12">
+            {/* Hero Header */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="mb-12"
+              className="relative"
             >
               <motion.div
                 variants={itemVariants}
-                className={`inline-flex items-center justify-center w-14 h-14 rounded-xl mb-6 bg-gradient-to-r ${color} text-white shadow-lg`}
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 bg-gradient-to-r ${color} text-white shadow-md shadow-blue-500/20`}
+                whileHover={
+                  prefersReducedMotion ? {} : { scale: 1.05, rotate: 5 }
+                }
               >
-                <Icon className="w-7 h-7" />
+                <Icon className="w-8 h-8" />
               </motion.div>
+
               <motion.h1
                 variants={itemVariants}
-                className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 leading-tight"
+                className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 dark:from-white dark:via-blue-400 dark:to-white bg-clip-text text-transparent mb-4 leading-tight"
               >
                 {title}
               </motion.h1>
+
               <motion.p
                 variants={itemVariants}
-                className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed"
+                className="text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl text-base"
               >
                 {description}
               </motion.p>
             </motion.div>
 
-            {/* Features */}
+            {/* Features Grid */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="mb-16"
             >
               <motion.h2
                 variants={itemVariants}
-                className="text-2xl font-bold text-gray-900 dark:text-white mb-6"
+                className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
               >
+                <span className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full mr-2"></span>
                 What's Included
               </motion.h2>
+
               <motion.div
                 variants={itemVariants}
                 className="grid grid-cols-1 md:grid-cols-2 gap-4"
               >
                 {features.map((feature, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="flex items-start space-x-3 p-4 bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow"
+                    className="group relative overflow-hidden p-4 bg-white dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-all backdrop-blur-sm text-sm"
+                    whileHover={
+                      prefersReducedMotion
+                        ? {}
+                        : {
+                            y: -2,
+                            boxShadow:
+                              "0 10px 20px -5px rgba(59, 130, 246, 0.2)",
+                          }
+                    }
                   >
-                    <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">
-                      {feature}
-                    </span>
-                  </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="relative flex items-start space-x-3">
+                      <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700 dark:text-gray-300 font-medium">
+                        {feature}
+                      </span>
+                    </div>
+                  </motion.div>
                 ))}
               </motion.div>
             </motion.div>
@@ -138,25 +197,30 @@ const ServiceTemplate = ({
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-100px" }}
-              className="mb-16"
             >
               <motion.h2
                 variants={itemVariants}
-                className="text-2xl font-bold text-gray-900 dark:text-white mb-6 relative inline-block after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-1 after:bg-gradient-to-r from-blue-500 to-cyan-500 after:rounded-full"
+                className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
               >
+                <span className="w-1 h-8 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full mr-3"></span>
                 Technologies We Use
               </motion.h2>
+
               <motion.div
                 variants={itemVariants}
                 className="flex flex-wrap gap-3"
               >
                 {technologies.map((tech, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="px-4 py-2 bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 text-gray-800 dark:text-gray-200 font-medium"
+                    className="px-4 py-2 text-sm bg-white dark:bg-gray-800/50 rounded-full border border-gray-200 dark:border-gray-700/50 hover:border-blue-500/50 dark:hover:border-blue-400/50 font-medium text-gray-700 dark:text-gray-300 transition-all backdrop-blur-sm"
+                    whileHover={
+                      prefersReducedMotion ? {} : { scale: 1.05, y: -2 }
+                    }
+                    whileTap={{ scale: 0.95 }}
                   >
                     {tech}
-                  </div>
+                  </motion.div>
                 ))}
               </motion.div>
             </motion.div>
@@ -168,27 +232,51 @@ const ServiceTemplate = ({
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, margin: "-100px" }}
-                className="mb-16"
               >
                 <motion.h2
                   variants={itemVariants}
-                  className="text-2xl font-bold text-gray-900 dark:text-white mb-6"
+                  className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
                 >
+                  <span className="w-1 h-8 bg-gradient-to-b from-pink-600 to-orange-600 rounded-full mr-3"></span>
                   Frequently Asked Questions
                 </motion.h2>
+
                 <motion.div variants={containerVariants} className="space-y-4">
                   {faqs.map((faq, index) => (
                     <motion.div
                       key={index}
                       variants={itemVariants}
-                      className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
+                      className="bg-white dark:bg-gray-800/50 rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700/50 backdrop-blur-sm"
                     >
-                      <h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-2">
-                        {faq.question}
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-400">
-                        {faq.answer}
-                      </p>
+                      <button
+                        onClick={() =>
+                          setActiveFaq(activeFaq === index ? null : index)
+                        }
+                        className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
+                      >
+                        <h3 className="font-semibold text-lg text-gray-900 dark:text-white pr-4">
+                          {faq.question}
+                        </h3>
+                        <motion.div
+                          animate={{ rotate: activeFaq === index ? 180 : 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <ArrowRight className="w-5 h-5 text-gray-400 transform rotate-90" />
+                        </motion.div>
+                      </button>
+                      <motion.div
+                        initial={false}
+                        animate={{
+                          height: activeFaq === index ? "auto" : 0,
+                          opacity: activeFaq === index ? 1 : 0,
+                        }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <p className="px-6 pb-6 text-gray-600 dark:text-gray-400">
+                          {faq.answer}
+                        </p>
+                      </motion.div>
                     </motion.div>
                   ))}
                 </motion.div>
@@ -196,87 +284,98 @@ const ServiceTemplate = ({
             )}
           </div>
 
-          {/* Pricing Card */}
+          {/* Pricing Sidebar */}
           <div className="lg:sticky lg:top-8 lg:h-fit">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
-              className="bg-white dark:bg-gray-800/50 rounded-2xl shadow-xl overflow-hidden border border-gray-100 dark:border-gray-700/50"
+              className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50"
             >
-              <div className={`p-6 bg-gradient-to-r ${color} text-white`}>
-                <h2 className="text-2xl font-bold text-white">Pricing</h2>
-                <p className="text-white/95">
-                  Choose the right plan for your needs
-                </p>
+              <div
+                className={`p-8 bg-gradient-to-r ${color} text-white relative overflow-hidden`}
+              >
+                <div className="absolute inset-0 bg-grid-white/10"></div>
+                <div className="relative z-10">
+                  <h2 className="text-3xl font-bold mb-2 text-white">
+                    Pricing
+                  </h2>
+                  <p className="opacity-90 text-white/90 font-medium">
+                    Choose what fits you best
+                  </p>
+                </div>
               </div>
 
-              <div className="p-6">
+              <div className="p-4 space-y-4">
                 {pricing.map((plan, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className={`mb-6 p-6 rounded-xl border ${
+                    className={`relative p-4 rounded-lg border-2 transition-all text-sm ${
                       plan.popular
-                        ? "border-2 border-blue-500 dark:border-blue-400 bg-blue-50/50 dark:bg-blue-900/20"
-                        : "border-gray-200 dark:border-gray-700"
+                        ? "border-blue-500 dark:border-blue-400 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 shadow-md shadow-blue-500/10"
+                        : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50"
                     }`}
+                    whileHover={
+                      prefersReducedMotion ? {} : { scale: 1.02, y: -4 }
+                    }
                   >
                     {plan.popular && (
-                      <span className="inline-block bg-blue-500 text-white text-xs font-semibold px-3 py-1 rounded-full mb-4">
-                        Most Popular
-                      </span>
+                      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
+                        <span className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
+                          <Star className="w-2.5 h-2.5 mr-1 fill-current" />
+                          POPULAR
+                        </span>
+                      </div>
                     )}
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                       {plan.name}
                     </h3>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">
+                    <p className="text-gray-600 dark:text-gray-400 mb-4 text-xs">
                       {plan.description}
                     </p>
-                    <div className="mb-6">
-                      <Link
-                        to="/contact"
-                        className="inline-flex items-center justify-center w-full px-6 py-3 text-base font-medium text-white hover:text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 rounded-lg shadow-md transition-all duration-200 transform hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                      >
-                        Contact for Pricing
-                        <svg
-                          className="w-4 h-4 ml-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </Link>
+
+                    <div className="mb-4">
+                      <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                        ${plan.price}
+                      </span>
+                      <span className="text-sm text-gray-600 dark:text-gray-400 ml-1">
+                        /{plan.type}
+                      </span>
                     </div>
-                    <ul className="space-y-3 mb-6">
+
+                    <ul className="space-y-2 mb-4">
                       {plan.features.map((feature, i) => (
-                        <li key={i} className="flex items-center">
-                          <CheckCircle className="w-5 h-5 text-green-500 mr-2 flex-shrink-0" />
-                          <span className="text-gray-700 dark:text-gray-300">
+                        <li key={i} className="flex items-start">
+                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700 dark:text-gray-300 text-xs leading-relaxed">
                             {feature}
                           </span>
                         </li>
                       ))}
                     </ul>
-                  </div>
+
+                    <motion.button
+                      className={`w-full px-3 py-2 text-xs rounded-md font-medium transition-all ${
+                        plan.popular
+                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30"
+                          : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
+                      }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      Get Started
+                    </motion.button>
+                  </motion.div>
                 ))}
 
-                <div className="text-center text-sm text-gray-500 dark:text-gray-400 mt-4">
-                  <p>
-                    Need a custom solution?{" "}
-                    <a
-                      href="#contact"
-                      className="text-blue-600 dark:text-blue-400 hover:underline"
-                    >
-                      Contact us
-                    </a>
+                <div className="text-center pt-4">
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    Need something custom?
                   </p>
+                  <button className="text-blue-600 dark:text-blue-400 hover:underline font-medium text-xs">
+                    Contact us for a tailored solution →
+                  </button>
                 </div>
               </div>
             </motion.div>

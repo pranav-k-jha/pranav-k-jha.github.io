@@ -64,7 +64,7 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 flex items-center justify-center">
       <div className="w-full max-w-2xl mx-4 sm:mx-6 lg:mx-0">
         <div className="space-y-6 mb-8 text-center">
           <motion.h1

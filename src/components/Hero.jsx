@@ -126,7 +126,7 @@ const Hero = () => {
 
             {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4"
+              className="flex flex-col lg:flex-row gap-4 justify-center lg:justify-start pt-4"
               variants={animationVariants.fadeInUp}
             >
               <Link

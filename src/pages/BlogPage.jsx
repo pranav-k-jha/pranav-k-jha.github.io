@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Calendar, ArrowRight, Sparkles } from "lucide-react";
 import { getAllPosts } from "../content/blog/clientPosts";
@@ -380,6 +380,34 @@ const BlogSkeleton = () => (
 export default function BlogPage() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+
+  // Save scroll position before component unmounts
+  useEffect(() => {
+    const saveScrollPosition = () => {
+      sessionStorage.setItem("blogScrollPosition", window.scrollY);
+    };
+
+    window.addEventListener("beforeunload", saveScrollPosition);
+    return () => {
+      window.removeEventListener("beforeunload", saveScrollPosition);
+    };
+  }, []);
+
+  // Restore scroll position on mount if coming from a page reload
+  useEffect(() => {
+    if (performance.navigation?.type === 1) {
+      // Check if page was reloaded
+      const savedPosition = sessionStorage.getItem("blogScrollPosition");
+      if (savedPosition) {
+        // Use setTimeout to ensure the DOM is fully rendered
+        setTimeout(() => {
+          window.scrollTo(0, parseInt(savedPosition, 10));
+          sessionStorage.removeItem("blogScrollPosition");
+        }, 0);
+      }
+    }
+  }, [location]);
 
   useEffect(() => {
     try {

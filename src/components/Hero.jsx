@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { socialLinks } from "../lib/socialLinks";
 import { useTheme } from "../context/ThemeContext";
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { useMemo, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 
 const animationVariants = {
@@ -30,10 +30,34 @@ const animationVariants = {
 
 const Hero = () => {
   const { theme } = useTheme();
+  const location = useLocation();
   const techStack = useMemo(
     () => ["Python", "TensorFlow", "NLP", "LLM", "RAG", "Gen AI"],
     []
   );
+
+  // Save scroll position before component unmounts
+  useEffect(() => {
+    const saveScrollPosition = () => {
+      sessionStorage.setItem('homeScrollPosition', window.scrollY);
+    };
+    
+    window.addEventListener('beforeunload', saveScrollPosition);
+    return () => {
+      window.removeEventListener('beforeunload', saveScrollPosition);
+    };
+  }, []);
+
+  // Restore scroll position on mount if coming from a page reload
+  useEffect(() => {
+    if (performance.navigation?.type === 1) { // Check if page was reloaded
+      const savedPosition = sessionStorage.getItem('homeScrollPosition');
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+        sessionStorage.removeItem('homeScrollPosition');
+      }
+    }
+  }, [location]);
 
   return (
     <motion.section

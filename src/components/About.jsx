@@ -46,7 +46,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="py-16 bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50"
+      className="py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
     >
       <div className="container max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}

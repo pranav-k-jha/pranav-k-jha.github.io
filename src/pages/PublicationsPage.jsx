@@ -227,7 +227,7 @@ const PublicationsPage = () => {
                     </div>
                     <div className="flex-1">
                       <h3
-                        className={`text-lg font-medium leading-snug transition-colors ${
+                        className={`text-lg font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
                           url
                             ? "hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
                             : ""
@@ -264,7 +264,7 @@ const PublicationsPage = () => {
                         </a>
                       )}
                       {authors && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
                           {authors}.
                         </p>
                       )}

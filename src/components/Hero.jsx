@@ -80,7 +80,7 @@ const Hero = () => {
             {/* Main Heading */}
             <motion.div variants={animationVariants.fadeInUp}>
               <h1
-                className={`text-5xl md:text-5xl lg:text-6xl font-black mb-4 ${
+                className={`text-4xl md:text-5xl lg:text-6xl font-black mb-4 ${
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
@@ -90,7 +90,7 @@ const Hero = () => {
               </h1>
 
               {/* Animated Roles */}
-              <div className="h-16 md:h-20 flex items-start justify-center md:justify-start">
+              <div className="h-16 flex items-start justify-center md:justify-start">
                 <TypeAnimation
                   sequence={[
                     "NLP Engineer",
@@ -107,7 +107,7 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="inline-block text-3xl md:text-5xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
+                  className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
                   style={{ lineHeight: "1.2" }}
                 />
               </div>

@@ -120,8 +120,8 @@ const Hero = () => {
               }`}
               variants={animationVariants.fadeInUp}
             >
-              Building intelligent systems and solving complex problems with
-              Machine Learning and Deep Learning.
+              Transforming complex AI research into scalable, production-ready
+              solutions.
             </motion.p>
 
             {/* CTA Buttons */}

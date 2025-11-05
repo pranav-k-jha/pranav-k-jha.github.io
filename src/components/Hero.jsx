@@ -57,14 +57,14 @@ const Hero = () => {
               <span
                 className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium backdrop-blur-xl border ${
                   theme === "dark"
-                    ? "bg-cyan-500/10 border-cyan-500/20 text-cyan-300"
-                    : "bg-blue-500/10 border-blue-500/20 text-blue-700"
+                    ? "bg-purple-500/10 border-purple-500/20 text-purple-300"
+                    : "bg-purple-500/10 border-purple-500/20 text-purple-700"
                 }`}
               >
                 <span className="relative flex h-2 w-2 mr-2">
                   <span
                     className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                      theme === "dark" ? "bg-cyan-400" : "bg-blue-600"
+                      theme === "dark" ? "bg-purple-400" : "bg-blue-600"
                     }`}
                   ></span>
                   <span
@@ -84,7 +84,7 @@ const Hero = () => {
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
-                <span className="block mb-2 font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                <span className="block mb-2 font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400 bg-clip-text text-transparent">
                   PRANAV JHA
                 </span>
               </h1>
@@ -107,7 +107,7 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
+                  className="inline-block text-4xl md:text-5xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400 bg-clip-text text-transparent"
                   style={{ lineHeight: "1.2" }}
                 />
               </div>
@@ -133,8 +133,8 @@ const Hero = () => {
                 to="/resources"
                 className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
-                    : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
+                    ? "bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 hover:from-purple-500 hover:via-blue-500 hover:to-emerald-500"
+                    : "bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 hover:from-purple-500 hover:via-blue-500 hover:to-emerald-500"
                 }`}
               >
                 <span className="relative z-10 flex items-center justify-center">
@@ -160,8 +160,8 @@ const Hero = () => {
                 href="mailto:pranav.jha@mail.concordia.ca"
                 className={`group px-6 py-3 rounded-xl text-sm font-semibold backdrop-blur-xl border-2 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg ${
                   theme === "dark"
-                    ? "bg-white/5 border-cyan-400/50 text-cyan-300 hover:bg-white/10 hover:border-cyan-400"
-                    : "bg-white/50 border-blue-500/50 text-blue-700 hover:bg-white/80 hover:border-blue-600"
+                    ? "bg-white/5 border-purple-400/50 text-purple-300 hover:bg-white/10 hover:border-purple-400"
+                    : "bg-white/50 border-purple-500/50 text-purple-700 hover:bg-white/80 hover:border-purple-600"
                 }`}
               >
                 <span className="flex items-center justify-center">

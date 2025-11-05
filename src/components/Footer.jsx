@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import {
   FaLinkedin,
   FaGithub,
@@ -173,18 +174,29 @@ const Footer = () => {
             </h4>
             <div className="space-y-2">
               {quickLinks.map((link, index) => (
-                <motion.a
-                  key={link.name}
-                  href={link.href}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
-                  whileHover={{ x: 5 }}
-                  className="flex items-center text-sm text-gray-400 hover:text-blue-400 transition-colors group"
-                >
-                  <FaExternalLinkAlt className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  {link.name}
-                </motion.a>
+                link.href.startsWith('#') ? (
+                  <motion.a
+                    key={link.name}
+                    href={link.href}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.4 + index * 0.1 }}
+                    whileHover={{ x: 5 }}
+                    className="flex items-center text-sm text-gray-400 hover:text-blue-400 transition-colors group"
+                  >
+                    <FaExternalLinkAlt className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {link.name}
+                  </motion.a>
+                ) : (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="flex items-center text-sm text-gray-400 hover:text-blue-400 transition-colors group"
+                  >
+                    <FaExternalLinkAlt className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    {link.name}
+                  </Link>
+                )
               ))}
             </div>
           </motion.div>

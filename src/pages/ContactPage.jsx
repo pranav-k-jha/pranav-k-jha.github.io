@@ -3,6 +3,20 @@ import { motion } from "framer-motion";
 import { Loader2, ArrowRight } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 25 },
+  visible: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.15,
+      type: "spring",
+      stiffness: 80,
+      damping: 14,
+    },
+  }),
+};
+
 const ContactPage = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -84,15 +98,23 @@ const ContactPage = () => {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, scale: 0.98 },
+            visible: {
+              opacity: 1,
+              scale: 1,
+              transition: { duration: 0.4, ease: "easeOut" },
+            },
+          }}
           className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg dark:shadow-gray-800/10"
         >
           {submitStatus.message && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
+              transition={{ type: "spring", stiffness: 80, damping: 12 }}
               className={`mb-4 p-3 rounded-lg text-sm ${
                 submitStatus.success
                   ? "bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-200"
@@ -104,11 +126,17 @@ const ContactPage = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <motion.div
+              className="grid grid-cols-1 gap-4 sm:grid-cols-2"
+              initial="hidden"
+              animate="visible"
+            >
+              {/* Name Field */}
               <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
+                variants={fadeUp}
+                custom={0}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 12 }}
               >
                 <label
                   htmlFor="name"
@@ -118,20 +146,22 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="text"
-                  name="name"
                   id="name"
+                  name="name"
+                  required
                   value={formData.name}
                   onChange={handleChange}
-                  required
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
                   placeholder="John Doe"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
                 />
               </motion.div>
 
+              {/* Email Field */}
               <motion.div
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.25 }}
+                variants={fadeUp}
+                custom={1}
+                whileHover={{ scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300, damping: 12 }}
               >
                 <label
                   htmlFor="email"
@@ -141,21 +171,21 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="email"
-                  name="email"
                   id="email"
+                  name="email"
+                  required
                   value={formData.email}
                   onChange={handleChange}
-                  required
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
                   placeholder="your@email.com"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
                 />
               </motion.div>
 
+              {/* Subject Field */}
               <motion.div
+                variants={fadeUp}
+                custom={2}
                 className="sm:col-span-2"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
               >
                 <label
                   htmlFor="subject"
@@ -165,21 +195,21 @@ const ContactPage = () => {
                 </label>
                 <input
                   type="text"
-                  name="subject"
                   id="subject"
+                  name="subject"
+                  required
                   value={formData.subject}
                   onChange={handleChange}
-                  required
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
                   placeholder="How can I help you?"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
                 />
               </motion.div>
 
+              {/* Message Field */}
               <motion.div
+                variants={fadeUp}
+                custom={3}
                 className="sm:col-span-2"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
               >
                 <label
                   htmlFor="message"
@@ -188,45 +218,50 @@ const ContactPage = () => {
                   Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
-                  name="message"
                   id="message"
+                  name="message"
                   rows={4}
+                  required
                   value={formData.message}
                   onChange={handleChange}
-                  required
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 resize-none"
                   placeholder="Your message..."
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 resize-none"
                 />
               </motion.div>
-            </div>
+            </motion.div>
 
-            <motion.div
-              className="pt-2"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              whileHover={{ scale: 1.01 }}
-              whileTap={{ scale: 0.99 }}
-            >
-              <button
+            {/* Submit Button */}
+            <motion.div variants={fadeUp} custom={4} className="pt-2">
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 250, damping: 15 }}
                 className={`group w-full flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm hover:shadow-md ${
                   isSubmitting ? "opacity-70 cursor-not-allowed" : ""
                 }`}
               >
                 {isSubmitting ? (
-                  <>
-                    <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" />
+                  <motion.span
+                    animate={{ rotate: 360 }}
+                    transition={{
+                      duration: 1,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                    className="flex items-center"
+                  >
+                    <Loader2 className="h-5 w-5 mr-2" />
                     Sending...
-                  </>
+                  </motion.span>
                 ) : (
-                  <>
+                  <span className="flex items-center">
                     Send Message
-                    <ArrowRight className="ml-2 -mr-1 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
-                  </>
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
                 )}
-              </button>
+              </motion.button>
             </motion.div>
           </form>
         </motion.div>

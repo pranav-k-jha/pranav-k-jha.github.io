@@ -3,6 +3,18 @@ import { motion } from "framer-motion";
 import { Loader2, ArrowRight } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
+// Animation variants
+const pageTransition = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
 const fadeUp = {
   hidden: { opacity: 0, y: 25 },
   visible: (i = 0) => ({
@@ -64,9 +76,14 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 flex items-center justify-center">
-      <div className="w-full max-w-2xl mx-4 sm:mx-6 lg:mx-0">
-        <div className="space-y-6 mb-8 text-center">
+    <motion.div
+      className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
+      variants={pageTransition}
+      initial="hidden"
+      animate="visible"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="space-y-4 mb-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -75,14 +92,14 @@ const ContactPage = () => {
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-3xl sm:text-4xl font-bold tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-              SEND ME A MESSAGE
+              GET IN TOUCH
             </span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -90,25 +107,29 @@ const ContactPage = () => {
               delay: 0.3,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-gray-600 dark:text-gray-300 text-sm sm:text-base"
+            className="space-y-2 text-center"
           >
-            Have a project in mind or want to discuss potential opportunities?
-            Let's talk.
-          </motion.p>
+            <p className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
+              Have a project in mind or want to discuss potential opportunities?
+            </p>
+            <p className="text-gray-600 dark:text-gray-400">
+              I'll get back to you as soon as possible.
+            </p>
+          </motion.div>
         </div>
 
         <motion.div
           initial="hidden"
           animate="visible"
           variants={{
-            hidden: { opacity: 0, scale: 0.98 },
+            hidden: { opacity: 0, y: 20 },
             visible: {
               opacity: 1,
-              scale: 1,
-              transition: { duration: 0.4, ease: "easeOut" },
+              y: 0,
+              transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
             },
           }}
-          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg dark:shadow-gray-800/10"
+          className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg dark:shadow-gray-800/10"
         >
           {submitStatus.message && (
             <motion.div
@@ -152,7 +173,7 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 min-w-0"
                 />
               </motion.div>
 
@@ -177,7 +198,7 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="your@email.com"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 min-w-0"
                 />
               </motion.div>
 
@@ -201,7 +222,7 @@ const ContactPage = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="How can I help you?"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 min-w-0"
                 />
               </motion.div>
 
@@ -266,7 +287,7 @@ const ContactPage = () => {
           </form>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

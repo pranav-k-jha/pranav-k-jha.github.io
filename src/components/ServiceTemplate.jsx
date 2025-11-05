@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { ArrowLeft, CheckCircle, Zap, ArrowRight, Star } from "lucide-react";
 
 // Check for reduced motion preference
@@ -98,24 +98,27 @@ const ServiceTemplate = ({
   // Save scroll position before component unmounts
   useEffect(() => {
     const saveScrollPosition = () => {
-      sessionStorage.setItem('serviceTemplateScrollPosition', window.scrollY);
+      sessionStorage.setItem("serviceTemplateScrollPosition", window.scrollY);
     };
-    
-    window.addEventListener('beforeunload', saveScrollPosition);
+
+    window.addEventListener("beforeunload", saveScrollPosition);
     return () => {
-      window.removeEventListener('beforeunload', saveScrollPosition);
+      window.removeEventListener("beforeunload", saveScrollPosition);
     };
   }, []);
 
   // Restore scroll position on mount if coming from a page reload
   useEffect(() => {
-    if (performance.navigation?.type === 1) { // Check if page was reloaded
-      const savedPosition = sessionStorage.getItem('serviceTemplateScrollPosition');
+    if (performance.navigation?.type === 1) {
+      // Check if page was reloaded
+      const savedPosition = sessionStorage.getItem(
+        "serviceTemplateScrollPosition"
+      );
       if (savedPosition) {
         // Use setTimeout to ensure the DOM is fully rendered
         setTimeout(() => {
           window.scrollTo(0, parseInt(savedPosition, 10));
-          sessionStorage.removeItem('serviceTemplateScrollPosition');
+          sessionStorage.removeItem("serviceTemplateScrollPosition");
         }, 0);
       }
     }
@@ -364,13 +367,29 @@ const ServiceTemplate = ({
                       {plan.description}
                     </p>
 
-                    <div className="mb-4">
-                      <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                        ${plan.price}
-                      </span>
-                      <span className="text-sm text-gray-600 dark:text-gray-400 ml-1">
-                        /{plan.type}
-                      </span>
+                    <div className="mb-4 flex items-center">
+                      <div className="relative group">
+                        <div className="flex items-center">
+                          <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                            Contact Us
+                          </span>
+                          <svg
+                            className="w-5 h-5 ml-2 text-gray-400 group-hover:text-blue-500 transition-colors"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                            />
+                          </svg>
+                        </div>
+                        <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                      </div>
                     </div>
 
                     <ul className="space-y-2 mb-4">
@@ -384,30 +403,73 @@ const ServiceTemplate = ({
                       ))}
                     </ul>
 
-                    <motion.button
-                      className={`w-full px-3 py-2 text-xs rounded-md font-medium transition-all ${
-                        plan.popular
-                          ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30"
-                          : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                      }`}
+                    <motion.div
+                      className="w-full"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Get Started
-                    </motion.button>
+                      <Link
+                        to="/contact"
+                        className={`w-full px-3 py-2 text-xs rounded-md font-medium transition-all flex items-center justify-center ${
+                          plan.popular
+                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:text-white"
+                            : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
+                        }`}
+                      >
+                        <svg
+                          className="w-4 h-4 mr-2"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                        Contact for Pricing
+                      </Link>
+                    </motion.div>
                   </motion.div>
                 ))}
-
-                <div className="text-center pt-4">
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
-                    Need something custom?
-                  </p>
-                  <button className="text-blue-600 dark:text-blue-400 hover:underline font-medium text-xs">
-                    Contact us for a tailored solution →
-                  </button>
-                </div>
               </div>
             </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Custom Solution Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-lg border border-gray-200 dark:border-gray-700/50">
+          <div className="text-center max-w-3xl mx-auto">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Need a Custom Solution?
+            </h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
+              We understand that every business is unique. Let's discuss how we
+              can create a tailored solution that perfectly fits your needs.
+            </p>
+            <div className="flex justify-center">
+              <Link to="/contact">
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                >
+                  Get a Custom Quote
+                  <motion.div
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                    className="flex items-center"
+                  >
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </motion.div>
+                </motion.div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

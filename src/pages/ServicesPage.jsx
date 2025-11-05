@@ -16,6 +16,30 @@ const pageTransition = {
   exit: { opacity: 0 },
 };
 
+// Animation variants for container
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+// Animation variants for items
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};
+
 // Animation variants for staggered cards
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -72,12 +96,12 @@ const SERVICE_CATEGORIES = {
     description: "Full-stack web applications and platforms",
     color: "from-blue-500 to-cyan-500",
   },
-  "Data Engineering": {
-    name: "Data Engineering",
-    icon: Database,
-    description: "Data pipelines and analytics platforms",
-    color: "from-orange-500 to-red-500",
-  },
+  // "Data Engineering": {
+  //   name: "Data Engineering",
+  //   icon: Database,
+  //   description: "Data pipelines and analytics platforms",
+  //   color: "from-orange-500 to-red-500",
+  // },
 };
 
 const services = [
@@ -127,26 +151,26 @@ const services = [
     technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS"],
     color: "from-blue-500 to-cyan-500",
   },
-  {
-    id: 4,
-    title: "Data Engineering & Analytics",
-    slug: "data-engineering",
-    description:
-      "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
-    icon: Database,
-    category: "Data Engineering",
-    features: [
-      "Data Pipeline Development",
-      "ETL/ELT Processes",
-      "Data Warehousing",
-      "Real-time Analytics",
-      "Data Visualization",
-    ],
-    technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
-    color: "from-orange-500 to-red-500",
-  },
+  // {
+  //   id: 3,
+  //   title: "Data Engineering & Analytics",
+  //   slug: "data-engineering",
+  //   description:
+  //     "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
+  //   image:
+  //     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+  //   icon: Database,
+  //   category: "Data Engineering",
+  //   features: [
+  //     "Data Pipeline Development",
+  //     "ETL/ELT Processes",
+  //     "Data Warehousing",
+  //     "Real-time Analytics",
+  //     "Data Visualization",
+  //   ],
+  //   technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
+  //   color: "from-orange-500 to-red-500",
+  // },
 ];
 
 // Hook for filtering services
@@ -320,127 +344,123 @@ export default function ServicesPage() {
   } = useServiceFilter();
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.div
-        key="services-content"
-        className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
-        variants={pageTransition}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-      >
-        {/* Header Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          {/* Header with Animation */}
-          <div className="space-y-4 mb-12">
-            {/* Main Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
-            >
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-                MY SERVICES
-              </span>
-            </motion.h1>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+      <AnimatePresence mode="wait">
+        <motion.div
+          key="services-content"
+          variants={pageTransition}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+        >
+          {/* Header Section */}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            {/* Header with Animation */}
+            <div className="space-y-4 mb-12">
+              {/* Main Heading */}
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.2,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
+              >
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
+                  MY SERVICES
+                </span>
+              </motion.h1>
 
-            {/* Subtitle */}
-            <motion.p
-              className="text-lg text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto"
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.3,
-                ease: [0.16, 1, 0.3, 1],
-              }}
+              {/* Subtitle */}
+              <motion.p
+                className="text-lg text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+              >
+                From AI-powered solutions to full-stack development, I provide
+                end-to-end technology services that transform ideas into
+                reality.
+              </motion.p>
+            </div>
+
+            {/* Services Grid */}
+            <motion.div
+              variants={container}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-20px" }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4"
             >
-              From AI-powered solutions to full-stack development, I provide
-              end-to-end technology services that transform ideas into reality.
-            </motion.p>
+              {filteredServices.slice(0, 2).map((service, index) => (
+                <div key={service.id} className="w-full flex justify-center">
+                  <div className="w-full max-w-sm">
+                    <ServiceCard service={service} index={index} />
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* No results message */}
+            {filteredServices.length === 0 && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="col-span-full text-center py-12"
+              >
+                <div className="text-gray-500 dark:text-gray-400 text-lg">
+                  No services found in this category.
+                </div>
+              </motion.div>
+            )}
           </div>
 
-          {/* Services Grid */}
-          <motion.div
-            variants={container}
+          {/* CTA Section */}
+          <motion.section
             initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-20px" }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={containerVariants}
+            className="py-20 px-6 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
           >
-            {filteredServices.map((service, index) => (
-              <ServiceCard key={service.id} service={service} index={index} />
-            ))}
-          </motion.div>
-
-          {/* No results message */}
-          {filteredServices.length === 0 && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              className="col-span-full text-center py-12"
-            >
-              <div className="text-gray-500 dark:text-gray-400 text-lg">
-                No services found in this category.
-              </div>
-            </motion.div>
-          )}
-        </div>
-
-        {/* CTA Section */}
-        <div className="relative py-20 overflow-hidden bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative">
-              <div className="text-center">
-                <motion.h2
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6 }}
-                  className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-6"
-                >
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400">
-                    Ready to Get Started?
-                  </span>
-                </motion.h2>
-                <motion.p
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto mb-8"
-                >
+            <div className="container mx-auto max-w-4xl text-center">
+              <motion.div variants={itemVariants}>
+                <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+                  Ready to <span className="font-bold">Transform</span> Your
+                  Ideas?
+                </h2>
+                <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto mb-8">
                   Let's discuss how my services can help you achieve your goals
                   and drive innovation in your organization.
-                </motion.p>
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="flex justify-center"
-                >
+                </p>
+                <div className="flex justify-center">
                   <Link to="/contact">
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 flex items-center"
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className="py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
                     >
-                      Get in Touch
-                      <ArrowRight className="w-5 h-5 ml-2" />
-                    </motion.button>
+                      Get Started
+                      <motion.div
+                        whileHover={{ x: 4 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight className="w-5 h-5 ml-2" />
+                      </motion.div>
+                    </motion.div>
                   </Link>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             </div>
-          </div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+          </motion.section>
+        </motion.div>
+      </AnimatePresence>
+    </div>
   );
 }

@@ -4,6 +4,7 @@ import { socialLinks } from "../lib/socialLinks";
 import { useTheme } from "../context/ThemeContext";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 
 const animationVariants = {
   container: {
@@ -218,28 +219,50 @@ const Hero = () => {
 
             {/* Social Links */}
             <motion.div
-              className="flex justify-center md:justify-start gap-4 pt-2"
+              className="flex justify-center md:justify-start gap-4 pt-6"
               variants={animationVariants.fadeInUp}
             >
-              {socialLinks.map((social) => {
-                const Icon = social.icon;
-                return (
-                  <a
-                    key={social.href}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`p-3 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${
-                      theme === "dark"
-                        ? "bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 hover:text-cyan-400"
-                        : "bg-white/50 border-gray-200 text-gray-600 hover:bg-white hover:text-blue-600"
-                    }`}
-                    aria-label={social.label}
-                  >
-                    <Icon className="w-5 h-5" />
-                  </a>
-                );
-              })}
+              {socialLinks.map((social) => (
+                <a
+                  key={social.href}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`p-3 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${
+                    theme === "dark"
+                      ? "bg-white/5 border-white/10 hover:bg-white/10"
+                      : "bg-white/50 border-gray-200 hover:bg-white"
+                  } ${social.color}`}
+                  aria-label={social.label}
+                >
+                  {social.label === "GitHub" && (
+                    <FaGithub
+                      className="w-5 h-5"
+                      style={{
+                        color: theme === "dark" ? "#f0f0f0" : "#181717",
+                      }}
+                    />
+                  )}
+                  {social.label === "LinkedIn" && (
+                    <FaLinkedin
+                      className="w-5 h-5"
+                      style={{ color: "#0A66C2" }}
+                    />
+                  )}
+                  {social.label === "Twitter" && (
+                    <FaTwitter
+                      className="w-5 h-5"
+                      style={{ color: "#1DA1F2" }}
+                    />
+                  )}
+                  {social.label === "Email" && (
+                    <FaEnvelope
+                      className="w-5 h-5"
+                      style={{ color: "#EA4335" }}
+                    />
+                  )}
+                </a>
+              ))}
             </motion.div>
           </motion.div>
 

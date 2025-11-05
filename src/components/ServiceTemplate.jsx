@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { ArrowLeft, CheckCircle, Zap, ArrowRight, Star } from "lucide-react";
 
 // Check for reduced motion preference
@@ -91,6 +92,34 @@ const ServiceTemplate = ({
       },
     },
   };
+
+  const location = useLocation();
+
+  // Save scroll position before component unmounts
+  useEffect(() => {
+    const saveScrollPosition = () => {
+      sessionStorage.setItem('serviceTemplateScrollPosition', window.scrollY);
+    };
+    
+    window.addEventListener('beforeunload', saveScrollPosition);
+    return () => {
+      window.removeEventListener('beforeunload', saveScrollPosition);
+    };
+  }, []);
+
+  // Restore scroll position on mount if coming from a page reload
+  useEffect(() => {
+    if (performance.navigation?.type === 1) { // Check if page was reloaded
+      const savedPosition = sessionStorage.getItem('serviceTemplateScrollPosition');
+      if (savedPosition) {
+        // Use setTimeout to ensure the DOM is fully rendered
+        setTimeout(() => {
+          window.scrollTo(0, parseInt(savedPosition, 10));
+          sessionStorage.removeItem('serviceTemplateScrollPosition');
+        }, 0);
+      }
+    }
+  }, [location]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30 pt-20">

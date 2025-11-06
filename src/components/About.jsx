@@ -261,6 +261,21 @@ const About = () => {
               </div>
             </div>
           </BentoCard>
+          <BentoCard
+            Icon={Github}
+            title="GitHub Activity Graph"
+            delay={0.6}
+            className="lg:col-span-3 w-full"
+          >
+            <div className="w-full bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl">
+              <img
+                src="https://github-readme-activity-graph.vercel.app/graph?username=pranav-k-jha&theme=react-dark&hide_border=true&area=true"
+                alt="GitHub Activity Graph"
+                className="w-full h-auto rounded-lg"
+                loading="lazy"
+              />
+            </div>
+          </BentoCard>
         </div>
       </div>
     </section>

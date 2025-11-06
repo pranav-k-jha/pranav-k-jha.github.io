@@ -76,17 +76,17 @@ const About = () => {
             className="lg:col-span-2 lg:row-span-2"
             delay={0.1}
           >
-            <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-4">
+            <p className="text-gray-800 dark:text-gray-100 text-sm leading-relaxed mb-4 font-medium">
               Specializing in{" "}
-              <span className="font-medium text-blue-600 dark:text-blue-400">
+              <span className="font-semibold text-blue-700 dark:text-blue-400">
                 LLMs
               </span>
               ,{" "}
-              <span className="font-medium text-blue-600 dark:text-blue-400">
+              <span className="font-semibold text-blue-700 dark:text-blue-400">
                 RAG
               </span>
               , and{" "}
-              <span className="font-medium text-blue-600 dark:text-blue-400">
+              <span className="font-semibold text-blue-700 dark:text-blue-400">
                 Intelligent Automation
               </span>
               . Transforming data into actionable intelligence through
@@ -94,23 +94,24 @@ const About = () => {
             </p>
 
             {/* Current Focus - Compact */}
-            <div className="p-4 bg-blue-50/50 dark:bg-blue-900/10 rounded-lg border border-blue-100 dark:border-blue-900/30 mt-4">
-              <h4 className="text-sm font-semibold text-gray-800 dark:text-white mb-3 flex items-center">
-                <Target className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
+            <div className="p-4 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50 mt-4 shadow-sm">
+              <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center">
+                <Target className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-400" />
                 Current Focus
               </h4>
-              <div className="space-y-2 text-sm">
-                <p className="flex items-start text-gray-800 dark:text-gray-200">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                  <span>
+              <div className="space-y-3 text-sm">
+                <p className="flex items-start">
+                  <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-full mt-1 mr-2 flex-shrink-0"></span>
+                  <span className="text-gray-900 dark:text-gray-100">
                     Building scalable AI solutions with LLMs, RAG, and
                     multi-agent systems
                   </span>
                 </p>
-                <p className="flex items-start text-gray-800 dark:text-gray-200">
-                  <span className="inline-block w-2 h-2 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                  <span>
+                <p className="flex items-start">
+                  <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-full mt-1 mr-2 flex-shrink-0"></span>
+                  <span className="text-gray-900 dark:text-gray-100">
                     Exploring LLMOps, vector databases, and knowledge graphs
+                    after current focus
                   </span>
                 </p>
               </div>
@@ -261,7 +262,7 @@ const About = () => {
               </div>
             </div>
           </BentoCard>
-          <BentoCard
+          {/* <BentoCard
             Icon={Github}
             title="GitHub Activity Graph"
             delay={0.6}
@@ -275,7 +276,7 @@ const About = () => {
                 loading="lazy"
               />
             </div>
-          </BentoCard>
+          </BentoCard> */}
         </div>
       </div>
     </section>

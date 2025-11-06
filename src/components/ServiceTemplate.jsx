@@ -235,7 +235,7 @@ const ServiceTemplate = ({
                 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
               >
                 <span className="w-1 h-8 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full mr-3"></span>
-                Technologies We Use
+                Technologies used
               </motion.h2>
 
               <motion.div

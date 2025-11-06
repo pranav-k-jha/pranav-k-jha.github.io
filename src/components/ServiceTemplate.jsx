@@ -64,7 +64,7 @@ const ServiceTemplate = ({
     {
       question: "Do you provide ongoing support?",
       answer:
-        "Yes, we offer maintenance packages and ongoing support to ensure your AI solutions continue to perform optimally.",
+        "Yes, I offer maintenance packages and ongoing support to ensure your AI solutions continue to perform optimally.",
     },
   ],
   color = "from-blue-600 to-purple-600",
@@ -371,7 +371,7 @@ const ServiceTemplate = ({
                       <div className="relative group">
                         <div className="flex items-center">
                           <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            Contact Us
+                            Contact
                           </span>
                           <svg
                             className="w-5 h-5 ml-2 text-gray-400 group-hover:text-blue-500 transition-colors"
@@ -449,7 +449,7 @@ const ServiceTemplate = ({
               Need a Custom Solution?
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              We understand that every business is unique. Let's discuss how we
+              I understand that every business is unique. Let's discuss how I
               can create a tailored solution that perfectly fits your needs.
             </p>
             <div className="flex justify-center">

@@ -94,7 +94,7 @@ const WebDevServicePage = () => {
       {
         question: "Do you provide website hosting?",
         answer:
-          "While we don't provide hosting directly, we can recommend reliable hosting providers and assist with the setup. We also offer maintenance plans that include hosting management if needed.",
+          "While we don't provide hosting directly, we can recommend reliable hosting providers and assist with the setup.",
       },
       {
         question: "Will my website be mobile-friendly?",

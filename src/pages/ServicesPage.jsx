@@ -215,22 +215,31 @@ const ServiceCard = ({ service, index }) => {
       viewport={{ once: true, margin: "-20px" }}
       variants={cardVariants}
       whileHover="hover"
-      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full"
+      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300"
     >
       {/* Image */}
-      <div className="relative h-48 overflow-hidden">
-        <motion.div
-          whileHover={{ scale: 1.15 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full h-full"
-        >
-          <img
-            src={service.image}
-            alt={service.title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </motion.div>
+      <div className="relative h-48 overflow-hidden group">
+        <div className="w-full h-full overflow-hidden">
+          <motion.div
+            initial={{ scale: 1 }}
+            whileHover={{
+              scale: 1.2,
+              transition: {
+                duration: 0.5,
+                ease: [0.4, 0, 0.2, 1],
+                type: "tween",
+              },
+            }}
+            className="w-full h-full"
+          >
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-full object-cover transform transition-transform duration-500 ease-out group-hover:scale-110"
+              loading="lazy"
+            />
+          </motion.div>
+        </div>
         <div
           className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-20`}
         />
@@ -316,16 +325,21 @@ const ServiceCard = ({ service, index }) => {
 
         {/* CTA Buttons */}
         <div className="mt-auto">
-          <Link to={`/services/${service.slug}`}>
+          <Link to={`/services/${service.slug}`} className="group">
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full py-3 px-4 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-shadow duration-300`}
+              className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 group`}
             >
-              Learn More
-              <motion.div whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </motion.div>
+              <span className="mr-2">Learn More</span>
+              <motion.span
+                className="inline-block"
+                initial={{ x: 0 }}
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+              </motion.span>
             </motion.div>
           </Link>
         </div>

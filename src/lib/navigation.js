@@ -12,12 +12,12 @@ export const navigationConfig = [
     href: "/publications",
   },
   {
-    title: "Blog",
-    href: "/blog",
-  },
-  {
     title: "Services",
     href: "/services",
+  },
+  {
+    title: "Blog",
+    href: "/blog",
   },
   {
     title: "Contact",

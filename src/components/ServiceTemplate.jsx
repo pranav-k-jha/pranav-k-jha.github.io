@@ -59,7 +59,7 @@ const ServiceTemplate = ({
     {
       question: "How long does a typical project take?",
       answer:
-        "Project timelines vary based on complexity, but most projects are completed within 4-8 weeks.",
+        "Project timelines vary based on complexity, but most projects are completed within 4-8 weeks. I'll get back to you within 24 hours.",
     },
     {
       question: "Do you provide ongoing support?",
@@ -235,7 +235,7 @@ const ServiceTemplate = ({
                 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
               >
                 <span className="w-1 h-8 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full mr-3"></span>
-                Technologies used
+                Technologies Used
               </motion.h2>
 
               <motion.div
@@ -430,7 +430,7 @@ const ServiceTemplate = ({
                             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                           />
                         </svg>
-                        Contact for Pricing
+                        Contact
                       </Link>
                     </motion.div>
                   </motion.div>
@@ -449,8 +449,9 @@ const ServiceTemplate = ({
               Need a Custom Solution?
             </h3>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              I understand that every business is unique. Let's discuss how I
-              can create a tailored solution that perfectly fits your needs.
+              I understand that every business is unique. Let's discuss your
+              project and how I can help create a tailored solution that
+              perfectly fits your needs.
             </p>
             <div className="flex justify-center">
               <Link to="/contact">

@@ -28,23 +28,14 @@ Welcome to my professional portfolio website! This is where I showcase my work, 
 
 ### Installation
 
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/pranav-k-jha/pranav-k-jha.github.io.git
-   cd pranav-k-jha.github.io
-   ```
-
-2. Install dependencies:
-
+1. Install dependencies:
    ```bash
    npm install
    # or
    yarn
    ```
 
-3. Start the development server:
-
+2. Start the development server:
    ```bash
    npm run dev
    # or

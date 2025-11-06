@@ -1,16 +1,74 @@
-# React + Vite
+# Pranav Jha - AI Engineer Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![GitHub Pages](https://img.shields.io/badge/View%20Live-181717?style=for-the-badge&logo=github&logoColor=white)](https://pranav-k-jha.github.io)
 
-Currently, two official plugins are available:
+Welcome to my professional portfolio website! This is where I showcase my work, skills, and experience in the field of Artificial Intelligence and Machine Learning.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- Modern, responsive design built with React and Vite
+- Dark/Light mode toggle
+- Project showcase with detailed case studies
+- Contact form integration
+- Optimized for performance and SEO
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend**: React, Vite, Tailwind CSS
+- **Deployment**: GitHub Pages
+- **Analytics**: Google Analytics
+- **Contact**: EmailJS
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/pranav-k-jha/pranav-k-jha.github.io.git
+   cd pranav-k-jha.github.io
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Build for production:
+
+   ```bash
+   npm run build
+   # or
+   yarn build
+   ```
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🤝 Connect with Me
+
+- [LinkedIn](https://linkedin.com/in/yourusername)
+- [GitHub](https://github.com/pranav-k-jha)
+- [Email](mailto:your.email@example.com)
+
+---
+
+⭐ Feel free to star ⭐ this repository if you find it useful!

@@ -16,7 +16,6 @@ import {
   Calendar,
 } from "lucide-react";
 
-// Compact BentoCard component
 const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
   return (
     <motion.div
@@ -24,20 +23,24 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      className={`relative overflow-hidden rounded-xl p-5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-md hover:shadow-lg transition-shadow ${className}`}
-      whileHover={{ y: -3, transition: { duration: 0.2 } }}
+      className={`relative overflow-hidden rounded-xl p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow ${className}`}
+      whileHover={{ y: -2, transition: { duration: 0.2 } }}
     >
-      {Icon && (
-        <div className="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mb-3">
-          <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-        </div>
-      )}
-      {title && (
-        <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">
-          {title}
-        </h3>
-      )}
-      <div className="relative z-10">{children}</div>
+      {/* Icon & Title in one row */}
+      <div className="flex items-center mb-2">
+        {Icon && (
+          <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mr-2">
+            <Icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          </div>
+        )}
+        {title && (
+          <h3 className="text-base font-semibold text-gray-800 dark:text-white">
+            {title}
+          </h3>
+        )}
+      </div>
+
+      <div className="relative z-10 text-sm">{children}</div>
     </motion.div>
   );
 };
@@ -258,52 +261,43 @@ const About = () => {
             className="lg:col-span-2"
             delay={0.6}
           >
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2">
               <img
                 src={getStreakStatsUrl()}
                 alt="GitHub Streak"
-                className="w-full h-auto"
+                className="w-full h-auto max-h-32 object-contain rounded-lg"
                 loading="eager"
               />
-            </div>
-          </BentoCard>
-
-          {/* Top Languages */}
-          <BentoCard Icon={BarChart3} title="Top Languages" delay={0.7}>
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
               <img
                 src={getTopLangsUrl()}
                 alt="Top Languages"
-                className="w-full h-auto"
+                className="w-full h-auto max-h-32 object-contain rounded-lg"
                 loading="lazy"
               />
             </div>
           </BentoCard>
 
-          {/* Productive Time */}
-          <BentoCard Icon={Clock} title="Productive Hours" delay={0.8}>
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
+          {/* Productive Time & Activity Graph */}
+          <BentoCard
+            Icon={Clock}
+            title="Productive Hours & Activity"
+            className="lg:col-span-2"
+            delay={0.8}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2">
+              {/* Productive Time */}
               <img
                 src={getProductiveTimeUrl()}
                 alt="Productive Time"
-                className="w-full h-auto"
+                className="w-full h-auto max-h-32 object-contain rounded-lg"
                 loading="lazy"
               />
-            </div>
-          </BentoCard>
 
-          {/* Activity Graph - Full Width */}
-          <BentoCard
-            Icon={Calendar}
-            title="Contribution Activity"
-            className="lg:col-span-3"
-            delay={0.9}
-          >
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
+              {/* Activity Graph */}
               <img
                 src={getActivityGraphUrl()}
                 alt="GitHub Activity Graph"
-                className="w-full h-auto"
+                className="w-full h-auto max-h-32 object-contain rounded-lg"
                 loading="lazy"
               />
             </div>

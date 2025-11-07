@@ -39,22 +39,23 @@ const Hero = () => {
   // Save scroll position before component unmounts
   useEffect(() => {
     const saveScrollPosition = () => {
-      sessionStorage.setItem('homeScrollPosition', window.scrollY);
+      sessionStorage.setItem("homeScrollPosition", window.scrollY);
     };
-    
-    window.addEventListener('beforeunload', saveScrollPosition);
+
+    window.addEventListener("beforeunload", saveScrollPosition);
     return () => {
-      window.removeEventListener('beforeunload', saveScrollPosition);
+      window.removeEventListener("beforeunload", saveScrollPosition);
     };
   }, []);
 
   // Restore scroll position on mount if coming from a page reload
   useEffect(() => {
-    if (performance.navigation?.type === 1) { // Check if page was reloaded
-      const savedPosition = sessionStorage.getItem('homeScrollPosition');
+    if (performance.navigation?.type === 1) {
+      // Check if page was reloaded
+      const savedPosition = sessionStorage.getItem("homeScrollPosition");
       if (savedPosition) {
         window.scrollTo(0, parseInt(savedPosition, 10));
-        sessionStorage.removeItem('homeScrollPosition');
+        sessionStorage.removeItem("homeScrollPosition");
       }
     }
   }, [location]);

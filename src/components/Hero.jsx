@@ -237,7 +237,7 @@ const Hero = () => {
                 <img
                   src="/western-logo.svg"
                   alt="Western University"
-                  className="h-8 object-contain opacity-100 dark:opacity-70 hover:opacity-100 transition-opacity rounded-md"
+                  className="h-8 object-contain opacity-100 dark:opacity-70 hover:opacity-100 transition-opacity rounded-sm"
                 />
               </div>
             </motion.div>

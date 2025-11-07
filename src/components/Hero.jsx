@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import { socialLinks } from "../lib/socialLinks";
 import { useTheme } from "../context/ThemeContext";
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope } from "react-icons/fa";
 
@@ -31,6 +31,17 @@ const animationVariants = {
 const Hero = () => {
   const { theme } = useTheme();
   const location = useLocation();
+  const [isScrolling, setIsScrolling] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolling(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const techStack = useMemo(
     () => ["Python", "TensorFlow", "NLP", "LLM", "RAG", "Gen AI"],
     []
@@ -208,10 +219,14 @@ const Hero = () => {
               </a>
             </motion.div>
 
-            {/* Scroll indicator - On top of wave */}
-            <div className="w-full absolute bottom-0 left-0 z-10">
+            {/* Scroll indicator - Hero section only */}
+            <div
+              className={`absolute bottom-[-2rem] md:bottom-8 left-0 right-0 z-10 transition-opacity duration-300 ${
+                isScrolling ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
+            >
               <motion.div
-                className="mx-auto w-fit flex flex-col items-center cursor-pointer -translate-y-8"
+                className="mx-auto w-fit flex flex-col items-center cursor-pointer"
                 onClick={() =>
                   window.scrollTo({
                     top: window.innerHeight - 80,
@@ -230,14 +245,14 @@ const Hero = () => {
                 }}
               >
                 <span
-                  className={`text-[0.6em] mb-2 ${
+                  className={`text-xs mb-1 ${
                     theme === "dark" ? "text-white/80" : "text-gray-700"
                   }`}
                 >
                   Scroll to explore
                 </span>
                 <div
-                  className={`w-6 h-10 border-2 rounded-full flex justify-center p-1 ${
+                  className={`w-5 h-8 border-2 rounded-full flex justify-center p-1 ${
                     theme === "dark" ? "border-white/50" : "border-gray-600/50"
                   }`}
                 >

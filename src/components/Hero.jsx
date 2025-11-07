@@ -157,9 +157,9 @@ const Hero = () => {
             >
               <Link
                 to="/services"
-                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
+                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
-                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-300"
+                    ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
                 }`}
               >

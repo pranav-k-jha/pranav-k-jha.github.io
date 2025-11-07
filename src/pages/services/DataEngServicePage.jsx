@@ -1,12 +1,14 @@
-import React from 'react';
-import ServiceTemplate from '../../components/ServiceTemplate';
-import { Database, Server, Zap, Shield, Cpu } from 'lucide-react';
+import React from "react";
+import ServiceTemplate from "../../components/ServiceTemplate";
+import { Database, Server, Zap, Shield, Cpu } from "lucide-react";
 
 const DataEngServicePage = () => {
   const serviceData = {
     title: "Data Engineering & Analytics",
-    description: "Transform raw data into actionable insights with our comprehensive data engineering and analytics solutions. We build robust data pipelines, data warehouses, and analytics platforms to drive data-driven decision making.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    description:
+      "Transform raw data into actionable insights with comprehensive data engineering and analytics solutions. Build robust data pipelines, data warehouses, and analytics platforms to drive data-driven decision making.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
     icon: Database,
     features: [
       "Data Pipeline Development",
@@ -15,82 +17,92 @@ const DataEngServicePage = () => {
       "Big Data Processing",
       "Real-time Data Streaming",
       "Data Quality & Governance",
-      "Business Intelligence Integration"
+      "Business Intelligence Integration",
     ],
     technologies: [
-      "Apache Spark", "Apache Kafka", "Apache Airflow", "Snowflake",
-      "AWS Redshift", "Google BigQuery", "dbt", "Apache Flink",
-      "Python", "SQL", "Apache Beam", "Databricks"
+      "Apache Spark",
+      "Apache Kafka",
+      "Apache Airflow",
+      "Snowflake",
+      "AWS Redshift",
+      "Google BigQuery",
+      "dbt",
+      "Apache Flink",
+      "Python",
+      "SQL",
+      "Apache Beam",
+      "Databricks",
     ],
     pricing: [
       {
         name: "Starter",
         description: "Basic data pipeline setup",
-        price: "4,999",
-        type: "project",
+        price: "$5,000+",
         features: [
-          "Data pipeline for up to 5 data sources",
-          "Basic ETL processes",
-          "Data warehouse setup",
+          "Basic ETL pipeline",
+          "Data source integration",
+          "Simple transformations",
           "Basic documentation",
-          "1 month support"
+          "Email support",
         ],
-        popular: false
+        popular: false,
       },
       {
         name: "Professional",
         description: "Advanced data infrastructure",
-        price: "12,999",
-        type: "project",
+        price: "$15,000+",
         features: [
-          "End-to-end data pipeline",
-          "Data warehouse optimization",
-          "ETL/ELT automation",
+          "Custom ETL/ELT pipelines",
+          "Data warehouse setup",
+          "Advanced transformations",
           "Data quality checks",
-          "3 months support",
-          "Basic analytics dashboard"
+          "Scheduled jobs",
+          "Priority support",
         ],
-        popular: true
+        popular: true,
       },
       {
         name: "Enterprise",
-        description: "Custom data platform",
-        price: "Contact",
-        type: "project",
+        description: "End-to-end data platform",
+        price: "Custom",
         features: [
-          "Custom data platform architecture",
-          "Real-time data processing",
-          "Advanced analytics integration",
-          "Data governance framework",
-          "6+ months support",
-          "Custom dashboards & reporting",
-          "Ongoing optimization"
+          "End-to-end data architecture",
+          "Real-time processing",
+          "Advanced analytics",
+          "Data governance",
+          "24/7 support",
+          "Custom integrations",
         ],
-        popular: false
-      }
+        popular: false,
+      },
     ],
     faqs: [
       {
-        question: "What's the difference between ETL and ELT?",
-        answer: "ETL (Extract, Transform, Load) processes transform data before loading it into a data warehouse, while ELT (Extract, Load, Transform) loads raw data first and transforms it as needed. The best approach depends on your specific use case, data volume, and performance requirements."
+        question: "What are the key components of a data engineering solution?",
+        answer:
+          "Key components typically include data ingestion, storage, processing, and serving layers. This encompasses ETL/ELT pipelines, data warehouses/lakes, and analytics platforms, all designed to work together seamlessly.",
       },
       {
-        question: "How do you ensure data quality?",
-        answer: "We implement data quality checks at every stage of the pipeline, including data validation, anomaly detection, and data profiling. Our solutions include monitoring and alerting to quickly identify and resolve data quality issues."
+        question: "How is data quality ensured in data pipelines?",
+        answer:
+          "Data quality is maintained through validation rules, automated testing, monitoring, and data profiling. These measures help identify and address issues like missing values, duplicates, and inconsistencies.",
       },
       {
-        question: "Can you work with our existing data infrastructure?",
-        answer: "Yes, we can integrate with your existing data infrastructure, whether it's on-premises, in the cloud, or a hybrid setup. We'll assess your current setup and design a solution that works with your existing tools and technologies."
+        question:
+          "What are the differences between batch and real-time processing?",
+        answer:
+          "Batch processing handles large volumes of data at scheduled intervals, while real-time processing deals with data in near real-time. The choice depends on specific business requirements and use cases.",
       },
       {
-        question: "What kind of support do you offer post-implementation?",
-        answer: "We offer various support packages that can include monitoring, maintenance, performance optimization, and ongoing development. Our support is tailored to your specific needs and can range from basic issue resolution to full-service management of your data infrastructure."
-      }
+        question: "How is sensitive data handled and protected?",
+        answer:
+          "Sensitive data is protected through encryption, access controls, and compliance with relevant regulations. Data masking and anonymization techniques may also be employed when handling personally identifiable information (PII).",
+      },
     ],
-    color: "from-emerald-500 to-teal-400"
+    color: "from-blue-500 to-cyan-500",
   };
 
-  return <ServiceTemplate {...serviceData} color="from-orange-500 to-red-500" />;
+  return <ServiceTemplate {...serviceData} color="from-blue-500 to-cyan-500" />;
 };
 
 export default DataEngServicePage;

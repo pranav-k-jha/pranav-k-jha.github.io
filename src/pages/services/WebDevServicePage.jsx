@@ -1,81 +1,77 @@
 import React from "react";
 import ServiceTemplate from "../../components/ServiceTemplate";
-import { Code, Layout, Smartphone, Zap, Shield } from "lucide-react";
+import { Code, Layout, Smartphone, Shield, Zap } from "lucide-react";
 
 const WebDevServicePage = () => {
   const serviceData = {
     title: "Web Development",
     description:
-      "Build fast, responsive, and scalable web applications with modern technologies. From sleek landing pages to complex web applications, we create digital experiences that drive results.",
+      "Create modern, responsive, and high-performance websites and web applications. From simple landing pages to complex web applications, build digital experiences that engage users and drive results.",
     image:
-      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=1000",
+      "https://images.unsplash.com/photo-1547658719-da2b51169166?auto=format&fit=crop&q=80&w=1000",
     icon: Code,
     features: [
       "Responsive Web Design",
-      "Single Page Applications (SPA)",
-      "Progressive Web Apps (PWA)",
+      "Frontend Development",
+      "Backend Development",
       "E-commerce Solutions",
-      "API Development & Integration",
+      "Web Application Development",
+      "API Integration",
       "Performance Optimization",
-      "Web Security & Maintenance",
     ],
     technologies: [
       "React",
       "Next.js",
-      "Vue.js",
       "Node.js",
       "Express",
       "MongoDB",
       "PostgreSQL",
       "GraphQL",
-      "Tailwind CSS",
       "TypeScript",
-      "Docker",
-      "AWS",
+      "Tailwind CSS",
+      "Material-UI",
+      "Redux",
+      "Jest",
     ],
     pricing: [
       {
         name: "Basic",
-        description: "Ideal for small business websites",
-        price: "2,499",
-        type: "project",
+        description: "Simple website or landing page",
+        price: "$2,500+",
         features: [
           "Up to 5 pages",
-          "Responsive design",
+          "Mobile-responsive design",
+          "Basic SEO setup",
           "Contact form",
-          "Basic SEO",
-          "1 revision round",
+          "1 month support",
         ],
         popular: false,
       },
       {
-        name: "Business",
-        description: "Perfect for growing businesses",
-        price: "7,999",
-        type: "project",
+        name: "Professional",
+        description: "Custom web application",
+        price: "$10,000+",
         features: [
-          "Up to 15 pages",
-          "Custom design",
+          "Custom design & development",
           "Content management system",
-          "SEO optimization",
-          "3 revision rounds",
-          "1 month support",
+          "User authentication",
+          "Database integration",
+          "3 months support",
+          "Basic analytics",
         ],
         popular: true,
       },
       {
         name: "Enterprise",
-        description: "Custom web solutions for large businesses",
-        price: "Contact",
-        type: "project",
+        description: "Complex web solution",
+        price: "Custom",
         features: [
           "Custom web application",
-          "User authentication",
-          "API integration",
-          "Advanced security",
-          "Unlimited revisions",
-          "3 months support",
+          "Advanced security features",
+          "API development",
           "Performance optimization",
+          "6+ months support",
+          "Advanced analytics",
         ],
         popular: false,
       },
@@ -84,28 +80,30 @@ const WebDevServicePage = () => {
       {
         question: "What's included in the website development process?",
         answer:
-          "Our process includes discovery & planning, design mockups, development, testing, deployment, and post-launch support. We work closely with you at every stage to ensure the final product meets your expectations.",
+          "The process typically includes discovery & planning, design mockups, development, testing, deployment, and post-launch support. Each phase is designed to ensure the final product meets business objectives.",
       },
       {
         question: "How long does it take to build a website?",
         answer:
-          "Timelines vary based on complexity. A basic website takes 2-4 weeks, while more complex applications can take 2-6 months. We'll provide a detailed timeline after discussing your specific requirements.",
+          "Development time varies by complexity. Basic websites typically take 2-4 weeks, while more complex web applications may require 2-6 months. A detailed timeline is provided after evaluating specific requirements.",
       },
       {
-        question: "Do you provide website hosting?",
+        question: "What about website maintenance?",
         answer:
-          "While we don't provide hosting directly, we can recommend reliable hosting providers and assist with the setup.",
+          "Ongoing maintenance options are available, including security updates, content updates, and performance monitoring. Maintenance plans can be customized based on specific needs.",
       },
       {
-        question: "Will my website be mobile-friendly?",
+        question: "How is website performance optimized?",
         answer:
-          "Yes, all our websites are built with a mobile-first approach and are fully responsive, ensuring they look and function perfectly on all devices and screen sizes.",
+          "Performance optimization includes code minification, image optimization, caching strategies, and efficient database queries. These measures help ensure fast loading times and smooth user experiences across devices.",
       },
     ],
-    color: "from-blue-500 to-cyan-500",
+    color: "from-indigo-500 to-purple-500",
   };
 
-  return <ServiceTemplate {...serviceData} />;
+  return (
+    <ServiceTemplate {...serviceData} color="from-indigo-500 to-purple-500" />
+  );
 };
 
 export default WebDevServicePage;

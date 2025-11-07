@@ -1,12 +1,14 @@
-import React from 'react';
-import ServiceTemplate from '../../components/ServiceTemplate';
-import { Brain, Code, Database, Shield, Zap } from 'lucide-react';
+import React from "react";
+import ServiceTemplate from "../../components/ServiceTemplate";
+import { Brain, Code, Database, Shield, Zap } from "lucide-react";
 
 const AiMlServicePage = () => {
   const serviceData = {
     title: "AI & Machine Learning Solutions",
-    description: "Transform your business with custom AI and machine learning solutions. From predictive analytics to computer vision, we build intelligent systems that drive innovation and efficiency.",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
+    description:
+      "Transform your business with custom AI and machine learning solutions. From predictive analytics to computer vision, we build intelligent systems that drive innovation and efficiency.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
     icon: Brain,
     features: [
       "Custom ML Model Development",
@@ -15,12 +17,21 @@ const AiMlServicePage = () => {
       "Predictive Analytics & Forecasting",
       "AI Strategy & Consulting",
       "Model Optimization & Deployment",
-      "AI Integration with Existing Systems"
+      "AI Integration with Existing Systems",
     ],
     technologies: [
-      "Python", "TensorFlow", "PyTorch", "Scikit-learn", 
-      "OpenAI API", "Hugging Face", "Keras", "Pandas",
-      "NumPy", "OpenCV", "NLTK", "spaCy"
+      "Python",
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-learn",
+      "OpenAI API",
+      "Hugging Face",
+      "Keras",
+      "Pandas",
+      "NumPy",
+      "OpenCV",
+      "NLTK",
+      "spaCy",
     ],
     pricing: [
       {
@@ -33,9 +44,9 @@ const AiMlServicePage = () => {
           "Pre-trained model fine-tuning",
           "Standard model deployment",
           "Email support",
-          "2 revision rounds"
+          "2 revision rounds",
         ],
-        popular: false
+        popular: false,
       },
       {
         name: "Professional",
@@ -48,9 +59,9 @@ const AiMlServicePage = () => {
           "Cloud deployment",
           "Priority support",
           "4 revision rounds",
-          "1 month maintenance"
+          "1 month maintenance",
         ],
-        popular: true
+        popular: true,
       },
       {
         name: "Enterprise",
@@ -64,33 +75,39 @@ const AiMlServicePage = () => {
           "24/7 support",
           "Unlimited revisions",
           "Ongoing maintenance",
-          "Performance optimization"
+          "Performance optimization",
         ],
-        popular: false
-      }
+        popular: false,
+      },
     ],
     faqs: [
       {
-        question: "What types of AI/ML projects do you specialize in?",
-        answer: "We specialize in a wide range of AI/ML projects including natural language processing, computer vision, predictive analytics, recommendation systems, and more. Our team has expertise in both traditional machine learning and deep learning approaches."
+        question: "What types of AI/ML projects are typically handled?",
+        answer:
+          "Common AI/ML projects include natural language processing, computer vision, predictive analytics, and recommendation systems. The field encompasses both traditional machine learning and deep learning approaches.",
       },
       {
         question: "How long does it take to develop a custom ML model?",
-        answer: "The timeline varies based on project complexity. Simple models can be developed in 2-4 weeks, while more complex solutions may take 2-6 months. We'll provide a detailed timeline after understanding your specific requirements."
+        answer:
+          "Development time varies by complexity. Simple models typically take 2-4 weeks, while more complex solutions may require 2-6 months. A detailed timeline can be provided after evaluating specific requirements.",
       },
       {
-        question: "Do you provide ongoing maintenance and support?",
-        answer: "Yes, we offer various support and maintenance packages. Our professional and enterprise plans include maintenance periods, and we can also provide custom support agreements based on your needs."
+        question: "Is ongoing maintenance and support available?",
+        answer:
+          "Yes, various support and maintenance options are typically available, including maintenance periods and custom support agreements based on project needs.",
       },
       {
-        question: "What data do I need to provide for my AI project?",
-        answer: "The data requirements depend on your project. For supervised learning, you'll need labeled training data. We can help you assess your data needs, assist with data collection, or even help generate synthetic data if needed."
-      }
+        question: "What data is needed for an AI project?",
+        answer:
+          "Requirements vary by project. Supervised learning generally requires labeled training data. Assistance is often available for assessing data needs, data collection, or generating synthetic data when necessary.",
+      },
     ],
-    color: "from-purple-500 to-pink-500"
+    color: "from-purple-500 to-pink-500",
   };
 
-  return <ServiceTemplate {...serviceData} color="from-purple-500 to-pink-500" />;
+  return (
+    <ServiceTemplate {...serviceData} color="from-purple-500 to-pink-500" />
+  );
 };
 
 export default AiMlServicePage;

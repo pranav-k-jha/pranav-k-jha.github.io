@@ -263,7 +263,7 @@ const About = () => {
                 src={getStreakStatsUrl()}
                 alt="GitHub Streak"
                 className="w-full h-auto"
-                loading="lazy"
+                loading="eager"
               />
             </div>
           </BentoCard>

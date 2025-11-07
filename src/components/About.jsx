@@ -12,6 +12,8 @@ import {
   FileText,
   Briefcase,
   Clock,
+  BarChart3,
+  Calendar,
 } from "lucide-react";
 
 // Compact BentoCard component
@@ -42,6 +44,42 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
 
 const About = () => {
   const { theme } = useTheme();
+
+  // GitHub Analytics URLs with Tokyo Night theme
+  const getGitHubStatsUrl = () => {
+    if (theme === "dark") {
+      return "https://github-readme-stats.vercel.app/api?username=pranav-k-jha&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9";
+    }
+    return "https://github-readme-stats.vercel.app/api?username=pranav-k-jha&show_icons=true&hide_border=true&bg_color=FFFFFF&title_color=2563EB&icon_color=2563EB&text_color=1F2937";
+  };
+
+  const getStreakStatsUrl = () => {
+    if (theme === "dark") {
+      return "https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=tokyonight&hide_border=true&background=0D1117&ring=58A6FF&fire=58A6FF&currStreakLabel=58A6FF";
+    }
+    return "https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&hide_border=true&background=FFFFFF&ring=2563EB&fire=2563EB&currStreakLabel=2563EB";
+  };
+
+  const getTopLangsUrl = () => {
+    if (theme === "dark") {
+      return "https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9";
+    }
+    return "https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&hide_border=true&bg_color=FFFFFF&title_color=2563EB&text_color=1F2937";
+  };
+
+  const getActivityGraphUrl = () => {
+    if (theme === "dark") {
+      return "https://github-readme-activity-graph.vercel.app/graph?username=pranav-k-jha&theme=react-dark&hide_border=true&bg_color=0D1117&color=58A6FF&line=1F6FEB&point=58A6FF&area=true";
+    }
+    return "https://github-readme-activity-graph.vercel.app/graph?username=pranav-k-jha&theme=minimal&hide_border=true&bg_color=FFFFFF&color=2563EB&line=3B82F6&point=2563EB&area=true";
+  };
+
+  const getProductiveTimeUrl = () => {
+    if (theme === "dark") {
+      return "https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=pranav-k-jha&theme=tokyonight&utcOffset=8";
+    }
+    return "https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=pranav-k-jha&theme=github&utcOffset=8";
+  };
 
   return (
     <section
@@ -213,70 +251,63 @@ const About = () => {
             </ul>
           </BentoCard>
 
-          {/* GitHub Stats - Spans 2 columns */}
+          {/* GitHub Streak */}
           <BentoCard
-            Icon={Github}
-            title="GitHub Stats"
-            className="lg:col-span-2 lg:row-span-2"
-            delay={0.5}
-          >
-            <div className="space-y-4">
-              {/* Stats Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-gray-50 dark:bg-gray-900/50 p-3 rounded-xl">
-                  <img
-                    src={`https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=${
-                      theme === "dark" ? "dark" : "default"
-                    }`}
-                    alt="GitHub Streak"
-                    className="w-full h-auto rounded-lg"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-900/50 p-3 rounded-xl">
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=${
-                      theme === "dark" ? "dark" : "default"
-                    }`}
-                    alt="Top Languages"
-                    className="w-full h-auto rounded-lg"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-
-              {/* Contributions Calendar */}
-              <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl">
-                <h4 className="text-sm font-semibold text-gray-800 dark:text-white mb-3 flex items-center">
-                  <TrendingUp className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
-                  Contributions
-                </h4>
-                <img
-                  src={`https://ghchart.rshah.org/pranav-k-jha${
-                    theme === "dark" ? "?color=2d3748" : ""
-                  }`}
-                  alt="GitHub Contributions"
-                  className="w-full h-auto rounded-lg"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-          </BentoCard>
-          {/* <BentoCard
-            Icon={Github}
-            title="GitHub Activity Graph"
+            Icon={TrendingUp}
+            title="Contribution Streak"
+            className="lg:col-span-2"
             delay={0.6}
-            className="lg:col-span-3 w-full"
           >
-            <div className="w-full bg-gray-50 dark:bg-gray-900/50 p-4 rounded-xl">
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
               <img
-                src="https://github-readme-activity-graph.vercel.app/graph?username=pranav-k-jha&theme=react-dark&hide_border=true&area=true"
-                alt="GitHub Activity Graph"
-                className="w-full h-auto rounded-lg"
+                src={getStreakStatsUrl()}
+                alt="GitHub Streak"
+                className="w-full h-auto"
                 loading="lazy"
               />
             </div>
-          </BentoCard> */}
+          </BentoCard>
+
+          {/* Top Languages */}
+          <BentoCard Icon={BarChart3} title="Top Languages" delay={0.7}>
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
+              <img
+                src={getTopLangsUrl()}
+                alt="Top Languages"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+          </BentoCard>
+
+          {/* Productive Time */}
+          <BentoCard Icon={Clock} title="Productive Hours" delay={0.8}>
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
+              <img
+                src={getProductiveTimeUrl()}
+                alt="Productive Time"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+          </BentoCard>
+
+          {/* Activity Graph - Full Width */}
+          <BentoCard
+            Icon={Calendar}
+            title="Contribution Activity"
+            className="lg:col-span-3"
+            delay={0.9}
+          >
+            <div className="bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900/50 dark:to-gray-800/50 p-2 rounded-xl border border-gray-200 dark:border-gray-700 -mx-2">
+              <img
+                src={getActivityGraphUrl()}
+                alt="GitHub Activity Graph"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </div>
+          </BentoCard>
         </div>
       </div>
     </section>

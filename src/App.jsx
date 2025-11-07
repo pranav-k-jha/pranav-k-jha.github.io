@@ -5,6 +5,7 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
+import Experience from "./components/Experience";
 import BentoDemo from "./components/bento-features";
 import ScrollToTop from "./components/ScrollToTop";
 import Projects from "./pages/Projects";

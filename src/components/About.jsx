@@ -228,27 +228,64 @@ const About = () => {
           {/* Technical Expertise */}
           <BentoCard
             Icon={Code2}
-            title="Technical Expertise"
+            title="GenAI Engineering"
             className="lg:row-span-2"
             delay={0.4}
           >
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-              {[
-                "Large Language Models (LLMs)",
-                "Retrieval-Augmented Generation (RAG)",
-                "AI/ML System Design",
-                "MLOps & LLMOps",
-                "Cloud Architecture",
-                "Data Pipelines & ETL",
-                "Natural Language Processing (NLP)",
-                "Reinforcement Learning",
-              ].map((item, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                  <span className="dark:text-gray-200">{item}</span>
-                </li>
-              ))}
-            </ul>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
+                  Key Achievements
+                </h4>
+                <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                  {[
+                    "Developed RAG pipelines with OpenSearch/Milvus for document Q&A",
+                    "Built scalable APIs & microservices in Python/TypeScript",
+                    "Optimized LLM inference with DeepSpeed/TensorRT/VLLM",
+                    "Implemented CI/CD with GitHub Actions & ArgoCD",
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start">
+                      <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                      <span className="dark:text-gray-200">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pt-2">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  Technologies
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    "Python",
+                    "TypeScript",
+                    "PyTorch",
+                    "Hugging Face",
+                    "AWS",
+                    "Kubernetes",
+                    "Docker",
+                    "OpenSearch",
+                    "Terraform",
+                    "FastAPI",
+                    "Node.js",
+                    "React",
+                    "DeepSpeed",
+                    "TensorRT",
+                    "CI/CD",
+                    "MLOps",
+                    "LLMOps",
+                  ].map((tech, i) => (
+                    <span
+                      key={i}
+                      className="px-2 py-0.5 text-xs rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800/50"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </BentoCard>
 
           {/* GitHub Streak */}

@@ -208,6 +208,54 @@ const Hero = () => {
               </a>
             </motion.div>
 
+            {/* Scroll indicator - On top of wave */}
+            <div className="w-full absolute bottom-0 left-0 z-10">
+              <motion.div
+                className="mx-auto w-fit flex flex-col items-center cursor-pointer -translate-y-8"
+                onClick={() =>
+                  window.scrollTo({
+                    top: window.innerHeight - 80,
+                    behavior: "smooth",
+                  })
+                }
+                initial={{ opacity: 0, y: 10 }}
+                animate={{
+                  opacity: [0, 1, 1, 0],
+                  y: [10, 0, -10, -20],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+              >
+                <span
+                  className={`text-[0.6em] mb-2 ${
+                    theme === "dark" ? "text-white/80" : "text-gray-700"
+                  }`}
+                >
+                  Scroll to explore
+                </span>
+                <div
+                  className={`w-6 h-10 border-2 rounded-full flex justify-center p-1 ${
+                    theme === "dark" ? "border-white/50" : "border-gray-600/50"
+                  }`}
+                >
+                  <motion.div
+                    className={`w-1 h-2 rounded-full ${
+                      theme === "dark" ? "bg-white/80" : "bg-gray-700"
+                    }`}
+                    animate={{ y: [0, 5, 0] }}
+                    transition={{
+                      duration: 1.5,
+                      repeat: Infinity,
+                      repeatType: "loop",
+                    }}
+                  />
+                </div>
+              </motion.div>
+            </div>
+
             {/* Company Logos */}
             <motion.div
               className="flex items-center justify-center md:justify-start gap-6 pt-6"

@@ -221,7 +221,7 @@ const Hero = () => {
 
             {/* Scroll indicator - Hero section only */}
             <div
-              className={`absolute bottom-[-2rem] md:bottom-8 left-0 right-0 z-10 transition-opacity duration-300 ${
+              className={`absolute bottom-[-2rem] md:bottom-[-1rem] left-0 right-0 z-10 transition-opacity duration-300 ${
                 isScrolling ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
             >

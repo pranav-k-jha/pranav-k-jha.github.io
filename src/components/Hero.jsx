@@ -448,6 +448,15 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
+      {/* Wave Divider */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden">
+        <img
+          src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer"
+          alt="Wave divider"
+          className="w-full h-auto"
+          style={{ transform: "translateY(1px)" }} // Fixes small gap at bottom
+        />
+      </div>
     </motion.section>
   );
 };

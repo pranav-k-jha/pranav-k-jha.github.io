@@ -107,7 +107,7 @@ const AIDomains = () => {
                 },
               }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-800 hover:border-blue-600 dark:hover:border-blue-400 rounded-2xl p-6 transition-colors duration-300 ease-in-out"
+              className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 hover:border-blue-600 dark:hover:border-blue-400 rounded-2xl p-6 transition-colors duration-300 ease-in-out"
             >
               {/* Service icon */}
               <motion.div

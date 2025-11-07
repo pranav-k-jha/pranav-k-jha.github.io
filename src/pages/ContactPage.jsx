@@ -173,7 +173,7 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 min-w-0"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 min-w-0 [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
                 />
               </motion.div>
 
@@ -198,7 +198,7 @@ const ContactPage = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="your@email.com"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 min-w-0"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 min-w-0 [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
                 />
               </motion.div>
 
@@ -222,7 +222,7 @@ const ContactPage = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   placeholder="How can I help you?"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 min-w-0"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 min-w-0 [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
                 />
               </motion.div>
 
@@ -246,7 +246,7 @@ const ContactPage = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Your message..."
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-900/50 text-gray-900 dark:text-white placeholder-gray-400 transition-all duration-200 resize-none"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 resize-none [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
                 />
               </motion.div>
             </motion.div>
@@ -256,26 +256,33 @@ const ContactPage = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                whileHover={{ scale: 1.03 }}
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 250, damping: 15 }}
-                className={`group w-full flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm hover:shadow-md ${
-                  isSubmitting ? "opacity-70 cursor-not-allowed" : ""
+                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
+                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                className={`relative w-full flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm hover:shadow-md ${
+                  isSubmitting ? "opacity-85 cursor-not-allowed" : ""
                 }`}
               >
                 {isSubmitting ? (
-                  <motion.span
-                    animate={{ rotate: 360 }}
-                    transition={{
-                      duration: 1,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                    className="flex items-center"
+                  <motion.div
+                    key="sending"
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="flex items-center gap-2"
                   >
-                    <Loader2 className="h-5 w-5 mr-2" />
-                    Sending...
-                  </motion.span>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{
+                        duration: 1,
+                        repeat: Infinity,
+                        ease: "linear",
+                      }}
+                    >
+                      <Loader2 className="h-4 w-4 text-white" />
+                    </motion.div>
+                    <span>Sending...</span>
+                  </motion.div>
                 ) : (
                   <span className="flex items-center">
                     Send Message

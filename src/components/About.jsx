@@ -4,7 +4,6 @@ import {
   Brain,
   Code2,
   Sparkles,
-  Github,
   Target,
   TrendingUp,
   Activity,
@@ -12,8 +11,6 @@ import {
   FileText,
   Briefcase,
   Clock,
-  BarChart3,
-  Calendar,
 } from "lucide-react";
 
 const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
@@ -257,7 +254,7 @@ const About = () => {
           {/* GitHub Streak */}
           <BentoCard
             Icon={TrendingUp}
-            title="Contribution Streak"
+            title="Contribution Streak & Top Languages"
             className="lg:col-span-2"
             delay={0.6}
           >

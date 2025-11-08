@@ -10,6 +10,7 @@ import BentoDemo from "./components/bento-features";
 import ScrollToTop from "./components/ScrollToTop";
 import Projects from "./pages/Projects";
 import ServicesPage from "./pages/ServicesPage";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -58,6 +59,7 @@ function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-gray-900 transition-colors duration-200">
+      <GoogleAnalytics />
       <Navbar />
       <ScrollToTop />
 

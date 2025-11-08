@@ -78,8 +78,12 @@ const cardVariants = {
     },
   }),
   hover: {
-    y: -4,
-    transition: { duration: 0.2 },
+    y: -2,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 15,
+    },
   },
 };
 
@@ -96,12 +100,12 @@ const SERVICE_CATEGORIES = {
     description: "Full-stack web applications and platforms",
     color: "from-blue-500 to-cyan-500",
   },
-  // "Data Engineering": {
-  //   name: "Data Engineering",
-  //   icon: Database,
-  //   description: "Data pipelines and analytics platforms",
-  //   color: "from-orange-500 to-red-500",
-  // },
+  "Data Engineering": {
+    name: "Data Engineering",
+    icon: Database,
+    description: "Data pipelines and analytics platforms",
+    color: "from-orange-500 to-red-500",
+  },
 };
 
 const services = [
@@ -151,26 +155,26 @@ const services = [
     technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS"],
     color: "from-blue-500 to-cyan-500",
   },
-  // {
-  //   id: 3,
-  //   title: "Data Engineering & Analytics",
-  //   slug: "data-engineering",
-  //   description:
-  //     "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
-  //   image:
-  //     "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
-  //   icon: Database,
-  //   category: "Data Engineering",
-  //   features: [
-  //     "Data Pipeline Development",
-  //     "ETL/ELT Processes",
-  //     "Data Warehousing",
-  //     "Real-time Analytics",
-  //     "Data Visualization",
-  //   ],
-  //   technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
-  //   color: "from-orange-500 to-red-500",
-  // },
+  {
+    id: 3,
+    title: "Data Engineering & Analytics",
+    slug: "data-engineering",
+    description:
+      "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    icon: Database,
+    category: "Data Engineering",
+    features: [
+      "Data Pipeline Development",
+      "ETL/ELT Processes",
+      "Data Warehousing",
+      "Real-time Analytics",
+      "Data Visualization",
+    ],
+    technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
+    color: "from-orange-500 to-red-500",
+  },
 ];
 
 // Hook for filtering services
@@ -214,8 +218,15 @@ const ServiceCard = ({ service, index }) => {
       whileInView="visible"
       viewport={{ once: true, margin: "-20px" }}
       variants={cardVariants}
-      whileHover="hover"
-      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300"
+      whileHover={{
+        scale: 1.05,
+        transition: {
+          type: "spring",
+          stiffness: 300,
+          damping: 15,
+        },
+      }}
+      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
     >
       {/* Image */}
       <div className="relative h-48 overflow-hidden group">
@@ -410,11 +421,11 @@ export default function ServicesPage() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-20px" }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto px-4"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4 max-w-7xl mx-auto"
             >
-              {filteredServices.slice(0, 2).map((service, index) => (
+              {filteredServices.map((service, index) => (
                 <div key={service.id} className="w-full flex justify-center">
-                  <div className="w-full max-w-sm">
+                  <div className="w-full">
                     <ServiceCard service={service} index={index} />
                   </div>
                 </div>

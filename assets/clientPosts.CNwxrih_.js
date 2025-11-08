@@ -543,7 +543,7 @@ As I looked out over the vast landscape from the cable car, I realized that both
 
 Whether you're scaling a mountain or training a machine learning model, the principles remain the same: plan carefully, persist through challenges, adapt when necessary, and always keep the bigger picture in mind. The view from the top—whether it's a mountain peak or a well-performing model—is always worth the effort.
 `,g=`---
-title: "ServiceNow's Apriel-1.5-15B-Thinker: Redefining Efficient AI with Single-GPU Frontier Performance"
+title: "ServiceNow's Apriel-1.5-15B: Efficient AI on a Single GPU"
 date: "2025-11-08"
 excerpt: "An in-depth exploration of ServiceNow's groundbreaking 15B-parameter multimodal model that delivers state-of-the-art reasoning capabilities while running efficiently on consumer-grade hardware."
 category: "AI Research"

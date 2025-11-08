@@ -139,10 +139,10 @@ const Footer = () => {
                   <FaEnvelope className="text-blue-400 text-sm" />
                 </div>
                 <a
-                  href="mailto:pranav.jha@mail.concordia.ca"
+                  href="mailto:pranav.jha@fujitsu.com"
                   className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                 >
-                  pranav.jha@mail.concordia.ca
+                  pranav.jha@fujitsu.com
                 </a>
               </motion.div>
               <motion.div
@@ -153,10 +153,10 @@ const Footer = () => {
                   <FaEnvelope className="text-blue-400 text-sm" />
                 </div>
                 <a
-                  href="mailto:pranav.jha@fujitsu.com"
+                  href="mailto:pranav.jha@mail.concordia.ca"
                   className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                 >
-                  pranav.jha@fujitsu.com
+                  pranav.jha@mail.concordia.ca
                 </a>
               </motion.div>
             </div>

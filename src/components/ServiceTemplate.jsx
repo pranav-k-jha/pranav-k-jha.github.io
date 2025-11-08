@@ -359,21 +359,34 @@ const ServiceTemplate = ({
                 {pricing.map((plan, index) => (
                   <motion.div
                     key={index}
-                    className={`relative p-4 rounded-lg border-2 transition-all text-sm ${
+                    className={`relative p-4 rounded-xl transition-all text-sm ${
                       plan.popular
-                        ? `border-${theme.border} dark:border-${theme.border} bg-gradient-to-br ${theme.bg} dark:bg-${theme.bg} shadow-md shadow-${theme.border}/10`
-                        : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50"
+                        ? `border-2 ${theme.border} bg-white dark:bg-gray-900/90 backdrop-blur-sm shadow-lg`
+                        : "border border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-800/50"
                     }`}
+                    style={
+                      plan.popular
+                        ? {
+                            boxShadow: `0 4px 20px -5px ${theme.text.replace(
+                              "text-",
+                              ""
+                            )}30, 0 0 0 1px ${theme.text.replace(
+                              "text-",
+                              ""
+                            )}20`,
+                          }
+                        : {}
+                    }
                     whileHover={
                       prefersReducedMotion ? {} : { scale: 1.02, y: -4 }
                     }
                   >
                     {plan.popular && (
-                      <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
-                        <span className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
-                          <Star
-                            className={`w-2.5 h-2.5 mr-1 ${theme.text} fill-current`}
-                          />
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2 z-10">
+                        <span
+                          className={`inline-flex items-center bg-gradient-to-r ${theme.gradient} text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg border border-white/20`}
+                        >
+                          <Star className="w-2.5 h-2.5 mr-1.5 text-white fill-current" />
                           POPULAR
                         </span>
                       </div>

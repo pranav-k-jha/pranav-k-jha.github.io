@@ -273,7 +273,7 @@ const ServiceCard = ({ service, index }) => {
       <div className="p-6 flex flex-col flex-1">
         <div className="flex-1">
           <motion.h3
-            className="text-xl font-bold text-gray-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300"
+            className={`text-xl font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent mb-3`}
             whileHover={{ x: 4 }}
             transition={{ duration: 0.2 }}
           >

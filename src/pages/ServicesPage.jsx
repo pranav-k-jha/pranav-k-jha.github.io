@@ -41,17 +41,18 @@ const itemVariants = {
 };
 
 // Animation variants for staggered cards
-const fadeInUp = {
+const fadeInUp = (i) => ({
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
-};
+});
 
 // Stagger container
 const container = {
@@ -210,16 +211,18 @@ const useServiceFilter = () => {
 
 const ServiceCard = ({ service, index }) => {
   const IconComponent = service.icon;
+  const [isInView, setIsInView] = useState(false);
 
   return (
     <motion.div
       custom={index}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-20px" }}
-      variants={cardVariants}
+      animate={isInView ? "visible" : "hidden"}
+      viewport={{ once: true, margin: "-50px 0px -50px 0px" }}
+      onViewportEnter={() => setIsInView(true)}
+      variants={fadeInUp(index)}
       whileHover={{
-        scale: 1.05,
+        y: -4,
         transition: {
           type: "spring",
           stiffness: 300,
@@ -417,18 +420,24 @@ export default function ServicesPage() {
 
             {/* Services Grid */}
             <motion.div
-              variants={container}
+              variants={containerVariants}
               initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-20px" }}
+              animate="visible"
               className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4 max-w-7xl mx-auto"
             >
               {filteredServices.map((service, index) => (
-                <div key={service.id} className="w-full flex justify-center">
+                <motion.div
+                  key={service.id}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  transition={{ delay: index * 0.1 }}
+                  className="w-full flex justify-center"
+                >
                   <div className="w-full">
                     <ServiceCard service={service} index={index} />
                   </div>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
 

@@ -382,11 +382,13 @@ const ServiceTemplate = ({
                     <div className="mb-4 flex items-center">
                       <div className="relative group">
                         <div className="flex items-center">
-                          <span className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                          <span
+                            className={`text-4xl font-bold bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent`}
+                          >
                             Contact
                           </span>
                           <svg
-                            className="w-5 h-5 ml-2 text-gray-400 group-hover:text-blue-500 transition-colors"
+                            className={`w-5 h-5 ml-2 text-gray-400 group-hover:bg-gradient-to-r ${theme.gradient} group-hover:text-transparent bg-clip-text transition-colors`}
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"

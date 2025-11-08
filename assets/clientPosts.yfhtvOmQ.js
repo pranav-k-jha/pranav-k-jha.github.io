@@ -637,10 +637,10 @@ In a significant advancement for efficient AI deployment, ServiceNow AI Research
 ### 2. Efficiency Metrics
 
 | Metric                       | Apriel-15B | Comparable Model (70B) |
-| ---------------------------- | ---------- | ---------------------- | --- |
+| ---------------------------- | ---------- | ---------------------- |
 | Tokens/second (A100)         | 45         | 12                     |
 | Memory Usage (GB)            | 32         | 140                    |
-| Training Cost                | $120K      | $950K                  |     |
+| Training Cost                | $120K      | $950K                  |
 | Inference Latency (ms/token) | 28         | 95                     |
 
 ## Technical Innovations

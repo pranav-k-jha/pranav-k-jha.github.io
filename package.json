@@ -13,10 +13,12 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.23.24",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.548.0",
     "next-mdx-remote": "^5.0.0",
+    "next-seo": "^7.0.1",
     "pdfjs-dist": "^5.4.296",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

@@ -35,7 +35,7 @@ export default function BlogPost({ post }) {
   const baseUrl = "https://pranav-k-jha.github.io";
   const postUrl = `${baseUrl}${router.asPath}`;
   const publishedDate = new Date(post.date).toISOString();
-  const imageUrl = post.image || `${baseUrl}/images/blog-default-og.jpg`;
+  const imageUrl = post.image || `${baseUrl}/images/og/${post.slug}.jpg`;
   const authorName = post.author || "Pranav K Jha";
   const authorTitle = post.authorTitle || "AI Engineer";
   const authorAvatar = post.authorAvatar || "/profile.jpeg";

@@ -20,7 +20,7 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay }}
-      className={`relative overflow-hidden rounded-2xl p-4 bg-white dark:bg-black/90 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow ${className}`}
+      className={`relative overflow-hidden rounded-2xl p-4 bg-white dark:bg-[#0d1116] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow ${className}`}
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
     >
       {/* Icon & Title in one row */}

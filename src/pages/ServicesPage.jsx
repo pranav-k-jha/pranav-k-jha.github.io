@@ -54,40 +54,6 @@ const fadeInUp = (i) => ({
   },
 });
 
-// Stagger container
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      when: "beforeChildren",
-    },
-  },
-};
-
-// Card variants
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: 0.1 + i * 0.08,
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  }),
-  hover: {
-    y: -2,
-    transition: {
-      type: "spring",
-      stiffness: 300,
-      damping: 15,
-    },
-  },
-};
-
 const SERVICE_CATEGORIES = {
   "AI & ML": {
     name: "AI & ML",

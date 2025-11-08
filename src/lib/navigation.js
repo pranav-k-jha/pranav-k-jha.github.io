@@ -11,10 +11,10 @@ export const navigationConfig = [
     title: "Publications",
     href: "/publications",
   },
-  // {
-  //   title: "Services",
-  //   href: "/services",
-  // },
+  {
+    title: "Services",
+    href: "/services",
+  },
   {
     title: "Blog",
     href: "/blog",

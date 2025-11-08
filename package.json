@@ -9,8 +9,6 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "generate:og": "node scripts/generate-og-images.js",
-    "prebuild": "npm run generate:og",
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {

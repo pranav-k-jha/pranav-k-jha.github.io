@@ -9,6 +9,14 @@ const prefersReducedMotion =
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const ServiceTemplate = ({
+  theme = {
+    gradient: "from-blue-500 to-cyan-500",
+    hoverGradient: "hover:from-blue-600 hover:to-cyan-600",
+    text: "text-blue-600",
+    border: "border-blue-500",
+    bg: "bg-blue-50 dark:bg-blue-900/20",
+    iconBg: "bg-gradient-to-r from-blue-500 to-cyan-500",
+  },
   title = "AI Solutions Development",
   description = "Transform your business with cutting-edge artificial intelligence solutions tailored to your specific needs.",
   icon: Icon = Zap,
@@ -125,7 +133,9 @@ const ServiceTemplate = ({
   }, [location]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-gray-900 dark:to-blue-950/30 pt-20">
+    <div
+      className={`min-h-screen bg-gradient-to-br from-white/80 to-white/30 dark:from-gray-950/80 dark:to-gray-950/30 pt-20`}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
         {/* Back Button */}
         <motion.div
@@ -155,7 +165,7 @@ const ServiceTemplate = ({
             >
               <motion.div
                 variants={itemVariants}
-                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 bg-gradient-to-r ${color} text-white shadow-md shadow-blue-500/20`}
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${theme.iconBg} text-white shadow-md shadow-blue-500/20`}
                 whileHover={
                   prefersReducedMotion ? {} : { scale: 1.05, rotate: 5 }
                 }
@@ -325,7 +335,7 @@ const ServiceTemplate = ({
               className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl overflow-hidden border border-gray-200/50 dark:border-gray-700/50"
             >
               <div
-                className={`p-8 bg-gradient-to-r ${color} text-white relative overflow-hidden`}
+                className={`p-8 bg-gradient-to-r ${theme.gradient} text-white relative overflow-hidden`}
               >
                 <div className="absolute inset-0 bg-grid-white/10"></div>
                 <div className="relative z-10">
@@ -344,7 +354,7 @@ const ServiceTemplate = ({
                     key={index}
                     className={`relative p-4 rounded-lg border-2 transition-all text-sm ${
                       plan.popular
-                        ? "border-blue-500 dark:border-blue-400 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 shadow-md shadow-blue-500/10"
+                        ? `border-${theme.border} dark:border-${theme.border} bg-gradient-to-br ${theme.bg} dark:bg-${theme.bg} shadow-md shadow-${theme.border}/10`
                         : "border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/50"
                     }`}
                     whileHover={
@@ -360,7 +370,9 @@ const ServiceTemplate = ({
                       </div>
                     )}
 
-                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
+                    <h3
+                      className={`text-lg font-semibold ${theme.text} dark:text-white mb-1`}
+                    >
                       {plan.name}
                     </h3>
                     <p className="text-gray-600 dark:text-gray-400 mb-4 text-xs">
@@ -410,11 +422,7 @@ const ServiceTemplate = ({
                     >
                       <Link
                         to="/contact"
-                        className={`w-full px-3 py-2 text-xs rounded-md font-medium transition-all flex items-center justify-center ${
-                          plan.popular
-                            ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-md shadow-blue-500/20 hover:shadow-lg hover:shadow-blue-500/30 hover:text-white"
-                            : "bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                        }`}
+                        className={`w-full py-2.5 px-4 rounded-lg bg-gradient-to-r ${theme.gradient} text-white font-medium flex items-center justify-center cursor-pointer shadow-md hover:shadow-lg transition-all duration-300 ${theme.hoverGradient}`}
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -458,7 +466,7 @@ const ServiceTemplate = ({
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
+                  className={`py-3 px-6 rounded-xl bg-gradient-to-r ${theme.gradient} text-white font-semibold flex items-center justify-center cursor-pointer shadow-lg hover:shadow-xl transition-all duration-300 ${theme.hoverGradient}`}
                 >
                   Get a Custom Quote
                   <motion.div

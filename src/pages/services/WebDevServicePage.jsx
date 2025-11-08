@@ -102,7 +102,17 @@ const WebDevServicePage = () => {
   };
 
   return (
-    <ServiceTemplate {...serviceData} color="from-indigo-500 to-purple-500" />
+    <ServiceTemplate
+      {...serviceData}
+      theme={{
+        gradient: "from-blue-500 to-cyan-500",
+        hoverGradient: "hover:from-blue-600 hover:to-cyan-600",
+        text: "text-blue-600",
+        border: "border-blue-500",
+        bg: "bg-blue-50 dark:bg-blue-900/20",
+        iconBg: "bg-gradient-to-r from-blue-500 to-cyan-500",
+      }}
+    />
   );
 };
 

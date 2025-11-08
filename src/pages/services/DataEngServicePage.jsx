@@ -99,10 +99,21 @@ const DataEngServicePage = () => {
           "Sensitive data is protected through encryption, access controls, and compliance with relevant regulations. Data masking and anonymization techniques may also be employed when handling personally identifiable information (PII).",
       },
     ],
-    color: "from-blue-500 to-cyan-500",
   };
 
-  return <ServiceTemplate {...serviceData} color="from-blue-500 to-cyan-500" />;
+  return (
+    <ServiceTemplate
+      {...serviceData}
+      theme={{
+        gradient: "from-orange-500 to-red-500",
+        hoverGradient: "hover:from-orange-600 hover:to-red-600",
+        text: "text-orange-600",
+        border: "border-orange-500",
+        bg: "bg-orange-50 dark:bg-orange-900/20",
+        iconBg: "bg-gradient-to-r from-orange-500 to-red-500",
+      }}
+    />
+  );
 };
 
 export default DataEngServicePage;

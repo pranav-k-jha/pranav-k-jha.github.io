@@ -106,7 +106,17 @@ const AiMlServicePage = () => {
   };
 
   return (
-    <ServiceTemplate {...serviceData} color="from-purple-500 to-pink-500" />
+    <ServiceTemplate
+      {...serviceData}
+      theme={{
+        gradient: "from-purple-500 to-pink-500",
+        hoverGradient: "hover:from-purple-600 hover:to-pink-600",
+        text: "text-purple-600",
+        border: "border-purple-500",
+        bg: "bg-purple-50 dark:bg-purple-900/20",
+        iconBg: "bg-gradient-to-r from-purple-500 to-pink-500",
+      }}
+    />
   );
 };
 

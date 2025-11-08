@@ -163,27 +163,28 @@ const ServiceTemplate = ({
               animate="visible"
               className="relative"
             >
-              <motion.div
-                variants={itemVariants}
-                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
-                  theme.iconBg
-                } text-white shadow-md shadow-${theme.text.replace(
-                  "text-",
-                  ""
-                )}/20`}
-                whileHover={
-                  prefersReducedMotion ? {} : { scale: 1.05, rotate: 5 }
-                }
-              >
-                <Icon className="w-8 h-8" />
-              </motion.div>
-
-              <motion.h1
-                variants={itemVariants}
-                className={`text-3xl sm:text-4xl font-bold bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent mb-4 leading-tight`}
-              >
-                {title}
-              </motion.h1>
+              <div className="flex items-center space-x-4 mb-4">
+                <motion.div
+                  variants={itemVariants}
+                  className={`flex-shrink-0 flex items-center justify-center w-12 h-12 rounded-xl ${
+                    theme.iconBg
+                  } text-white shadow-md shadow-${theme.text.replace(
+                    "text-",
+                    ""
+                  )}/20`}
+                  whileHover={
+                    prefersReducedMotion ? {} : { scale: 1.05, rotate: 5 }
+                  }
+                >
+                  <Icon className="w-8 h-8" />
+                </motion.div>
+                <motion.h1
+                  variants={itemVariants}
+                  className={`text-3xl sm:text-4xl font-bold bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent leading-tight`}
+                >
+                  {title}
+                </motion.h1>
+              </div>
 
               <motion.p
                 variants={itemVariants}

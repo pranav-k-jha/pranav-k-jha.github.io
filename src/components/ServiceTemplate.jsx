@@ -146,7 +146,7 @@ const ServiceTemplate = ({
         >
           <button
             onClick={() => window.history.back()}
-            className="group inline-flex items-center text-sm text-gray-600 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors font-medium"
+            className={`inline-flex items-center text-sm font-medium text-gray-600 dark:text-gray-300 hover:${theme.text} transition-colors group mb-8`}
           >
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Back to Services
@@ -165,7 +165,12 @@ const ServiceTemplate = ({
             >
               <motion.div
                 variants={itemVariants}
-                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${theme.iconBg} text-white shadow-md shadow-blue-500/20`}
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-4 ${
+                  theme.iconBg
+                } text-white shadow-md shadow-${theme.text.replace(
+                  "text-",
+                  ""
+                )}/20`}
                 whileHover={
                   prefersReducedMotion ? {} : { scale: 1.05, rotate: 5 }
                 }
@@ -175,7 +180,7 @@ const ServiceTemplate = ({
 
               <motion.h1
                 variants={itemVariants}
-                className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 dark:from-white dark:via-blue-400 dark:to-white bg-clip-text text-transparent mb-4 leading-tight"
+                className={`text-3xl sm:text-4xl font-bold bg-gradient-to-r ${theme.gradient} bg-clip-text text-transparent mb-4 leading-tight`}
               >
                 {title}
               </motion.h1>
@@ -197,7 +202,7 @@ const ServiceTemplate = ({
             >
               <motion.h2
                 variants={itemVariants}
-                className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
+                className={`text-2xl font-bold ${theme.text} dark:text-white mb-6 flex items-center`}
               >
                 <span className="w-1 h-6 bg-gradient-to-b from-blue-600 to-purple-600 rounded-full mr-2"></span>
                 What's Included
@@ -242,7 +247,7 @@ const ServiceTemplate = ({
             >
               <motion.h2
                 variants={itemVariants}
-                className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
+                className={`text-2xl font-bold ${theme.text} dark:text-white mb-6 flex items-center`}
               >
                 <span className="w-1 h-8 bg-gradient-to-b from-purple-600 to-pink-600 rounded-full mr-3"></span>
                 Technologies Used
@@ -277,7 +282,7 @@ const ServiceTemplate = ({
               >
                 <motion.h2
                   variants={itemVariants}
-                  className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center"
+                  className={`text-2xl font-bold ${theme.text} dark:text-white mb-6 flex items-center`}
                 >
                   <span className="w-1 h-8 bg-gradient-to-b from-pink-600 to-orange-600 rounded-full mr-3"></span>
                   Frequently Asked Questions
@@ -303,7 +308,9 @@ const ServiceTemplate = ({
                           animate={{ rotate: activeFaq === index ? 180 : 0 }}
                           transition={{ duration: 0.3 }}
                         >
-                          <ArrowRight className="w-5 h-5 text-gray-400 transform rotate-90" />
+                          <ArrowRight
+                            className={`w-5 h-5 ${theme.text} transform rotate-90`}
+                          />
                         </motion.div>
                       </button>
                       <motion.div
@@ -364,7 +371,9 @@ const ServiceTemplate = ({
                     {plan.popular && (
                       <div className="absolute -top-2.5 left-1/2 -translate-x-1/2">
                         <span className="inline-flex items-center bg-gradient-to-r from-blue-600 to-purple-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow">
-                          <Star className="w-2.5 h-2.5 mr-1 fill-current" />
+                          <Star
+                            className={`w-2.5 h-2.5 mr-1 ${theme.text} fill-current`}
+                          />
                           POPULAR
                         </span>
                       </div>
@@ -402,14 +411,18 @@ const ServiceTemplate = ({
                             />
                           </svg>
                         </div>
-                        <div className="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300"></div>
+                        <div
+                          className={`absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r ${theme.gradient} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300`}
+                        ></div>
                       </div>
                     </div>
 
                     <ul className="space-y-2 mb-4">
                       {plan.features.map((feature, i) => (
                         <li key={i} className="flex items-start">
-                          <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                          <CheckCircle
+                            className={`w-4 h-4 ${theme.text} mr-2 mt-0.5 flex-shrink-0`}
+                          />
                           <span className="text-gray-700 dark:text-gray-300 text-xs leading-relaxed">
                             {feature}
                           </span>

@@ -110,9 +110,9 @@ const PublicationsPage = () => {
           initial="hidden"
           animate="show"
           variants={headerVariants}
-          className="mb-12"
+          className="mb-12 flex flex-col items-center"
         >
-          <h1 className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               PUBLICATIONS
             </span>
@@ -126,7 +126,7 @@ const PublicationsPage = () => {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            <p className="text-lg font-light text-gray-700 dark:text-gray-300">
+            <p className="text-center text-lg font-light text-gray-700 dark:text-gray-300">
               Research papers, articles, and academic contributions
             </p>
           </motion.div>
@@ -190,7 +190,7 @@ const PublicationsPage = () => {
                     </div>
                     <div className="flex-1">
                       <h3
-                        className={`text-lg font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
+                        className={`text-sm md:text-base lg:text-lg font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
                           url
                             ? "hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
                             : ""

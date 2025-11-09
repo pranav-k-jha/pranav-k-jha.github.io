@@ -345,7 +345,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-4 text-lg sm:text-xl  text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                className="mt-4 text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
                 From AI-powered solutions to full-stack development, I provide
                 end-to-end technology services that transform ideas into

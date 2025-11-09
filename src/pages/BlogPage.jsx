@@ -467,7 +467,7 @@ export default function BlogPage() {
                 }}
                 className="space-y-2 text-center"
               >
-                <h2 className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
+                <h2 className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
                   Thoughts, tutorials, and insights on AI, ML, and technology
                 </h2>
               </motion.div>

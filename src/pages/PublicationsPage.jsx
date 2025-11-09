@@ -126,7 +126,7 @@ const PublicationsPage = () => {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            <p className="text-center text-lg font-light text-gray-700 dark:text-gray-300">
+            <p className="text-center text-lg font-light text-gray-600 dark:text-gray-400">
               Research papers, articles, and academic contributions
             </p>
           </motion.div>

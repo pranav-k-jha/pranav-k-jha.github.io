@@ -137,7 +137,7 @@ const ResourcePage = () => {
             }}
             className="space-y-2 text-center"
           >
-            <h2 className="text-lg sm:text-xl font-light text-gray-700 dark:text-gray-300">
+            <h2 className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
               Valuable Assets & Knowledge Repository
             </h2>
           </motion.div>

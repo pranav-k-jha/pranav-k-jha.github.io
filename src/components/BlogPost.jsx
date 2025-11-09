@@ -70,9 +70,9 @@ export default function BlogPost() {
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6 relative">
       <div className="max-w-4xl mx-auto">
         <div className="mb-8">
-          <Link
-            to="/blog"
-            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors text-sm font-medium"
+          <button
+            onClick={() => window.history.back()}
+            className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors text-sm font-medium focus:outline-none"
           >
             <svg
               className="w-4 h-4 mr-1"
@@ -88,7 +88,7 @@ export default function BlogPost() {
               />
             </svg>
             Back to Blog
-          </Link>
+          </button>
         </div>
 
         <motion.article
@@ -186,9 +186,7 @@ export default function BlogPost() {
                     />
                   ),
                   blockquote: ({ node, ...props }) => (
-                    <blockquote
-                      className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700/70"
-                    >
+                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700/70">
                       {props.children}
                     </blockquote>
                   ),

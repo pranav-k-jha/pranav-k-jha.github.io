@@ -1,6 +1,6 @@
 ---
 title: "IBM's Bamba: A Hybrid LLM Fusing Transformers and State-Space Models for Speed and Scale"
-date: "2025-11-08"
+date: "2025-11-05"
 excerpt: "IBM Research, in collaboration with CMU, Princeton, and University of Illinois, open-sources Bamba—a 9B-parameter LLM that combines transformer expressivity with SSM efficiency, slashing KV cache overhead for faster inference and longer contexts."
 category: "Artificial Intelligence"
 readTime: "4 min read"

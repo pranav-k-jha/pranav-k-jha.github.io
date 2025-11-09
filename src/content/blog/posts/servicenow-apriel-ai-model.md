@@ -8,7 +8,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "servicenow-apriel-ai-model-detailed"
-image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
 imageAlt: "Modern data center"
 tags:
   [

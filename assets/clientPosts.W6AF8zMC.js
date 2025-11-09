@@ -201,127 +201,6 @@ As I look out over the city from this bridge, I see endless possibilities for AI
 
 > "The best way to predict the future is to create it." - Peter Drucker\`,
 `,u=`---
-title: "GenAI vs Agentic AI: The Next Evolution of Intelligence"
-date: "2025-11-02"
-excerpt: "Understanding the key differences between Generative AI and the emerging Agentic AI paradigm"
-category: "AI"
-readTime: "5 min read"
-author: "Pranav K Jha"
-authorTitle: "AI Engineer"
-authorAvatar: "/profile.jpeg"
-slug: "genai-and-agentic-ai"
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
----
-
-**Understanding the key differences between Generative AI and the emerging Agentic AI paradigm**
-
-Artificial Intelligence is evolving rapidly, transitioning from **Generative AI (GenAI)** to a more capable paradigm: **Agentic AI**. This article explores their differences, functionality, and provides practical code examples.
-
-## What is Generative AI (GenAI)?
-
-**Generative AI** models create new content—text, code, images, or audio—by learning from existing data. They excel at:
-
-- Code generation
-- Content creation
-- Text summarization
-- Question answering
-
-However, they remain **reactive**, responding to prompts without planning, memory, or autonomous action.
-
-### Example: Text Generation with GenAI
-
-The following Python example demonstrates text generation using the OpenAI API:
-
-\`\`\`python
-from openai import OpenAI
-
-client = OpenAI()
-
-prompt = "Write a short poem about code and creativity."
-
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[{"role": "user", "content": prompt}]
-)
-
-print(response.choices[0].message.content)
-\`\`\`
-
-This represents traditional GenAI—processing input to produce output without further action.
-
-## Understanding Agentic AI
-
-**Agentic AI** represents an advancement by incorporating decision-making, planning, and autonomous action. An AI Agent can:
-
-- Analyze objectives
-- Make informed decisions
-- Execute code and tasks
-- Utilize memory and external tools
-- Learn from feedback
-
-### Example: Agentic AI Implementation
-
-The following example demonstrates an AI agent using the LangChain framework:
-
-\`\`\`python
-from langchain.llms import OpenAI
-from langchain.agents import initialize_agent, Tool
-
-def search_web(query):
-    return f"Searching web for: {query}"
-
-tools = [
-    Tool(
-        name="WebSearch",
-        func=search_web,
-        description="Search the web for information."
-    )
-]
-
-llm = OpenAI(temperature=0)
-agent = initialize_agent(tools, llm, agent_type="zero-shot-react-description")
-result = agent.run("Find the latest research papers about reinforcement learning.")
-print(result)
-\`\`\`
-
-This agent demonstrates goal-oriented intelligence by interpreting objectives, selecting appropriate tools, and synthesizing results.
-
-## Comparative Analysis: GenAI vs Agentic AI
-
-| Feature / Aspect     | Generative AI (GenAI)       | Agentic AI                              |
-| -------------------- | --------------------------- | --------------------------------------- |
-| **Core Function**    | Content generation          | Autonomous decision-making and action   |
-| **Memory**           | No persistent memory        | Contextual memory and recall            |
-| **Decision-Making**  | Reactive responses          | Goal-oriented, multi-step reasoning     |
-| **Tool Integration** | Limited                     | API, function, and database integration |
-| **Examples**         | ChatGPT, Midjourney, Gemini | AutoGPT, LangChain Agents, OpenDevin    |
-| **Primary Use Case** | Content creation            | Task automation, research assistance    |
-
-## Practical Applications
-
-- **GenAI Application**: "Generate a blog post about renewable energy."
-
-  _Outcome_: Produces a single blog post.
-
-- **Agentic AI Application**: "Monitor industry news and publish weekly reports on renewable energy trends."
-
-  _Outcome_: Automates research, analysis, and content publication.
-
-## The Future of AI Development
-
-While GenAI has established the foundation for AI creativity, Agentic AI introduces **autonomous functionality**. This evolution transforms AI from a responsive tool to an independent collaborator capable of managing complex workflows.
-
-## Key Takeaways
-
-| Type           | Role in AI Ecosystem | Best Use Case                               |
-| -------------- | -------------------- | ------------------------------------------- |
-| **GenAI**      | Content generation   | Writing, coding, media creation             |
-| **Agentic AI** | Autonomous operation | Process automation, complex problem-solving |
-
-In summary, GenAI creates content, while Agentic AI takes action. Together, they form the foundation for self-improving, intelligent systems that will drive the next wave of technological advancement.
-
----
-`,p=`---
 title: "IBM's Bamba: A Hybrid LLM Fusing Transformers and State-Space Models for Speed and Scale"
 date: "2025-11-05"
 excerpt: "IBM Research, in collaboration with CMU, Princeton, and University of Illinois, open-sources Bamba—a 9B-parameter LLM that combines transformer expressivity with SSM efficiency, slashing KV cache overhead for faster inference and longer contexts."
@@ -398,7 +277,7 @@ Bamba-9B fuses Mamba2's SSM architecture with transformer blocks:
 Bamba demonstrates that hybrids can outperform pure transformers or SSMs, paving the way for scalable, efficient LLMs. As vLLM and community efforts evolve, expect breakthroughs in long-context reasoning without the quadratic tax.
 
 ---
-`,h=`---
+`,p=`---
 title: "The Future of Multimodal AI: Beyond Text to a World of Understanding"
 date: "2025-11-03"
 excerpt: "Exploring how multimodal AI is revolutionizing human-computer interaction by combining text, images, audio, and more to create more natural and intuitive AI systems."
@@ -480,7 +359,7 @@ As we look to the future, we can expect to see:
 Multimodal AI represents a significant step toward creating AI systems that can understand and interact with the world in ways that are more aligned with human cognition. As these technologies continue to mature, they'll enable more natural, intuitive, and effective human-computer interactions across countless domains.
 
 ---
-`,g=`---
+`,h=`---
 title: "Scaling New Heights: Lessons from Mountain Climbing Applied to ML Model Training"
 date: "2025-11-03"
 excerpt: "Discover how mountaineering principles can guide your machine learning model training journey"
@@ -621,7 +500,7 @@ As I looked out over the vast landscape from the cable car, I realized that both
 ## Conclusion
 
 Whether you're scaling a mountain or training a machine learning model, the principles remain the same: plan carefully, persist through challenges, adapt when necessary, and always keep the bigger picture in mind. The view from the top—whether it's a mountain peak or a well-performing model—is always worth the effort.
-`,f=`---
+`,g=`---
 title: "ServiceNow's Apriel-1.5-15B: Efficient AI on a Single GPU"
 date: "2025-11-08"
 excerpt: "An in-depth exploration of ServiceNow's groundbreaking 15B-parameter multimodal model that delivers state-of-the-art reasoning capabilities while running efficiently on consumer-grade hardware."
@@ -823,7 +702,7 @@ ServiceNow's Apriel-1.5-15B-Thinker represents a paradigm shift in efficient AI 
 The model's strong performance across diverse benchmarks, coupled with its efficient inference characteristics, positions it as a compelling alternative to both larger open models and proprietary systems. As the AI community continues to explore the frontiers of model efficiency, Apriel serves as both a practical tool and a valuable case study in the art of model optimization.
 
 ---
-`,y=`---
+`,f=`---
 title: "Urban Analytics: Using Computer Vision to Understand City Dynamics"
 date: "2024-12-15"
 excerpt: "Exploring how computer vision transforms urban planning and city management through data-driven insights"
@@ -1093,6 +972,6 @@ def analyze_urban_heat_island(thermal_image_path):
 Standing in the heart of the city, surrounded by the complex patterns of urban life, I'm excited about the potential of computer vision to help us understand and improve our urban environments. By combining technical expertise with ethical considerations, we can create urban analytics systems that make cities more livable, sustainable, and equitable for everyone.
 
 The city is not just a collection of buildings and streets—it's a living, breathing system that we can learn to understand and optimize through the power of AI and computer vision.
-`;function v(n){if(!n.startsWith("---"))return{data:{},content:n};const e=n.indexOf(`
+`;function y(n){if(!n.startsWith("---"))return{data:{},content:n};const e=n.indexOf(`
 ---`,3);if(e===-1)return{data:{},content:n};const i=n.slice(3,e).trim(),r=n.slice(e+4).replace(/^\s*\n/,""),a={};return i.split(`
-`).forEach(o=>{const s=o.indexOf(":");if(s>-1){const c=o.slice(0,s).trim();let t=o.slice(s+1).trim();(t.startsWith('"')&&t.endsWith('"')||t.startsWith("'")&&t.endsWith("'"))&&(t=t.slice(1,-1)),a[c]=t}}),{data:a,content:r}}const b=Object.assign({"./posts/ai-healthcare-future.md":d,"./posts/building-bridges-ai-research.md":m,"./posts/genai-and-agentic-ai.md":u,"./posts/ibm-bamba-transformer-model.md":p,"./posts/multimodal-ai-future.md":h,"./posts/scaling-heights-ml-training.md":g,"./posts/servicenow-apriel-ai-model.md":f,"./posts/urban-analytics.md":y}),l=Object.entries(b).map(([n,e])=>{const i=n.split("/").pop().replace(/\.md$/,""),{data:r,content:a}=v(e);return{slug:i,...r,content:a}}).sort((n,e)=>new Date(e.date)-new Date(n.date));function A(){return l.map(({content:n,...e})=>e)}function w(n){return l.find(e=>e.slug===n)||null}export{w as a,A as g};
+`).forEach(o=>{const s=o.indexOf(":");if(s>-1){const c=o.slice(0,s).trim();let t=o.slice(s+1).trim();(t.startsWith('"')&&t.endsWith('"')||t.startsWith("'")&&t.endsWith("'"))&&(t=t.slice(1,-1)),a[c]=t}}),{data:a,content:r}}const v=Object.assign({"./posts/ai-healthcare-future.md":d,"./posts/building-bridges-ai-research.md":m,"./posts/ibm-bamba-transformer-model.md":u,"./posts/multimodal-ai-future.md":p,"./posts/scaling-heights-ml-training.md":h,"./posts/servicenow-apriel-ai-model.md":g,"./posts/urban-analytics.md":f}),l=Object.entries(v).map(([n,e])=>{const i=n.split("/").pop().replace(/\.md$/,""),{data:r,content:a}=y(e);return{slug:i,...r,content:a}}).sort((n,e)=>new Date(e.date)-new Date(n.date));function b(){return l.map(({content:n,...e})=>e)}function w(n){return l.find(e=>e.slug===n)||null}export{w as a,b as g};

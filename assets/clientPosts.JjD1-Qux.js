@@ -201,6 +201,128 @@ As I look out over the city from this bridge, I see endless possibilities for AI
 
 > "The best way to predict the future is to create it." - Peter Drucker\`,
 `,u=`---
+title: "GenAI vs Agentic AI: The Next Evolution of Intelligence"
+date: "2025-11-02"
+excerpt: "Understanding the key differences between Generative AI and the emerging Agentic AI paradigm"
+category: "AI"
+readTime: "5 min read"
+author: "Pranav K Jha"
+authorTitle: "AI Engineer"
+authorAvatar: "/profile.jpeg"
+slug: "genai-and-agentic-ai"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
+tags:
+  ["AI", "Machine Learning", "Generative AI", "Agentic AI", "AI Development"]
+---
+
+## Introduction
+
+The AI landscape is undergoing a significant transformation, evolving from static content generation to dynamic, autonomous systems. This article explores the key differences between **Generative AI (GenAI)** and **Agentic AI**, complete with practical code examples to illustrate their distinct capabilities.
+
+## Understanding the Core Concepts
+
+### Generative AI (GenAI)
+
+GenAI models are designed to create new content—whether text, code, images, or audio—by learning patterns from existing data. They excel at:
+
+- Content generation
+- Code completion
+- Text summarization
+- Question answering
+
+However, they operate on a purely reactive basis, responding to prompts without maintaining state or demonstrating autonomous behavior.
+
+### Agentic AI
+
+Agentic AI represents the next evolutionary step, incorporating:
+
+- Decision-making capabilities
+- Multi-step planning
+- Memory and context retention
+- Tool and API integration
+- Learning from feedback
+
+## Technical Implementation
+
+### GenAI Example: Basic Text Generation
+
+\`\`\`python
+from openai import OpenAI
+
+client = OpenAI()
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{"role": "user", "content": "Write a haiku about artificial intelligence"}]
+)
+print(response.choices[0].message.content)
+\`\`\`
+
+### Agentic AI Example: Autonomous Research Agent
+
+\`\`\`python
+from langchain.llms import OpenAI
+from langchain.agents import initialize_agent, Tool
+
+def research_topic(query):
+    # Integration with research APIs would go here
+    return f"Research results for: {query}"
+
+tools = [
+    Tool(
+        name="Research",
+        func=research_topic,
+        description="Conduct research on a given topic"
+    )
+]
+
+agent = initialize_agent(tools, OpenAI(temperature=0), agent_type="zero-shot-react-description")
+agent.run("Find recent breakthroughs in quantum computing and summarize the key points.")
+\`\`\`
+
+## Comparative Analysis
+
+| Feature             | Generative AI       | Agentic AI                         |
+| ------------------- | ------------------- | ---------------------------------- |
+| **Core Function**   | Content creation    | Autonomous task execution          |
+| **Memory**          | Stateless           | Maintains context and state        |
+| **Decision Making** | Reactive            | Proactive and goal-oriented        |
+| **Tool Usage**      | Limited             | Extensive API and tool integration |
+| **Learning**        | Fixed training data | Can learn from interactions        |
+| **Use Case**        | Content generation  | Complex problem-solving            |
+
+## Real-world Applications
+
+### GenAI in Action
+
+- Automated content creation
+- Code generation and completion
+- Image and video synthesis
+
+### Agentic AI in Practice
+
+- Automated research assistants
+- Intelligent process automation
+- Dynamic problem-solving systems
+
+## The Road Ahead
+
+The transition from GenAI to Agentic AI represents a fundamental shift in how we interact with and leverage artificial intelligence. As these technologies continue to evolve, we can expect to see:
+
+1. **Enhanced Autonomy**: More sophisticated decision-making capabilities
+2. **Improved Integration**: Seamless interaction with diverse tools and systems
+3. **Greater Specialization**: Domain-specific agent implementations
+4. **Ethical Considerations**: New frameworks for responsible AI deployment
+
+## Conclusion
+
+The evolution from Generative AI to Agentic AI marks a significant milestone in artificial intelligence. While GenAI has demonstrated remarkable capabilities in content creation, Agentic AI extends these capabilities into the realm of autonomous action and decision-making. As we continue to develop and refine these technologies, the potential applications and impacts are both exciting and far-reaching.
+
+---
+
+\`\`\`
+
+\`\`\`
+`,p=`---
 title: "IBM's Bamba: A Hybrid LLM Fusing Transformers and State-Space Models for Speed and Scale"
 date: "2025-11-05"
 excerpt: "IBM Research, in collaboration with CMU, Princeton, and University of Illinois, open-sources Bamba—a 9B-parameter LLM that combines transformer expressivity with SSM efficiency, slashing KV cache overhead for faster inference and longer contexts."
@@ -277,7 +399,7 @@ Bamba-9B fuses Mamba2's SSM architecture with transformer blocks:
 Bamba demonstrates that hybrids can outperform pure transformers or SSMs, paving the way for scalable, efficient LLMs. As vLLM and community efforts evolve, expect breakthroughs in long-context reasoning without the quadratic tax.
 
 ---
-`,p=`---
+`,h=`---
 title: "The Future of Multimodal AI: Beyond Text to a World of Understanding"
 date: "2025-11-03"
 excerpt: "Exploring how multimodal AI is revolutionizing human-computer interaction by combining text, images, audio, and more to create more natural and intuitive AI systems."
@@ -359,7 +481,7 @@ As we look to the future, we can expect to see:
 Multimodal AI represents a significant step toward creating AI systems that can understand and interact with the world in ways that are more aligned with human cognition. As these technologies continue to mature, they'll enable more natural, intuitive, and effective human-computer interactions across countless domains.
 
 ---
-`,h=`---
+`,g=`---
 title: "Scaling New Heights: Lessons from Mountain Climbing Applied to ML Model Training"
 date: "2025-11-03"
 excerpt: "Discover how mountaineering principles can guide your machine learning model training journey"
@@ -500,7 +622,7 @@ As I looked out over the vast landscape from the cable car, I realized that both
 ## Conclusion
 
 Whether you're scaling a mountain or training a machine learning model, the principles remain the same: plan carefully, persist through challenges, adapt when necessary, and always keep the bigger picture in mind. The view from the top—whether it's a mountain peak or a well-performing model—is always worth the effort.
-`,g=`---
+`,f=`---
 title: "ServiceNow's Apriel-1.5-15B: Efficient AI on a Single GPU"
 date: "2025-11-08"
 excerpt: "An in-depth exploration of ServiceNow's groundbreaking 15B-parameter multimodal model that delivers state-of-the-art reasoning capabilities while running efficiently on consumer-grade hardware."
@@ -702,7 +824,7 @@ ServiceNow's Apriel-1.5-15B-Thinker represents a paradigm shift in efficient AI 
 The model's strong performance across diverse benchmarks, coupled with its efficient inference characteristics, positions it as a compelling alternative to both larger open models and proprietary systems. As the AI community continues to explore the frontiers of model efficiency, Apriel serves as both a practical tool and a valuable case study in the art of model optimization.
 
 ---
-`,f=`---
+`,y=`---
 title: "Urban Analytics: Using Computer Vision to Understand City Dynamics"
 date: "2024-12-15"
 excerpt: "Exploring how computer vision transforms urban planning and city management through data-driven insights"
@@ -972,6 +1094,6 @@ def analyze_urban_heat_island(thermal_image_path):
 Standing in the heart of the city, surrounded by the complex patterns of urban life, I'm excited about the potential of computer vision to help us understand and improve our urban environments. By combining technical expertise with ethical considerations, we can create urban analytics systems that make cities more livable, sustainable, and equitable for everyone.
 
 The city is not just a collection of buildings and streets—it's a living, breathing system that we can learn to understand and optimize through the power of AI and computer vision.
-`;function y(n){if(!n.startsWith("---"))return{data:{},content:n};const e=n.indexOf(`
----`,3);if(e===-1)return{data:{},content:n};const i=n.slice(3,e).trim(),r=n.slice(e+4).replace(/^\s*\n/,""),a={};return i.split(`
-`).forEach(o=>{const s=o.indexOf(":");if(s>-1){const c=o.slice(0,s).trim();let t=o.slice(s+1).trim();(t.startsWith('"')&&t.endsWith('"')||t.startsWith("'")&&t.endsWith("'"))&&(t=t.slice(1,-1)),a[c]=t}}),{data:a,content:r}}const v=Object.assign({"./posts/ai-healthcare-future.md":d,"./posts/building-bridges-ai-research.md":m,"./posts/ibm-bamba-transformer-model.md":u,"./posts/multimodal-ai-future.md":p,"./posts/scaling-heights-ml-training.md":h,"./posts/servicenow-apriel-ai-model.md":g,"./posts/urban-analytics.md":f}),l=Object.entries(v).map(([n,e])=>{const i=n.split("/").pop().replace(/\.md$/,""),{data:r,content:a}=y(e);return{slug:i,...r,content:a}}).sort((n,e)=>new Date(e.date)-new Date(n.date));function b(){return l.map(({content:n,...e})=>e)}function w(n){return l.find(e=>e.slug===n)||null}export{w as a,b as g};
+`;function v(n){if(!n.startsWith("---"))return{data:{},content:n};const e=n.indexOf(`
+---`,3);if(e===-1)return{data:{},content:n};const i=n.slice(3,e).trim(),o=n.slice(e+4).replace(/^\s*\n/,""),a={};return i.split(`
+`).forEach(r=>{const s=r.indexOf(":");if(s>-1){const c=r.slice(0,s).trim();let t=r.slice(s+1).trim();(t.startsWith('"')&&t.endsWith('"')||t.startsWith("'")&&t.endsWith("'"))&&(t=t.slice(1,-1)),a[c]=t}}),{data:a,content:o}}const b=Object.assign({"./posts/ai-healthcare-future.md":d,"./posts/building-bridges-ai-research.md":m,"./posts/genai-and-agentic-ai.md":u,"./posts/ibm-bamba-transformer-model.md":p,"./posts/multimodal-ai-future.md":h,"./posts/scaling-heights-ml-training.md":g,"./posts/servicenow-apriel-ai-model.md":f,"./posts/urban-analytics.md":y}),l=Object.entries(b).map(([n,e])=>{const i=n.split("/").pop().replace(/\.md$/,""),{data:o,content:a}=v(e);return{slug:i,...o,content:a}}).sort((n,e)=>new Date(e.date)-new Date(n.date));function A(){return l.map(({content:n,...e})=>e)}function w(n){return l.find(e=>e.slug===n)||null}export{w as a,A as g};

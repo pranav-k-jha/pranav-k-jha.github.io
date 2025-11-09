@@ -84,6 +84,10 @@ html {
   }
 }
 
-.animate-blink {
-  animation: blink 1s infinite;
+.backdrop-blur-stable {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transform: translateZ(0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }

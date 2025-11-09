@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Link } from "react-router-dom";
 import { useState, useMemo, useCallback } from "react";
-import { ArrowRight, CheckCircle, Code, Database, Brain } from "lucide-react";
+import { ArrowRight, CheckCircle, Code, Brain } from "lucide-react";
 
 // Animation variants
 const pageTransition = {
@@ -40,19 +39,31 @@ const itemVariants = {
   },
 };
 
-// Animation variants for staggered cards
-const fadeInUp = (i) => ({
+// Stagger container
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      when: "beforeChildren",
+    },
+  },
+};
+
+// Card variants - iOS optimized
+const cardVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: {
+  visible: (i) => ({
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.1,
-      duration: 0.6,
-      ease: [0.16, 1, 0.3, 1],
+      delay: 0.1 + i * 0.08,
+      duration: 0.5,
+      ease: [0.4, 0, 0.2, 1],
     },
-  },
-});
+  }),
+};
 
 const SERVICE_CATEGORIES = {
   "AI & ML": {
@@ -66,12 +77,6 @@ const SERVICE_CATEGORIES = {
     icon: Code,
     description: "Full-stack web applications and platforms",
     color: "from-blue-500 to-cyan-500",
-  },
-  "Data Engineering": {
-    name: "Data Engineering",
-    icon: Database,
-    description: "Data pipelines and analytics platforms",
-    color: "from-orange-500 to-red-500",
   },
 };
 
@@ -122,26 +127,6 @@ const services = [
     technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS"],
     color: "from-blue-500 to-cyan-500",
   },
-  {
-    id: 3,
-    title: "Data Engineering & Analytics",
-    slug: "data-engineering",
-    description:
-      "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
-    icon: Database,
-    category: "Data Engineering",
-    features: [
-      "Data Pipeline Development",
-      "ETL/ELT Processes",
-      "Data Warehousing",
-      "Real-time Analytics",
-      "Data Visualization",
-    ],
-    technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
-    color: "from-orange-500 to-red-500",
-  },
 ];
 
 // Hook for filtering services
@@ -177,77 +162,78 @@ const useServiceFilter = () => {
 
 const ServiceCard = ({ service, index }) => {
   const IconComponent = service.icon;
-  const [isInView, setIsInView] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
       custom={index}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      viewport={{ once: true, margin: "-50px 0px -50px 0px" }}
-      onViewportEnter={() => setIsInView(true)}
-      variants={fadeInUp(index)}
-      whileHover={{
-        y: -4,
-        transition: {
-          type: "spring",
-          stiffness: 300,
-          damping: 15,
-        },
+      whileInView="visible"
+      viewport={{ once: true, margin: "-20px" }}
+      variants={cardVariants}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      style={{
+        WebkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
+        WebkitPerspective: 1000,
+        perspective: 1000,
+        WebkitTransform: "translate3d(0,0,0)",
+        transform: "translate3d(0,0,0)",
+        willChange: isHovered ? "transform" : "auto",
       }}
-      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]"
+      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300"
     >
       {/* Image */}
-      <div className="relative h-48 overflow-hidden group">
-        <div className="w-full h-full overflow-hidden">
-          <motion.div
-            initial={{ scale: 1 }}
-            whileHover={{
-              scale: 1.2,
-              transition: {
-                duration: 0.5,
-                ease: [0.4, 0, 0.2, 1],
-                type: "tween",
-              },
+      <div className="relative h-48 overflow-hidden">
+        <div
+          className="w-full h-full overflow-hidden"
+          style={{
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+            WebkitTransform: "translate3d(0,0,0)",
+            transform: "translate3d(0,0,0)",
+          }}
+        >
+          <img
+            src={service.image}
+            alt={service.title}
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+            style={{
+              WebkitBackfaceVisibility: "hidden",
+              backfaceVisibility: "hidden",
+              WebkitTransform: "translate3d(0,0,0)",
+              transform: "translate3d(0,0,0)",
             }}
-            className="w-full h-full"
-          >
-            <img
-              src={service.image}
-              alt={service.title}
-              className="w-full h-full object-cover transform transition-transform duration-500 ease-out group-hover:scale-110"
-              loading="lazy"
-            />
-          </motion.div>
+            loading="lazy"
+          />
         </div>
         <div
           className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-20`}
+          style={{
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+          }}
         />
 
         {/* Icon */}
-        <motion.div
-          className="absolute top-4 right-4"
-          whileHover={{ y: -4, rotate: 5 }}
-          transition={{ duration: 0.3 }}
-        >
+        <div className="absolute top-4 right-4">
           <div
-            className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm`}
+            className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1`}
           >
             <IconComponent className="w-6 h-6 text-white" />
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-1">
         <div className="flex-1">
-          <motion.h3
+          <h3
             className={`text-xl font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent mb-3`}
-            whileHover={{ x: 4 }}
-            transition={{ duration: 0.2 }}
           >
             {service.title}
-          </motion.h3>
+          </h3>
 
           <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
             {service.description}
@@ -267,6 +253,10 @@ const ServiceCard = ({ service, index }) => {
                   transition={{ delay: idx * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
                   className="flex items-center text-sm text-gray-600 dark:text-gray-400"
+                  style={{
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
+                  }}
                 >
                   <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                   {feature}
@@ -282,17 +272,12 @@ const ServiceCard = ({ service, index }) => {
             </h4>
             <div className="flex flex-wrap gap-2">
               {service.technologies.slice(0, 3).map((tech, idx) => (
-                <motion.span
+                <span
                   key={idx}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: idx * 0.05, duration: 0.3 }}
-                  viewport={{ once: true }}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  className="px-3 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full"
+                  className="px-3 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full transition-transform duration-200 hover:scale-105"
                 >
                   {tech}
-                </motion.span>
+                </span>
               ))}
               {service.technologies.length > 3 && (
                 <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
@@ -303,25 +288,15 @@ const ServiceCard = ({ service, index }) => {
           </div>
         </div>
 
-        {/* CTA Buttons */}
+        {/* CTA Button */}
         <div className="mt-auto">
-          <Link to={`/services/${service.slug}`} className="group">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 group`}
-            >
-              <span className="mr-2">Learn More</span>
-              <motion.span
-                className="inline-block"
-                initial={{ x: 0 }}
-                whileHover={{ x: 4 }}
-                transition={{ type: "spring", stiffness: 400, damping: 10 }}
-              >
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-              </motion.span>
-            </motion.div>
-          </Link>
+          <button
+            onClick={() => alert(`Learn more about ${service.title}`)}
+            className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 active:scale-98 group`}
+          >
+            <span className="mr-2">Learn More</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
+          </button>
         </div>
       </div>
     </motion.div>
@@ -346,6 +321,12 @@ export default function ServicesPage() {
           initial="hidden"
           animate="visible"
           exit="hidden"
+          style={{
+            WebkitBackfaceVisibility: "hidden",
+            backfaceVisibility: "hidden",
+            WebkitTransform: "translate3d(0,0,0)",
+            transform: "translate3d(0,0,0)",
+          }}
         >
           {/* Header Section */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -361,6 +342,10 @@ export default function ServicesPage() {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
                 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
+                style={{
+                  WebkitBackfaceVisibility: "hidden",
+                  backfaceVisibility: "hidden",
+                }}
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
                   MY SERVICES
@@ -377,6 +362,10 @@ export default function ServicesPage() {
                   delay: 0.3,
                   ease: [0.16, 1, 0.3, 1],
                 }}
+                style={{
+                  WebkitBackfaceVisibility: "hidden",
+                  backfaceVisibility: "hidden",
+                }}
               >
                 From AI-powered solutions to full-stack development, I provide
                 end-to-end technology services that transform ideas into
@@ -386,24 +375,22 @@ export default function ServicesPage() {
 
             {/* Services Grid */}
             <motion.div
-              variants={containerVariants}
+              variants={container}
               initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full px-4 max-w-7xl mx-auto"
+              whileInView="show"
+              viewport={{ once: true, margin: "-20px" }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full px-4 md:px-16 max-w-4xl mx-auto"
+              style={{
+                WebkitBackfaceVisibility: "hidden",
+                backfaceVisibility: "hidden",
+              }}
             >
               {filteredServices.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  variants={itemVariants}
-                  initial="hidden"
-                  animate="visible"
-                  transition={{ delay: index * 0.1 }}
-                  className="w-full flex justify-center"
-                >
+                <div key={service.id} className="w-full flex justify-center">
                   <div className="w-full">
                     <ServiceCard service={service} index={index} />
                   </div>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
 
@@ -428,6 +415,10 @@ export default function ServicesPage() {
             viewport={{ once: true }}
             variants={containerVariants}
             className="py-20 px-6 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
+            style={{
+              WebkitBackfaceVisibility: "hidden",
+              backfaceVisibility: "hidden",
+            }}
           >
             <div className="container mx-auto max-w-4xl text-center">
               <motion.div variants={itemVariants}>
@@ -440,21 +431,13 @@ export default function ServicesPage() {
                   and drive innovation in your organization.
                 </p>
                 <div className="flex justify-center">
-                  <Link to="/contact">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300"
-                    >
-                      Get Started
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        transition={{ duration: 0.2 }}
-                      >
-                        <ArrowRight className="w-5 h-5 ml-2" />
-                      </motion.div>
-                    </motion.div>
-                  </Link>
+                  <button
+                    onClick={() => alert("Contact form would open here")}
+                    className="py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 active:scale-98 group"
+                  >
+                    Get Started
+                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
+                  </button>
                 </div>
               </motion.div>
             </div>

@@ -318,10 +318,6 @@ The transition from GenAI to Agentic AI represents a fundamental shift in how we
 The evolution from Generative AI to Agentic AI marks a significant milestone in artificial intelligence. While GenAI has demonstrated remarkable capabilities in content creation, Agentic AI extends these capabilities into the realm of autonomous action and decision-making. As we continue to develop and refine these technologies, the potential applications and impacts are both exciting and far-reaching.
 
 ---
-
-\`\`\`
-
-\`\`\`
 `,p=`---
 title: "IBM's Bamba: A Hybrid LLM Fusing Transformers and State-Space Models for Speed and Scale"
 date: "2025-11-05"

@@ -8,7 +8,7 @@ author: "Pranav Jha"
 authorTitle: "Machine Learning Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "scaling-heights-ml-training"
-image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600"
+image: "https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg?auto=compress&cs=tinysrgb&w=600"
 ---
 
 There's something profound about ascending a mountain that mirrors the journey of training machine learning models. Both require patience, persistence, careful planning, and the ability to adapt when conditions change. As I rode the cable car up the mountain, I reflected on how the principles of mountaineering apply to the iterative process of ML model development.

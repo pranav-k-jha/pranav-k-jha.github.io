@@ -8,7 +8,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "ibm-bamba-hybrid-llm"
-image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200"
+image: "https://images.unsplash.com/photo-1562705121-e624542c7b9b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"
 tags:
   [
     "AI",

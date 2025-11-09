@@ -8,7 +8,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "genai-and-agentic-ai"
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
+image: "https://images.unsplash.com/photo-1525338078858-d762b5e32f2c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"
 tags:
   ["AI", "Machine Learning", "Generative AI", "Agentic AI", "AI Development"]
 ---

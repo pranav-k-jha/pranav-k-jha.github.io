@@ -323,7 +323,7 @@ In summary, GenAI creates content, while Agentic AI takes action. Together, they
 ---
 `,p=`---
 title: "IBM's Bamba: A Hybrid LLM Fusing Transformers and State-Space Models for Speed and Scale"
-date: "2025-11-08"
+date: "2025-11-05"
 excerpt: "IBM Research, in collaboration with CMU, Princeton, and University of Illinois, open-sources Bamba—a 9B-parameter LLM that combines transformer expressivity with SSM efficiency, slashing KV cache overhead for faster inference and longer contexts."
 category: "Artificial Intelligence"
 readTime: "4 min read"
@@ -631,7 +631,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "servicenow-apriel-ai-model-detailed"
-image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200"
+image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
 imageAlt: "Modern data center"
 tags:
   [

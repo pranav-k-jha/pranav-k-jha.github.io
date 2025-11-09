@@ -3,28 +3,32 @@ import { motion } from "framer-motion";
 import { Loader2, ArrowRight, ShieldAlert } from "lucide-react";
 import emailjs from "@emailjs/browser";
 
-// List of common profane words to filter
+/* ------------------------------------------------------------------ */
+/*  Configuration constants                                            */
+/* ------------------------------------------------------------------ */
 const PROFANE_WORDS = [
-  // Add your list of profane words here
+  // add real words here
   "badword1",
-  "badword2", // Replace with actual profane words
+  "badword2",
 ];
 
-// Rate limiting - 3 messages per 10 minutes
 const RATE_LIMIT = {
   MAX_REQUESTS: 3,
   WINDOW_MS: 10 * 60 * 1000, // 10 minutes
 };
 
-// Animation variants
+const MIN_PARAGRAPHS = 2; // at least 2 real paragraphs
+const MIN_WORDS = 20; // total words
+const MAX_WORDS = 500; // optional upper bound
+
+/* ------------------------------------------------------------------ */
+/*  Animation variants                                                 */
+/* ------------------------------------------------------------------ */
 const pageTransition = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.4, ease: "easeOut" },
   },
 };
 
@@ -42,25 +46,35 @@ const fadeUp = {
   }),
 };
 
-// Simple math question for bot protection
+/* ------------------------------------------------------------------ */
+/*  Simple math question for bot protection                           */
+/* ------------------------------------------------------------------ */
 const generateMathQuestion = () => {
   const num1 = Math.floor(Math.random() * 10) + 1;
   const num2 = Math.floor(Math.random() * 5) + 1;
-  return {
-    question: `What is ${num1} + ${num2}?`,
-    answer: num1 + num2,
-  };
+  return { question: `What is ${num1} + ${num2}?`, answer: num1 + num2 };
 };
 
-const ContactPage = () => {
+/* ------------------------------------------------------------------ */
+/*  Helper – word count (ignores extra spaces)                        */
+/* ------------------------------------------------------------------ */
+const countWords = (text) => {
+  return text
+    .trim()
+    .split(/\s+/)
+    .filter((w) => w.length > 0).length;
+};
+
+/* ------------------------------------------------------------------ */
+/*  Main component                                                     */
+/* ------------------------------------------------------------------ */
+export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
-    // Honeypot field - should remain empty
-    website: "",
-    // Math question for bot protection
+    website: "", // honeypot
     botCheck: "",
   });
 
@@ -73,24 +87,35 @@ const ContactPage = () => {
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
   const submitTimeoutRef = useRef(null);
 
-  // Clear any pending timeouts when component unmounts
-  useEffect(() => {
-    return () => {
-      if (submitTimeoutRef.current) {
-        clearTimeout(submitTimeoutRef.current);
-      }
-    };
-  }, []);
-
+  /* ---------------------------------------------------------------- */
+  /*  Load / save rate‑limit timestamps from localStorage            */
+  /* ---------------------------------------------------------------- */
   const [requestTimestamps, setRequestTimestamps] = useState(() => {
-    // Load timestamps from localStorage
     const saved = localStorage.getItem("contactFormTimestamps");
     return saved ? JSON.parse(saved) : [];
   });
 
+  useEffect(() => {
+    localStorage.setItem(
+      "contactFormTimestamps",
+      JSON.stringify(requestTimestamps)
+    );
+  }, [requestTimestamps]);
+
+  /* ---------------------------------------------------------------- */
+  /*  Clean up timeout on unmount                                     */
+  /* ---------------------------------------------------------------- */
+  useEffect(() => {
+    return () => {
+      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
+    };
+  }, []);
+
+  /* ---------------------------------------------------------------- */
+  /*  Input sanitisation & profanity check                           */
+  /* ---------------------------------------------------------------- */
   const cleanInput = (str) => {
     if (!str) return "";
-    // Basic XSS protection
     return String(str)
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -99,24 +124,21 @@ const ContactPage = () => {
   };
 
   const containsProfanity = (text) => {
-    const lowerText = text.toLowerCase();
-    return PROFANE_WORDS.some((word) => lowerText.includes(word));
+    const lower = text.toLowerCase();
+    return PROFANE_WORDS.some((w) => lower.includes(w));
   };
 
   const isRateLimited = () => {
     const now = Date.now();
-    const recentRequests = requestTimestamps.filter(
-      (timestamp) => now - timestamp < RATE_LIMIT.WINDOW_MS
+    const recent = requestTimestamps.filter(
+      (t) => now - t < RATE_LIMIT.WINDOW_MS
     );
-    return recentRequests.length >= RATE_LIMIT.MAX_REQUESTS;
+    return recent.length >= RATE_LIMIT.MAX_REQUESTS;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: cleanInput(value),
-    }));
+    setFormData((prev) => ({ ...prev, [name]: cleanInput(value) }));
   };
 
   const validateEmail = (email) => {
@@ -124,10 +146,13 @@ const ContactPage = () => {
     return re.test(String(email).toLowerCase());
   };
 
+  /* ---------------------------------------------------------------- */
+  /*  Form submission                                                */
+  /* ---------------------------------------------------------------- */
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic rate limiting (5 seconds between submissions)
+    /* ---- 5‑second debounce ---- */
     const now = Date.now();
     if (now - lastSubmitTime < 5000) {
       setSubmitStatus({
@@ -137,25 +162,23 @@ const ContactPage = () => {
       return;
     }
 
-    // Honeypot check
+    /* ---- Honeypot ---- */
     if (formData.website) {
-      console.log("Bot detected by honeypot");
+      console.log("Bot detected (honeypot)");
       return;
     }
 
-    // Math question check
-    if (parseInt(formData.botCheck) !== mathQuestion.answer) {
+    /* ---- Math question ---- */
+    if (parseInt(formData.botCheck, 10) !== mathQuestion.answer) {
       setSubmitStatus({
         success: false,
-        message:
-          "Please answer the math question correctly to prove you're human.",
+        message: "Please answer the math question correctly.",
       });
-      // Generate a new math question
       setMathQuestion(generateMathQuestion());
       return;
     }
 
-    // Basic validation
+    /* ---- Required fields ---- */
     if (!formData.name || !formData.email || !formData.message) {
       setSubmitStatus({
         success: false,
@@ -163,7 +186,6 @@ const ContactPage = () => {
       });
       return;
     }
-
     if (!validateEmail(formData.email)) {
       setSubmitStatus({
         success: false,
@@ -172,21 +194,44 @@ const ContactPage = () => {
       return;
     }
 
-    setIsSubmitting(true);
-    setSubmitStatus({ success: null, message: "" });
-    setLastSubmitTime(now);
+    /* ---- NEW: Paragraph & word‑count validation ---- */
+    const paragraphs = formData.message
+      .split(/\n/)
+      .filter((p) => p.trim().length > 0);
+    const totalWords = countWords(formData.message);
 
-    // Check rate limit
-    if (isRateLimited()) {
+    if (paragraphs.length < MIN_PARAGRAPHS) {
       setSubmitStatus({
         success: false,
-        message: "Too many requests. Please try again later.",
+        message: `Your message must contain at least ${MIN_PARAGRAPHS} paragraphs (use a blank line to separate).`,
       });
-      setIsSubmitting(false);
+      return;
+    }
+    if (totalWords < MIN_WORDS) {
+      setSubmitStatus({
+        success: false,
+        message: `Message too short – please write at least ${MIN_WORDS} words (you have ${totalWords}).`,
+      });
+      return;
+    }
+    if (totalWords > MAX_WORDS) {
+      setSubmitStatus({
+        success: false,
+        message: `Message too long – keep it under ${MAX_WORDS} words.`,
+      });
       return;
     }
 
-    // Check for profanity
+    /* ---- Rate limiting ---- */
+    if (isRateLimited()) {
+      setSubmitStatus({
+        success: false,
+        message: "Too many requests. Try again later.",
+      });
+      return;
+    }
+
+    /* ---- Profanity ---- */
     if (
       containsProfanity(formData.name) ||
       containsProfanity(formData.message) ||
@@ -194,20 +239,19 @@ const ContactPage = () => {
     ) {
       setSubmitStatus({
         success: false,
-        message:
-          "Your message contains inappropriate language. Please revise and try again.",
+        message: "Your message contains inappropriate language.",
       });
-      setIsSubmitting(false);
       return;
     }
 
+    /* ---- Submit ---- */
+    setIsSubmitting(true);
+    setSubmitStatus({ success: null, message: "" });
+    setLastSubmitTime(now);
+    setRequestTimestamps((prev) => [...prev, now]);
+
     try {
-      // Add current timestamp for rate limiting
-      setRequestTimestamps((prev) => [...prev, Date.now()]);
-
-      // Prepare data for email (excluding honeypot and bot check fields)
       const { website, botCheck, ...emailData } = formData;
-
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
@@ -217,11 +261,9 @@ const ContactPage = () => {
 
       setSubmitStatus({
         success: true,
-        message:
-          "Your message has been sent successfully! I'll get back to you soon.",
+        message: "Your message has been sent! I'll reply soon.",
       });
 
-      // Reset form and generate new math question
       setFormData({
         name: "",
         email: "",
@@ -231,16 +273,14 @@ const ContactPage = () => {
         botCheck: "",
       });
       setMathQuestion(generateMathQuestion());
-    } catch (error) {
-      console.error("Email sending error:", error);
+    } catch (err) {
+      console.error(err);
       setSubmitStatus({
         success: false,
-        message:
-          "Failed to send message. Please try again later or contact me directly at your.email@example.com",
+        message: "Failed to send. Try again later or email me directly.",
       });
     } finally {
       setIsSubmitting(false);
-      // Auto-clear success message after 5 seconds
       if (submitStatus.success) {
         submitTimeoutRef.current = setTimeout(() => {
           setSubmitStatus({ success: null, message: "" });
@@ -249,6 +289,9 @@ const ContactPage = () => {
     }
   };
 
+  /* ---------------------------------------------------------------- */
+  /*  Render                                                          */
+  /* ---------------------------------------------------------------- */
   return (
     <motion.div
       className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
@@ -257,7 +300,8 @@ const ContactPage = () => {
       animate="visible"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="space-y-4 mb-12">
+        {/* Header */}
+        <div className="space-y-4 mb-12 text-center">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -266,7 +310,7 @@ const ContactPage = () => {
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               GET IN TOUCH
@@ -281,7 +325,7 @@ const ContactPage = () => {
               delay: 0.3,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="space-y-2 text-center"
+            className="space-y-2"
           >
             <p className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
               Have a project in mind or want to discuss potential opportunities?
@@ -292,19 +336,17 @@ const ContactPage = () => {
           </motion.div>
         </div>
 
+        {/* Form Card */}
         <motion.div
           initial="hidden"
           animate="visible"
           variants={{
+            visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
             hidden: { opacity: 0, y: 20 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-            },
           }}
           className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg dark:shadow-gray-800/10"
         >
+          {/* Status message */}
           {submitStatus.message && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -321,14 +363,12 @@ const ContactPage = () => {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4 relative">
-            {/* Honeypot field - hidden from users but visible to bots */}
+            {/* Honeypot (hidden) */}
             <div
               style={{ position: "absolute", left: "-5000px" }}
               aria-hidden="true"
             >
-              <label htmlFor="website">
-                Don't fill this out if you're human:
-              </label>
+              <label htmlFor="website">Leave blank if human</label>
               <input
                 type="text"
                 id="website"
@@ -340,12 +380,11 @@ const ContactPage = () => {
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {/* Name Field */}
+              {/* Name */}
               <motion.div
                 variants={fadeUp}
                 custom={0}
                 whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 12 }}
               >
                 <label
                   htmlFor="name"
@@ -361,16 +400,15 @@ const ContactPage = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="John Doe"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 min-w-0 [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
                 />
               </motion.div>
 
-              {/* Email Field */}
+              {/* Email */}
               <motion.div
                 variants={fadeUp}
                 custom={1}
                 whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 12 }}
               >
                 <label
                   htmlFor="email"
@@ -385,12 +423,12 @@ const ContactPage = () => {
                   required
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="your@email.com"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 min-w-0 [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
+                  placeholder="you@example.com"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
                 />
               </motion.div>
 
-              {/* Subject Field */}
+              {/* Subject */}
               <motion.div
                 variants={fadeUp}
                 custom={2}
@@ -408,12 +446,12 @@ const ContactPage = () => {
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="How can I help you?"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 min-w-0 [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
+                  placeholder="How can I help?"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
                 />
               </motion.div>
 
-              {/* Message Field */}
+              {/* Message */}
               <motion.div
                 variants={fadeUp}
                 custom={3}
@@ -428,16 +466,22 @@ const ContactPage = () => {
                 <textarea
                   id="message"
                   name="message"
-                  rows={4}
+                  rows={5}
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Your message..."
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 resize-none [&:-webkit-autofill]:dark:!text-white [&:-webkit-autofill]:dark:!bg-gray-800/80"
+                  placeholder="Write at least two paragraphs (use a blank line to separate)…"
+                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 resize-none"
                 />
+                {/* Live counter (optional) */}
+                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  {countWords(formData.message)} words •{" "}
+                  {formData.message.split(/\n/).filter((p) => p.trim()).length}{" "}
+                  paragraph(s)
+                </div>
               </motion.div>
 
-              {/* Math Question */}
+              {/* Bot check */}
               <motion.div
                 variants={fadeUp}
                 custom={4}
@@ -457,17 +501,17 @@ const ContactPage = () => {
                   required
                   value={formData.botCheck}
                   onChange={handleChange}
-                  placeholder="Answer to prove you're human"
+                  placeholder="Answer"
                   className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
                 />
                 <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
                   <ShieldAlert className="w-3 h-3" />
-                  This helps prevent spam messages
+                  Spam protection
                 </p>
               </motion.div>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit */}
             <motion.div variants={fadeUp} custom={5} className="pt-2">
               <motion.button
                 type="submit"
@@ -481,7 +525,7 @@ const ContactPage = () => {
                 {isSubmitting ? (
                   <>
                     <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4" />
-                    Sending...
+                    Sending…
                   </>
                 ) : (
                   <>
@@ -496,6 +540,4 @@ const ContactPage = () => {
       </div>
     </motion.div>
   );
-};
-
-export default ContactPage;
+}

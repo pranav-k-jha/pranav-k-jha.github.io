@@ -210,7 +210,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "genai-and-agentic-ai"
-image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200"
+image: "https://images.unsplash.com/photo-1525338078858-d762b5e32f2c?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"
 tags:
   ["AI", "Machine Learning", "Generative AI", "Agentic AI", "AI Development"]
 ---
@@ -328,7 +328,7 @@ author: "Pranav K Jha"
 authorTitle: "AI Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "ibm-bamba-hybrid-llm"
-image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200"
+image: "https://images.unsplash.com/photo-1562705121-e624542c7b9b?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=2070"
 tags:
   [
     "AI",
@@ -487,7 +487,7 @@ author: "Pranav Jha"
 authorTitle: "Machine Learning Engineer"
 authorAvatar: "/profile.jpeg"
 slug: "scaling-heights-ml-training"
-image: "https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg?auto=compress&cs=tinysrgb&w=600"
+image: "https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg?auto=compress&cs=tinysrgb&w=600"
 ---
 
 There's something profound about ascending a mountain that mirrors the journey of training machine learning models. Both require patience, persistence, careful planning, and the ability to adapt when conditions change. As I rode the cable car up the mountain, I reflected on how the principles of mountaineering apply to the iterative process of ML model development.

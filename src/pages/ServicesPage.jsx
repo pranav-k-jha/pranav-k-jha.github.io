@@ -1,70 +1,47 @@
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useMemo, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { ArrowRight, CheckCircle, Code, Brain } from "lucide-react";
+import { motion, AnimatePresence, useInView } from "framer-motion";
+import { Link } from "react-router-dom";
+import { useMemo, useCallback, useRef, useEffect, useState } from "react";
+import { ArrowRight, CheckCircle, Code, Database, Brain } from "lucide-react";
 
 // Animation variants
 const pageTransition = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut",
-    },
+    transition: { duration: 0.4, ease: "easeOut" },
   },
   exit: { opacity: 0 },
 };
 
-// Animation variants for container
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+    transition: { staggerChildren: 0.1 },
   },
 };
 
-// Animation variants for items
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
-    },
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
-// Stagger container
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      when: "beforeChildren",
-    },
-  },
-};
-
-// Card variants - iOS optimized
-const cardVariants = {
+const fadeInUp = (i) => ({
   hidden: { opacity: 0, y: 20 },
-  visible: (i) => ({
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
-      delay: 0.1 + i * 0.08,
-      duration: 0.5,
-      ease: [0.4, 0, 0.2, 1],
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
-  }),
-};
+  },
+});
 
 const SERVICE_CATEGORIES = {
   "AI & ML": {
@@ -78,6 +55,12 @@ const SERVICE_CATEGORIES = {
     icon: Code,
     description: "Full-stack web applications and platforms",
     color: "from-blue-500 to-cyan-500",
+  },
+  "Data Engineering": {
+    name: "Data Engineering",
+    icon: Database,
+    description: "Data pipelines and analytics platforms",
+    color: "from-orange-500 to-red-500",
   },
 };
 
@@ -128,7 +111,37 @@ const services = [
     technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS"],
     color: "from-blue-500 to-cyan-500",
   },
+  {
+    id: 3,
+    title: "Data Engineering & Analytics",
+    slug: "data-engineering",
+    description:
+      "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    icon: Database,
+    category: "Data Engineering",
+    features: [
+      "Data Pipeline Development",
+      "ETL/ELT Processes",
+      "Data Warehousing",
+      "Real-time Analytics",
+      "Data Visualization",
+    ],
+    technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
+    color: "from-orange-500 to-red-500",
+  },
 ];
+
+// Preload images to prevent flicker on first load
+const usePreloadImages = () => {
+  useEffect(() => {
+    services.forEach((service) => {
+      const img = new Image();
+      img.src = service.image;
+    });
+  }, []);
+};
 
 // Hook for filtering services
 const useServiceFilter = () => {
@@ -141,15 +154,13 @@ const useServiceFilter = () => {
 
   const categoryStats = useMemo(() => {
     return Object.keys(SERVICE_CATEGORIES).reduce((acc, category) => {
-      acc[category] = services.filter(
-        (service) => service.category === category
-      ).length;
+      acc[category] = services.filter((s) => s.category === category).length;
       return acc;
     }, {});
   }, []);
 
   const handleCategoryChange = useCallback((category) => {
-    setActiveCategory(category);
+    setActiveCategory((prev) => (prev === category ? null : category));
   }, []);
 
   return {
@@ -162,82 +173,66 @@ const useServiceFilter = () => {
 };
 
 const ServiceCard = ({ service, index }) => {
-  const navigate = useNavigate();
   const IconComponent = service.icon;
-  const [isHovered, setIsHovered] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <motion.div
+      ref={ref}
       custom={index}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-20px" }}
-      variants={cardVariants}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      style={{
-        WebkitBackfaceVisibility: "hidden",
-        backfaceVisibility: "hidden",
-        WebkitPerspective: 1000,
-        perspective: 1000,
-        WebkitTransform: "translate3d(0,0,0)",
-        transform: "translate3d(0,0,0)",
-        willChange: isHovered ? "transform" : "auto",
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp(index)}
+      whileHover={{
+        y: -6,
+        transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
-      className="group relative bg-white dark:bg-zinc-900/50 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-md dark:shadow-lg dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300"
+      className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:shadow-xl dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300 isolate"
+      style={{ transform: "translateZ(0)" }} // GPU layer
     >
-      {/* Image */}
+      {/* Image Section */}
       <div className="relative h-48 overflow-hidden">
+        <motion.img
+          src={service.image}
+          alt={service.title}
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.2 }}
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          className="w-full h-full object-cover will-change-transform"
+          style={{ transform: "translateZ(0)" }}
+          loading="lazy"
+        />
         <div
-          className="w-full h-full overflow-hidden"
-          style={{
-            WebkitBackfaceVisibility: "hidden",
-            backfaceVisibility: "hidden",
-            WebkitTransform: "translate3d(0,0,0)",
-            transform: "translate3d(0,0,0)",
-          }}
-        >
-          <img
-            src={service.image}
-            alt={service.title}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-            style={{
-              WebkitBackfaceVisibility: "hidden",
-              backfaceVisibility: "hidden",
-              WebkitTransform: "translate3d(0,0,0)",
-              transform: "translate3d(0,0,0)",
-            }}
-            loading="lazy"
-          />
-        </div>
-        <div
-          className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-20`}
-          style={{
-            WebkitBackfaceVisibility: "hidden",
-            backfaceVisibility: "hidden",
-          }}
+          className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-30`}
         />
 
-        {/* Icon */}
-        <div className="absolute top-4 right-4">
+        {/* Icon Badge */}
+        <motion.div
+          className="absolute top-4 right-4"
+          whileHover={{ y: -4, rotate: 8 }}
+          transition={{ duration: 0.3 }}
+        >
           <div
-            className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1`}
+            className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm`}
           >
             <IconComponent className="w-6 h-6 text-white" />
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Content */}
       <div className="p-6 flex flex-col flex-1">
         <div className="flex-1">
-          <h3
+          <motion.h3
             className={`text-xl font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent mb-3`}
+            whileHover={{ x: 4 }}
+            transition={{ duration: 0.2 }}
           >
             {service.title}
-          </h3>
+          </motion.h3>
 
-          <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">
+          <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed text-sm">
             {service.description}
           </p>
 
@@ -246,19 +241,14 @@ const ServiceCard = ({ service, index }) => {
             <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Key Features:
             </h4>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {service.features.slice(0, 3).map((feature, idx) => (
                 <motion.li
                   key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.1, duration: 0.5 }}
-                  viewport={{ once: true }}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: idx * 0.1, duration: 0.4 }}
                   className="flex items-center text-sm text-gray-600 dark:text-gray-400"
-                  style={{
-                    WebkitBackfaceVisibility: "hidden",
-                    backfaceVisibility: "hidden",
-                  }}
                 >
                   <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
                   {feature}
@@ -274,31 +264,44 @@ const ServiceCard = ({ service, index }) => {
             </h4>
             <div className="flex flex-wrap gap-2">
               {service.technologies.slice(0, 3).map((tech, idx) => (
-                <span
+                <motion.span
                   key={idx}
-                  className="px-3 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full transition-transform duration-200 hover:scale-105"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: idx * 0.05, duration: 0.3 }}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  className="px-3 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full"
                 >
                   {tech}
-                </span>
+                </motion.span>
               ))}
               {service.technologies.length > 3 && (
                 <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
-                  +{service.technologies.length - 3} more
+                  +{service.technologies.length - 3}
                 </span>
               )}
             </div>
           </div>
         </div>
 
-        {/* CTA Button */}
+        {/* CTA */}
         <div className="mt-auto">
-          <button
-            onClick={() => navigate(`/services/${service.slug}`)}
-            className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 active:scale-98 group`}
-          >
-            <span className="mr-2">Learn More</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
-          </button>
+          <Link to={`/services/${service.slug}`}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center shadow-md hover:shadow-xl transition-all duration-300`}
+            >
+              <span className="mr-2">Learn More</span>
+              <motion.span
+                initial={{ x: 0 }}
+                whileHover={{ x: 6 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <ArrowRight className="w-4 h-4" />
+              </motion.span>
+            </motion.div>
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -311,8 +314,9 @@ export default function ServicesPage() {
     filteredServices,
     categoryStats,
     handleCategoryChange,
-    totalServices,
   } = useServiceFilter();
+
+  usePreloadImages(); // Preload images
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
@@ -323,90 +327,58 @@ export default function ServicesPage() {
           initial="hidden"
           animate="visible"
           exit="hidden"
-          style={{
-            WebkitBackfaceVisibility: "hidden",
-            backfaceVisibility: "hidden",
-            WebkitTransform: "translate3d(0,0,0)",
-            transform: "translate3d(0,0,0)",
-          }}
         >
-          {/* Header Section */}
+          {/* Header */}
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-            {/* Header with Animation */}
-            <div className="space-y-4 mb-12">
-              {/* Main Heading */}
+            <motion.div className="text-center mb-12">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-center"
-                style={{
-                  WebkitBackfaceVisibility: "hidden",
-                  backfaceVisibility: "hidden",
-                }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
                   MY SERVICES
                 </span>
               </motion.h1>
-
-              {/* Subtitle */}
               <motion.p
-                className="text-lg text-gray-600 dark:text-gray-400 text-center max-w-2xl mx-auto"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.3,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                style={{
-                  WebkitBackfaceVisibility: "hidden",
-                  backfaceVisibility: "hidden",
-                }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mt-4 text-lg sm:text-xl  text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
                 From AI-powered solutions to full-stack development, I provide
                 end-to-end technology services that transform ideas into
                 reality.
               </motion.p>
-            </div>
+            </motion.div>
 
             {/* Services Grid */}
             <motion.div
-              variants={container}
+              variants={containerVariants}
               initial="hidden"
-              whileInView="show"
-              viewport={{ once: true, margin: "-20px" }}
-              className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full px-4 md:px-16 max-w-4xl mx-auto"
-              style={{
-                WebkitBackfaceVisibility: "hidden",
-                backfaceVisibility: "hidden",
-              }}
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
             >
               {filteredServices.map((service, index) => (
-                <div key={service.id} className="w-full flex justify-center">
-                  <div className="w-full">
-                    <ServiceCard service={service} index={index} />
-                  </div>
-                </div>
+                <motion.div
+                  key={service.id}
+                  variants={itemVariants}
+                  className="w-full"
+                >
+                  <ServiceCard service={service} index={index} />
+                </motion.div>
               ))}
             </motion.div>
 
-            {/* No results message */}
             {filteredServices.length === 0 && (
-              <motion.div
+              <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="col-span-full text-center py-12"
+                className="text-center text-gray-500 dark:text-gray-400 py-12 text-lg"
               >
-                <div className="text-gray-500 dark:text-gray-400 text-lg">
-                  No services found in this category.
-                </div>
-              </motion.div>
+                No services found in this category.
+              </motion.p>
             )}
           </div>
 
@@ -414,17 +386,13 @@ export default function ServicesPage() {
           <motion.section
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             variants={containerVariants}
             className="py-20 px-6 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
-            style={{
-              WebkitBackfaceVisibility: "hidden",
-              backfaceVisibility: "hidden",
-            }}
           >
             <div className="container mx-auto max-w-4xl text-center">
               <motion.div variants={itemVariants}>
-                <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-3xl sm:text-4xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
                   Ready to <span className="font-bold">Transform</span> Your
                   Ideas?
                 </h2>
@@ -432,15 +400,22 @@ export default function ServicesPage() {
                   Let's discuss how my services can help you achieve your goals
                   and drive innovation in your organization.
                 </p>
-                <div className="flex justify-center">
-                  <button
-                    onClick={() => alert("Contact form would open here")}
-                    className="py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 active:scale-98 group"
+                <Link to="/contact">
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="inline-flex items-center py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold shadow-md hover:shadow-xl transition-all duration-300"
                   >
                     Get Started
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-200" />
-                  </button>
-                </div>
+                    <motion.div
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.2 }}
+                      className="ml-2"
+                    >
+                      <ArrowRight className="w-5 h-5" />
+                    </motion.div>
+                  </motion.div>
+                </Link>
               </motion.div>
             </div>
           </motion.section>

@@ -91,3 +91,13 @@ html {
   will-change: transform, opacity;
   backface-visibility: hidden;
 }
+
+/* iOS GPU Fix */
+@supports (-webkit-touch-callout: none) {
+  .will-change-transform {
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+}

@@ -117,3 +117,5 @@ While GenAI has established the foundation for AI creativity, Agentic AI introdu
 | **Agentic AI** | Autonomous operation | Process automation, complex problem-solving |
 
 In summary, GenAI creates content, while Agentic AI takes action. Together, they form the foundation for self-improving, intelligent systems that will drive the next wave of technological advancement.
+
+---

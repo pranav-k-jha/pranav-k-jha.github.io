@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { getAllPosts } from "../content/blog/clientPosts";
 import { useTheme } from "../context/ThemeContext";
 import {
   Brain,
@@ -44,6 +46,16 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
 
 const About = () => {
   const { theme } = useTheme();
+  const [blogPostCount, setBlogPostCount] = useState(0);
+
+  useEffect(() => {
+    try {
+      const posts = getAllPosts();
+      setBlogPostCount(posts.length);
+    } catch (error) {
+      console.error("Error loading blog posts:", error);
+    }
+  }, []);
 
   // GitHub Analytics URLs with Tokyo Night theme
   const getGitHubStatsUrl = () => {
@@ -170,7 +182,7 @@ const About = () => {
                   Blog Posts
                 </div>
                 <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  4
+                  {blogPostCount > 0 ? `${blogPostCount - 1}+` : "0"}
                 </span>
               </div>
               <div className="flex items-center justify-between text-xs">

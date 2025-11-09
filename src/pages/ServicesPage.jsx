@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useMemo, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, CheckCircle, Code, Brain } from "lucide-react";
 
 // Animation variants
@@ -161,6 +162,7 @@ const useServiceFilter = () => {
 };
 
 const ServiceCard = ({ service, index }) => {
+  const navigate = useNavigate();
   const IconComponent = service.icon;
   const [isHovered, setIsHovered] = useState(false);
 
@@ -291,7 +293,7 @@ const ServiceCard = ({ service, index }) => {
         {/* CTA Button */}
         <div className="mt-auto">
           <button
-            onClick={() => alert(`Learn more about ${service.title}`)}
+            onClick={() => navigate(`/services/${service.slug}`)}
             className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center cursor-pointer shadow-md hover:shadow-xl transition-all duration-300 active:scale-98 group`}
           >
             <span className="mr-2">Learn More</span>

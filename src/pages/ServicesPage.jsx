@@ -342,9 +342,13 @@ export default function ServicesPage() {
                 </span>
               </motion.h1>
               <motion.p
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
+                transition={{
+                  duration: 0.6,
+                  delay: 0.3,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
                 className="mt-4 text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
                 From AI-powered solutions to full-stack development, I provide

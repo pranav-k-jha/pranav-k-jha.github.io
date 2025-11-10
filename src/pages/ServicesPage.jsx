@@ -73,7 +73,7 @@ const SERVICE_CATEGORIES = {
     name: "Mobile Development",
     icon: Smartphone,
     description: "Cross-platform mobile applications",
-    color: "from-green-500 to-emerald-500",
+    color: "from-teal-500 to-emerald-600",
   },
 };
 

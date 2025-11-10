@@ -157,17 +157,17 @@ const MobileAppServicePage = () => {
       buttonLink: "/contact",
     },
     theme: {
-      gradient: "from-green-500 to-emerald-500",
-      hoverGradient: "hover:from-green-600 hover:to-emerald-600",
-      text: "text-green-600 dark:text-green-400",
-      border: "border-green-500",
-      bg: "bg-green-50 dark:bg-green-900/20",
-      iconBg: "bg-gradient-to-r from-green-500 to-emerald-500",
+      gradient: "from-teal-500 to-emerald-600",
+      hoverGradient: "hover:from-teal-600 hover:to-emerald-700",
+      text: "text-teal-600 dark:text-teal-400",
+      border: "border-teal-500",
+      bg: "bg-teal-50 dark:bg-teal-900/20",
+      iconBg: "bg-gradient-to-r from-teal-500 to-emerald-600",
       buttonGradient:
-        "from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600",
+        "from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700",
       buttonText: "text-white",
       buttonShadow:
-        "shadow-lg shadow-green-500/20 hover:shadow-xl hover:shadow-green-500/30",
+        "shadow-lg shadow-teal-500/20 hover:shadow-xl hover:shadow-teal-500/30",
     },
   };
 

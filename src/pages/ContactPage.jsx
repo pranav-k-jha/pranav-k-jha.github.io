@@ -470,7 +470,7 @@ export default function ContactPage() {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Write at least two paragraphs (use a blank line to separate)…"
+                  placeholder="Write your message..."
                   className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 resize-none"
                 />
                 {/* Live counter (optional) */}

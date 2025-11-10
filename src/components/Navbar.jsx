@@ -64,10 +64,10 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className={`fixed w-full z-50 transition-all duration-300 ease-in-out ${
+      className={`fixed w-full z-50 transition-all duration-300 ease-in-out navbar-gradient ${
         scrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md py-0"
-          : "bg-transparent dark:bg-transparent py-2"
+          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-md py-0"
+          : "py-2"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

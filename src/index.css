@@ -101,3 +101,33 @@ html {
     backface-visibility: hidden;
   }
 }
+/* Light mode gradient with stronger blur */
+.navbar-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.7) 0%,
+    rgba(255, 255, 255, 0.4) 70%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* Dark mode gradient with stronger blur */
+.dark .navbar-gradient {
+  background: linear-gradient(
+    to bottom,
+    rgba(17, 24, 39, 0.9) 0%,
+    rgba(17, 24, 39, 0.6) 70%,
+    rgba(17, 24, 39, 0) 100%
+  ) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+/* Scrolled state - even stronger blur */
+.navbar-gradient.bg-white\/90,
+.dark .navbar-gradient.dark\:bg-gray-900\/90 {
+  backdrop-filter: blur(20px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(200%) !important;
+}

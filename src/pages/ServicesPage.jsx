@@ -390,9 +390,9 @@ export default function ServicesPage() {
                 }}
                 className="mt-4 text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
-                From AI-powered solutions to full-stack development, I provide
-                end-to-end technology services that transform ideas into
-                reality.
+                I provide freelance services to individuals, startups, and
+                organizations—offering AI solutions, web development, and
+                end-to-end technology support to bring ideas to life.
               </motion.p>
             </motion.div>
 

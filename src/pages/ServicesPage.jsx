@@ -80,6 +80,7 @@ const SERVICE_CATEGORIES = {
 const services = [
   {
     id: 1,
+    isActive: true, // Mark this service as active
     title: "AI & Machine Learning Solutions",
     slug: "ai-ml",
     description:
@@ -106,6 +107,7 @@ const services = [
   },
   {
     id: 2,
+    isActive: true, //
     title: "Web Development",
     slug: "web-development",
     description:
@@ -230,6 +232,26 @@ const ServiceCard = ({ service, index }) => {
       className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:shadow-xl dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300 isolate"
       style={{ transform: "translateZ(0)" }} // GPU layer
     >
+      {/* Active Badge */}
+      {service.isActive && (
+        <motion.div
+          initial={{ opacity: 0.7, scale: 0.95 }}
+          animate={{ opacity: [0.7, 1, 0.7], scale: [0.95, 1, 0.95] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full z-10 flex items-center shadow-md"
+        >
+          <span className="relative flex h-2 w-2 mr-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
+          </span>
+          Active
+        </motion.div>
+      )}
+
       {/* Image Section */}
       <div className="relative h-48 overflow-hidden">
         <motion.img
@@ -391,7 +413,7 @@ export default function ServicesPage() {
                 className="mt-4 text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
                 I provide freelance services to individuals, startups, and
-                organizations—offering AI solutions, web development, and
+                organizations—offering AI solutions, full-stack development, and
                 end-to-end technology support to bring ideas to life.
               </motion.p>
             </motion.div>

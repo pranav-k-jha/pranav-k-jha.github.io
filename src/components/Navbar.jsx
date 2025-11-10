@@ -99,9 +99,7 @@ export default function Navbar() {
                 </span>
                 <p
                   className={`text-gray-500 dark:text-gray-400 transition-all duration-300 ${
-                    scrolled
-                      ? "text-xs mt-0.5 opacity-90"
-                      : "text-sm mt-1 opacity-100"
+                    scrolled ? "text-xs opacity-90" : "text-sm opacity-100"
                   }`}
                 >
                   AI Engineer

@@ -199,7 +199,7 @@ export default function BlogPost() {
 
                   /* ——— Blockquote ——— */
                   blockquote: ({ children }) => (
-                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray10 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700/70">
+                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700">
                       {children}
                     </blockquote>
                   ),

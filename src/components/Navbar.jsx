@@ -11,6 +11,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef(null);
+  const scrollTimeout = useRef(null);
 
   const isActiveLink = (path) => {
     const currentPath = location.pathname;
@@ -27,11 +28,23 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      // Debounce the scroll event for better performance
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+
+      scrollTimeout.current = setTimeout(() => {
+        setScrolled(window.scrollY > 10);
+      }, 10);
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+      window.removeEventListener("scroll", handleScroll, { passive: true });
+    };
   }, []);
 
   // Close mobile menu when clicking outside
@@ -51,27 +64,46 @@ export default function Navbar() {
   return (
     <header
       ref={navRef}
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 ease-in-out ${
         scrolled
-          ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm"
-          : "bg-transparent dark:bg-transparent"
+          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-md shadow-md py-0"
+          : "bg-transparent dark:bg-transparent py-2"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
+        <div
+          className={`flex justify-between items-center transition-all duration-300 ease-in-out ${
+            scrolled ? "h-14" : "h-16"
+          }`}
+        >
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center space-x-3">
-              <img
+              <motion.img
                 src="/profile.jpeg"
                 alt="Pranav K Jha"
-                className="h-12 w-12 rounded-full object-cover border-2 border-blue-500 flex flex-col items-center justify-center"
+                className={`rounded-full object-cover border-2 border-blue-500 flex flex-col items-center justify-center transition-all duration-300 ease-in-out ${
+                  scrolled ? "h-10 w-10" : "h-12 w-12"
+                }`}
+                animate={{
+                  scale: scrolled ? 1 : 1.1,
+                }}
               />
-              <div className="hidden sm:block">
-                <span className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 group-hover:from-blue-700 group-hover:via-purple-700 group-hover:to-emerald-700 dark:group-hover:from-blue-300 dark:group-hover:via-purple-300 dark:group-hover:to-emerald-300 transition-all duration-300">
+              <div className="hidden sm:block transition-all duration-300 ease-in-out">
+                <span
+                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 group-hover:from-blue-700 group-hover:via-purple-700 group-hover:to-emerald-700 dark:group-hover:from-blue-300 dark:group-hover:via-purple-300 dark:group-hover:to-emerald-300 transition-all duration-300 ${
+                    scrolled ? "text-base leading-5" : "text-xl leading-7"
+                  }`}
+                >
                   PRANAV K JHA
                 </span>
-                <p className="text-xs text-gray-500 dark:text-gray-400 -mt-1">
+                <p
+                  className={`text-gray-500 dark:text-gray-400 transition-all duration-300 ${
+                    scrolled
+                      ? "text-xs mt-0.5 opacity-90"
+                      : "text-sm mt-1 opacity-100"
+                  }`}
+                >
                   AI Engineer
                 </p>
               </div>
@@ -85,7 +117,9 @@ export default function Navbar() {
                 <div key={item.href} className="relative group">
                   <Link
                     to={item.href}
-                    className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
+                      scrolled ? "text-sm" : "text-sm md:text-base"
+                    } ${
                       location.pathname === item.href
                         ? "text-blue-600 dark:text-blue-400"
                         : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"

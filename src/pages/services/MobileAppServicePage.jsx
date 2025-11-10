@@ -163,6 +163,11 @@ const MobileAppServicePage = () => {
       border: "border-green-500",
       bg: "bg-green-50 dark:bg-green-900/20",
       iconBg: "bg-gradient-to-r from-green-500 to-emerald-500",
+      buttonGradient:
+        "from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600",
+      buttonText: "text-white",
+      buttonShadow:
+        "shadow-lg shadow-green-500/20 hover:shadow-xl hover:shadow-green-500/30",
     },
   };
 

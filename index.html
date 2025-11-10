@@ -104,7 +104,8 @@
       gtag('js', new Date());
       gtag('config', 'G-7KZYQ6FXF0', {
         send_page_view: false,
-        anonymize_ip: true
+        anonymize_ip: true,
+        debug_mode: process.env.NODE_ENV === 'development'
       });
     </script>
 

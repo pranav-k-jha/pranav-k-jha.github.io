@@ -11,6 +11,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Projects from "./pages/Projects";
 import ServicesPage from "./pages/ServicesPage";
 import GoogleAnalytics from "./components/GoogleAnalytics";
+import usePageViews from "./hooks/usePageViews";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -31,6 +32,7 @@ const DataEngServicePage = lazy(() =>
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 function App() {
+  usePageViews();
   // Smooth scroll for internal anchor links (#section)
   useEffect(() => {
     const handleAnchorClick = (e) => {

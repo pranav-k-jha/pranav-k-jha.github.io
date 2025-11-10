@@ -153,14 +153,14 @@ export default function BlogPost() {
                     // Otherwise render the h1
                     return (
                       <h1
-                        className="text-lg md:text-xl font-bold mt-6 mb-4"
+                        className="text-lg md:text-2xl font-bold mt-6 mb-4"
                         {...props}
                       />
                     );
                   },
                   h2: (props) => (
                     <h2
-                      className="text-lg md:text-xl font-bold mt-8 mb-3 pt-4 border-t border-gray-100 dark:border-gray-700"
+                      className="text-xl md:text-2xl font-bold mt-8 mb-3 pt-4 border-t border-gray-100 dark:border-gray-700"
                       {...props}
                     />
                   ),

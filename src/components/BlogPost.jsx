@@ -99,7 +99,7 @@ export default function BlogPost() {
         >
           <div className="p-6 sm:p-8">
             <div className="mb-8">
-              <div className="flex items-center text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <div className="flex items-center text-[0.6rem] md:text-sm text-gray-500 dark:text-gray-400 mb-4">
                 <span className="bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded">
                   {post.category}
                 </span>

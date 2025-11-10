@@ -16,9 +16,7 @@ export default function BlogPost() {
     const fetchPost = async () => {
       try {
         const postData = getPostBySlug(slug);
-        if (!postData) {
-          throw new Error("Post not found");
-        }
+        if (!postData) throw new Error("Post not found");
         setPost(postData);
       } catch (error) {
         console.error("Error loading post:", error);
@@ -26,10 +24,10 @@ export default function BlogPost() {
         setLoading(false);
       }
     };
-
     fetchPost();
   }, [slug]);
 
+  /* ——————————————————————— Loading State ——————————————————————— */
   if (loading) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6">
@@ -45,6 +43,7 @@ export default function BlogPost() {
     );
   }
 
+  /* ——————————————————————— Not Found State ——————————————————————— */
   if (!post) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6">
@@ -66,9 +65,11 @@ export default function BlogPost() {
     );
   }
 
+  /* ——————————————————————— Main Post Render ——————————————————————— */
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pt-20 pb-12 px-4 sm:px-6 relative">
       <div className="max-w-4xl mx-auto">
+        {/* Back Button (Top) */}
         <div className="mb-8">
           <button
             onClick={() => window.history.back()}
@@ -98,6 +99,7 @@ export default function BlogPost() {
           className="bg-white dark:bg-gray-800 rounded-lg shadow-sm overflow-hidden border border-gray-100 dark:border-gray-700"
         >
           <div className="p-6 sm:p-8">
+            {/* Meta Info */}
             <div className="mb-8">
               <div className="flex items-center text-[0.6rem] md:text-sm text-gray-500 dark:text-gray-400 mb-4">
                 <span className="bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded">
@@ -109,10 +111,12 @@ export default function BlogPost() {
                 <span>{post.readTime}</span>
               </div>
 
+              {/* Title */}
               <h1 className="text-xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {post.title}
               </h1>
 
+              {/* Author */}
               <div className="flex items-center mt-6">
                 <img
                   src={post.authorAvatar}
@@ -130,52 +134,56 @@ export default function BlogPost() {
               </div>
             </div>
 
+            {/* Markdown Content */}
             <div className="max-w-none text-gray-800 dark:text-gray-200 prose dark:prose-invert">
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
                 rehypePlugins={[rehypeHighlight]}
                 components={{
-                  // Skip the h1 if it matches the post title
-                  h1: ({ node, ...props }) => {
-                    // Convert both to string and trim for comparison
-                    const titleFromProps = String(
-                      props.children[0] || ""
-                    ).trim();
-                    const postTitle = String(post.title || "").trim();
+                  /* ——— h1: Skip if it's the same as post.title ——— */
+                  h1: ({ node, children, ...props }) => {
+                    const content = String(children).trim();
+                    const title = String(post.title || "").trim();
 
-                    // Skip if they match (case-insensitive)
-                    if (
-                      titleFromProps.toLowerCase() === postTitle.toLowerCase()
-                    ) {
+                    if (content.toLowerCase() === title.toLowerCase()) {
                       return null;
                     }
 
-                    // Otherwise render the h1
                     return (
                       <h1
-                        className="text-lg md:text-2xl font-bold mt-6 mb-4"
+                        className="text-base md:text-xl lg:text-2xl font-bold mt-6 mb-4"
                         {...props}
-                      />
+                      >
+                        {children}
+                      </h1>
                     );
                   },
+
+                  /* ——— h2 ——— */
                   h2: (props) => (
                     <h2
-                      className="text-xl md:text-2xl font-bold mt-8 mb-3 pt-4 border-t border-gray-100 dark:border-gray-700"
+                      className="text-lg md:text-xl lg:text-2xl font-bold mt-8 mb-3 pt-4 border-t border-gray-100 dark:border-gray-700"
                       {...props}
                     />
                   ),
+
+                  /* ——— h3 ——— */
                   h3: (props) => (
                     <h3
-                      className="text-sm md:text-xl font-semibold mt-6 mb-2"
+                      className="text-sm md:text-lg lg:text-xl font-semibold mt-6 mb-2"
                       {...props}
                     />
                   ),
+
+                  /* ——— Paragraph ——— */
                   p: (props) => (
                     <p
                       className="leading-relaxed text-sm md:text-base mb-4 text-gray-700 dark:text-gray-300"
                       {...props}
                     />
                   ),
+
+                  /* ——— Lists ——— */
                   ul: (props) => (
                     <ul
                       className="list-disc pl-6 text-sm md:text-base mb-4 space-y-1 text-gray-700 dark:text-gray-300"
@@ -188,11 +196,15 @@ export default function BlogPost() {
                       {...props}
                     />
                   ),
-                  blockquote: ({ node, ...props }) => (
-                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-700/50 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700/70">
-                      {props.children}
+
+                  /* ——— Blockquote ——— */
+                  blockquote: ({ children }) => (
+                    <blockquote className="border-l-4 border-blue-500 pl-4 italic my-4 text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray10 p-3 rounded-r transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-700/70">
+                      {children}
                     </blockquote>
                   ),
+
+                  /* ——— Table ——— */
                   table: ({ children }) => (
                     <div className="overflow-x-auto my-6 rounded-lg border border-gray-200 dark:border-gray-700">
                       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -225,6 +237,8 @@ export default function BlogPost() {
                       {children}
                     </td>
                   ),
+
+                  /* ——— Code Blocks & Inline ——— */
                   code: ({ inline, className, children, ...rest }) => {
                     const match = /language-(\w+)/.exec(className || "");
                     return !inline ? (
@@ -245,6 +259,8 @@ export default function BlogPost() {
                       </code>
                     );
                   },
+
+                  /* ——— Links ——— */
                   a: (props) => (
                     <a
                       className="text-blue-600 dark:text-blue-400 hover:underline"
@@ -253,6 +269,8 @@ export default function BlogPost() {
                       {...props}
                     />
                   ),
+
+                  /* ——— Images ——— */
                   img: (props) => (
                     <img
                       className="my-4 rounded-lg shadow-md w-full max-w-2xl mx-auto"
@@ -268,6 +286,7 @@ export default function BlogPost() {
           </div>
         </motion.article>
 
+        {/* Back to Blog (Bottom) */}
         <div className="mt-8 text-center">
           <Link
             to="/blog"

@@ -11,17 +11,8 @@ export default function usePageViews() {
         page_path: location.pathname + location.search,
         page_title: document.title,
         page_location: window.location.href,
-        send_to: "G-7KZYQ6FXF0",
+        send_to: "G-7KZYQ6FXF0", // Your GA4 Measurement ID
       });
-
-      // Debug log in development
-      if (process.env.NODE_ENV === "development") {
-        console.log("GA4 Page View:", {
-          page_path: location.pathname + location.search,
-          page_title: document.title,
-          page_location: window.location.href,
-        });
-      }
     }
   }, [location]);
 }

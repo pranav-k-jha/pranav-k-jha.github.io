@@ -19,6 +19,9 @@ const BlogPage = lazy(() => import("./pages/BlogPage"));
 const BlogPost = lazy(() => import("./components/BlogPost"));
 const ResourcePage = lazy(() => import("./pages/ResourcePage"));
 const AiMlServicePage = lazy(() => import("./pages/services/AiMlServicePage"));
+const MobileAppServicePage = lazy(() =>
+  import("./pages/services/MobileAppServicePage")
+);
 const WebDevServicePage = lazy(() =>
   import("./pages/services/WebDevServicePage")
 );
@@ -94,6 +97,10 @@ function App() {
             />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/resources" element={<ResourcePage />} />
+            <Route
+              path="/services/mobile-app-development"
+              element={<MobileAppServicePage />}
+            />
           </Routes>
         </Suspense>
       </main>

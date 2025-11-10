@@ -1,7 +1,14 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useMemo, useCallback, useRef, useEffect, useState } from "react";
-import { ArrowRight, CheckCircle, Code, Database, Brain } from "lucide-react";
+import {
+  ArrowRight,
+  CheckCircle,
+  Code,
+  Database,
+  Brain,
+  Smartphone,
+} from "lucide-react";
 
 // Animation variants
 const pageTransition = {
@@ -61,6 +68,12 @@ const SERVICE_CATEGORIES = {
     icon: Database,
     description: "Data pipelines and analytics platforms",
     color: "from-orange-500 to-red-500",
+  },
+  "Mobile Development": {
+    name: "Mobile Development",
+    icon: Smartphone,
+    description: "Cross-platform mobile applications",
+    color: "from-green-500 to-emerald-500",
   },
 };
 
@@ -130,6 +143,32 @@ const services = [
     ],
     technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
     color: "from-orange-500 to-red-500",
+  },
+  {
+    id: 4,
+    title: "Mobile App Development",
+    slug: "mobile-app-development",
+    description:
+      "Cross-platform mobile applications built with React Native and Expo Router, powered by a robust Node.js and GraphQL backend.",
+    image:
+      "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&q=80&w=1000",
+    icon: Smartphone,
+    category: "Mobile Development",
+    features: [
+      "Cross-platform iOS & Android Apps",
+      "Expo Router for Navigation",
+      "GraphQL API Integration",
+      "Offline-First Capabilities",
+      "Push Notifications",
+    ],
+    technologies: [
+      "React Native",
+      "Expo Router",
+      "Node.js",
+      "GraphQL",
+      "TypeScript",
+    ],
+    color: "from-green-500 to-emerald-500",
   },
 ];
 

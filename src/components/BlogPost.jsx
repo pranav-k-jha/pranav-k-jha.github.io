@@ -99,7 +99,7 @@ export default function BlogPost() {
         >
           <div className="p-6 sm:p-8">
             <div className="mb-8">
-              <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+              <div className="flex items-center text-xs md:text-sm text-gray-500 dark:text-gray-400 mb-4">
                 <span className="bg-blue-50 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300 text-xs font-medium px-2 py-0.5 rounded">
                   {post.category}
                 </span>
@@ -109,7 +109,7 @@ export default function BlogPost() {
                 <span>{post.readTime}</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              <h1 className="text-xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {post.title}
               </h1>
 
@@ -120,10 +120,10 @@ export default function BlogPost() {
                   className="w-10 h-10 rounded-full mr-3"
                 />
                 <div>
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  <p className="text-xs md:text-sm font-medium text-gray-900 dark:text-white">
                     {post.author}
                   </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">
                     {post.authorTitle}
                   </p>
                 </div>
@@ -152,36 +152,39 @@ export default function BlogPost() {
 
                     // Otherwise render the h1
                     return (
-                      <h1 className="text-3xl font-bold mt-6 mb-4" {...props} />
+                      <h1
+                        className="text-lg md:text-xl font-bold mt-6 mb-4"
+                        {...props}
+                      />
                     );
                   },
                   h2: (props) => (
                     <h2
-                      className="text-2xl font-bold mt-8 mb-3 pt-4 border-t border-gray-100 dark:border-gray-700"
+                      className="text-lg md:text-xl font-bold mt-8 mb-3 pt-4 border-t border-gray-100 dark:border-gray-700"
                       {...props}
                     />
                   ),
                   h3: (props) => (
                     <h3
-                      className="text-xl font-semibold mt-6 mb-2"
+                      className="text-lg md:text-xl font-semibold mt-6 mb-2"
                       {...props}
                     />
                   ),
                   p: (props) => (
                     <p
-                      className="leading-relaxed mb-4 text-gray-700 dark:text-gray-300"
+                      className="leading-relaxed text-sm md:text-base mb-4 text-gray-700 dark:text-gray-300"
                       {...props}
                     />
                   ),
                   ul: (props) => (
                     <ul
-                      className="list-disc pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300"
+                      className="list-disc pl-6 text-sm md:text-base mb-4 space-y-1 text-gray-700 dark:text-gray-300"
                       {...props}
                     />
                   ),
                   ol: (props) => (
                     <ol
-                      className="list-decimal pl-6 mb-4 space-y-1 text-gray-700 dark:text-gray-300"
+                      className="list-decimal pl-6 text-sm md:text-base mb-4 space-y-1 text-gray-700 dark:text-gray-300"
                       {...props}
                     />
                   ),
@@ -213,12 +216,12 @@ export default function BlogPost() {
                     </tr>
                   ),
                   th: ({ children }) => (
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs md:text-sm font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                       {children}
                     </th>
                   ),
                   td: ({ children }) => (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm md:text-base text-gray-700 dark:text-gray-300">
                       {children}
                     </td>
                   ),
@@ -227,7 +230,7 @@ export default function BlogPost() {
                     return !inline ? (
                       <div className="bg-gray-900 text-gray-100 rounded-lg p-3 my-4 overflow-x-auto text-sm">
                         <code
-                          className={`${className} text-xs sm:text-sm`}
+                          className={`text-xs sm:text-sm ${className}`}
                           {...rest}
                         >
                           {children}

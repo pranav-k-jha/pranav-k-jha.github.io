@@ -203,7 +203,7 @@ const HeroSection = ({ post }) => {
   return (
     <motion.section
       variants={heroVariants}
-      className="relative h-[500px] rounded-3xl overflow-hidden group"
+      className="relative h-[400px] sm:h-[500px] rounded-3xl overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -242,7 +242,7 @@ const HeroSection = ({ post }) => {
           <div className="p-8 sm:p-12 max-w-3xl space-y-4">
             {post.category && (
               <motion.div
-                className="inline-flex items-center gap-2 px-4 py-1.5 text-sm font-semibold text-white bg-blue-600/90 backdrop-blur-sm rounded-full"
+                className="inline-flex items-center gap-2 px-4 py-1.5 text-xs md:text-sm font-semibold text-white bg-blue-600/90 backdrop-blur-sm rounded-full"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
@@ -253,7 +253,7 @@ const HeroSection = ({ post }) => {
             )}
 
             <motion.h2
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight"
+              className="text-2xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
@@ -262,7 +262,7 @@ const HeroSection = ({ post }) => {
             </motion.h2>
 
             <motion.p
-              className="text-lg text-gray-200 line-clamp-2 max-w-2xl"
+              className="text-sm md:text-lg text-gray-200 line-clamp-2 max-w-2xl"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.6 }}
@@ -271,7 +271,7 @@ const HeroSection = ({ post }) => {
             </motion.p>
 
             <motion.div
-              className="flex items-center gap-6 text-sm text-gray-300 pt-2"
+              className="flex items-center gap-6 text-xs md:text-sm text-gray-300 pt-2"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7, duration: 0.5 }}

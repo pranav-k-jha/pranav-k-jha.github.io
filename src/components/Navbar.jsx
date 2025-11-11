@@ -1,3 +1,4 @@
+// Navbar.jsx
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -11,73 +12,56 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [navHeight, setNavHeight] = useState(0);
-  const [lockedHeight, setLockedHeight] = useState(null);
   const navRef = useRef(null);
   const scrollTimeout = useRef(null);
 
+  const GAP = 4; // distance between navbar bottom and mobile menu
+
+  // ---------- Active link ----------
   const isActiveLink = (path) => {
-    const currentPath = location.pathname;
-    if (path === "/") {
-      return currentPath === path;
-    }
-    return currentPath === path || currentPath.startsWith(`${path}/`);
+    const cur = location.pathname;
+    return path === "/"
+      ? cur === path
+      : cur === path || cur.startsWith(`${path}/`);
   };
 
-  // Close mobile menu on route change or scroll
+  // ---------- Close menu on route change ----------
   useEffect(() => {
-    const handleRouteOrScroll = () => {
-      setMobileMenuOpen(false);
-    };
-
-    handleRouteOrScroll();
-    window.addEventListener("scroll", handleRouteOrScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleRouteOrScroll, {
-        passive: true,
-      });
-    };
+    setMobileMenuOpen(false);
   }, [location]);
 
-  // ✅ Scroll listener (disabled when menu is open)
+  // ---------- Scroll handling (disabled when menu open) ----------
   useEffect(() => {
     const handleScroll = () => {
-      if (mobileMenuOpen) return; // freeze navbar when menu is open
-
+      if (mobileMenuOpen) return;
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         setScrolled(window.scrollY > 10);
       }, 10);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
-      window.removeEventListener("scroll", handleScroll, { passive: true });
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [mobileMenuOpen]);
 
-  // Detect clicks/touches outside navbar to close mobile menu
+  // ---------- Click outside to close mobile menu ----------
   useEffect(() => {
-    const handleClickOrTouchOutside = (event) => {
-      if (navRef.current && !navRef.current.contains(event.target)) {
+    const handler = (e) => {
+      if (navRef.current && !navRef.current.contains(e.target)) {
         setMobileMenuOpen(false);
       }
     };
-
-    document.addEventListener("mousedown", handleClickOrTouchOutside);
-    document.addEventListener("touchstart", handleClickOrTouchOutside, {
-      passive: true,
-    });
-
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler, { passive: true });
     return () => {
-      document.removeEventListener("mousedown", handleClickOrTouchOutside);
-      document.removeEventListener("touchstart", handleClickOrTouchOutside, {
-        passive: true,
-      });
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
     };
   }, []);
 
-  // Prevent body scroll when mobile menu is open
+  // ---------- Lock body scroll when mobile menu open ----------
   useEffect(() => {
     document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
     return () => {
@@ -85,26 +69,15 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Track actual navbar height dynamically
+  // ---------- Track navbar height ----------
   useEffect(() => {
     if (!navRef.current) return;
     const observer = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setNavHeight(entry.contentRect.height);
-      }
+      setNavHeight(entries[0].contentRect.height);
     });
     observer.observe(navRef.current);
     return () => observer.disconnect();
   }, []);
-
-  // ✅ Lock navbar height when mobile menu opens
-  useEffect(() => {
-    if (mobileMenuOpen && navRef.current) {
-      setLockedHeight(navRef.current.offsetHeight);
-    } else {
-      setLockedHeight(null);
-    }
-  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -114,11 +87,11 @@ export default function Navbar() {
           ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-md py-0"
           : "py-2"
       }`}
-      style={{ position: "fixed" }}
     >
+      {/* ---------- Main navbar ---------- */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          className={`flex justify-between items-center transition-all duration-300 ease-in-out ${
+          className={`flex justify-between items-center transition-all duration-300 ${
             scrolled ? "h-14" : "h-16"
           }`}
         >
@@ -128,16 +101,14 @@ export default function Navbar() {
               <motion.img
                 src="/profile.jpeg"
                 alt="Pranav K Jha"
-                className={`rounded-full object-cover border-2 border-blue-500 transition-all duration-300 ease-in-out ${
+                className={`rounded-full object-cover border-2 border-blue-500 transition-all duration-300 ${
                   scrolled ? "h-10 w-10" : "h-12 w-12"
                 }`}
-                animate={{
-                  scale: scrolled ? 1 : 1.1,
-                }}
+                animate={{ scale: scrolled ? 1 : 1.1 }}
               />
-              <div className="hidden sm:block transition-all duration-300 ease-in-out">
+              <div className="hidden sm:block">
                 <span
-                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 ${
+                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 transition-all duration-300 ${
                     scrolled ? "text-base leading-5" : "text-xl leading-7"
                   }`}
                 >
@@ -155,56 +126,52 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4">
-            <nav className="flex items-center space-x-4">
-              {navigationConfig.map((item) => (
-                <div key={item.href} className="relative group">
-                  <Link
-                    to={item.href}
-                    className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
-                      scrolled ? "text-sm" : "text-sm md:text-base"
-                    } ${
-                      location.pathname === item.href
-                        ? "text-blue-600 dark:text-blue-400"
-                        : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-                    }`}
-                  >
-                    <div className="flex items-center">
-                      {item.title}
-                      {item.subItems && (
-                        <ChevronDown className="ml-1 h-4 w-4" />
-                      )}
+          <nav className="hidden md:flex items-center space-x-4">
+            {navigationConfig.map((item) => (
+              <div key={item.href} className="relative group">
+                <Link
+                  to={item.href}
+                  className={`px-4 py-2 rounded-md font-medium transition-all duration-300 text-sm ${
+                    location.pathname === item.href
+                      ? "text-blue-600 dark:text-blue-400"
+                      : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    {item.title}
+                    {item.subItems && <ChevronDown className="ml-1 h-4 w-4" />}
+                  </div>
+                </Link>
+
+                {/* Dropdown */}
+                {item.subItems && (
+                  <div className="absolute left-0 mt-1 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                    <div className="py-1">
+                      {item.subItems.map((sub) => (
+                        <Link
+                          key={sub.href}
+                          to={sub.href}
+                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                          {sub.title}
+                        </Link>
+                      ))}
                     </div>
-                  </Link>
-                  {item.subItems && (
-                    <div className="absolute left-0 mt-1 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                      <div className="py-1">
-                        {item.subItems.map((subItem) => (
-                          <Link
-                            key={subItem.href}
-                            to={subItem.href}
-                            className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                          >
-                            {subItem.title}
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ))}
-            </nav>
+                  </div>
+                )}
+              </div>
+            ))}
             <div className="ml-4">
               <ThemeToggle />
             </div>
-          </div>
+          </nav>
 
-          {/* Mobile menu button and theme toggle */}
+          {/* Mobile Toggle */}
           <div className="flex items-center space-x-4 md:hidden">
             <ThemeToggle />
             <motion.button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors duration-300"
+              onClick={() => setMobileMenuOpen((v) => !v)}
+              className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors"
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
             >
@@ -218,26 +185,27 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ✅ Mobile Menu (Stable under navbar) */}
+      {/* ---------- Mobile Menu ---------- */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
             className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800 shadow-lg"
             style={{
               position: "absolute",
               left: 0,
               right: 0,
-              top: navHeight + 8, // Slight gap below navbar
-              maxHeight: `calc(100vh - ${navHeight + 8}px)`,
+              top: navHeight + GAP,
+              maxHeight: `calc(100vh - ${navHeight + GAP}px)`,
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
-              zIndex: 40,
+              zIndex: 10,
             }}
           >
+            {/* Menu links */}
             <div className="px-4 py-3 space-y-1">
               {navigationConfig.map((item) => {
                 const active = isActiveLink(item.href);
@@ -258,20 +226,21 @@ export default function Navbar() {
               })}
             </div>
 
+            {/* Social links */}
             <div className="border-t border-gray-200 dark:border-gray-800 py-4">
               <div className="flex justify-center space-x-4 px-4">
-                {socialLinks.map((social, index) => {
+                {socialLinks.map((social, i) => {
                   const Icon = social.icon;
                   return (
                     <motion.a
-                      key={index}
+                      key={i}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`p-2 rounded-full ${social.color} text-gray-500 dark:text-gray-400`}
+                      whileHover={{ scale: 1.12 }}
+                      whileTap={{ scale: 0.92 }}
                       aria-label={social.label}
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.95 }}
                     >
                       <Icon className="h-5 w-5" />
                     </motion.a>

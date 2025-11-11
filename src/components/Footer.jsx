@@ -1,23 +1,22 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
-  FaLinkedin,
   FaGithub,
+  FaLinkedin,
   FaTwitter,
   FaEnvelope,
-  FaPhone,
+  FaReact,
   FaMapMarkerAlt,
   FaExternalLinkAlt,
 } from "react-icons/fa";
 import {
-  SiTensorflow,
-  SiPytorch,
   SiNextdotjs,
   SiTailwindcss,
+  SiGithub,
   SiOrcid,
   SiGooglescholar,
+  SiFramer,
 } from "react-icons/si";
-import { FaBrain } from "react-icons/fa6";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -58,11 +57,10 @@ const Footer = () => {
 
   // Technology stack icons and names
   const techStack = [
-    { Icon: FaBrain, name: "AI/ML", color: "text-purple-600" },
-    { Icon: SiTensorflow, name: "TensorFlow", color: "text-orange-600" },
-    { Icon: SiPytorch, name: "PyTorch", color: "text-red-600" },
     { Icon: SiNextdotjs, name: "Next.js", color: "text-white" },
-    { Icon: SiTailwindcss, name: "Tailwind", color: "text-teal-600" },
+    { Icon: SiTailwindcss, name: "Tailwind CSS", color: "text-cyan-400" },
+    { Icon: SiFramer, name: "Framer Motion", color: "text-purple-400" },
+    { Icon: SiGithub, name: "GitHub Pages", color: "text-gray-100" },
   ];
 
   // Quick navigation links
@@ -210,7 +208,7 @@ const Footer = () => {
           >
             <div className="space-y-4">
               <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-3">
-                Tech Stack
+                Built With
               </h4>
               <div className="flex flex-wrap gap-2">
                 {techStack.map((tech) => (

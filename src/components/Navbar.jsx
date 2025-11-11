@@ -114,7 +114,7 @@ export default function Navbar() {
           ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-md py-0"
           : "py-2"
       }`}
-      style={{ position: "relative" }}
+      style={{ position: "fixed" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div

@@ -131,15 +131,27 @@ export default function Navbar() {
               <div key={item.href} className="relative group">
                 <Link
                   to={item.href}
-                  className={`px-4 py-2 rounded-md font-medium transition-all duration-300 text-sm ${
+                  className={`px-4 py-2 rounded-md font-medium transition-all duration-300 ${
+                    scrolled ? "text-xs" : "text-sm"
+                  } ${
                     location.pathname === item.href
                       ? "text-blue-600 dark:text-blue-400"
                       : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                   }`}
                 >
-                  <div className="flex items-center">
+                  <div
+                    className={`flex items-center transition-all duration-300 ${
+                      scrolled ? "space-x-1" : "space-x-2"
+                    }`}
+                  >
                     {item.title}
-                    {item.subItems && <ChevronDown className="ml-1 h-4 w-4" />}
+                    {item.subItems && (
+                      <ChevronDown
+                        className={`transition-all duration-300 ${
+                          scrolled ? "h-3 w-3" : "h-4 w-4"
+                        }`}
+                      />
+                    )}
                   </div>
                 </Link>
 

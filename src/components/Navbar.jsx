@@ -96,7 +96,7 @@ export default function Navbar() {
           }`}
         >
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
+          <div className="flex-shrink-0 flex items-center z-50">
             <Link to="/" className="flex items-center space-x-3">
               <motion.img
                 src="/profile.jpeg"

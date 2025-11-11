@@ -160,7 +160,7 @@ const PublicationsPage = () => {
             initial="hidden"
             animate="show"
             variants={containerVariants}
-            className="space-y-8"
+            className="space-y-6"
           >
             {publications.map((work, index) => {
               const workSummary = work["work-summary"]?.[0] || {};

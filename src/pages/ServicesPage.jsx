@@ -232,24 +232,40 @@ const ServiceCard = ({ service, index }) => {
       className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:shadow-xl dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300 isolate"
       style={{ transform: "translateZ(0)" }} // GPU layer
     >
-      {/* Active Badge */}
+      {/* Active Badge with Animated Underline */}
       {service.isActive && (
-        <motion.div
-          initial={{ opacity: 0.7, scale: 0.95 }}
-          animate={{ opacity: [0.7, 1, 0.7], scale: [0.95, 1, 0.95] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-3 left-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full z-10 flex items-center shadow-md"
-        >
-          <span className="relative flex h-2 w-2 mr-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
-          </span>
-          Active
-        </motion.div>
+        <div className="absolute top-4 left-4 z-10 group">
+          <div className="relative inline-block">
+            <div className="flex items-center px-4 py-1.5 text-sm font-bold text-yellow-300 bg-black/40 backdrop-blur-sm rounded-full border border-yellow-300/20 transition-colors duration-300 group-hover:bg-yellow-300/10">
+              <motion.span
+                className="w-2 h-2 mr-2 bg-yellow-300 rounded-full"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <span>Active</span>
+            </div>
+            <motion.span
+              className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-300 rounded-full"
+              initial={{ width: "0%", left: "0%" }}
+              animate={{
+                width: ["0%", "100%", "0%"],
+                left: ["0%", "0%", "100%"],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+        </div>
       )}
 
       {/* Image Section */}

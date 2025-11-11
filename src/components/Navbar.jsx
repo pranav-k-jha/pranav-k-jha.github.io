@@ -10,6 +10,8 @@ export default function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [navHeight, setNavHeight] = useState(0);
+  const [lockedHeight, setLockedHeight] = useState(null);
   const navRef = useRef(null);
   const scrollTimeout = useRef(null);
 
@@ -21,18 +23,27 @@ export default function Navbar() {
     return currentPath === path || currentPath.startsWith(`${path}/`);
   };
 
-  // Close mobile menu when route changes
+  // Close mobile menu on route change or scroll
   useEffect(() => {
-    setMobileMenuOpen(false);
+    const handleRouteOrScroll = () => {
+      setMobileMenuOpen(false);
+    };
+
+    handleRouteOrScroll();
+    window.addEventListener("scroll", handleRouteOrScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleRouteOrScroll, {
+        passive: true,
+      });
+    };
   }, [location]);
 
+  // ✅ Scroll listener (disabled when menu is open)
   useEffect(() => {
     const handleScroll = () => {
-      // Debounce the scroll event for better performance
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
+      if (mobileMenuOpen) return; // freeze navbar when menu is open
 
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       scrollTimeout.current = setTimeout(() => {
         setScrolled(window.scrollY > 10);
       }, 10);
@@ -40,35 +51,70 @@ export default function Navbar() {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
-      if (scrollTimeout.current) {
-        clearTimeout(scrollTimeout.current);
-      }
+      if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
       window.removeEventListener("scroll", handleScroll, { passive: true });
     };
-  }, []);
+  }, [mobileMenuOpen]);
 
-  // Close mobile menu when clicking outside
+  // Detect clicks/touches outside navbar to close mobile menu
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOrTouchOutside = (event) => {
       if (navRef.current && !navRef.current.contains(event.target)) {
         setMobileMenuOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOrTouchOutside);
+    document.addEventListener("touchstart", handleClickOrTouchOutside, {
+      passive: true,
+    });
+
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOrTouchOutside);
+      document.removeEventListener("touchstart", handleClickOrTouchOutside, {
+        passive: true,
+      });
     };
   }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
+  // Track actual navbar height dynamically
+  useEffect(() => {
+    if (!navRef.current) return;
+    const observer = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setNavHeight(entry.contentRect.height);
+      }
+    });
+    observer.observe(navRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  // ✅ Lock navbar height when mobile menu opens
+  useEffect(() => {
+    if (mobileMenuOpen && navRef.current) {
+      setLockedHeight(navRef.current.offsetHeight);
+    } else {
+      setLockedHeight(null);
+    }
+  }, [mobileMenuOpen]);
 
   return (
     <header
       ref={navRef}
-      className={`fixed w-full z-50 transition-all duration-300 ease-in-out navbar-gradient ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 navbar-gradient ${
         scrolled
           ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-md py-0"
           : "py-2"
       }`}
+      style={{ position: "relative" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
@@ -82,7 +128,7 @@ export default function Navbar() {
               <motion.img
                 src="/profile.jpeg"
                 alt="Pranav K Jha"
-                className={`rounded-full object-cover border-2 border-blue-500 flex flex-col items-center justify-center transition-all duration-300 ease-in-out ${
+                className={`rounded-full object-cover border-2 border-blue-500 transition-all duration-300 ease-in-out ${
                   scrolled ? "h-10 w-10" : "h-12 w-12"
                 }`}
                 animate={{
@@ -91,7 +137,7 @@ export default function Navbar() {
               />
               <div className="hidden sm:block transition-all duration-300 ease-in-out">
                 <span
-                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 group-hover:from-blue-700 group-hover:via-purple-700 group-hover:to-emerald-700 dark:group-hover:from-blue-300 dark:group-hover:via-purple-300 dark:group-hover:to-emerald-300 transition-all duration-300 ${
+                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 ${
                     scrolled ? "text-base leading-5" : "text-xl leading-7"
                   }`}
                 >
@@ -155,9 +201,7 @@ export default function Navbar() {
 
           {/* Mobile menu button and theme toggle */}
           <div className="flex items-center space-x-4 md:hidden">
-            <div className="md:hidden">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
             <motion.button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors duration-300"
@@ -174,27 +218,38 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* ✅ Mobile Menu (Stable under navbar) */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="md:hidden bg-white border-b-2 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-t border-gray-200 dark:border-gray-800 shadow-lg"
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: navHeight + 8, // Slight gap below navbar
+              maxHeight: `calc(100vh - ${navHeight + 8}px)`,
+              overflowY: "auto",
+              WebkitOverflowScrolling: "touch",
+              zIndex: 40,
+            }}
           >
-            <div className="pt-2 pb-3 space-y-1 px-4">
+            <div className="px-4 py-3 space-y-1">
               {navigationConfig.map((item) => {
                 const active = isActiveLink(item.href);
                 return (
                   <Link
                     key={item.href}
                     to={item.href}
-                    className={`block px-3 py-2 text-base font-medium ${
-                      isActiveLink(item.href)
-                        ? "text-blue-600 dark:text-blue-400" // Only text color changes
-                        : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`block px-3 py-2 rounded-md text-base font-medium transition-colors ${
+                      active
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20"
+                        : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                     }`}
                   >
                     {item.title}
@@ -202,8 +257,9 @@ export default function Navbar() {
                 );
               })}
             </div>
-            <div className="pt-4 pb-3 border-t border-gray-200 dark:border-gray-800">
-              <div className="flex items-center justify-center space-x-4 px-4">
+
+            <div className="border-t border-gray-200 dark:border-gray-800 py-4">
+              <div className="flex justify-center space-x-4 px-4">
                 {socialLinks.map((social, index) => {
                   const Icon = social.icon;
                   return (

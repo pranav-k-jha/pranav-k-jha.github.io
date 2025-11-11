@@ -15,8 +15,6 @@ export default function Navbar() {
   const navRef = useRef(null);
   const scrollTimeout = useRef(null);
 
-  const GAP = 4; // distance between navbar bottom and mobile menu
-
   // ---------- Active link ----------
   const isActiveLink = (path) => {
     const cur = location.pathname;
@@ -210,8 +208,8 @@ export default function Navbar() {
               position: "absolute",
               left: 0,
               right: 0,
-              top: navHeight + GAP,
-              maxHeight: `calc(100vh - ${navHeight + GAP}px)`,
+              top: navHeight,
+              maxHeight: `calc(100vh - ${navHeight}px)`,
               overflowY: "auto",
               WebkitOverflowScrolling: "touch",
               zIndex: 10,

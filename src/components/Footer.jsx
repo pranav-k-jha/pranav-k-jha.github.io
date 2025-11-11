@@ -10,12 +10,11 @@ import {
   FaExternalLinkAlt,
 } from "react-icons/fa";
 import {
-  SiNextdotjs,
   SiTailwindcss,
   SiGithub,
   SiOrcid,
   SiGooglescholar,
-  SiFramer,
+  SiVite,
 } from "react-icons/si";
 
 const Footer = () => {
@@ -57,9 +56,13 @@ const Footer = () => {
 
   // Technology stack icons and names
   const techStack = [
-    { Icon: SiNextdotjs, name: "Next.js", color: "text-white" },
+    { Icon: FaReact, name: "React", color: "text-blue-400 dark:text-blue-300" },
+    {
+      Icon: SiVite,
+      name: "Vite",
+      color: "text-purple-500 dark:text-purple-400",
+    },
     { Icon: SiTailwindcss, name: "Tailwind CSS", color: "text-cyan-400" },
-    { Icon: SiFramer, name: "Framer Motion", color: "text-purple-400" },
     { Icon: SiGithub, name: "GitHub Pages", color: "text-gray-100" },
   ];
 

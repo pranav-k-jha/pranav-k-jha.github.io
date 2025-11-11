@@ -203,7 +203,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-lg"
+            className="md:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg"
             style={{
               position: "absolute",
               left: 0,

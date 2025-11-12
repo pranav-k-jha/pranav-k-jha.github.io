@@ -5,13 +5,14 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
-import Experience from "./components/Experience";
 import BentoDemo from "./components/bento-features";
 import ScrollToTop from "./components/ScrollToTop";
 import Projects from "./pages/Projects";
 import ServicesPage from "./pages/ServicesPage";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import usePageViews from "./hooks/usePageViews";
+import InsightsPage from "./pages/InsightsPage";
+import InsightDetail from "./pages/InsightDetail";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -89,6 +90,8 @@ function App() {
             <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/services/ai-ml" element={<AiMlServicePage />} />
+            <Route path="/insights" element={<InsightsPage />} />
+            <Route path="/insights/:id" element={<InsightDetail />} />
             <Route
               path="/services/web-development"
               element={<WebDevServicePage />}

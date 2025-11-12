@@ -20,6 +20,10 @@ export const navigationConfig = [
     href: "/blog",
   },
   {
+    title: "Insights",
+    href: "/insights",
+  },
+  {
     title: "Contact",
     href: "/contact",
   },

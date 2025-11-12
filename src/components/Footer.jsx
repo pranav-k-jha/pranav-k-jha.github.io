@@ -63,7 +63,6 @@ const Footer = () => {
       color: "text-purple-500 dark:text-purple-400",
     },
     { Icon: SiTailwindcss, name: "Tailwind CSS", color: "text-cyan-400" },
-    { Icon: SiGithub, name: "GitHub Pages", color: "text-gray-100" },
     {
       Icon: () => (
         <div className="w-3 h-3 flex items-center justify-center">
@@ -78,6 +77,13 @@ const Footer = () => {
       color: "text-pink-500",
     },
   ];
+
+  // Deployment information
+  const deployment = {
+    Icon: SiGithub,
+    name: "GitHub Pages",
+    color: "text-gray-100",
+  };
 
   // Quick navigation links
   const quickLinks = [
@@ -222,25 +228,44 @@ const Footer = () => {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="space-y-6"
           >
-            <div className="space-y-4">
-              <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-3">
-                Built With
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {techStack.map((tech) => (
-                  <div
-                    key={tech.name}
-                    className="flex items-center gap-2 px-2 py-1.5 bg-white/10 border border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
-                  >
-                    <tech.Icon
-                      className={`h-3 w-3 ${tech.color}`}
-                      title={tech.name}
+            <div className="space-y-6">
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-3">
+                  Built With
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {techStack.map((tech) => (
+                    <div
+                      key={tech.name}
+                      className="flex items-center gap-2 px-2 py-1.5 bg-white/10 border border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200"
+                    >
+                      <tech.Icon
+                        className={`h-3 w-3 ${tech.color}`}
+                        title={tech.name}
+                      />
+                      <span className="text-xs font-medium text-gray-300">
+                        {tech.name}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="text-sm font-semibold text-gray-400 dark:text-gray-300 mb-3">
+                  Deployed on
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  <div className="flex items-center gap-2 px-2 py-1.5 bg-white/10 border border-white/20 rounded-lg shadow-sm hover:shadow-md transition-all duration-200">
+                    <deployment.Icon
+                      className={`h-3 w-3 ${deployment.color}`}
+                      title={deployment.name}
                     />
                     <span className="text-xs font-medium text-gray-300">
-                      {tech.name}
+                      {deployment.name}
                     </span>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </motion.div>

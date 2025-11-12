@@ -64,6 +64,19 @@ const Footer = () => {
     },
     { Icon: SiTailwindcss, name: "Tailwind CSS", color: "text-cyan-400" },
     { Icon: SiGithub, name: "GitHub Pages", color: "text-gray-100" },
+    {
+      Icon: () => (
+        <div className="w-3 h-3 flex items-center justify-center">
+          <img
+            src="/images/framer-motion.svg"
+            alt="Framer Motion"
+            className="w-full h-full object-contain"
+          />
+        </div>
+      ),
+      name: "Framer Motion",
+      color: "text-pink-500",
+    },
   ];
 
   // Quick navigation links

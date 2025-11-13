@@ -302,7 +302,7 @@ const ServiceTemplate = ({
                         }
                         className="w-full p-6 text-left flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/30 transition-colors"
                       >
-                        <h3 className="font-semibold text-lg text-gray-900 dark:text-white pr-4">
+                        <h3 className="font-semibold text-base md:text-lg text-gray-900 dark:text-white pr-4">
                           {faq.question}
                         </h3>
                         <motion.div
@@ -323,7 +323,7 @@ const ServiceTemplate = ({
                         transition={{ duration: 0.3 }}
                         className="overflow-hidden"
                       >
-                        <p className="px-6 pb-6 text-gray-600 dark:text-gray-400">
+                        <p className="px-6 pb-6 text-gray-600 dark:text-gray-400 text-sm md:text-base">
                           {faq.answer}
                         </p>
                       </motion.div>

@@ -7,14 +7,33 @@ import {
   Code2,
   Sparkles,
   Target,
-  TrendingUp,
   Activity,
   BookOpen,
-  FileText,
   Briefcase,
-  Clock,
+  TrendingUp,
 } from "lucide-react";
 
+// Reusable Tech Badge
+const TechTag = ({ label }) => (
+  <span className="px-2 py-0.5 text-xs rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800/50">
+    {label}
+  </span>
+);
+
+// Reusable Stat Line
+const StatItem = ({ icon: Icon, label, value }) => (
+  <div className="flex items-center justify-between text-xs">
+    <div className="flex items-center text-gray-600 dark:text-gray-300">
+      <Icon className="w-3.5 h-3.5 text-blue-500 mr-1.5" />
+      {label}
+    </div>
+    <span className="font-semibold text-blue-600 dark:text-blue-400">
+      {value}
+    </span>
+  </div>
+);
+
+// Bento Card Component
 const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
   return (
     <motion.div
@@ -25,7 +44,6 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
       className={`relative overflow-hidden rounded-2xl p-4 bg-white dark:bg-[#0d1116] border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow ${className}`}
       whileHover={{ y: -2, transition: { duration: 0.2 } }}
     >
-      {/* Icon & Title in one row */}
       <div className="flex items-center mb-2">
         {Icon && (
           <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mr-2">
@@ -38,7 +56,6 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
           </h3>
         )}
       </div>
-
       <div className="relative z-10 text-sm">{children}</div>
     </motion.div>
   );
@@ -56,42 +73,6 @@ const About = () => {
       console.error("Error loading blog posts:", error);
     }
   }, []);
-
-  // GitHub Analytics URLs with Tokyo Night theme
-  const getGitHubStatsUrl = () => {
-    if (theme === "dark") {
-      return "https://github-readme-stats.vercel.app/api?username=pranav-k-jha&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&icon_color=58A6FF&text_color=C9D1D9";
-    }
-    return "https://github-readme-stats.vercel.app/api?username=pranav-k-jha&show_icons=true&hide_border=true&bg_color=FFFFFF&title_color=2563EB&icon_color=2563EB&text_color=1F2937";
-  };
-
-  const getStreakStatsUrl = () => {
-    if (theme === "dark") {
-      return "https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&theme=tokyonight&hide_border=true&background=0D1117&ring=58A6FF&fire=58A6FF&currStreakLabel=58A6FF";
-    }
-    return "https://github-readme-streak-stats.herokuapp.com/?user=pranav-k-jha&hide_border=true&background=FFFFFF&ring=2563EB&fire=2563EB&currStreakLabel=2563EB";
-  };
-
-  const getTopLangsUrl = () => {
-    if (theme === "dark") {
-      return "https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=58A6FF&text_color=C9D1D9";
-    }
-    return "https://github-readme-stats.vercel.app/api/top-langs/?username=pranav-k-jha&layout=compact&hide_border=true&bg_color=FFFFFF&title_color=2563EB&text_color=1F2937";
-  };
-
-  const getActivityGraphUrl = () => {
-    if (theme === "dark") {
-      return "https://github-readme-activity-graph.vercel.app/graph?username=pranav-k-jha&theme=react-dark&hide_border=true&bg_color=0D1117&color=58A6FF&line=1F6FEB&point=58A6FF&area=true";
-    }
-    return "https://github-readme-activity-graph.vercel.app/graph?username=pranav-k-jha&theme=minimal&hide_border=true&bg_color=FFFFFF&color=2563EB&line=3B82F6&point=2563EB&area=true";
-  };
-
-  const getProductiveTimeUrl = () => {
-    if (theme === "dark") {
-      return "https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=pranav-k-jha&theme=tokyonight&utcOffset=8";
-    }
-    return "https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=pranav-k-jha&theme=github&utcOffset=8";
-  };
 
   return (
     <section
@@ -117,9 +98,9 @@ const About = () => {
           </p>
         </motion.div>
 
-        {/* Bento Grid Layout */}
+        {/* Bento Grid: 5 Clean Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto">
-          {/* Main Introduction - Spans 2 columns */}
+          {/* 1. AI Solutions Architect */}
           <BentoCard
             Icon={Brain}
             title="AI Solutions Architect"
@@ -143,8 +124,7 @@ const About = () => {
               production-grade AI architectures.
             </p>
 
-            {/* Current Focus - Compact */}
-            <div className="p-4 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50 mt-4 shadow-sm">
+            <div className="p-4 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50 shadow-sm">
               <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center">
                 <Target className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-400" />
                 Current Focus
@@ -153,200 +133,187 @@ const About = () => {
                 <p className="flex items-start">
                   <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-full mt-1 mr-2 flex-shrink-0"></span>
                   <span className="text-gray-900 dark:text-gray-100">
-                    Building scalable AI solutions with LLMs, RAG, and
-                    multi-agent systems
+                    Scalable AI with LLMs, RAG, and multi-agent systems
                   </span>
                 </p>
                 <p className="flex items-start">
                   <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-full mt-1 mr-2 flex-shrink-0"></span>
                   <span className="text-gray-900 dark:text-gray-100">
-                    Exploring LLMOps, vector databases, and knowledge graphs
-                    after current focus
+                    LLMOps, vector DBs, and knowledge graphs
                   </span>
                 </p>
               </div>
             </div>
           </BentoCard>
 
-          {/* Key Metrics Card */}
+          {/* 2. Content & Impact */}
           <BentoCard
             Icon={Activity}
-            title="Content & Contributions"
+            title="Content & Impact"
             className="lg:col-start-3 lg:row-start-1"
-            delay={0.1}
+            delay={0.2}
           >
             <div className="space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <BookOpen className="w-3.5 h-3.5 text-blue-500 mr-1.5" />
-                  Blog Posts
+              <StatItem
+                icon={BookOpen}
+                label="Blog Posts"
+                value={blogPostCount > 0 ? `${blogPostCount - 1}+` : "0"}
+              />
+              <StatItem icon={Briefcase} label="Experience" value="5+ yrs" />
+            </div>
+          </BentoCard>
+
+          {/* 3. Engineering Stack */}
+          <BentoCard
+            Icon={Code2}
+            title="Engineering Stack"
+            className="lg:row-span-2"
+            delay={0.3}
+          >
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  Languages & Frameworks
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {["Python", "TypeScript", "React", "Node.js", "FastAPI"].map(
+                    (t) => (
+                      <TechTag key={t} label={t} />
+                    )
+                  )}
                 </div>
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  {blogPostCount > 0 ? `${blogPostCount - 1}+` : "0"}
-                </span>
               </div>
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <FileText className="w-3.5 h-3.5 text-blue-500 mr-1.5" />
-                  Resources
+
+              <div>
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  AI & ML
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "PyTorch",
+                    "Hugging Face",
+                    "LangChain",
+                    "LlamaIndex",
+                    "DeepSpeed",
+                    "TensorRT",
+                  ].map((t) => (
+                    <TechTag key={t} label={t} />
+                  ))}
                 </div>
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  12+
-                </span>
               </div>
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <Briefcase className="w-3.5 h-3.5 text-blue-500 mr-1.5" />
-                  Publications
+
+              <div>
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  Infra & Ops
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {[
+                    "Docker",
+                    "Kubernetes",
+                    "AWS",
+                    "GCP",
+                    "Terraform",
+                    "CI/CD",
+                    "MLOps",
+                  ].map((t) => (
+                    <TechTag key={t} label={t} />
+                  ))}
                 </div>
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  8+
-                </span>
-              </div>
-              <div className="flex items-center justify-between text-xs">
-                <div className="flex items-center text-gray-600 dark:text-gray-300">
-                  <Clock className="w-3.5 h-3.5 text-blue-500 mr-1.5" />
-                  Experience
-                </div>
-                <span className="font-semibold text-blue-600 dark:text-blue-400">
-                  5+ yrs
-                </span>
               </div>
             </div>
           </BentoCard>
 
-          {/* Tools & Frameworks */}
+          {/* 4. LLM & RAG Architecture */}
           <BentoCard
             Icon={Sparkles}
-            title="Tools & Frameworks"
-            className="lg:row-span-1"
-            delay={0.3}
+            title="LLM & RAG Architecture"
+            className="lg:col-span-2"
+            delay={0.5}
           >
-            <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
-              {[
-                "Python, PyTorch, TensorFlow",
-                "Docker, Kubernetes",
-                "AWS, GCP, Azure",
-                "LangChain, LlamaIndex",
-              ].map((item, index) => (
-                <li key={index} className="flex items-start">
-                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                  <span className="dark:text-gray-200">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </BentoCard>
-
-          {/* Technical Expertise */}
-          <BentoCard
-            Icon={Code2}
-            title="GenAI Engineering"
-            className="lg:row-span-2"
-            delay={0.4}
-          >
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-1">
-                  Key Achievements
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Multi-Agent */}
+              <div>
+                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                  <Sparkles className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
+                  Multi-Agent Pipelines
                 </h4>
-                <ul className="space-y-2 text-gray-600 dark:text-gray-300 text-sm">
+                <ul className="space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
                   {[
-                    "Developed RAG pipelines with OpenSearch/Milvus for document Q&A",
-                    "Built scalable APIs & microservices in Python/TypeScript",
-                    "Optimized LLM inference with DeepSpeed/TensorRT/VLLM",
-                    "Implemented CI/CD with GitHub Actions & ArgoCD",
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
-                      <span className="dark:text-gray-200">{item}</span>
+                    "Parallel execution with LangGraph",
+                    "Embedding caching via FAISS",
+                    "Async orchestration (serverless)",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="pt-2">
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                  Technologies
+              {/* Enterprise RAG */}
+              <div>
+                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                  <Target className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
+                  Enterprise RAG
                 </h4>
-                <div className="flex flex-wrap gap-2">
+                <ul className="space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
                   {[
-                    "Python",
-                    "TypeScript",
-                    "PyTorch",
-                    "Hugging Face",
-                    "AWS",
-                    "Kubernetes",
-                    "Docker",
-                    "OpenSearch",
-                    "Terraform",
-                    "FastAPI",
-                    "Node.js",
-                    "React",
-                    "DeepSpeed",
-                    "TensorRT",
-                    "CI/CD",
-                    "MLOps",
-                    "LLMOps",
-                  ].map((tech, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-0.5 text-xs rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800/50"
-                    >
-                      {tech}
-                    </span>
+                    "Hybrid retrieval + vector search",
+                    "Monitoring: Prometheus & App Insights",
+                    "RBAC & data governance",
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-center">
+                      <span className="text-blue-500 mr-2">•</span>
+                      <span>{item}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
+              </div>
+            </div>
+
+            {/* Core Stack */}
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
+              <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2">
+                Core Stack
+              </h4>
+              <div className="flex flex-wrap gap-1.5">
+                {[
+                  "LangChain",
+                  "FAISS",
+                  "Azure OpenAI",
+                  "OpenSearch",
+                  "VLLM",
+                  "Milvus",
+                ].map((t) => (
+                  <TechTag key={t} label={t} />
+                ))}
               </div>
             </div>
           </BentoCard>
 
-          {/* GitHub Streak */}
+          {/* 5. Key Achievements */}
           <BentoCard
             Icon={TrendingUp}
-            title="Contribution Streak & Top Languages"
-            className="lg:col-span-2"
-            delay={0.6}
+            title="Key Achievements"
+            className="lg:col-span-3"
+            delay={0.7}
           >
-            <div className="grid grid-cols-1 sm:grid-cols-2">
-              <img
-                src={getStreakStatsUrl()}
-                alt="GitHub Streak"
-                className="w-full h-auto max-h-32 object-contain rounded-lg"
-                loading="eager"
-              />
-              <img
-                src={getTopLangsUrl()}
-                alt="Top Languages"
-                className="w-full h-auto max-h-32 object-contain rounded-lg"
-                loading="lazy"
-              />
-            </div>
-          </BentoCard>
-
-          {/* Productive Time & Activity Graph */}
-          <BentoCard
-            Icon={Clock}
-            title="Productive Hours & Activity"
-            className="lg:col-span-2"
-            delay={0.8}
-          >
-            <div className="grid grid-cols-1 sm:grid-cols-2">
-              {/* Productive Time */}
-              <img
-                src={getProductiveTimeUrl()}
-                alt="Productive Time"
-                className="w-full h-auto max-h-32 object-contain rounded-lg"
-                loading="lazy"
-              />
-
-              {/* Activity Graph */}
-              <img
-                src={getActivityGraphUrl()}
-                alt="GitHub Activity Graph"
-                className="w-full h-auto max-h-32 object-contain rounded-lg"
-                loading="lazy"
-              />
-            </div>
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600 dark:text-gray-300">
+              {[
+                "Built RAG pipelines with OpenSearch/Milvus for Q&A",
+                "Optimized LLM inference using DeepSpeed & VLLM",
+                "Designed scalable APIs & microservices (Python/TS)",
+                "Implemented CI/CD with GitHub Actions & ArgoCD",
+                "Deployed production AI on AWS/GCP/Azure",
+                "Led LLM fine-tuning & prompt engineering workflows",
+              ].map((item, i) => (
+                <li key={i} className="flex items-start">
+                  <span className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 mr-2 flex-shrink-0"></span>
+                  <span className="dark:text-gray-200">{item}</span>
+                </li>
+              ))}
+            </ul>
           </BentoCard>
         </div>
       </div>

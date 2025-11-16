@@ -56,6 +56,26 @@ const PublicationsPage = () => {
         },
       ],
     },
+    {
+      "work-summary": [
+        {
+          title: {
+            title: {
+              value:
+                "A Traffic Conflict Resolution Model using Edge Computing for Urban Arterial Networks",
+            },
+          },
+          "publication-date": { year: { value: "2025" } },
+          "journal-title": { value: "MDPI Applied Sciences" },
+          "journal-subtitle": { value: "Submitted" },
+          "work-type": { value: "JOURNAL_ARTICLE" },
+          type: "JOURNAL_ARTICLE",
+          url: { value: "https://www.mdpi.com/journal/applsci" },
+          manual: true,
+          "publication-status": "submitted",
+        },
+      ],
+    },
   ];
 
   useEffect(() => {

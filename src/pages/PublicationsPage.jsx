@@ -46,7 +46,7 @@ const PublicationsPage = () => {
             },
           },
           "publication-date": { year: { value: "2025" } },
-          "journal-title": { value: "MDPI Applied Sciences" },
+          "journal-title": { value: "MDPI Infrastructures" },
           "journal-subtitle": { value: "Submitted" },
           "work-type": { value: "JOURNAL_ARTICLE" },
           type: "JOURNAL_ARTICLE",

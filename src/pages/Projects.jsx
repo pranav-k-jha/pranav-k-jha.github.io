@@ -101,7 +101,7 @@ const projects = [
       "Website Design",
       "Website Development",
     ],
-    link: "https://www.mkjhaconsulting.com",
+    link: "https://www.mkjhaconsult.com",
     notes: null,
     imageUrl: "/images/projects/project-2.png",
     category: "web",

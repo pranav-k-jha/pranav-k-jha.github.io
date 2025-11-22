@@ -162,8 +162,9 @@ const Hero = () => {
             </motion.p>
 
             {/* CTA Buttons */}
+            {/* CTA Buttons */}
             <motion.div
-              className="flex flex-col lg:flex-row gap-4 justify-center lg:justify-start pt-4"
+              className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
               variants={animationVariants.fadeInUp}
             >
               <Link
@@ -192,18 +193,18 @@ const Hero = () => {
                 </span>
               </Link>
 
-              <a
-                href="mailto:pranav.jha@mail.concordia.ca"
-                className={`group px-6 py-3 rounded-xl text-sm font-semibold backdrop-blur-xl border-2 transition-all duration-300 transform hover:-translate-y-0.5 shadow-md hover:shadow-lg ${
+              <Link
+                to="/rag"
+                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
-                    ? "bg-white/5 border-cyan-400/50 text-cyan-300 hover:bg-white/10 hover:border-cyan-400"
-                    : "bg-white/50 border-blue-500/50 text-blue-700 hover:bg-white/80 hover:border-blue-600"
+                    ? "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500"
+                    : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500"
                 }`}
               >
-                <span className="flex items-center justify-center">
-                  Let's Talk
+                <span className="relative z-10 flex items-center justify-center">
+                  Explore RAG
                   <svg
-                    className="w-4 h-4 ml-1.5 group-hover:rotate-12 transition-transform"
+                    className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -212,11 +213,11 @@ const Hero = () => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
                     />
                   </svg>
                 </span>
-              </a>
+              </Link>
             </motion.div>
 
             {/* Scroll indicator - Hero section only */}

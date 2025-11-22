@@ -16,10 +16,6 @@ export const navigationConfig = [
     href: "/services",
   },
   {
-    title: "RAG",
-    href: "/rag",
-  },
-  {
     title: "Blog",
     href: "/blog",
   },

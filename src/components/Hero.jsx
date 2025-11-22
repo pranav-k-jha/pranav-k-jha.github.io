@@ -198,7 +198,7 @@ const Hero = () => {
                 className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500"
-                    : "bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500"
+                    : "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
                 }`}
               >
                 <span className="relative z-10 flex items-center justify-center">

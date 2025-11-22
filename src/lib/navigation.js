@@ -15,10 +15,10 @@ export const navigationConfig = [
     title: "Services",
     href: "/services",
   },
-  // {
-  //   title: "Projects",
-  //   href: "/projects",
-  // },
+  {
+    title: "RAG",
+    href: "/rag",
+  },
   {
     title: "Blog",
     href: "/blog",

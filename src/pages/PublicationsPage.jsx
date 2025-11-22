@@ -172,7 +172,7 @@ const PublicationsPage = () => {
           variants={headerVariants}
           className="mb-12 flex flex-col items-center"
         >
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               PUBLICATIONS
             </span>

@@ -29,6 +29,7 @@ const WebDevServicePage = lazy(() =>
 const DataEngServicePage = lazy(() =>
   import("./pages/services/DataEngServicePage")
 );
+const RagPage = lazy(() => import("./pages/RagPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 function App() {
@@ -99,6 +100,7 @@ function App() {
             />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/resources" element={<ResourcePage />} />
+            <Route path="/rag" element={<RagPage />} />
             <Route
               path="/services/mobile-app-development"
               element={<MobileAppServicePage />}

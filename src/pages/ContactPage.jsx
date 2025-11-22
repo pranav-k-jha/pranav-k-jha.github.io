@@ -310,7 +310,7 @@ export default function ContactPage() {
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               GET IN TOUCH

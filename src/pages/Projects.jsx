@@ -216,6 +216,7 @@ const projects = [
     notes: null,
     imageUrl: "/images/projects/project-6.png",
     category: "personal",
+    link: "https://countries-api-react-gray.vercel.app/",
   },
 ];
 

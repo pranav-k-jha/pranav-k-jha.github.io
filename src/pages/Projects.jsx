@@ -193,7 +193,7 @@ const projects = [
 
 const categories = ["all", "web", "app"];
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCard = ({ project, index, isFirst = false }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
 
@@ -204,34 +204,49 @@ const ProjectCard = ({ project, index }) => {
     >
       <motion.div
         whileHover={{
-          scale: 1.03,
-          y: -5,
+          scale: isFirst ? 1.02 : 1.03,
+          y: isFirst ? -3 : -5,
           transition: {
             duration: 0.4,
             ease: [0.4, 0, 0.2, 1],
             scale: {
               type: "spring",
-              stiffness: 300,
-              damping: 10,
+              stiffness: isFirst ? 250 : 300,
+              damping: isFirst ? 8 : 10,
             },
           },
         }}
         whileTap={{
-          scale: 0.97,
+          scale: isFirst ? 0.98 : 0.97,
           transition: {
             duration: 0.2,
             ease: [0.4, 0, 0.2, 1],
           },
         }}
-        className={`h-full bg-white/60 dark:bg-white/10 backdrop-blur-sm border border-gray-300/80 dark:border-white/20 rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 text-left flex flex-col ${
+        className={`h-full bg-white/60 dark:bg-white/10 backdrop-blur-sm border-2 rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 text-left flex flex-col relative overflow-hidden ${
+          isFirst
+            ? "border-blue-400/50 dark:border-blue-300/50 bg-gradient-to-br from-blue-50/30 to-white/60 dark:from-blue-900/10 dark:to-gray-900/20 ring-1 ring-blue-100 dark:ring-blue-900/50 shadow-lg"
+            : "border-gray-300/80 dark:border-white/20"
+        } ${
           isExpanded
             ? "border-blue-500/50 dark:border-blue-400/50 bg-blue-50/30 dark:bg-blue-900/20 ring-2 ring-blue-500/20 dark:ring-blue-400/20"
             : "group-hover:border-blue-300/50 dark:group-hover:border-blue-400/50"
         }`}
       >
+        {isFirst && (
+          <div className="absolute top-4 right-4 z-10">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-md">
+              Recent Work
+            </span>
+          </div>
+        )}
         {/* Project Image/Video */}
         {(project.imageUrl || project.videoUrl) && (
-          <div className="relative w-full h-32 mb-4 rounded-lg overflow-hidden">
+          <div
+            className={`relative w-full mb-4 rounded-lg overflow-hidden ${
+              isFirst ? "h-40 ring-1 ring-black/5" : "h-32"
+            }`}
+          >
             {project.videoUrl ? (
               <div className="relative w-full h-full">
                 <iframe
@@ -262,7 +277,7 @@ const ProjectCard = ({ project, index }) => {
         )}
 
         {/* Header */}
-        <div className="flex items-start justify-between mb-4">
+        <div className="flex items-start justify-between mb-4 mt-1">
           <div className="flex items-start gap-3 flex-1 min-w-0">
             <div
               className={`w-12 h-12 rounded-lg flex items-center justify-center ${
@@ -279,7 +294,13 @@ const ProjectCard = ({ project, index }) => {
             </div>
             <div className="flex-1 text-left min-w-0">
               <h3 className="text-base font-semibold text-gray-800 dark:text-white leading-tight break-words">
-                {project.title}
+                {isFirst ? (
+                  <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">
+                    {project.title}
+                  </span>
+                ) : (
+                  project.title
+                )}
               </h3>
               {project.associatedWith && (
                 <p className="text-sm text-gray-600 dark:text-gray-300 text-left leading-tight break-words">
@@ -568,7 +589,11 @@ export default function Projects() {
                 }}
                 className="h-full"
               >
-                <ProjectCard project={project} index={index} />
+                <ProjectCard
+                  project={project}
+                  index={index}
+                  isFirst={index === 0}
+                />
               </motion.div>
             ))}
           </AnimatePresence>

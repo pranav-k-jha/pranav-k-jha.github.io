@@ -188,6 +188,51 @@ const RagPage = () => {
             </a>
           </div>
         </div>
+
+        {/* Recommended Channel */}
+        <div className="mt-16">
+          <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-8">
+            Recommended Learning Resource
+          </h2>
+          <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+            <div className="p-6">
+              <div className="flex flex-col sm:flex-row items-center gap-6">
+                <div className="flex-shrink-0">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center text-white text-2xl font-bold">
+                    K
+                  </div>
+                </div>
+                <div className="text-center sm:text-left">
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    Krish Naik
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 mt-1">
+                    AI & Machine Learning Educator
+                  </p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
+                    Learn about AI, Machine Learning, and Data Science with
+                    practical examples
+                  </p>
+                  <a
+                    href="https://www.youtube.com/@krishnaik06"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
+                  >
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                    Visit Channel
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

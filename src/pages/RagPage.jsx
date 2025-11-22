@@ -156,7 +156,7 @@ const RagPage = () => {
       icon: <FiGitBranch className="w-6 h-6" />,
       description: "Additional modules in development",
       overview:
-        "We're actively working on more content to help you master RAG technology. Check back soon for new modules on advanced topics and implementations.",
+        "I'm actively working on more content to help you master RAG technology. Check back soon for new modules on advanced topics and implementations.",
       topics: [
         {
           title: "In Development",

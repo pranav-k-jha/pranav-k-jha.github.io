@@ -69,15 +69,94 @@ const RagPage = () => {
 
         {/* Key Components */}
         <div className="space-y-6">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+          <motion.div
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <motion.h2
+              className="text-2xl font-bold text-gray-800 dark:text-white mb-2"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+            >
               Key Components of RAG
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            </motion.h2>
+            <motion.p
+              className="text-gray-600 dark:text-gray-400"
+              initial={{ opacity: 0, y: 5 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               Explore the essential elements that make up modern RAG systems and
               their applications
-            </p>
-          </div>
+            </motion.p>
+          </motion.div>
+
+          {/* Prerequisites */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{
+              duration: 0.6,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 mb-8"
+          >
+            <motion.h3
+              className="text-xl font-semibold text-blue-800 dark:text-blue-300 mb-4"
+              initial={{ opacity: 0, x: -10 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              Prerequisites
+            </motion.h3>
+            <motion.div
+              className="space-y-4 text-blue-700 dark:text-blue-200"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ staggerChildren: 0.1, delayChildren: 0.3 }}
+            >
+              <motion.p
+                className="text-sm"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+              >
+                A solid foundation in{" "}
+                <span className="font-medium">Python programming</span>,
+                including familiarity with{" "}
+                <span className="font-medium">async/await</span> patterns and
+                type hints. Learners should understand basic machine learning
+                concepts like <span className="font-medium">embeddings</span>{" "}
+                and <span className="font-medium">tokenization</span>.
+              </motion.p>
+              <motion.p
+                className="text-sm"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                Prior exposure to <span className="font-medium">REST APIs</span>{" "}
+                or <span className="font-medium">cloud services</span>{" "}
+                (AWS/Azure) is advantageous but not mandatory. While the
+                curriculum covers everything from foundational RAG to advanced
+                agentic systems, those with experience in{" "}
+                <span className="font-medium">NLP frameworks</span>{" "}
+                (LangChain/LlamaIndex) or{" "}
+                <span className="font-medium">containerization</span> (Docker)
+                will progress faster through the production-focused modules.
+              </motion.p>
+            </motion.div>
+          </motion.div>
 
           <div className="space-y-4">
             {ragModules.map((module, index) => (

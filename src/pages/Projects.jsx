@@ -70,7 +70,7 @@ const projects = [
     endDate: "September 2025",
     associatedWith: "",
     description:
-      "Designed, developed, and currently maintain the Ecole De Conduite Educar website using Next.js, React, Tailwind CSS, and TypeScript. This professional driving school website features course registration, instructor profiles, and online scheduling.",
+      "Designed, developed, and currently maintain the Ecole De Conduite Educar website using Next.js, React, Tailwind CSS, and TypeScript.",
     skills: [
       "Next.js",
       "React",
@@ -85,27 +85,27 @@ const projects = [
     category: "web",
     isFeatured: true,
   },
-  {
-    id: 2,
-    title: "MKJHA Consulting Website",
-    startDate: "April 2025",
-    endDate: "Present",
-    associatedWith: "MKJHA CONSULTING",
-    description:
-      "Designed, developed, and currently maintain the MKJHA Consulting website using Next.js, React, Tailwind CSS, and TypeScript. The site features a modern, responsive design with an emphasis on user experience and accessibility.",
-    skills: [
-      "Next.js",
-      "Tailwind CSS",
-      "TypeScript",
-      "Web Development",
-      "Website Design",
-      "Website Development",
-    ],
-    link: "https://www.mkjhaconsulting.com",
-    notes: null,
-    imageUrl: "/images/projects/project-2.png",
-    category: "web",
-  },
+  // {
+  //   id: 2,
+  //   title: "MKJHA Consulting Website",
+  //   startDate: "April 2025",
+  //   endDate: "Present",
+  //   associatedWith: "MKJHA CONSULTING",
+  //   description:
+  //     "Designed, developed, and currently maintain the MKJHA Consulting website using Next.js, React, Tailwind CSS, and TypeScript. The site features a modern, responsive design with an emphasis on user experience and accessibility.",
+  //   skills: [
+  //     "Next.js",
+  //     "Tailwind CSS",
+  //     "TypeScript",
+  //     "Web Development",
+  //     "Website Design",
+  //     "Website Development",
+  //   ],
+  //   link: "https://www.mkjhaconsulting.com",
+  //   notes: null,
+  //   imageUrl: "/images/projects/project-2.png",
+  //   category: "web",
+  // },
   {
     id: 3,
     title: "4C Research Lab Website",
@@ -114,7 +114,7 @@ const projects = [
     associatedWith:
       "Intelligent Digital Systems Lab (IDSL), Western University",
     description:
-      "Designed, developed, and currently maintain the 4C Research Lab website using Next.js, React, Tailwind CSS, and TypeScript. The site features a modern, responsive design with database integration and analytics capabilities for research data management and visualization.",
+      "Designed, developed, and currently maintain the 4C Research Lab website using Next.js, React, Tailwind CSS, and TypeScript. The site features a modern, responsive design with database integration.",
     skills: [
       "Next.js",
       "React",
@@ -172,11 +172,15 @@ const projects = [
     endDate: "April 2023",
     associatedWith: "Western University",
     description:
-      "Developed a chat interface using React, Socket.IO, and Tailwind CSS. Integrated with a FastAPI backend to handle real-time chat functionality. The interface allows users to send text messages, upload files, and view chat logs in real-time. Used Redux for state management and React-Query for data fetching. Deployed on HPC at UBC servers using Docker containers for scalable and efficient cloud deployment.",
+      "Developed an interactive chat interface using React, Tailwind CSS, and Framer Motion. The application features real-time communication with multiple LLMs through a FastAPI backend. Key features include real-time chat with streaming responses, file upload and processing with RAG for document analysis, animated loading states with a 'thinking' indicator, and responsive UI with smooth animations. The application is containerized with Docker and deployed on UBC's HPC infrastructure.",
     skills: [
       "React",
-      "Socket.IO",
+      "FastAPI",
+      "LLM Integration",
+      "RAG",
+      "Docker",
       "Tailwind CSS",
+      "Framer Motion",
       "Redux",
       "React-Query",
       "Web Development",

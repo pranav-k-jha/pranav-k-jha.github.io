@@ -10,6 +10,8 @@ import {
   FiShield,
   FiCloud,
   FiGitBranch,
+  FiFile,
+  FiFileText,
 } from "react-icons/fi";
 
 const RagPage = () => {
@@ -21,64 +23,150 @@ const RagPage = () => {
 
   const modules = [
     {
-      title: "RAG Fundamentals",
+      title: "Foundations of RAG",
       icon: <FiLayers className="w-6 h-6" />,
-      description:
-        "Master the core concepts and components of Retrieval-Augmented Generation systems",
+      description: "Essential RAG concepts you need to know",
+      overview:
+        "Master these fundamental RAG concepts before moving to advanced topics. This knowledge will help you build effective retrieval-augmented generation systems and understand how they enhance traditional language models.",
       topics: [
-        "Introduction to RAG architecture",
-        "Vector databases and embeddings",
-        "Document processing and chunking",
-        "Basic retrieval techniques",
-        "Response generation with LLMs",
+        {
+          title: "Introduction to RAG",
+          content: [
+            "What is RAG and why it matters",
+            "Limitations of pure LLMs",
+            "RAG vs finetuning vs prompt engineering",
+            "Real-world applications and use cases",
+          ],
+        },
+        {
+          title: "Core Components of RAG",
+          content: [
+            "Document ingestion and preprocessing",
+            "Embedding models and vector representations",
+            "Vector databases fundamentals",
+            "Retrieval mechanisms",
+            "Generation and response synthesis",
+          ],
+        },
+        {
+          title: "Setting Up Your Development Environment",
+          content: [
+            "Python environment setup",
+            "Installing necessary libraries (LangChain, LlamaIndex, OpenAI, etc.)",
+            "Vector database options (Pinecone, Weaviate, ChromaDB)",
+            "Cost considerations and API management",
+          ],
+        },
       ],
     },
     {
-      title: "Advanced Retrieval Techniques",
+      title: "LangChain for RAG",
       icon: <FiDatabase className="w-6 h-6" />,
-      description: "Enhance retrieval with advanced methods and optimizations",
+      description: "Master LangChain for building RAG apps",
+      overview:
+        "Before building complex RAG applications, you need to understand these LangChain fundamentals. This section covers the essential tools and techniques for effective document processing and retrieval in LangChain-based RAG systems.",
       topics: [
-        "Dense vs. sparse retrieval",
-        "Hybrid search strategies",
-        "Query understanding and rewriting",
-        "Knowledge graph integration",
-        "Multi-vector retrieval",
+        {
+          title: "LangChain Fundamentals",
+          content: [
+            "Core components and modules in LangChain",
+            "Efficient data ingestion with document loaders",
+          ],
+        },
+        {
+          title: "Text Processing",
+          content: [
+            "Recursive Character Text Splitter",
+            "Character Text Splitter",
+            "HTML Header Text Splitter",
+            "Recursive JSON Splitter",
+          ],
+        },
+        {
+          title: "Embeddings",
+          content: [
+            "OpenAI Embedding integration",
+            "Ollama Embeddings setup",
+            "Huggingface Embeddings usage",
+          ],
+        },
+        {
+          title: "Vector Stores",
+          content: [
+            "FAISS for efficient similarity search",
+            "ChromaDB for document retrieval",
+          ],
+        },
       ],
     },
     {
-      title: "Model Context Protocol (MCP)",
+      title: "Traditional RAG Implementation",
       icon: <FiCpu className="w-6 h-6" />,
-      description: "Leverage MCP for enhanced model interactions",
+      description: "Build and evaluate RAG systems effectively",
+      overview:
+        "Learn to implement and optimize a complete RAG pipeline. This module covers everything from basic similarity search to building a production-ready Q&A system, with a strong focus on evaluation and optimization.",
       topics: [
-        "MCP architecture and components",
-        "Integrating MCP with RAG",
-        "Building MCP servers",
-        "Code-aware RAG with MCP",
-        "Agentic workflows with ReAct",
+        {
+          title: "Basic RAG Pipeline",
+          content: [
+            "Basic similarity search implementation",
+            "Building a simple Q&A system",
+          ],
+        },
+        {
+          title: "Prompt Engineering",
+          content: [
+            "Effective prompts for retrieval tasks",
+            "Structuring retrieval results",
+            "Response generation and formatting",
+          ],
+        },
+        {
+          title: "Evaluation and Testing",
+          content: [
+            "RAG evaluation metrics",
+            "Building test datasets",
+            "A/B testing configurations",
+            "Performance optimization techniques",
+          ],
+        },
+      ],
+    },
+
+    {
+      title: "Document Parsers for RAG",
+      icon: <FiFileText className="w-6 h-6" />,
+      description: "Master document parsing for RAG systems",
+      overview:
+        "Learn to use advanced document parsing tools that handle various file formats and structures. These tools are essential for preparing high-quality input for your RAG pipeline.",
+      topics: [
+        {
+          title: "Document Parsers",
+          content: [
+            "Doclens for document analysis",
+            "LLama Parse for complex formats",
+            "Unstructured for versatile parsing",
+            "Vectorize for optimized embeddings",
+          ],
+        },
       ],
     },
     {
-      title: "Production Deployment",
-      icon: <FiCloud className="w-6 h-6" />,
-      description: "Deploy scalable and reliable RAG systems",
+      title: "More Coming Soon",
+      icon: <FiGitBranch className="w-6 h-6" />,
+      description: "Additional modules in development",
+      overview:
+        "We're actively working on more content to help you master RAG technology. Check back soon for new modules on advanced topics and implementations.",
       topics: [
-        "Containerization with Docker",
-        "Kubernetes orchestration (EKS)",
-        "CI/CD pipelines",
-        "Load balancing and scaling",
-        "Monitoring and logging",
-      ],
-    },
-    {
-      title: "Specialized Applications",
-      icon: <FiCode className="w-6 h-6" />,
-      description: "Advanced RAG implementations for specific use cases",
-      topics: [
-        "Multimodal RAG (CLIP + Whisper)",
-        "Smart code review systems",
-        "Self-improving RAG",
-        "Conversational memory",
-        "Enterprise search solutions",
+        {
+          title: "In Development",
+          content: [
+            "Advanced retrieval techniques",
+            "Production deployment strategies",
+            "Specialized RAG applications",
+            "And much more...",
+          ],
+        },
       ],
     },
   ];
@@ -199,29 +287,43 @@ const RagPage = () => {
                       transition={{ duration: 0.3 }}
                       className="overflow-hidden"
                     >
-                      <div className="px-6 pb-6 pt-2 border-t border-gray-200 dark:border-gray-700">
-                        <ul className="space-y-2">
+                      <div className="px-6 pb-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+                        {module.overview && (
+                          <p className="text-gray-600 dark:text-gray-300 mb-6">
+                            {module.overview}
+                          </p>
+                        )}
+                        <div className="space-y-6">
                           {module.topics.map((topic, i) => (
-                            <li key={i} className="flex items-start">
-                              <div className="flex-shrink-0 h-5 w-5 text-green-500 flex items-center justify-center">
-                                <svg
-                                  className="h-3 w-3"
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              </div>
-                              <span className="ml-2 text-gray-700 dark:text-gray-300">
-                                {topic}
-                              </span>
-                            </li>
+                            <div key={i} className="space-y-3">
+                              <h4 className="font-medium text-gray-900 dark:text-white">
+                                {topic.title}
+                              </h4>
+                              <ul className="space-y-2 pl-1">
+                                {topic.content.map((item, j) => (
+                                  <li key={j} className="flex items-start">
+                                    <div className="flex-shrink-0 h-5 w-5 text-blue-500 flex items-center justify-center">
+                                      <svg
+                                        className="h-3 w-3"
+                                        fill="currentColor"
+                                        viewBox="0 0 20 20"
+                                      >
+                                        <path
+                                          fillRule="evenodd"
+                                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                          clipRule="evenodd"
+                                        />
+                                      </svg>
+                                    </div>
+                                    <span className="ml-2 text-gray-700 dark:text-gray-300 text-sm">
+                                      {item}
+                                    </span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
                           ))}
-                        </ul>
+                        </div>
                       </div>
                     </motion.div>
                   )}

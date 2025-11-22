@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "@fontsource/inter";
 /* Custom Base Styles */
 @layer base {
   :root {

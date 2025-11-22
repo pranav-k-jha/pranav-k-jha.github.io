@@ -193,9 +193,33 @@ const projects = [
     imageUrl: "/images/projects/project-4.png",
     category: "web",
   },
+  {
+    id: 6,
+    title: "REST Countries API with Color Theme Switcher and Dark Mode",
+    startDate: "March 2024",
+    endDate: "March 2024",
+    associatedWith: "Frontend Mentor",
+    description:
+      "This project is a solution to the REST Countries API with Color Theme Switcher and Dark Mode challenge from Frontend Mentor.",
+    challengeLink: {
+      url: "https://www.frontendmentor.io/challenges/rest-countries-api-with-color-theme-switcher-5cacc469fec04111f7b848ca",
+      text: "View Challenge on Frontend Mentor",
+    },
+    skills: [
+      "React",
+      "Tailwind CSS",
+      "Web Development",
+      "Responsive Design",
+      "Dark Mode",
+      "Color Theme Switcher",
+    ],
+    notes: null,
+    imageUrl: "/images/projects/project-6.png",
+    category: "personal",
+  },
 ];
 
-const categories = ["all", "web", "app"];
+const categories = ["all", "web", "app", "personal"];
 
 const ProjectCard = ({ project, index, isFirst = false }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -370,9 +394,22 @@ const ProjectCard = ({ project, index, isFirst = false }) => {
                   <FiTarget className="w-3 h-3 text-blue-500 dark:text-blue-400" />
                   Project Description
                 </h4>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 text-left">
-                  {project.description}
-                </p>
+                <div className="mb-3 text-left">
+                  <p className="text-sm text-gray-600 dark:text-gray-300">
+                    {project.description}
+                  </p>
+                  {project.challengeLink && (
+                    <a
+                      href={project.challengeLink.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-2 inline-flex items-center text-sm text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300 transition-colors"
+                    >
+                      <FiExternalLink className="mr-1.5 h-3.5 w-3.5" />
+                      {project.challengeLink.text}
+                    </a>
+                  )}
+                </div>
 
                 {project.skills && project.skills.length > 0 && (
                   <div className="text-left">

@@ -64,7 +64,7 @@ const cardItem = {
 // Projects data
 const projects = [
   {
-    id: 0,
+    id: 1,
     title: "Ecole De Conduite Educar",
     startDate: "August 2025",
     endDate: "September 2025",
@@ -86,7 +86,7 @@ const projects = [
     isFeatured: true,
   },
   {
-    id: 1,
+    id: 2,
     title: "MKJHA Consulting Website",
     startDate: "April 2025",
     endDate: "Present",
@@ -107,7 +107,7 @@ const projects = [
     category: "web",
   },
   {
-    id: 2,
+    id: 3,
     title: "4C Research Lab Website",
     startDate: "May 2025",
     endDate: "Present",
@@ -136,7 +136,7 @@ const projects = [
     title: "Beaut-AI Mobile Application",
     startDate: "December 2025",
     endDate: "January 2025",
-    associatedWith: "BeauT Ai",
+    associatedWith: "Beaut Ai",
     description:
       "Developed a comprehensive mobile application with React Native and Expo Router, featuring advanced backend authentication, GraphQL API integration, and NestJS microservices architecture. The app provides AI-powered beauty and wellness solutions with secure user management, real-time data synchronization, and seamless cross-platform performance.",
     skills: [
@@ -164,6 +164,30 @@ const projects = [
     videoUrl:
       "https://drive.google.com/file/d/1FIjJpagUK7Lwc64iPaNmUl8VIEEiPBP3/view?usp=drive_link",
     category: "app",
+  },
+  {
+    id: 5,
+    title: "Chat Interface",
+    startDate: "March 2023",
+    endDate: "April 2023",
+    associatedWith: "Western University",
+    description:
+      "Developed a chat interface using React, Socket.IO, and Tailwind CSS. Integrated with a FastAPI backend to handle real-time chat functionality. The interface allows users to send text messages, upload files, and view chat logs in real-time. Used Redux for state management and React-Query for data fetching. Deployed on HPC at UBC servers using Docker containers for scalable and efficient cloud deployment.",
+    skills: [
+      "React",
+      "Socket.IO",
+      "Tailwind CSS",
+      "Redux",
+      "React-Query",
+      "Web Development",
+      "Real-time Chat",
+      "API Integration",
+      "State Management",
+      "Data Fetching",
+    ],
+    notes: null,
+    imageUrl: "/images/projects/project-4.png",
+    category: "web",
   },
 ];
 

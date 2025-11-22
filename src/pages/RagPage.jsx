@@ -243,13 +243,7 @@ const RagPage = () => {
               href="#implementation"
               className="px-6 py-3 bg-white text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors"
             >
-              View Implementations
-            </a>
-            <a
-              href="#case-studies"
-              className="px-6 py-3 border-2 border-white/30 text-white font-medium rounded-lg hover:bg-white/10 transition-colors"
-            >
-              Case Studies
+              Coming Soon
             </a>
           </div>
         </div>

@@ -208,24 +208,18 @@ const ProjectCard = ({ project, index, isFirst = false }) => {
     >
       <motion.div
         whileHover={{
-          scale: isFirst ? 1.02 : 1.03,
-          y: isFirst ? -3 : -5,
+          scale: 1.02,
+          y: -3,
           transition: {
-            duration: 0.4,
-            ease: [0.4, 0, 0.2, 1],
-            scale: {
-              type: "spring",
-              stiffness: isFirst ? 250 : 300,
-              damping: isFirst ? 8 : 10,
-            },
+            type: "spring",
+            stiffness: 300,
+            damping: 10,
+            duration: 0.3,
           },
         }}
         whileTap={{
-          scale: isFirst ? 0.98 : 0.97,
-          transition: {
-            duration: 0.2,
-            ease: [0.4, 0, 0.2, 1],
-          },
+          scale: 0.98,
+          transition: { duration: 0.15 },
         }}
         className={`h-full bg-white/60 dark:bg-white/10 backdrop-blur-sm border-2 rounded-xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 text-left flex flex-col relative overflow-hidden ${
           isFirst

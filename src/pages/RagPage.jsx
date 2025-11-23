@@ -1,10 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import { FiChevronDown } from "react-icons/fi";
 import { ragModules } from "../data/ragModules.jsx";
 
 const RagPage = () => {
   const [expandedModule, setExpandedModule] = useState(null);
+  const location = useLocation();
+
+  // Save scroll position before component unmounts
+  useEffect(() => {
+    const saveScrollPosition = () => {
+      sessionStorage.setItem("ragScrollPosition", window.scrollY);
+    };
+
+    window.addEventListener("beforeunload", saveScrollPosition);
+    return () => {
+      window.removeEventListener("beforeunload", saveScrollPosition);
+    };
+  }, []);
+
+  // Restore scroll position on mount if coming from a page reload
+  useEffect(() => {
+    if (performance.navigation?.type === 1) {
+      // Check if page was reloaded
+      const savedPosition = sessionStorage.getItem("ragScrollPosition");
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+        sessionStorage.removeItem("ragScrollPosition");
+      }
+    }
+  }, []);
 
   const toggleModule = (index) => {
     setExpandedModule(expandedModule === index ? null : index);
@@ -273,17 +299,15 @@ const RagPage = () => {
         {/* Additional Resources */}
         <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Explore More About RAG</h2>
-          <p className="mb-4 text-white/90 max-w-2xl mx-auto">
-            Dive deeper into the world of Retrieval-Augmented Generation with
-            these additional resources and practical implementations.
-          </p>
-          <p className="mb-2 text-white/80 max-w-2xl mx-auto text-sm">
-            I am actively working on these models and will keep updating this
-            page with notebooks and additional resources.
-          </p>
-          <p className="text-white/70 text-xs mt-2">
-            Check back soon for updates!
-          </p>
+          <div className="p-4 bg-white/10 rounded-lg max-w-2xl mx-auto">
+            <p className="mb-2 text-white/90">
+              I am actively working on these models and will keep updating this
+              page with notebooks and additional resources.
+            </p>
+            <p className="font-medium text-white">
+              Check back soon for updates!
+            </p>
+          </div>
         </div>
 
         {/* Recommended Learning Resources */}

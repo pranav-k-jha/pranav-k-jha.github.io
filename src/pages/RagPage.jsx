@@ -273,9 +273,16 @@ const RagPage = () => {
         {/* Additional Resources */}
         <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Explore More About RAG</h2>
-          <p className="mb-6 text-blue-100 max-w-2xl mx-auto">
+          <p className="mb-4 text-white/90 max-w-2xl mx-auto">
             Dive deeper into the world of Retrieval-Augmented Generation with
             these additional resources and practical implementations.
+          </p>
+          <p className="mb-2 text-white/80 max-w-2xl mx-auto text-sm">
+            I am actively working on these models and will keep updating this
+            page with notebooks and additional resources.
+          </p>
+          <p className="text-white/70 text-xs mt-2">
+            Check back soon for updates!
           </p>
         </div>
 

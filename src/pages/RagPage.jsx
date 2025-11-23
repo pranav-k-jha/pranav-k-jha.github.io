@@ -301,7 +301,7 @@ const RagPage = () => {
           <h2 className="text-2xl font-bold mb-4">Explore More About RAG</h2>
           <div className="p-4 bg-white/10 rounded-lg max-w-2xl mx-auto">
             <p className="mb-2 text-white/90">
-              I am actively working on these models and will keep updating this
+              I am actively working on these modules and will keep updating this
               page with notebooks and additional resources.
             </p>
             <p className="font-medium text-white">

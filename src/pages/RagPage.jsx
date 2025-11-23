@@ -98,14 +98,12 @@ const RagPage = () => {
           </motion.div>
 
           {/* Prerequisites */}
+          {/* Prerequisites */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{
-              duration: 0.6,
-              ease: [0.16, 1, 0.3, 1],
-            }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 mb-8"
           >
             <motion.h3
@@ -115,7 +113,7 @@ const RagPage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              Prerequisites
+              What You Should Know
             </motion.h3>
             <motion.div
               className="space-y-4 text-blue-700 dark:text-blue-200"
@@ -125,35 +123,56 @@ const RagPage = () => {
               transition={{ staggerChildren: 0.1, delayChildren: 0.3 }}
             >
               <motion.p
-                className="text-sm"
+                className="text-sm text-gray-700 dark:text-gray-200"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                A solid foundation in{" "}
-                <span className="font-medium">Python programming</span>,
-                including familiarity with{" "}
-                <span className="font-medium">async/await</span> patterns and
-                type hints. Learners should understand basic machine learning
-                concepts like <span className="font-medium">embeddings</span>{" "}
-                and <span className="font-medium">tokenization</span>.
+                To get the most out of this guide, you should be comfortable
+                with{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  Python programming
+                </span>
+                , including modern features like{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  async/await
+                </span>{" "}
+                and type hints. Familiarity with core machine learning concepts,
+                particularly{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  embeddings
+                </span>{" "}
+                and{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  tokenization
+                </span>
+                , will help you follow along with the technical discussions.
               </motion.p>
               <motion.p
-                className="text-sm"
+                className="text-sm text-gray-700 dark:text-gray-200"
                 initial={{ opacity: 0, y: 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.1 }}
               >
-                Prior exposure to <span className="font-medium">REST APIs</span>{" "}
-                or <span className="font-medium">cloud services</span>{" "}
-                (AWS/Azure) is advantageous but not mandatory. While the
-                curriculum covers everything from foundational RAG to advanced
-                agentic systems, those with experience in{" "}
-                <span className="font-medium">NLP frameworks</span>{" "}
-                (LangChain/LlamaIndex) or{" "}
-                <span className="font-medium">containerization</span> (Docker)
-                will progress faster through the production-focused modules.
+                While not required, experience with{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  REST APIs
+                </span>{" "}
+                or cloud platforms like{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  AWS/Azure
+                </span>{" "}
+                will be helpful. If you've worked with{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  NLP frameworks
+                </span>{" "}
+                such as LangChain or LlamaIndex, or have experience with{" "}
+                <span className="font-medium text-blue-700 dark:text-blue-300">
+                  containerization
+                </span>{" "}
+                using Docker, you'll find it easier to implement the more
+                advanced concepts covered here.
               </motion.p>
             </motion.div>
           </motion.div>
@@ -258,60 +277,91 @@ const RagPage = () => {
             Dive deeper into the world of Retrieval-Augmented Generation with
             these additional resources and practical implementations.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#implementation"
-              className="px-6 py-3 bg-white text-blue-700 font-medium rounded-lg hover:bg-blue-50 transition-colors"
-            >
-              Coming Soon
-            </a>
-          </div>
         </div>
 
-        {/* Recommended Channel */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-8">
-            Recommended Learning Resource
-          </h2>
-          <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <div className="p-6">
-              <div className="flex flex-col sm:flex-row items-center gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center text-white text-2xl font-bold">
-                    K
+        {/* Recommended Learning Resources */}
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.h2
+            className="text-xl font-bold text-center text-gray-800 dark:text-white mb-6"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Recommended Learning Resources
+          </motion.h2>
+
+          {/* Course Cards */}
+          <div className="max-w-4xl mx-auto space-y-6 mb-12">
+            {[
+              {
+                emoji: "🔗",
+                title: "Complete Generative AI with Langchain & Huggingface",
+                description:
+                  "Master building AI applications with LangChain and Hugging Face",
+                link: "https://www.udemy.com/course/complete-generative-ai-course-with-langchain-and-huggingface/?couponCode=CP251118G3",
+              },
+              {
+                emoji: "🌐",
+                title:
+                  "Complete Agentic AI Bootcamp with LangGraph & LangChain",
+                description:
+                  "Build autonomous AI agents with the latest frameworks",
+                link: "https://www.udemy.com/course/complete-agentic-ai-bootcamp-with-langgraph-and-langchain/?couponCode=CP251118G3",
+              },
+              {
+                emoji: "🤖",
+                title: "Ultimate RAG Bootcamp With Langchain And LangGraph",
+                description:
+                  "Advanced RAG implementation techniques and best practices",
+                link: "https://www.udemy.com/course/ultimate-rag-bootcamp-using-langchainlanggraph-langsmith/?couponCode=CP251118G3",
+              },
+              {
+                emoji: "🤖",
+                title: "Agentic AI System with Microsoft Autogen",
+                description:
+                  "Create autonomous AI systems using Microsoft's Autogen framework",
+                link: "https://www.udemy.com/course/building-ai-agents-agentic-ai-system-via-microsoft-autogen/?couponCode=CP251118G3",
+              },
+            ].map((course, index) => (
+              <motion.div
+                key={index}
+                className="bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.1 }}
+              >
+                <div className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="text-3xl flex-shrink-0">{course.emoji}</div>
+                    <div>
+                      <a
+                        href={course.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group"
+                      >
+                        <h3 className="text-lg font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors mb-2 group-hover:underline">
+                          {course.title}
+                        </h3>
+                      </a>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        {course.description}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="text-center sm:text-left">
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                    Krish Naik
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mt-1">
-                    AI & Machine Learning Educator
-                  </p>
-                  <p className="text-gray-500 dark:text-gray-400 text-sm mt-2">
-                    Learn about AI, Machine Learning, and Data Science with
-                    practical examples
-                  </p>
-                  <a
-                    href="https://www.youtube.com/@krishnaik06"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-4 inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-colors"
-                  >
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
-                    </svg>
-                    Visit Channel
-                  </a>
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );

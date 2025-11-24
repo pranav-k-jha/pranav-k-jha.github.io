@@ -130,7 +130,7 @@ const Navbar = memo(function Navbar() {
 
           {/* Desktop Navigation */}
           <nav
-            className="hidden md:flex items-center space-x-4"
+            className="hidden lg:flex items-center space-x-4"
             aria-label="Main navigation"
           >
             {navigationConfig.map((item) => (
@@ -199,7 +199,7 @@ const Navbar = memo(function Navbar() {
           </nav>
 
           {/* Mobile Toggle */}
-          <div className="flex items-center space-x-4 md:hidden">
+          <div className="flex items-center space-x-4 lg:hidden">
             <ThemeToggle />
             <motion.button
               onClick={toggleMobileMenu}
@@ -227,7 +227,7 @@ const Navbar = memo(function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden bg-white dark:bg-gray-900 shadow-lg"
+            className="lg:hidden bg-white dark:bg-gray-900 shadow-lg"
             id="mobile-menu"
           >
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">

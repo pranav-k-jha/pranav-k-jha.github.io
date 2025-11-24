@@ -144,7 +144,7 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="inline-block text-[2em] md:text-4xl lg:text-6xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
+                  className="inline-block text-[2em] md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
                   style={{ lineHeight: "1.2" }}
                 />
               </div>

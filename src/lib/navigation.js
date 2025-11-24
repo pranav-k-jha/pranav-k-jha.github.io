@@ -1,26 +1,26 @@
 export const navigationConfig = [
   {
-    title: "Home",
+    title: "HOME",
     href: "/",
   },
   {
-    title: "Resources",
+    title: "RESOURCES",
     href: "/resources",
   },
   {
-    title: "Publications",
+    title: "PUBLICATIONS",
     href: "/publications",
   },
   {
-    title: "Services",
+    title: "SERVICES",
     href: "/services",
   },
   {
-    title: "Blog",
+    title: "BLOG",
     href: "/blog",
   },
   {
-    title: "Contact",
+    title: "CONTACT",
     href: "/contact",
   },
 ];

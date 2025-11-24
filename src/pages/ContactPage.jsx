@@ -194,7 +194,7 @@ export default function ContactPage() {
       return;
     }
 
-    /* ---- NEW: Paragraph & word‑count validation ---- */
+    /* ---- Paragraph & word‑count validation ---- */
     const paragraphs = formData.message
       .split(/\n/)
       .filter((p) => p.trim().length > 0);
@@ -294,14 +294,14 @@ export default function ContactPage() {
   /* ---------------------------------------------------------------- */
   return (
     <motion.div
-      className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
+      className="min-h-screen mt-10 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 flex items-center justify-center"
       variants={pageTransition}
       initial="hidden"
       animate="visible"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="flex flex-col items-center justify-center w-full px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
-        <div className="space-y-4 mb-12 text-center">
+        <div className="w-full max-w-4xl text-center mb-12">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -344,7 +344,7 @@ export default function ContactPage() {
             visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
             hidden: { opacity: 0, y: 20 },
           }}
-          className="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg dark:shadow-gray-800/10"
+          className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg dark:shadow-gray-800/10"
         >
           {/* Status message */}
           {submitStatus.message && (
@@ -363,7 +363,7 @@ export default function ContactPage() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-4 relative">
-            {/* Honeypot (hidden) */}
+            {/* Honeypot */}
             <div
               style={{ position: "absolute", left: "-5000px" }}
               aria-hidden="true"
@@ -473,7 +473,7 @@ export default function ContactPage() {
                   placeholder="Write your message..."
                   className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 resize-none"
                 />
-                {/* Live counter (optional) */}
+                {/* Live counter */}
                 <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                   {countWords(formData.message)} words •{" "}
                   {formData.message.split(/\n/).filter((p) => p.trim()).length}{" "}
@@ -511,7 +511,7 @@ export default function ContactPage() {
               </motion.div>
             </div>
 
-            {/* Submit */}
+            {/* Submit button */}
             <motion.div variants={fadeUp} custom={5} className="pt-2">
               <motion.button
                 type="submit"

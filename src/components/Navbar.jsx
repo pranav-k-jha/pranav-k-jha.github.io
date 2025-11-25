@@ -2,7 +2,7 @@
 import { memo, useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { navigationConfig } from "../lib/navigation";
+import { navigationConfig, allNavItems } from "../lib/navigation";
 import { Link, useLocation } from "react-router-dom";
 import { socialLinks } from "../lib/socialLinks";
 import ThemeToggle from "../context/ToggleButton";
@@ -12,7 +12,9 @@ const Navbar = memo(function Navbar() {
   const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const navRef = useRef(null);
+  const moreButtonRef = useRef(null);
   const scrollTimeout = useRef(null);
 
   // Memoize event handlers
@@ -53,6 +55,9 @@ const Navbar = memo(function Navbar() {
     if (navRef.current && !navRef.current.contains(e.target)) {
       setMobileMenuOpen(false);
     }
+    if (moreButtonRef.current && !moreButtonRef.current.contains(e.target)) {
+      setIsMoreOpen(false);
+    }
   }, []);
 
   useEffect(() => {
@@ -69,6 +74,12 @@ const Navbar = memo(function Navbar() {
   // Toggle mobile menu with keyboard support
   const toggleMobileMenu = useCallback(() => {
     setMobileMenuOpen((prev) => !prev);
+  }, []);
+
+  // Toggle more dropdown
+  const toggleMoreMenu = useCallback((e) => {
+    e?.preventDefault();
+    setIsMoreOpen((prev) => !prev);
   }, []);
 
   const handleKeyDown = useCallback((e) => {
@@ -133,7 +144,8 @@ const Navbar = memo(function Navbar() {
             className="hidden lg:flex items-center space-x-4"
             aria-label="Main navigation"
           >
-            {navigationConfig.map((item) => (
+            {/* First 5 main navigation items */}
+            {navigationConfig.mainNav.map((item) => (
               <div key={item.href} className="relative group">
                 <Link
                   to={item.href}
@@ -147,52 +159,129 @@ const Navbar = memo(function Navbar() {
                   }`}
                 >
                   <div className="relative">
-                    <div
-                      className={`flex items-center transition-all duration-300 ${
-                        scrolled ? "space-x-2" : "space-x-3"
-                      }`}
-                    >
-                      {item.title}
-                      {item.subItems && (
-                        <ChevronDown
-                          className={`transition-all duration-300 ${
-                            scrolled ? "h-3.5 w-3.5" : "h-4 w-4"
-                          }`}
-                          aria-hidden="true"
-                        />
-                      )}
-                    </div>
+                    <div className="flex items-center">{item.title}</div>
                     <span
                       className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"
                       aria-hidden="true"
                     ></span>
                   </div>
                 </Link>
-
-                {/* Dropdown Menu */}
-                {item.subItems && (
-                  <div
-                    className="absolute left-0 mt-1 w-56 origin-top-left rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby={`${item.href}-button`}
-                  >
-                    <div className="py-1">
-                      {item.subItems.map((sub) => (
-                        <Link
-                          key={sub.href}
-                          to={sub.href}
-                          role="menuitem"
-                          className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                          {sub.title}
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
             ))}
+
+            {/* More dropdown */}
+            {navigationConfig.moreNav.length > 0 && (
+              <div ref={moreButtonRef} className="relative group">
+                <div className="relative group">
+                  <button
+                    onClick={toggleMoreMenu}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        toggleMoreMenu(e);
+                      } else if (e.key === "Escape" && isMoreOpen) {
+                        e.preventDefault();
+                        setIsMoreOpen(false);
+                        moreButtonRef.current?.focus();
+                      }
+                    }}
+                    className={`p-2 rounded-full transition-all duration-200 ${
+                      isMoreOpen
+                        ? "bg-gray-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400"
+                        : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200"
+                    }`}
+                    aria-expanded={isMoreOpen}
+                    aria-haspopup="true"
+                    aria-label="More options"
+                    ref={moreButtonRef}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className={`transition-transform duration-200 ${
+                        isMoreOpen ? "rotate-90" : ""
+                      }`}
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="1"></circle>
+                      <circle cx="12" cy="5" r="1"></circle>
+                      <circle cx="12" cy="19" r="1"></circle>
+                    </svg>
+                  </button>
+                  <span
+                    className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2 py-1 text-xs bg-gray-800 dark:bg-gray-700 text-white rounded whitespace-nowrap z-[9999] shadow-lg transition-opacity duration-150 ${
+                      isMoreOpen
+                        ? "opacity-0"
+                        : "opacity-0 group-hover:opacity-100"
+                    }`}
+                  >
+                    More Options
+                  </span>
+                </div>
+
+                {/* Dropdown menu */}
+                <AnimatePresence>
+                  {isMoreOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                      transition={{
+                        duration: 0.15,
+                        ease: [0.4, 0, 0.2, 1],
+                      }}
+                      className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white dark:bg-gray-800 shadow-lg ring-1 ring-black ring-opacity-5 z-50 focus:outline-none"
+                      role="menu"
+                      aria-orientation="vertical"
+                      tabIndex={-1}
+                    >
+                      <div className="py-1" role="none">
+                        {navigationConfig.moreNav.map((item, index) => (
+                          <Link
+                            key={item.href}
+                            to={item.href}
+                            onClick={() => {
+                              setIsMoreOpen(false);
+                              moreButtonRef.current?.focus();
+                            }}
+                            className={`block px-4 py-2 text-sm ${
+                              isActiveLink(item.href)
+                                ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                                : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            }`}
+                            role="menuitem"
+                            tabIndex={-1}
+                            ref={(el) => {
+                              if (index === 0) {
+                                // Focus first item when dropdown opens
+                                requestAnimationFrame(() => el?.focus());
+                              }
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === "Escape") {
+                                e.preventDefault();
+                                setIsMoreOpen(false);
+                                moreButtonRef.current?.focus();
+                              }
+                            }}
+                          >
+                            {item.title}
+                          </Link>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+
             <div className="ml-4">
               <ThemeToggle />
             </div>
@@ -223,24 +312,37 @@ const Navbar = memo(function Navbar() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.2 }}
-            className="lg:hidden bg-white dark:bg-gray-900 shadow-lg"
-            id="mobile-menu"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="lg:hidden overflow-hidden"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navigationConfig.map((item) => (
+            <div className="pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 shadow-lg">
+              {navigationConfig.mainNav.map((item) => (
                 <Link
                   key={item.href}
                   to={item.href}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  onClick={toggleMobileMenu}
+                  className={`block px-4 py-3 text-base font-medium ${
                     isActiveLink(item.href)
-                      ? "text-blue-600 dark:text-blue-400"
+                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                       : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                   }`}
-                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.title}
+                </Link>
+              ))}
+              {navigationConfig.moreNav.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={toggleMobileMenu}
+                  className={`block px-4 py-3 text-base font-medium ${
+                    isActiveLink(item.href)
+                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
+                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  }`}
                 >
                   {item.title}
                 </Link>

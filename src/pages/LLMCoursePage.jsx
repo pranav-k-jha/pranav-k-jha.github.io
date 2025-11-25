@@ -8,7 +8,6 @@ import {
   FiBookOpen,
 } from "react-icons/fi";
 import { llmCourseModules, courseAttribution } from "../data/llmCourseModules";
-import { llmNotebooks } from "../data/llmNotebooks";
 
 const LLMCoursePage = () => {
   const [expandedModule, setExpandedModule] = useState(null);
@@ -106,10 +105,21 @@ const LLMCoursePage = () => {
             </span>
           </motion.div>
         </div>
+
         {/* Attribution Section */}
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm">
+        <motion.div
+          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
           <div className="max-w-4xl mx-auto">
-            <p className="text-gray-700 dark:text-gray-300 mb-4">
+            <motion.p
+              className="text-gray-700 dark:text-gray-300 mb-4"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+            >
               <span className="font-medium">Note:</span> This course is based on
               the excellent work by{" "}
               <a
@@ -130,12 +140,29 @@ const LLMCoursePage = () => {
                 {courseAttribution.license}
               </a>{" "}
               and will always stay free.
-            </p>
-            <div className="bg-white dark:bg-gray-800/50 p-5 rounded-lg my-4 border-l-4 border-blue-500 dark:border-blue-400">
-              <p className="text-gray-800 dark:text-gray-200 mb-3 font-medium">
+            </motion.p>
+
+            <motion.div
+              className="bg-white dark:bg-gray-800/50 p-5 rounded-lg my-4 border-l-4 border-blue-500 dark:border-blue-400"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+            >
+              <motion.p
+                className="text-gray-800 dark:text-gray-200 mb-3 font-medium"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
                 From the original author:
-              </p>
-              <p className="text-gray-800 dark:text-gray-200 mb-4">
+              </motion.p>
+
+              <motion.p
+                className="text-gray-800 dark:text-gray-200 mb-4"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+              >
                 "Based on this course, I wrote the{" "}
                 <a
                   href="https://www.llmhandbook.com"
@@ -158,8 +185,14 @@ const LLMCoursePage = () => {
                 LLM application from design to deployment. The LLM course will
                 always stay free but feel free to support my work by purchasing
                 the book."
-              </p>
-              <p className="text-gray-800 dark:text-gray-200">
+              </motion.p>
+
+              <motion.p
+                className="text-gray-800 dark:text-gray-200"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+              >
                 For an interactive version of this course, I created an LLM
                 assistant that will answer questions and test your knowledge in
                 a personalized way on{" "}
@@ -181,10 +214,18 @@ const LLMCoursePage = () => {
                   ChatGPT
                 </a>
                 .
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-4 mt-5">
-              <a
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-wrap gap-4 mt-5"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
                 href={courseAttribution.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -192,8 +233,10 @@ const LLMCoursePage = () => {
               >
                 <FiGithub className="mr-2 h-4 w-4" />
                 View on GitHub
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
                 href={courseAttribution.book.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -201,10 +244,10 @@ const LLMCoursePage = () => {
               >
                 <FiBookOpen className="mr-2 h-4 w-4" />
                 {courseAttribution.book.title}
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Course Modules Section */}
         <div className="space-y-6">

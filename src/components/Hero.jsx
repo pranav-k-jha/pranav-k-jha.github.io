@@ -130,15 +130,15 @@ const Hero = () => {
               <div className="h-8 md:h-16 flex items-start justify-center md:justify-start">
                 <TypeAnimation
                   sequence={[
-                    "NLP Engineer",
+                    "NLP ENGINEER",
                     1500,
-                    "LLM Developer",
+                    "LLM DEVELOPER",
                     1500,
-                    "RAG Specialist",
+                    "RAG SPECIALIST",
                     1500,
-                    "AI/ML Engineer",
+                    "AI/ML ENGINEER",
                     1500,
-                    "Gen AI Expert",
+                    "GEN AI EXPERT",
                     1500,
                   ]}
                   wrapper="span"

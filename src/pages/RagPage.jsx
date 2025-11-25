@@ -291,21 +291,41 @@ const RagPage = () => {
           </div>
         </div>
 
-        {/* Additional Resources */}
-        <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl p-8 text-center text-white">
-          <h2 className="text-2xl font-bold mb-4">Explore More About RAG</h2>
-          <div className="p-4 bg-white/10 rounded-lg max-w-2xl mx-auto">
-            <p className="mb-2 text-white/90">
-              I am actively working on these modules and will keep updating this
-              page with notebooks and additional resources.
-            </p>
-            <p className="font-medium text-white">
-              Check back soon for updates!
-            </p>
+        {/* RAG Resources */}
+        <div className="mt-16 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-800 dark:to-purple-900 rounded-2xl p-8 text-center text-white">
+          <h2 className="text-2xl font-bold mb-6">RAG Resources</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
+            <a
+              href="https://python.langchain.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20"
+            >
+              <h3 className="font-semibold text-white">LangChain Docs</h3>
+              <p className="text-sm text-white/80">Official documentation</p>
+            </a>
+            <a
+              href="https://docs.llamaindex.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20"
+            >
+              <h3 className="font-semibold text-white">LlamaIndex</h3>
+              <p className="text-sm text-white/80">Data framework for LLMs</p>
+            </a>
+            <a
+              href="https://huggingface.co/docs/transformers/main/en/model_doc/rag#transformers.RagConfig"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-4 bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 rounded-lg transition-all duration-200 backdrop-blur-sm border border-white/10 hover:border-white/20"
+            >
+              <h3 className="font-semibold text-white">Hugging Face</h3>
+              <p className="text-sm text-white/80">RAG research & models</p>
+            </a>
           </div>
         </div>
 
-        {/* Recommended Learning Resources */}
+        {/* Additional Learning Resources */}
         <motion.div
           className="mt-16"
           initial={{ opacity: 0, y: 20 }}
@@ -320,7 +340,7 @@ const RagPage = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            Recommended Learning Resources
+            Additional Learning Resources
           </motion.h2>
 
           {/* Course Cards */}

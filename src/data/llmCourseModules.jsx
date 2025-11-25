@@ -17,35 +17,44 @@ export const llmCourseModules = [
   {
     title: "LLM Fundamentals",
     icon: <FiLayers className="w-6 h-6" />,
-    description: "Mathematics, Python, and Neural Networks",
+    description: "Core concepts for understanding LLMs",
     overview:
-      "This optional section covers the fundamental knowledge required to understand and work with LLMs, including essential mathematics, Python programming, and neural network concepts.",
+      "Master the essential building blocks of machine learning and deep learning that power modern LLMs. This section covers the mathematical foundations, programming skills, and neural network concepts required to work effectively with large language models.",
     topics: [
       {
-        title: "Mathematics for ML",
+        title: "Mathematics for Machine Learning",
         content: [
-          "Linear Algebra Basics",
-          "Probability & Statistics",
-          "Calculus for Deep Learning",
-          "Information Theory",
+          "Linear Algebra: Vectors, matrices, eigenvalues, and transformations",
+          "Calculus: Derivatives, gradients, and optimization",
+          "Probability & Statistics: Distributions, MLE, and Bayesian inference",
+          "Key Resources: 3Blue1Brown, StatQuest, Khan Academy",
         ],
       },
       {
-        title: "Python for ML",
+        title: "Python for Machine Learning",
         content: [
-          "NumPy & Pandas",
-          "PyTorch Basics",
-          "Data Processing",
-          "Model Training Pipelines",
+          "Python fundamentals and data structures",
+          "Data Science Stack: NumPy, Pandas, Matplotlib/Seaborn",
+          "Data Preprocessing and Feature Engineering",
+          "Scikit-learn for traditional ML algorithms",
         ],
       },
       {
         title: "Neural Networks",
         content: [
-          "Perceptrons & MLPs",
-          "Backpropagation",
-          "Activation Functions",
-          "Optimization Techniques",
+          "Neural Network Fundamentals: Architecture and training",
+          "Activation Functions and Backpropagation",
+          "Optimization: SGD, Adam, RMSprop",
+          "Regularization: Dropout, L1/L2, Early Stopping",
+        ],
+      },
+      {
+        title: "Natural Language Processing (NLP)",
+        content: [
+          "Text Preprocessing: Tokenization, stemming, lemmatization",
+          "Feature Extraction: BoW, TF-IDF, n-grams",
+          "Word Embeddings: Word2Vec, GloVe, FastText",
+          "Sequence Models: RNNs, LSTMs, GRUs",
         ],
       },
     ],
@@ -53,35 +62,62 @@ export const llmCourseModules = [
   {
     title: "The LLM Scientist",
     icon: <FiCpu className="w-6 h-6" />,
-    description: "Building the best possible LLMs",
+    description: "Mastering LLM development",
     overview:
-      "Focus on building state-of-the-art LLMs using the latest techniques and architectures. Learn about model architectures, training strategies, and optimization methods.",
+      "Dive deep into building state-of-the-art language models. This section covers everything from architecture design to training optimization, evaluation, and the latest research trends in LLM development.",
     topics: [
       {
-        title: "Model Architectures",
+        title: "LLM Architecture",
         content: [
-          "Transformer Architecture",
-          "Attention Mechanisms",
-          "Model Variants (GPT, BERT, T5)",
-          "Efficient Architectures",
+          "Transformer architecture and attention mechanisms",
+          "Tokenization strategies and their impact",
+          "Self-attention and its variants",
+          "Sampling techniques for text generation",
         ],
       },
       {
-        title: "Training Techniques",
+        title: "Pre-training Models",
         content: [
-          "Pre-training Objectives",
-          "Data Curation",
-          "Distributed Training",
-          "Mixed Precision Training",
+          "Data preparation and cleaning at scale",
+          "Distributed training strategies",
+          "Training optimization techniques",
+          "Performance monitoring and profiling",
         ],
       },
       {
-        title: "Model Optimization",
+        title: "Post-training & SFT",
         content: [
-          "Quantization",
-          "Pruning",
-          "Knowledge Distillation",
-          "Efficient Inference",
+          "Dataset preparation and chat templates",
+          "Synthetic data generation",
+          "Supervised Fine-Tuning techniques",
+          "Parameter-efficient fine-tuning (LoRA, QLoRA)",
+        ],
+      },
+      {
+        title: "Preference Alignment",
+        content: [
+          "Rejection sampling and data curation",
+          "Direct Preference Optimization (DPO)",
+          "Reward modeling and RLHF",
+          "GRPO and PPO for alignment",
+        ],
+      },
+      {
+        title: "Evaluation & Optimization",
+        content: [
+          "Automated benchmarks and human evaluation",
+          "Model-based evaluation techniques",
+          "Quantization methods (GGUF, GPTQ, AWQ)",
+          "Performance optimization strategies",
+        ],
+      },
+      {
+        title: "Emerging Trends",
+        content: [
+          "Model merging techniques",
+          "Multimodal model architectures",
+          "Interpretability and mechanistic analysis",
+          "Test-time compute scaling",
         ],
       },
     ],
@@ -89,35 +125,53 @@ export const llmCourseModules = [
   {
     title: "The LLM Engineer",
     icon: <FiCode className="w-6 h-6" />,
-    description: "Building LLM-based applications",
+    description: "Building production LLM applications",
     overview:
-      "Learn to create and deploy production-ready LLM applications. Focus on application architecture, deployment strategies, and real-world implementation.",
+      "Master the end-to-end development of LLM-powered applications, from prototyping to production deployment. Learn to build robust, scalable, and secure applications with modern LLM technologies.",
     topics: [
       {
-        title: "Application Patterns",
+        title: "Running LLMs",
         content: [
-          "Prompt Engineering",
-          "Retrieval-Augmented Generation",
-          "Agents & Tools",
-          "Evaluation & Monitoring",
+          "LLM APIs vs. open-source models",
+          "Local deployment options",
+          "Advanced prompt engineering",
+          "Structured output generation",
         ],
       },
       {
-        title: "Deployment",
+        title: "Vector Storage & RAG",
         content: [
-          "Model Serving",
-          "API Design",
-          "Scaling Strategies",
-          "Cost Optimization",
+          "Document ingestion and processing",
+          "Text splitting strategies",
+          "Embedding models and vector DBs",
+          "Retrieval Augmented Generation",
         ],
       },
       {
-        title: "Production Considerations",
+        title: "Advanced RAG & Agents",
         content: [
-          "Latency Optimization",
-          "Error Handling",
-          "Security & Privacy",
-          "Compliance & Ethics",
+          "Query construction and rewriting",
+          "Multi-vector and hybrid retrieval",
+          "Agent frameworks (LangGraph, LlamaIndex)",
+          "Multi-agent systems",
+        ],
+      },
+      {
+        title: "Deployment & Scaling",
+        content: [
+          "Local and demo deployment",
+          "Server deployment at scale",
+          "Inference optimization techniques",
+          "Edge deployment options",
+        ],
+      },
+      {
+        title: "Security & Production",
+        content: [
+          "Prompt injection and jailbreaking",
+          "Data privacy and compliance",
+          "Monitoring and observability",
+          "Performance optimization",
         ],
       },
     ],

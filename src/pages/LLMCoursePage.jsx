@@ -111,8 +111,16 @@ const LLMCoursePage = () => {
           <div className="max-w-4xl mx-auto">
             <p className="text-gray-700 dark:text-gray-300 mb-4">
               <span className="font-medium">Note:</span> This course is based on
-              the excellent work by {courseAttribution.author}. The LLM course
-              is available under the{" "}
+              the excellent work by{" "}
+              <a
+                href="https://www.linkedin.com/in/maxime-labonne/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                {courseAttribution.author}
+              </a>
+              . The LLM course is available under the{" "}
               <a
                 href="https://github.com/mlabonne/llm-course/blob/main/LICENSE"
                 target="_blank"
@@ -130,17 +138,26 @@ const LLMCoursePage = () => {
               <p className="text-gray-800 dark:text-gray-200 mb-4">
                 "Based on this course, I wrote the{" "}
                 <a
-                  href={courseAttribution.book.url}
+                  href="https://www.llmhandbook.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
                 >
                   LLM Engineer's Handbook
                 </a>{" "}
-                with Paul Iuzstin. It's a hands-on and detailed book that covers
-                an end-to-end LLM application from design to deployment. The LLM
-                course will always stay free but feel free to support my work by
-                purchasing the book."
+                with{" "}
+                <a
+                  href="https://www.linkedin.com/in/pauliusztin/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  Paul Iuzstin
+                </a>
+                . It's a hands-on and detailed book that covers an end-to-end
+                LLM application from design to deployment. The LLM course will
+                always stay free but feel free to support my work by purchasing
+                the book."
               </p>
               <p className="text-gray-800 dark:text-gray-200">
                 For an interactive version of this course, I created an LLM

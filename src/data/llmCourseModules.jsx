@@ -183,10 +183,9 @@ export const courseAttribution = {
   source: "LLM Course",
   url: "https://github.com/mlabonne/llm-course",
   license: "Apache License 2.0",
-  note: "This course is based on the excellent work by Maxime Labonne. The LLM course is available under the <a href='https://github.com/mlabonne/llm-course/blob/main/LICENSE' target='_blank' rel='noopener noreferrer'>Apache 2.0 License</a> and will always stay free. For an interactive version, check out the LLM assistant on HuggingChat or ChatGPT.",
+  note: "This course is based on the excellent work by <a href='https://www.linkedin.com/in/maxime-labonne/' target='_blank' rel='noopener noreferrer'>Maxime Labonne</a>. The LLM course is available under the <a href='https://github.com/mlabonne/llm-course/blob/main/LICENSE' target='_blank' rel='noopener noreferrer'>Apache License 2.0</a> and will always stay free.<br/><br/>From the original author:<br/>\"Based on this course, I wrote the <a href='https://www.amazon.ca/dp/1836200072' target='_blank' rel='noopener noreferrer'>LLM Engineer's Handbook</a> with <a href='https://www.linkedin.com/in/pauliusztin/' target='_blank' rel='noopener noreferrer'>Paul Iuzstin</a>. It's a hands-on and detailed book that covers an end-to-end LLM application from design to deployment. The LLM course will always stay free but feel free to support my work by purchasing the book.\"<br/><br/>For an interactive version, check out the LLM assistant on <a href='https://huggingface.co/chat/' target='_blank' rel='noopener noreferrer'>HuggingChat</a> or <a href='https://chat.openai.com/' target='_blank' rel='noopener noreferrer'>ChatGPT</a>.",
   book: {
     title: "LLM Engineer's Handbook",
-    authors: ["Maxime Labonne", "Paul Iuzstin"],
     description:
       "A hands-on and detailed book that covers an end-to-end LLM application from design to deployment.",
     url: "https://www.amazon.ca/dp/1836200072",

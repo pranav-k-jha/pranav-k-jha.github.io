@@ -150,7 +150,7 @@ const Navbar = memo(function Navbar() {
                 <Link
                   to={item.href}
                   aria-current={isActiveLink(item.href) ? "page" : undefined}
-                  className={`px-4 font-medium transition-all duration-300 relative group ${
+                  className={`block px-1 font-medium transition-all duration-300 relative group ${
                     scrolled ? "py-2 text-xs" : "py-3 text-sm"
                   } leading-relaxed ${
                     isActiveLink(item.href)

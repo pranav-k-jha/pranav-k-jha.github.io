@@ -262,7 +262,7 @@ const LLMCoursePage = () => {
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               A structured learning path from LLM fundamentals to advanced
-              applications. Click on any module to explore its contents.
+              applications.
             </p>
           </motion.div>
 

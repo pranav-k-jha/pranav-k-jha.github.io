@@ -15,183 +15,126 @@ import {
 
 export const llmCourseModules = [
   {
-    title: "Introduction to LLMs",
+    title: "LLM Fundamentals",
     icon: <FiLayers className="w-6 h-6" />,
-    description: "Foundational concepts of Large Language Models",
+    description: "Mathematics, Python, and Neural Networks",
     overview:
-      "Grasp the core concepts and significance of LLMs in today's AI landscape. Understand their capabilities, limitations, and the transformer architecture that powers them.",
+      "This optional section covers the fundamental knowledge required to understand and work with LLMs, including essential mathematics, Python programming, and neural network concepts.",
     topics: [
       {
-        title: "LLM Fundamentals",
+        title: "Mathematics for ML",
         content: [
-          "What are Large Language Models?",
-          "Evolution of language models",
-          "Key terminology and concepts",
-          "Capabilities and limitations",
+          "Linear Algebra Basics",
+          "Probability & Statistics",
+          "Calculus for Deep Learning",
+          "Information Theory",
         ],
       },
       {
-        title: "Transformer Architecture",
+        title: "Python for ML",
         content: [
-          "Attention mechanisms",
-          "Self-attention and multi-head attention",
-          "Encoder-decoder structure",
-          "Positional encoding",
+          "NumPy & Pandas",
+          "PyTorch Basics",
+          "Data Processing",
+          "Model Training Pipelines",
         ],
       },
       {
-        title: "Model Types and Variants",
+        title: "Neural Networks",
         content: [
-          "Auto-regressive models (GPT)",
-          "Auto-encoding models (BERT)",
-          "Sequence-to-sequence models (T5, BART)",
-          "Recent architectures (PaLM, LLaMA, Claude)",
+          "Perceptrons & MLPs",
+          "Backpropagation",
+          "Activation Functions",
+          "Optimization Techniques",
         ],
       },
     ],
   },
   {
-    title: "Working with LLMs",
-    icon: <FiTerminal className="w-6 h-6" />,
-    description: "Practical usage of pre-trained models",
-    overview:
-      "Learn to effectively use pre-trained LLMs through various interfaces and understand prompt engineering techniques to get the best results.",
-    topics: [
-      {
-        title: "Accessing LLMs",
-        content: [
-          "OpenAI API",
-          "Anthropic's Claude",
-          "Open-source models (LLaMA, Mistral)",
-          "Local model deployment",
-        ],
-      },
-      {
-        title: "Prompt Engineering",
-        content: [
-          "Zero-shot and few-shot learning",
-          "Chain-of-Thought prompting",
-          "System and user messages",
-          "Prompt patterns and best practices",
-        ],
-      },
-      {
-        title: "Model Output Control",
-        content: [
-          "Temperature and top-p sampling",
-          "Max tokens and stop sequences",
-          "Logit bias and constraints",
-          "Handling model hallucinations",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Fine-tuning LLMs",
+    title: "The LLM Scientist",
     icon: <FiCpu className="w-6 h-6" />,
-    description: "Customizing models for specific tasks",
+    description: "Building the best possible LLMs",
     overview:
-      "Master the process of fine-tuning pre-trained LLMs on custom datasets to achieve better performance on specific tasks or domains.",
+      "Focus on building state-of-the-art LLMs using the latest techniques and architectures. Learn about model architectures, training strategies, and optimization methods.",
     topics: [
       {
-        title: "Fine-tuning Basics",
+        title: "Model Architectures",
         content: [
-          "When to fine-tune vs. prompt engineering",
-          "Data preparation and formatting",
-          "Hyperparameter tuning",
-          "Evaluation metrics",
+          "Transformer Architecture",
+          "Attention Mechanisms",
+          "Model Variants (GPT, BERT, T5)",
+          "Efficient Architectures",
         ],
       },
       {
-        title: "Advanced Techniques",
+        title: "Training Techniques",
         content: [
-          "Parameter-efficient fine-tuning (LoRA, QLoRA)",
-          "Instruction tuning",
-          "Reinforcement Learning from Human Feedback (RLHF)",
-          "Domain adaptation",
+          "Pre-training Objectives",
+          "Data Curation",
+          "Distributed Training",
+          "Mixed Precision Training",
         ],
       },
       {
-        title: "Fine-tuning Platforms",
+        title: "Model Optimization",
         content: [
-          "OpenAI fine-tuning API",
-          "Hugging Face Transformers",
-          "Google Vertex AI",
-          "AWS Sagemaker",
+          "Quantization",
+          "Pruning",
+          "Knowledge Distillation",
+          "Efficient Inference",
         ],
       },
     ],
   },
   {
-    title: "LLM Applications",
+    title: "The LLM Engineer",
     icon: <FiCode className="w-6 h-6" />,
-    description: "Building real-world applications",
+    description: "Building LLM-based applications",
     overview:
-      "Explore practical applications of LLMs and learn to build end-to-end AI applications powered by large language models.",
+      "Learn to create and deploy production-ready LLM applications. Focus on application architecture, deployment strategies, and real-world implementation.",
     topics: [
       {
-        title: "Common Use Cases",
+        title: "Application Patterns",
         content: [
-          "Chatbots and virtual assistants",
-          "Content generation and summarization",
-          "Code generation and completion",
-          "Semantic search and Q&A systems",
+          "Prompt Engineering",
+          "Retrieval-Augmented Generation",
+          "Agents & Tools",
+          "Evaluation & Monitoring",
         ],
       },
       {
-        title: "Integration Patterns",
+        title: "Deployment",
         content: [
-          "API integration",
-          "LangChain and LlamaIndex",
-          "Vector databases",
-          "Agent-based systems",
+          "Model Serving",
+          "API Design",
+          "Scaling Strategies",
+          "Cost Optimization",
         ],
       },
       {
         title: "Production Considerations",
         content: [
-          "Cost optimization",
-          "Latency and performance",
-          "Scaling strategies",
-          "Monitoring and logging",
-        ],
-      },
-    ],
-  },
-  {
-    title: "Advanced Topics",
-    icon: <FiZap className="w-6 h-6" />,
-    description: "Cutting-edge developments in LLMs",
-    overview:
-      "Dive into advanced topics and emerging trends in the field of large language models.",
-    topics: [
-      {
-        title: "Model Efficiency",
-        content: [
-          "Model quantization",
-          "Pruning and distillation",
-          "Speculative decoding",
-          "Mixture of Experts",
-        ],
-      },
-      {
-        title: "Emerging Architectures",
-        content: [
-          "Multimodal models",
-          "Retrieval-augmented generation",
-          "Autonomous agents",
-          "Long-context models",
-        ],
-      },
-      {
-        title: "Challenges and Future Directions",
-        content: [
-          "Bias and fairness",
-          "Hallucination and factuality",
-          "AI safety and alignment",
-          "Open challenges in LLM research",
+          "Latency Optimization",
+          "Error Handling",
+          "Security & Privacy",
+          "Compliance & Ethics",
         ],
       },
     ],
   },
 ];
+
+export const courseAttribution = {
+  author: "Maxime Labonne",
+  source: "LLM Course",
+  url: "https://github.com/mlabonne/llm-course",
+  license: "MIT License",
+  note: "This course is based on the excellent work by Maxime Labonne. The LLM course is available under the MIT License and will always stay free. For an interactive version, check out the LLM assistant on HuggingChat or ChatGPT.",
+  book: {
+    title: "LLM Engineer's Handbook",
+    authors: ["Maxime Labonne", "Paul Iuzstin"],
+    description:
+      "A hands-on and detailed book that covers an end-to-end LLM application from design to deployment.",
+    url: "https://www.amazon.ca/dp/1836200072",
+  },
+};

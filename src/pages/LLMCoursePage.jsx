@@ -1,12 +1,24 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiChevronDown, FiExternalLink } from "react-icons/fi";
-import { llmCourseModules } from "../data/llmCourseModules.jsx";
+import {
+  FiChevronDown,
+  FiExternalLink,
+  FiGithub,
+  FiBookOpen,
+} from "react-icons/fi";
+import { llmCourseModules, courseAttribution } from "../data/llmCourseModules";
 
 const LLMCoursePage = () => {
   const [expandedModule, setExpandedModule] = useState(null);
   const location = useLocation();
+
+  // Restore scroll position on component mount
+  useEffect(() => {
+    if (location.state?.scrollPosition) {
+      window.scrollTo(0, location.state.scrollPosition);
+    }
+  }, [location]);
 
   // Save scroll position before component unmounts
   useEffect(() => {
@@ -32,12 +44,14 @@ const LLMCoursePage = () => {
   }, []);
 
   const toggleModule = (index) => {
+    // Save scroll position before updating state
+    sessionStorage.setItem("llmCourseScroll", window.scrollY);
     setExpandedModule(expandedModule === index ? null : index);
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="max-w-7xl mt-10 mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header with Animation */}
         <div className="space-y-4 mb-16">
           {/* Main Heading */}
@@ -91,8 +105,82 @@ const LLMCoursePage = () => {
             </span>
           </motion.div>
         </div>
+        {/* Attribution Section */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm">
+          <div className="max-w-4xl mx-auto">
+            <p className="text-gray-700 dark:text-gray-300 mb-4">
+              <span className="font-medium">Note:</span> This course is based on
+              the excellent work by {courseAttribution.author}. The LLM course
+              is available under the {courseAttribution.license} and will always
+              stay free.
+            </p>
+            <div className="bg-white dark:bg-gray-800/50 p-5 rounded-lg my-4 border-l-4 border-blue-500 dark:border-blue-400">
+              <p className="text-gray-800 dark:text-gray-200 mb-3 font-medium">
+                From the original author:
+              </p>
+              <p className="text-gray-800 dark:text-gray-200 mb-4">
+                "Based on this course, I wrote the{" "}
+                <a
+                  href={courseAttribution.book.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                >
+                  LLM Engineer's Handbook
+                </a>{" "}
+                with Paul Iuzstin. It's a hands-on and detailed book that covers
+                an end-to-end LLM application from design to deployment. The LLM
+                course will always stay free but feel free to support my work by
+                purchasing the book."
+              </p>
+              <p className="text-gray-800 dark:text-gray-200">
+                For an interactive version of this course, I created an LLM
+                assistant that will answer questions and test your knowledge in
+                a personalized way on{" "}
+                <a
+                  href="https://huggingface.co/chat/assistant/66029d2e5f4a884f7aabc9d1"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  HuggingChat
+                </a>{" "}
+                or{" "}
+                <a
+                  href="https://chatgpt.com/g/g-yviLuLqvI-llm-course"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  ChatGPT
+                </a>
+                .
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4 mt-5">
+              <a
+                href={courseAttribution.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              >
+                <FiGithub className="mr-2 h-4 w-4" />
+                View on GitHub
+              </a>
+              <a
+                href={courseAttribution.book.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+              >
+                <FiBookOpen className="mr-2 h-4 w-4" />
+                {courseAttribution.book.title}
+              </a>
+            </div>
+          </div>
+        </div>
 
-        {/* Course Modules */}
+        {/* Rest of your component remains the same */}
         <div className="space-y-6">
           <motion.div
             className="text-center mb-8"

@@ -16,6 +16,10 @@ export const navigationConfig = [
     href: "/services",
   },
   {
+    title: "LLM COURSE",
+    href: "/llm-course",
+  },
+  {
     title: "BLOG",
     href: "/blog",
   },

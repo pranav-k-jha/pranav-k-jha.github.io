@@ -8,6 +8,7 @@ import {
   FiBookOpen,
 } from "react-icons/fi";
 import { llmCourseModules, courseAttribution } from "../data/llmCourseModules";
+import { llmNotebooks } from "../data/llmNotebooks";
 
 const LLMCoursePage = () => {
   const [expandedModule, setExpandedModule] = useState(null);
@@ -111,8 +112,16 @@ const LLMCoursePage = () => {
             <p className="text-gray-700 dark:text-gray-300 mb-4">
               <span className="font-medium">Note:</span> This course is based on
               the excellent work by {courseAttribution.author}. The LLM course
-              is available under the {courseAttribution.license} and will always
-              stay free.
+              is available under the{" "}
+              <a
+                href="https://github.com/mlabonne/llm-course/blob/main/LICENSE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                {courseAttribution.license}
+              </a>{" "}
+              and will always stay free.
             </p>
             <div className="bg-white dark:bg-gray-800/50 p-5 rounded-lg my-4 border-l-4 border-blue-500 dark:border-blue-400">
               <p className="text-gray-800 dark:text-gray-200 mb-3 font-medium">
@@ -180,7 +189,7 @@ const LLMCoursePage = () => {
           </div>
         </div>
 
-        {/* Rest of your component remains the same */}
+        {/* Course Modules Section */}
         <div className="space-y-6">
           <motion.div
             className="text-center mb-8"

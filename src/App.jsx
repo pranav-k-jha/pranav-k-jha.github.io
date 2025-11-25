@@ -13,6 +13,7 @@ import ServicesPage from "./pages/ServicesPage";
 import GoogleAnalytics from "./components/GoogleAnalytics";
 import usePageViews from "./hooks/usePageViews";
 import LLMCoursePage from "./pages/LLMCoursePage";
+const LLMNotebooksPage = lazy(() => import("./pages/LLMNotebooksPage"));
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -107,6 +108,7 @@ function App() {
               element={<MobileAppServicePage />}
             />
             <Route path="/llm-course" element={<LLMCoursePage />} />
+            <Route path="/llm-notebooks" element={<LLMNotebooksPage />} />
           </Routes>
         </Suspense>
       </main>

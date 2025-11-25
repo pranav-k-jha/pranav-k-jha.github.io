@@ -128,8 +128,8 @@ export const courseAttribution = {
   author: "Maxime Labonne",
   source: "LLM Course",
   url: "https://github.com/mlabonne/llm-course",
-  license: "MIT License",
-  note: "This course is based on the excellent work by Maxime Labonne. The LLM course is available under the MIT License and will always stay free. For an interactive version, check out the LLM assistant on HuggingChat or ChatGPT.",
+  license: "Apache License 2.0",
+  note: "This course is based on the excellent work by Maxime Labonne. The LLM course is available under the <a href='https://github.com/mlabonne/llm-course/blob/main/LICENSE' target='_blank' rel='noopener noreferrer'>Apache 2.0 License</a> and will always stay free. For an interactive version, check out the LLM assistant on HuggingChat or ChatGPT.",
   book: {
     title: "LLM Engineer's Handbook",
     authors: ["Maxime Labonne", "Paul Iuzstin"],

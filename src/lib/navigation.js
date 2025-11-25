@@ -23,6 +23,10 @@ export const navigationConfig = {
   ],
   moreNav: [
     {
+      title: "RAG",
+      href: "/rag",
+    },
+    {
       title: "BLOG",
       href: "/blog",
     },

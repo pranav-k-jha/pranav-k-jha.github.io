@@ -17,7 +17,7 @@ export const navigationConfig = {
       href: "/services",
     },
     {
-      title: "LLM COURSE",
+      title: "LLM",
       href: "/llm-course",
     },
   ],

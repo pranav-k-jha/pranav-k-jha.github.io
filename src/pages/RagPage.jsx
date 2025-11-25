@@ -53,7 +53,7 @@ const RagPage = () => {
             className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-              RAG TECHNOLOGY GUIDE
+              RETRIEVAL AUGMENTED GENERATION
             </span>
           </motion.h1>
 
@@ -123,8 +123,6 @@ const RagPage = () => {
             </motion.p>
           </motion.div>
 
-          {/* Prerequisites */}
-          {/* Prerequisites */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -139,47 +137,44 @@ const RagPage = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              What You Should Know
+              What you need to know
             </motion.h3>
             <motion.div
-              className="space-y-4 text-blue-700 dark:text-blue-200"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ staggerChildren: 0.1, delayChildren: 0.3 }}
+              className="space-y-4"
+              initial="hidden"
+              animate="show"
+              variants={{
+                hidden: { opacity: 0 },
+                show: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                  },
+                },
+              }}
             >
               <motion.p
                 className="text-sm text-gray-700 dark:text-gray-200"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+                }}
               >
-                To get the most out of this guide, you should be comfortable
-                with{" "}
-                <span className="font-medium text-blue-700 dark:text-blue-300">
-                  Python programming
-                </span>
-                , including modern features like{" "}
-                <span className="font-medium text-blue-700 dark:text-blue-300">
-                  async/await
-                </span>{" "}
-                and type hints. Familiarity with core machine learning concepts,
-                particularly{" "}
-                <span className="font-medium text-blue-700 dark:text-blue-300">
-                  embeddings
-                </span>{" "}
-                and{" "}
-                <span className="font-medium text-blue-700 dark:text-blue-300">
-                  tokenization
-                </span>
-                , will help you follow along with the technical discussions.
+                The concepts below are essential for RAG implementation. Use
+                this as a reference guide for what you should plan to understand
+                and learn. I've compiled these key areas to help structure your
+                learning journey.
               </motion.p>
               <motion.p
                 className="text-sm text-gray-700 dark:text-gray-200"
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  show: {
+                    opacity: 1,
+                    y: 0,
+                    transition: { duration: 0.3, delay: 0.1 },
+                  },
+                }}
               >
                 While not required, experience with{" "}
                 <span className="font-medium text-blue-700 dark:text-blue-300">

@@ -109,7 +109,7 @@ const ResourcePage = () => {
         exit={{ opacity: 0 }}
         ref={containerRef}
       >
-        <div className="space-y-4 mb-8">
+        <div className="space-y-4 mb-8 mt-10">
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

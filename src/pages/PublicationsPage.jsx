@@ -145,7 +145,7 @@ const PublicationsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50">
-      <main className="min-h-[60vh] py-24 px-4 max-w-4xl mx-auto ">
+      <main className="min-h-[60vh] py-24 mt-6 px-4 max-w-4xl mx-auto ">
         <motion.div
           initial="hidden"
           animate="show"

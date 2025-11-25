@@ -77,12 +77,6 @@ const cardVariants = {
   }),
 };
 
-// Optimized hover animations - no layout changes
-const hoverScale = {
-  scale: 1.05,
-  transition: { duration: 0.4, ease: "easeOut" },
-};
-
 const hoverTranslate = {
   y: -4,
   transition: { duration: 0.3, ease: "easeOut" },
@@ -437,7 +431,7 @@ export default function BlogPage() {
           animate="visible"
           exit="hidden"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 py-20">
             {/* Header with Animation */}
             <div className="space-y-4 mb-8">
               {/* Main Heading */}

@@ -34,7 +34,7 @@ const ProjectCard = ({ project, index }) => {
               <h3 className="text-xl font-bold text-white">{project.title}</h3>
               <div className="flex gap-3">
                 {project.link && (
-                  <Link
+                  <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -42,10 +42,10 @@ const ProjectCard = ({ project, index }) => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <FiExternalLink className="mr-2" /> Live Demo
-                  </Link>
+                  </a>
                 )}
                 {project.github && (
-                  <Link
+                  <a
                     href={project.github}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -53,7 +53,7 @@ const ProjectCard = ({ project, index }) => {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <FiGithub className="mr-2" /> View Code
-                  </Link>
+                  </a>
                 )}
               </div>
             </div>
@@ -112,34 +112,34 @@ const ProjectCard = ({ project, index }) => {
 
           <div className="flex flex-wrap gap-3">
             {project.link && (
-              <Link
+              <a
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
               >
                 <FiExternalLink className="mr-2" /> View Project
-              </Link>
+              </a>
             )}
             {project.github && (
-              <Link
+              <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-5 py-2.5 bg-gray-200 hover:bg-gray-300 dark:bg-gray-800 dark:hover:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg font-medium transition-colors"
               >
                 <FiGithub className="mr-2" /> Source Code
-              </Link>
+              </a>
             )}
             {project.videoUrl && (
-              <Link
+              <a
                 href={project.videoUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-5 py-2.5 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors"
               >
                 <FiPlay className="mr-2" /> Watch Demo
-              </Link>
+              </a>
             )}
           </div>
         </div>

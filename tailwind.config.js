@@ -16,11 +16,17 @@ export default {
       },
       animation: {
         float: "float 6s ease-in-out infinite",
+        "gradient-x": "gradient-x 8s ease infinite",
+        "pulse-slow": "pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite",
       },
       keyframes: {
         float: {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-20px)" },
+        },
+        "gradient-x": {
+          "0%, 100%": { "background-position": "0% 50%" },
+          "50%": { "background-position": "100% 50%" },
         },
       },
     },

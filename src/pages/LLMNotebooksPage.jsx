@@ -136,7 +136,7 @@ const LLMNotebooksPage = () => {
         {/* Back Button */}
         <Link
           to="/llm-course"
-          className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mb-8 transition-colors duration-200"
+          className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mb-8 transition-colors"
         >
           <FiArrowLeft className="mr-2" />
           Back to LLM Course

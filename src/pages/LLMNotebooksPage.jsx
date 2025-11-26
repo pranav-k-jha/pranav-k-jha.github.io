@@ -1,5 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
 import {
   llmTools,
   llmFineTuning,
@@ -131,6 +133,14 @@ const LLMNotebooksPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 mt-20">
+        {/* Back Button */}
+        <Link
+          to="/llm-course"
+          className="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 mb-8 transition-colors duration-200"
+        >
+          <FiArrowLeft className="mr-2" />
+          Back to LLM Course
+        </Link>
         {/* Header with Animation */}
         <div className="relative mb-20">
           <div className="space-y-4">

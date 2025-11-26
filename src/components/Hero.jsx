@@ -202,7 +202,7 @@ const Hero = () => {
                 }`}
               >
                 <span className="relative z-10 flex items-center justify-center">
-                  Explore LLM Courses
+                  LLM Course
                   <svg
                     className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform"
                     fill="none"

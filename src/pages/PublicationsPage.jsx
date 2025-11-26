@@ -52,7 +52,7 @@ const PublicationsPage = () => {
           type: "JOURNAL_ARTICLE",
           url: { value: "https://www.mdpi.com/journal/applsci" },
           manual: true,
-          "publication-status": "submitted",
+          "publication-status": "Conditionally Accepted",
         },
       ],
     },

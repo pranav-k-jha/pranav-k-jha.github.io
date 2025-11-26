@@ -16,6 +16,7 @@ import LLMCoursePage from "./pages/LLMCoursePage";
 import LLMFundamentalsPage from "./pages/LLMFundamentalsPage";
 import LLMScientistPage from "./pages/LLMScientistPage";
 import LLMEngineerPage from "./pages/LLMEngineerPage";
+import LLMNotebooksPage from "./pages/LLMNotebooksPage";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -113,6 +114,7 @@ function App() {
             <Route path="/llm-fundamentals" element={<LLMFundamentalsPage />} />
             <Route path="/llm-scientist" element={<LLMScientistPage />} />
             <Route path="/llm-engineer" element={<LLMEngineerPage />} />
+            <Route path="/llm-notebooks" element={<LLMNotebooksPage />} />
           </Routes>
         </Suspense>
       </main>

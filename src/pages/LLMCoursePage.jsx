@@ -441,6 +441,41 @@ const LLMCoursePage = () => {
           ))}
         </div>
       </div>
+      <motion.div
+        className="mt-16 mb-24 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-xl border border-blue-100 dark:border-blue-800"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+      >
+        <div className="max-w-3xl mx-auto text-center">
+          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+            Explore More LLM Resources
+          </h3>
+          <p className="text-gray-700 dark:text-gray-300 mb-6">
+            A collection of Jupyter notebooks and articles about LLMs, covering
+            fine-tuning, quantization, and deployment.
+          </p>
+          <Link
+            to="/llm-notebooks"
+            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+          >
+            Explore LLM Notebooks
+            <svg
+              className="w-4 h-4 ml-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
+            </svg>
+          </Link>
+        </div>
+      </motion.div>
     </div>
   );
 };

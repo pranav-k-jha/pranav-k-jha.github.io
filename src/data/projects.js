@@ -47,8 +47,7 @@ const projects = [
     title: "4C Research Lab Website",
     startDate: "May 2025",
     endDate: "Present",
-    associatedWith:
-      "Intelligent Digital Systems Lab (IDSL), Western University",
+    associatedWith: "Western University",
     description:
       "Designed, developed, and currently maintain the 4C Research Lab website using Next.js, React, Tailwind CSS, and TypeScript. The site features a modern, responsive design with database integration.",
     skills: [

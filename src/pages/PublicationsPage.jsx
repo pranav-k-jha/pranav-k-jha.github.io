@@ -47,7 +47,7 @@ const PublicationsPage = () => {
           },
           "publication-date": { year: { value: "2025" } },
           "journal-title": { value: "MDPI Infrastructures" },
-          "journal-subtitle": { value: "Submitted" },
+          "journal-subtitle": { value: "Conditionally Accepted" },
           "work-type": { value: "JOURNAL_ARTICLE" },
           type: "JOURNAL_ARTICLE",
           url: { value: "https://www.mdpi.com/journal/applsci" },

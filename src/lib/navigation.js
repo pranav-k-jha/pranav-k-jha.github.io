@@ -23,8 +23,12 @@ export const navigationConfig = {
   ],
   moreNav: [
     {
-      title: "LLM",
+      title: "LLM COURSE",
       href: "/llm-course",
+    },
+    {
+      title: "LLM NOTEBOOKS",
+      href: "/llm-notebooks",
     },
     {
       title: "BLOG",

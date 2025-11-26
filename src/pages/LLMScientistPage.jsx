@@ -1,53 +1,26 @@
 import { motion } from "framer-motion";
 import CourseModuleCard from "../components/courses/CourseModuleCard";
+import { llmScientist } from "../components/courses/llmScientist";
 
 const LLMScientistPage = () => {
-  const courseModules = [
-    {
-      title: "Advanced Model Architectures",
-      duration: "3 weeks",
-      description:
-        "Dive deep into advanced LLM architectures and their mathematical foundations.",
-      topics: [
-        "Transformer Variations",
-        "Attention Mechanisms",
-        "Efficient Transformers",
-        "Mixture of Experts",
-      ],
-      prerequisites: "Strong background in ML and deep learning",
-    },
-    {
-      title: "Pre-training and Fine-tuning",
-      duration: "4 weeks",
-      description:
-        "Master the art of pre-training and fine-tuning LLMs for specific domains.",
-      topics: [
-        "Pre-training Objectives",
-        "Domain Adaptation",
-        "Instruction Tuning",
-        "Parameter-Efficient Fine-tuning",
-      ],
-    },
-    {
-      title: "RLHF and Alignment",
-      duration: "3 weeks",
-      description:
-        "Learn Reinforcement Learning from Human Feedback and model alignment techniques.",
-      topics: ["Reward Modeling", "PPO", "Constitutional AI", "Alignment Tax"],
-    },
-    {
-      title: "Evaluation and Analysis",
-      duration: "2 weeks",
-      description:
-        "Comprehensive methods for evaluating and analyzing LLM performance.",
-      topics: [
-        "Benchmarking",
-        "Bias Evaluation",
-        "Interpretability",
-        "Failure Modes",
-      ],
-    },
-  ];
+  // Transform the llmScientist data into the format expected by CourseModuleCard
+  const courseModules = llmScientist.sections.map((section) => ({
+    title: section.title,
+    // Calculate duration based on section content (1-2 weeks per section)
+    duration: section.topics.length > 3 ? "2 weeks" : "1 week",
+    description: section.description,
+    topics: section.topics.map((topic) => topic.name),
+    resources: section.resources || [],
+    details: section.topics.map((topic) => ({
+      name: topic.name,
+      description: topic.details,
+    })),
+  }));
+
+  // Calculate total duration based on all modules
+  const totalDuration = courseModules.reduce((total, module) => {
+    return total + (module.duration.includes("week") ? 1 : 0);
+  }, 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 py-12 px-4 sm:px-6">
@@ -79,17 +52,19 @@ const LLMScientistPage = () => {
             Course Overview
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            Designed for AI researchers and practitioners, this course dives
-            deep into the cutting-edge techniques and research in Large Language
-            Models. You'll explore advanced architectures, training
-            methodologies, and evaluation techniques used by leading AI labs.
+            {llmScientist.intro} This comprehensive course dives deep into
+            building and optimizing Large Language Models with the latest
+            techniques and research. You'll gain hands-on experience with
+            state-of-the-art methods used by leading AI labs.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
               <h3 className="font-semibold text-blue-700 dark:text-blue-400">
                 Duration
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">12 Weeks</p>
+              <p className="text-gray-600 dark:text-gray-300">
+                {totalDuration} Week{totalDuration !== 1 ? "s" : ""}
+              </p>
             </div>
             <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
               <h3 className="font-semibold text-purple-700 dark:text-purple-400">
@@ -117,39 +92,26 @@ const LLMScientistPage = () => {
             transition={{ delay: 0.3 }}
           >
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              Research Tracks
+              Course Modules
             </h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Advanced modules covering the latest research in LLM development
-              and analysis
+              A structured learning path covering all aspects of LLM development
+              and optimization
             </p>
           </motion.div>
 
           <div className="space-y-6">
             {courseModules.map((module, index) => (
-              <CourseModuleCard key={index} module={module} index={index} />
+              <CourseModuleCard
+                key={index}
+                module={module}
+                index={index}
+                resources={module.resources}
+                details={module.details}
+              />
             ))}
           </div>
         </div>
-
-        {/* CTA Section */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-        >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Ready to Advance LLM Research?
-          </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">
-            Join our research-focused program and contribute to the next
-            generation of language models.
-          </p>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition-colors">
-            Apply Now
-          </button>
-        </motion.div>
       </div>
     </div>
   );

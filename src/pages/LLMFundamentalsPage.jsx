@@ -1,53 +1,26 @@
 import { motion } from "framer-motion";
 import CourseModuleCard from "../components/courses/CourseModuleCard";
+import { llmFundamentals } from "../components/courses/LLMFundamentals";
 
 const LLMFundamentalsPage = () => {
-  const courseModules = [
-    {
-      title: "Introduction to Large Language Models",
-      duration: "2 weeks",
-      description:
-        "Understand the fundamentals of LLMs, their architecture, and how they process and generate human-like text.",
-      topics: [
-        "What are LLMs",
-        "Transformer Architecture",
-        "Tokenization",
-        "Attention Mechanisms",
-      ],
-      prerequisites: "Basic understanding of machine learning concepts",
-    },
-    {
-      title: "Working with Pre-trained Models",
-      duration: "3 weeks",
-      description:
-        "Learn how to use and fine-tune pre-trained LLMs for various NLP tasks.",
-      topics: [
-        "Hugging Face Transformers",
-        "Model Fine-tuning",
-        "Prompt Engineering",
-        "Model Evaluation",
-      ],
-    },
-    {
-      title: "Deployment and Scaling",
-      duration: "2 weeks",
-      description:
-        "Techniques for deploying LLMs in production environments efficiently.",
-      topics: [
-        "Model Optimization",
-        "Quantization",
-        "Deployment Strategies",
-        "Monitoring",
-      ],
-    },
-    {
-      title: "Ethics and Best Practices",
-      duration: "1 week",
-      description:
-        "Understanding the ethical considerations and best practices when working with LLMs.",
-      topics: ["Bias in AI", "Responsible AI", "Model Cards", "Documentation"],
-    },
-  ];
+  // Transform the llmFundamentals data into the format expected by CourseModuleCard
+  const courseModules = llmFundamentals.sections.map((section) => ({
+    title: section.title,
+    // Calculate duration based on section content (1-2 weeks per section)
+    duration: section.topics.length > 3 ? "2 weeks" : "1 week",
+    description: section.description,
+    topics: section.topics.map((topic) => topic.name),
+    resources: section.resources || [],
+    details: section.topics.map((topic) => ({
+      name: topic.name,
+      description: topic.details,
+    })),
+  }));
+
+  // Calculate total duration based on all modules
+  const totalDuration = courseModules.reduce((total, module) => {
+    return total + (module.duration.includes("week") ? 1 : 0);
+  }, 0);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 py-12 px-4 sm:px-6">
@@ -79,32 +52,33 @@ const LLMFundamentalsPage = () => {
             Course Overview
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-6">
-            This course provides a comprehensive introduction to Large Language
-            Models, covering everything from their fundamental architecture to
-            practical implementation. You'll gain hands-on experience with
-            state-of-the-art models and learn how to deploy them effectively.
+            {llmFundamentals.intro} This comprehensive course covers the
+            essential knowledge about mathematics, Python, and neural networks
+            that form the foundation of Large Language Models. You'll gain
+            hands-on experience with fundamental concepts and build a strong
+            foundation for working with modern AI systems.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
               <h3 className="font-semibold text-blue-700 dark:text-blue-400">
                 Duration
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">8 Weeks</p>
+              <p className="text-gray-600 dark:text-gray-300">
+                {totalDuration} Week{totalDuration !== 1 ? "s" : ""}
+              </p>
             </div>
             <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
               <h3 className="font-semibold text-purple-700 dark:text-purple-400">
                 Level
               </h3>
-              <p className="text-gray-600 dark:text-gray-300">
-                Beginner to Intermediate
-              </p>
+              <p className="text-gray-600 dark:text-gray-300">Foundational</p>
             </div>
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
               <h3 className="font-semibold text-green-700 dark:text-green-400">
-                Projects
+                Sections
               </h3>
               <p className="text-gray-600 dark:text-gray-300">
-                3 Hands-on Projects
+                {llmFundamentals.sections.length} Comprehensive Sections
               </p>
             </div>
           </div>
@@ -129,7 +103,13 @@ const LLMFundamentalsPage = () => {
 
           <div className="space-y-6">
             {courseModules.map((module, index) => (
-              <CourseModuleCard key={index} module={module} index={index} />
+              <CourseModuleCard
+                key={index}
+                module={module}
+                index={index}
+                resources={module.resources}
+                details={module.details}
+              />
             ))}
           </div>
         </div>

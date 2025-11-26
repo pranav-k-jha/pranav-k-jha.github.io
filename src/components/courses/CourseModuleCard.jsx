@@ -1,6 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { FiChevronDown, FiExternalLink } from "react-icons/fi";
 
-const CourseModuleCard = ({ module, index }) => {
+const CourseModuleCard = ({ module, index, resources = [], details = [] }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <motion.div
       key={index}
@@ -28,32 +31,73 @@ const CourseModuleCard = ({ module, index }) => {
           {module.description}
         </p>
 
-        {module.topics && (
-          <div className="mt-4">
-            <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Topics Covered:
-            </h4>
-            <div className="flex flex-wrap gap-2">
-              {module.topics.map((topic, i) => (
-                <span
-                  key={i}
-                  className="px-2.5 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full"
-                >
-                  {topic}
-                </span>
-              ))}
-            </div>
+        <div className="mt-4">
+          <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            Topics Covered:
+          </h4>
+          <div className="space-y-2">
+            {details.map((topic, i) => (
+              <div
+                key={i}
+                className="border-b border-gray-100 dark:border-gray-700 pb-2"
+              >
+                <div className="font-medium text-gray-800 dark:text-gray-200">
+                  {topic.name}
+                </div>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  {topic.description}
+                </p>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
 
-        {module.prerequisites && (
-          <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
-            <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Prerequisites:
-            </h4>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {module.prerequisites}
-            </p>
+        {resources.length > 0 && (
+          <div className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="flex items-center text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition-colors"
+            >
+              {isExpanded ? "Hide" : "Show"} Resources
+              <FiChevronDown
+                className={`ml-1 transition-transform ${
+                  isExpanded ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+
+            <AnimatePresence>
+              {isExpanded && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="overflow-hidden"
+                >
+                  <div className="mt-3 space-y-2">
+                    <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                      Recommended Resources:
+                    </h4>
+                    <ul className="space-y-2">
+                      {resources.map((resource, i) => (
+                        <li key={i} className="text-sm">
+                          <a
+                            href={resource.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center text-blue-600 dark:text-blue-400 hover:underline"
+                          >
+                            {resource.name}
+                            <FiExternalLink className="ml-1 w-3 h-3" />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         )}
       </div>

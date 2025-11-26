@@ -1,34 +1,81 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { FiGithub, FiExternalLink, FiPlay, FiCalendar } from "react-icons/fi";
-import { Link } from "react-router-dom";
+
+// Animation variants
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.1,
+      duration: 0.5,
+      ease: [0.25, 0.1, 0.25, 1],
+      when: "beforeChildren",
+      staggerChildren: 0.1,
+    },
+  }),
+  exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+};
+
+const contentVariants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
 
 const ProjectCard = ({ project, index }) => {
   return (
-    <motion.div
+    <motion.article
       className={`group relative flex flex-col ${
         index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
       } items-center gap-8 mb-24 last:mb-0`}
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -30 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      custom={index % 5} // Stagger based on index
       layout
     >
       {/* Image */}
-      <div className="w-full md:w-1/2 relative">
+      <motion.div
+        className="w-full md:w-1/2 relative"
+        variants={contentVariants}
+      >
         <motion.div
-          whileHover={{ scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          className="overflow-hidden rounded-xl shadow-xl relative group"
+          whileHover={{
+            scale: 1.02,
+            boxShadow:
+              "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+          }}
+          whileTap={{ scale: 0.98 }}
+          transition={{
+            type: "spring",
+            stiffness: 300,
+            damping: 15,
+          }}
+          className="overflow-hidden rounded-2xl shadow-lg relative group bg-gray-50 dark:bg-gray-800"
         >
-          <div className="relative w-full h-64 md:h-80">
-            <img
+          <motion.div
+            className="relative w-full h-64 md:h-80 overflow-hidden"
+            whileHover={{
+              scale: 1.05,
+              transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+            }}
+          >
+            <motion.img
               src={project.imageUrl}
               alt={project.title}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              className="w-full h-full object-cover"
               loading={index < 3 ? "eager" : "lazy"}
+              initial={{ scale: 1.1 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
             />
-          </div>
+          </motion.div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
             <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-300 space-y-3">
               <h3 className="text-xl font-bold text-white">{project.title}</h3>
@@ -63,11 +110,16 @@ const ProjectCard = ({ project, index }) => {
         <span className="absolute -top-3 right-4 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-xs font-medium px-3 py-1 rounded-full shadow-md z-10">
           {project.category.charAt(0).toUpperCase() + project.category.slice(1)}
         </span>
-      </div>
+      </motion.div>
 
       {/* Content */}
-      <div className="w-full md:w-1/2">
-        <div className={`${index % 2 === 0 ? "md:pl-8" : "md:pr-8"}`}>
+      <motion.div className="w-full md:w-1/2" variants={contentVariants}>
+        <motion.div
+          className={`${index % 2 === 0 ? "md:pl-8" : "md:pr-8"}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
             {project.title}
           </h3>
@@ -142,9 +194,9 @@ const ProjectCard = ({ project, index }) => {
               </a>
             )}
           </div>
-        </div>
-      </div>
-    </motion.div>
+        </motion.div>
+      </motion.div>
+    </motion.article>
   );
 };
 

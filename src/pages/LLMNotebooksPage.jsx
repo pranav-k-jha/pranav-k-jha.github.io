@@ -105,7 +105,7 @@ NotebookCard.displayName = "NotebookCard";
 
 const NotebookSection = React.memo(({ title, notebooks, emoji }) => {
   return (
-    <section className="scroll-mt-20 py-8">
+    <section className="scroll-mt-20 pt-8 pb-20">
       <div className="flex items-center gap-4 mb-8">
         <span className="text-4xl">{emoji}</span>
         <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">

@@ -17,14 +17,14 @@ export const navigationConfig = {
       href: "/services",
     },
     {
-      title: "LLM",
-      href: "/llm-course",
+      title: "RAG",
+      href: "/rag",
     },
   ],
   moreNav: [
     {
-      title: "RAG",
-      href: "/rag",
+      title: "LLM",
+      href: "/llm-course",
     },
     {
       title: "BLOG",

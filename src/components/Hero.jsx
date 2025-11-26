@@ -194,7 +194,7 @@ const Hero = () => {
               </Link>
 
               <Link
-                to="/rag"
+                to="/llm-course"
                 className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500"
@@ -202,7 +202,7 @@ const Hero = () => {
                 }`}
               >
                 <span className="relative z-10 flex items-center justify-center">
-                  Explore RAG
+                  Explore LLM Courses
                   <svg
                     className="w-4 h-4 ml-1.5 group-hover:translate-x-0.5 transition-transform"
                     fill="none"

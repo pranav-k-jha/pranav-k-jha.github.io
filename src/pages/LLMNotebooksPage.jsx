@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
+
 import {
   llmTools,
   llmFineTuning,
@@ -9,7 +9,13 @@ import {
   llmOther,
 } from "../components/courses/LLM Notebooks";
 
-import { FiExternalLink, FiGithub } from "react-icons/fi";
+import {
+  FiExternalLink,
+  FiGithub,
+  FiArrowLeft,
+  FiBookOpen,
+} from "react-icons/fi";
+import { courseAttribution } from "../data/llmCourseModules";
 
 const container = {
   hidden: { opacity: 1 },
@@ -67,6 +73,7 @@ const NotebookCard = React.memo(({ notebook }) => {
           <div className="flex flex-wrap gap-3 mt-auto">
             {notebook.colab && (
               <span className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-emerald-600 text-white text-sm font-medium rounded-lg">
+                <FiBookOpen className="w-4 h-4" />
                 <svg
                   className="w-4 h-4"
                   viewBox="0 0 24 24"
@@ -177,6 +184,72 @@ const LLMNotebooksPage = () => {
           </div>
         </div>
 
+        {/* Attribution Section */}
+        <motion.div
+          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <motion.p
+              className="text-gray-700 dark:text-gray-300 mb-4"
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+            >
+              <span className="font-medium">Note:</span> These notebooks are
+              based on the excellent work by{" "}
+              <a
+                href="https://www.linkedin.com/in/maxime-labonne/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                {courseAttribution.author}
+              </a>
+              . The notebooks are available under the{" "}
+              <a
+                href="https://github.com/mlabonne/llm-course/blob/main/LICENSE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline"
+              >
+                {courseAttribution.license}
+              </a>{" "}
+              and provide hands-on examples for working with LLMs.
+            </motion.p>
+
+            <motion.div className="flex flex-wrap gap-4 mt-5">
+              <motion.a
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                href={courseAttribution.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white 
+                 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-600 hover:to-blue-800 hover:text-white
+                 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition shadow-md hover:shadow-lg"
+              >
+                <FiGithub className="mr-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                View Notebooks on GitHub
+                <svg
+                  className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </motion.a>
+            </motion.div>
+          </div>
+        </motion.div>
         {/* Sections */}
         <div className="space-y-8">
           <NotebookSection title="LLM Tools" notebooks={llmTools} emoji="🔧" />

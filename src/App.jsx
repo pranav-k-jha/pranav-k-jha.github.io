@@ -5,7 +5,6 @@ import Hero from "./components/Hero";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
 import AIDomains from "./components/AIDomains";
-import Experience from "./components/Experience";
 import BentoDemo from "./components/bento-features";
 import ScrollToTop from "./components/ScrollToTop";
 import Projects from "./pages/Projects";
@@ -17,6 +16,7 @@ import LLMFundamentalsPage from "./pages/LLMFundamentalsPage";
 import LLMScientistPage from "./pages/LLMScientistPage";
 import LLMEngineerPage from "./pages/LLMEngineerPage";
 import LLMNotebooksPage from "./pages/LLMNotebooksPage";
+import LLMTwinCoursePage from "./pages/LLMTwinCoursePage";
 
 // Lazy-loaded pages
 const About = lazy(() => import("./components/About"));
@@ -115,6 +115,7 @@ function App() {
             <Route path="/llm-scientist" element={<LLMScientistPage />} />
             <Route path="/llm-engineer" element={<LLMEngineerPage />} />
             <Route path="/llm-notebooks" element={<LLMNotebooksPage />} />
+            <Route path="/llm-twin-course" element={<LLMTwinCoursePage />} />
           </Routes>
         </Suspense>
       </main>

@@ -199,7 +199,7 @@ const LLMNotebooksPage = () => {
               transition={{ delay: 0.1, duration: 0.5 }}
             >
               <span className="font-medium">Note:</span> These notebooks are
-              based on the excellent work by{" "}
+              based on the work of{" "}
               <a
                 href="https://www.linkedin.com/in/maxime-labonne/"
                 target="_blank"

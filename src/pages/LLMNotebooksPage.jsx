@@ -78,7 +78,7 @@ const NotebookCard = React.memo(({ notebook }) => {
               </span>
             )}
             {notebook.github && (
-              <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 text-white text-sm font-medium rounded-lg">
+              <span className="inline-flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gradient-to-r hover:from-gray-700 hover:to-gray-900 text-white hover:text-white text-sm font-medium rounded-lg transition-colors">
                 <FiGithub className="w-4 h-4" />
                 GitHub
               </span>

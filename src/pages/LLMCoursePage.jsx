@@ -230,11 +230,27 @@ const LLMCoursePage = () => {
                 href={courseAttribution.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                className="group inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white 
+             bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-600 hover:to-blue-800 hover:text-white
+             focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition shadow-md hover:shadow-lg"
               >
-                <FiGithub className="mr-2 h-4 w-4" />
+                <FiGithub className="mr-2 h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                 View on GitHub
+                <svg
+                  className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
               </motion.a>
+
               <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
@@ -457,7 +473,7 @@ const LLMCoursePage = () => {
           </p>
           <Link
             to="/llm-notebooks"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white hover:text-white rounded-lg font-medium transition-colors"
           >
             Explore LLM Notebooks
             <svg

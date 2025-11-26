@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { FiArrowLeft } from "react-icons/fi";
+import { FiArrowLeft, FiExternalLink } from "react-icons/fi";
 import CourseModuleCard from "./CourseModuleCard";
 
 const CoursePageTemplate = ({ courseData }) => {
@@ -121,6 +121,60 @@ const CoursePageTemplate = ({ courseData }) => {
             ))}
           </div>
         </div>
+
+        {/* Acknowledgements Section */}
+        {/* Original Author's Note */}
+        <motion.div
+          className="mt-16 p-6 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400 dark:border-blue-600"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <h3 className="text-lg font-semibold text-blue-800 dark:text-blue-200 mb-2">
+            Note from the Original Author
+          </h3>
+          <p className="text-blue-700 dark:text-blue-300 text-sm mb-3">
+            The following acknowledgments are from the original author of this
+            learning path:
+          </p>
+          <div className="bg-white dark:bg-gray-800/50 p-4 rounded-lg">
+            <p className="text-gray-700 dark:text-gray-300 text-sm mb-3">
+              This roadmap was inspired by the excellent{" "}
+              <a
+                href="https://github.com/milanm/DevOps-Roadmap"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center"
+              >
+                DevOps Roadmap <FiExternalLink className="ml-1" size={14} />
+              </a>{" "}
+              from Milan Milanović and Romano Roth.
+            </p>
+            <p className="text-gray-700 dark:text-gray-300 text-sm mb-3">
+              Special thanks to:
+            </p>
+            <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 text-sm space-y-1 pl-4">
+              <li>Thomas Thelen for motivating me to create a roadmap</li>
+              <li>André Frade for his input and review of the first draft</li>
+              <li>Dino Dunn for providing resources about LLM security</li>
+              <li>Magdalena Kuhn for improving the "human evaluation" part</li>
+              <li>
+                Odoverdose for suggesting 3Blue1Brown's video about Transformers
+              </li>
+              <li>
+                Everyone who contributed to the educational references in this
+                course :)
+              </li>
+            </ul>
+            <p className="text-gray-700 dark:text-gray-300 text-sm mt-3 italic">
+              Disclaimer: I am not affiliated with any sources listed here.
+            </p>
+          </div>
+          <p className="text-blue-700 dark:text-blue-300 text-xs mt-3 italic">
+            This note is included to properly credit the original authors and
+            contributors of this learning path.
+          </p>
+        </motion.div>
       </div>
     </div>
   );

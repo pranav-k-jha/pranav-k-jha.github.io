@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   FiChevronDown,
   FiExternalLink,
   FiGithub,
   FiBookOpen,
+  FiArrowRight,
 } from "react-icons/fi";
 import { llmCourseModules, courseAttribution } from "../data/llmCourseModules";
 
@@ -243,133 +244,201 @@ const LLMCoursePage = () => {
                 className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
                 <FiBookOpen className="mr-2 h-4 w-4" />
-                {courseAttribution.book.title}
+                View Book
               </motion.a>
             </motion.div>
           </div>
         </motion.div>
 
         {/* Course Modules Section */}
-        <div className="space-y-6">
-          <motion.div
-            className="text-center mb-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-          >
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              Course Modules
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              A structured learning path from LLM fundamentals to advanced
-              applications.
-            </p>
-          </motion.div>
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+        >
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Course Modules
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+            A structured learning path from LLM fundamentals to advanced
+            applications.
+          </p>
+        </motion.div>
 
-          <div className="space-y-4">
-            {llmCourseModules.map((module, index) => (
-              <motion.div
-                key={index}
-                className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-200 dark:border-gray-700"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * index }}
+        {/* Course Cards Section */}
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+        >
+          {/* Fundamentals Card */}
+          <Link to="/llm-fundamentals" className="group block h-full">
+            <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    LLM Fundamentals
+                  </h3>
+                  <FiArrowRight className="text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Master the core concepts and practical applications of Large
+                  Language Models
+                </p>
+                <div className="flex items-center text-sm text-blue-600 dark:text-blue-400 font-medium">
+                  <span>Start Learning</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Scientist Card */}
+          <Link to="/llm-scientist" className="group block h-full">
+            <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    LLM Scientist
+                  </h3>
+                  <FiArrowRight className="text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Advanced techniques and research in Large Language Models for
+                  AI researchers
+                </p>
+                <div className="flex items-center text-sm text-purple-600 dark:text-purple-400 font-medium">
+                  <span>Explore Research</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Engineer Card */}
+          <Link to="/llm-engineer" className="group block h-full">
+            <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                    LLM Engineer
+                  </h3>
+                  <FiArrowRight className="text-green-600 dark:text-green-400 group-hover:translate-x-1 transition-transform" />
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Build and deploy production-grade LLM applications at scale
+                </p>
+                <div className="flex items-center text-sm text-green-600 dark:text-green-400 font-medium">
+                  <span>Start Building</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </motion.div>
+
+        <div className="space-y-4">
+          {llmCourseModules.map((module, index) => (
+            <motion.div
+              key={index}
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden border border-gray-200 dark:border-gray-700"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 * index }}
+            >
+              <button
+                className={`w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none transition-colors ${
+                  expandedModule === index
+                    ? "bg-gray-50 dark:bg-gray-800/50"
+                    : "hover:bg-gray-50 dark:hover:bg-gray-800/30"
+                }`}
+                onClick={() => toggleModule(index)}
               >
-                <button
-                  className={`w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none transition-colors ${
-                    expandedModule === index
-                      ? "bg-gray-50 dark:bg-gray-800/50"
-                      : "hover:bg-gray-50 dark:hover:bg-gray-800/30"
-                  }`}
-                  onClick={() => toggleModule(index)}
-                >
-                  <div className="flex items-center space-x-4">
-                    <div
-                      className={`p-2 rounded-lg transition-colors ${
-                        expandedModule === index
-                          ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400"
-                          : "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
-                      }`}
-                    >
-                      {module.icon}
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                        {module.title}
-                      </h3>
-                      <p className="text-sm text-gray-500 dark:text-gray-400">
-                        {module.description}
-                      </p>
-                    </div>
-                  </div>
-                  <motion.div
-                    animate={{
-                      rotate: expandedModule === index ? 180 : 0,
-                    }}
-                    transition={{ duration: 0.3 }}
+                <div className="flex items-center space-x-4">
+                  <div
+                    className={`p-2 rounded-lg transition-colors ${
+                      expandedModule === index
+                        ? "bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400"
+                        : "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                    }`}
                   >
-                    <FiChevronDown className="w-5 h-5 text-gray-400" />
-                  </motion.div>
-                </button>
+                    {module.icon}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      {module.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {module.description}
+                    </p>
+                  </div>
+                </div>
+                <motion.div
+                  animate={{
+                    rotate: expandedModule === index ? 180 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FiChevronDown className="w-5 h-5 text-gray-400" />
+                </motion.div>
+              </button>
 
-                <AnimatePresence>
-                  {expandedModule === index && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-6 pt-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/30 dark:bg-gray-800/30">
-                        <p className="text-gray-700 dark:text-gray-300 mb-4">
-                          {module.overview}
-                        </p>
+              <AnimatePresence>
+                {expandedModule === index && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    className="overflow-hidden"
+                  >
+                    <div className="px-6 pb-6 pt-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50/30 dark:bg-gray-800/30">
+                      <p className="text-gray-700 dark:text-gray-300 mb-4">
+                        {module.overview}
+                      </p>
 
-                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
-                          {module.topics.map((topic, topicIndex) => (
-                            <div
-                              key={topicIndex}
-                              className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700"
-                            >
-                              <h4 className="font-medium text-gray-900 dark:text-white mb-3">
-                                {topic.title}
-                              </h4>
-                              <ul className="space-y-2">
-                                {topic.content.map((item, itemIndex) => (
-                                  <li
-                                    key={itemIndex}
-                                    className="flex items-start"
+                      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+                        {module.topics.map((topic, topicIndex) => (
+                          <div
+                            key={topicIndex}
+                            className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-sm border border-gray-100 dark:border-gray-700"
+                          >
+                            <h4 className="font-medium text-gray-900 dark:text-white mb-3">
+                              {topic.title}
+                            </h4>
+                            <ul className="space-y-2">
+                              {topic.content.map((item, itemIndex) => (
+                                <li
+                                  key={itemIndex}
+                                  className="flex items-start"
+                                >
+                                  <svg
+                                    className="h-5 w-5 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
                                   >
-                                    <svg
-                                      className="h-5 w-5 text-green-500 dark:text-green-400 mr-2 mt-0.5 flex-shrink-0"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M5 13l4 4L19 7"
-                                      />
-                                    </svg>
-                                    <span className="text-gray-600 dark:text-gray-300 text-sm">
-                                      {item}
-                                    </span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
-                        </div>
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      strokeWidth={2}
+                                      d="M5 13l4 4L19 7"
+                                    />
+                                  </svg>
+                                  <span className="text-gray-600 dark:text-gray-300 text-sm">
+                                    {item}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ))}
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
-          </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>

@@ -27,12 +27,12 @@ export const navigationConfig = {
       href: "/llm-course",
     },
     {
-      title: "LLM TWIN COURSE",
-      href: "/llm-twin-course",
-    },
-    {
       title: "LLM NOTEBOOKS",
       href: "/llm-notebooks",
+    },
+    {
+      title: "LLM TWIN COURSE",
+      href: "/llm-twin-course",
     },
     {
       title: "BLOG",

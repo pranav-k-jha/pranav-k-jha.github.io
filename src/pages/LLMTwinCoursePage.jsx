@@ -7,7 +7,6 @@ import { courseAttribution } from "../data/llmTwinModules";
 import llmTwinCourse from "../components/courses/LLMTwinCourse";
 
 const LLMTwinCoursePage = () => {
-  const [expandedModule, setExpandedModule] = useState(null);
   const location = useLocation();
 
   // Restore scroll position on component mount
@@ -59,8 +58,9 @@ const LLMTwinCoursePage = () => {
               writes like you.
             </p>
           </motion.div>
+
           {/* Attribution */}
-          <motion.div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4 mt-16">
+          <motion.div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4 mt-20">
             <div className="w-full">
               <motion.p
                 className="text-gray-700 dark:text-gray-300 text-center whitespace-nowrap overflow-hidden text-ellipsis"

@@ -16,10 +16,6 @@ const LLMTwinCoursePage = () => {
     }
   }, [location]);
 
-  const toggleModule = (index) => {
-    setExpandedModule(expandedModule === index ? null : index);
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <div className="max-w-7xl my-20 mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -58,81 +54,112 @@ const LLMTwinCoursePage = () => {
             <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
               Learn to architect and implement a production-ready LLM & RAG
               system by building your LLM Twin. From data gathering to
-              productionizing LLMs using LLMOps good practices.
+              deployment, master the entire pipeline of creating an AI that
+              writes like you.
             </p>
           </motion.div>
+          {/* Attribution */}
+          <motion.div
+            className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mt-16"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+          >
+            <div className="max-w-4xl mx-auto">
+              <motion.p
+                className="text-gray-700 dark:text-gray-300 mb-4"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6, duration: 0.5 }}
+              >
+                <span className="font-medium">Note:</span> This course is based
+                on the work of{" "}
+                <a
+                  href={courseAttribution.authorUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {courseAttribution.author}
+                </a>
+                . The course materials are available under the{" "}
+                <a
+                  href={courseAttribution.licenseUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline"
+                >
+                  {courseAttribution.license}
+                </a>
+                .
+              </motion.p>
+            </div>
+          </motion.div>
+
+          {/* Course Description */}
+          <motion.div
+            className="w-full mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
+              <div className="p-6 md:p-8 space-y-8">
+                <div className="space-y-6">
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+                      <span className="mr-2">🎯</span> What you'll learn
+                    </h3>
+                    <div className="space-y-4 text-gray-700 dark:text-gray-300">
+                      <p>
+                        By finishing the "LLM Twin: Building Your
+                        Production-Ready AI Replica" free course, you will learn
+                        how to design, train, and deploy a production-ready LLM
+                        twin of yourself powered by LLMs, vector DBs, and LLMOps
+                        good practices.
+                      </p>
+                      <p className="font-medium text-blue-600 dark:text-blue-400">
+                        No more isolated scripts or Notebooks! Learn production
+                        ML by building and deploying an end-to-end
+                        production-grade LLM system.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="h-px bg-gray-100 dark:bg-gray-700"></div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+                      <span className="mr-2">📖</span> About this course
+                    </h3>
+                    <div className="space-y-4 text-gray-700 dark:text-gray-300">
+                      <p>
+                        You will learn how to architect and build a real-world
+                        LLM system from start to finish — from data collection
+                        to deployment.
+                      </p>
+                      <p>
+                        You will also learn to leverage MLOps best practices,
+                        such as experiment trackers, model registries, prompt
+                        monitoring, and versioning.
+                      </p>
+                      <p className="font-medium">
+                        The end goal? Build and deploy your own LLM twin.
+                      </p>
+                      <div className="bg-blue-50 dark:bg-blue-900/20 border-l-4 border-blue-500 p-4 rounded-r">
+                        <p className="text-blue-700 dark:text-blue-300 font-medium">
+                          What is an LLM Twin? It is an AI character that learns
+                          to write like somebody by incorporating its style and
+                          personality into an LLM.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-
-        {/* Attribution */}
-        <motion.div
-          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.5 }}
-        >
-          <div className="max-w-4xl mx-auto">
-            <motion.p
-              className="text-gray-700 dark:text-gray-300 mb-4"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-            >
-              <span className="font-medium">Note:</span> This course is based on
-              the work of{" "}
-              <a
-                href={courseAttribution.authorUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                {courseAttribution.author}
-              </a>
-              . The course materials are available under the{" "}
-              <a
-                href={courseAttribution.licenseUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
-              >
-                {courseAttribution.license}
-              </a>
-              .
-            </motion.p>
-          </div>
-        </motion.div>
-
-        {/* Under Development Banner */}
-        <motion.div
-          className="mt-12 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-6 rounded-lg shadow-lg max-w-4xl mx-auto"
-          role="alert"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6, duration: 0.5 }}
-        >
-          <div className="flex items-start">
-            <div className="flex-shrink-0">
-              <svg
-                className="h-6 w-6 text-yellow-500"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </div>
-            <div className="ml-3">
-              <p className="font-medium">Under Development</p>
-              <p className="text-sm mt-1">
-                This page is currently under development. Content may be
-                incomplete or subject to change.
-              </p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </div>
   );

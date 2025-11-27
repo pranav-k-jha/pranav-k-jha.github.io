@@ -30,10 +30,10 @@ export const navigationConfig = {
       title: "LLM TWIN COURSE",
       href: "/llm-twin-course",
     },
-    {
-      title: "LLM NOTEBOOKS",
-      href: "/llm-notebooks",
-    },
+    // {
+    //   title: "LLM NOTEBOOKS",
+    //   href: "/llm-notebooks",
+    // },
     {
       title: "BLOG",
       href: "/blog",

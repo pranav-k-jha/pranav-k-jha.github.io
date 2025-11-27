@@ -492,7 +492,7 @@ const LLMCoursePage = () => {
               </svg>
             </Link>
             <a
-              href="https://github.com/pranav-k-jha/llm-twin-course/edit/main/README.md"
+              href="https://github.com/pranav-k-jha/llm-twin-course"
               className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white hover:text-white rounded-lg font-medium transition-colors"
             >
               Explore LLM Twin Course

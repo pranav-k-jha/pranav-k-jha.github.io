@@ -471,25 +471,46 @@ const LLMCoursePage = () => {
             A collection of Jupyter notebooks and articles about LLMs, covering
             fine-tuning, quantization, and deployment.
           </p>
-          <Link
-            to="/llm-notebooks"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white hover:text-white rounded-lg font-medium transition-colors"
-          >
-            Explore LLM Notebooks
-            <svg
-              className="w-4 h-4 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+          <div className="flex flex-col space-y-4 md:space-y-0 md:space-x-4 md:flex-row justify-center mt-6">
+            <Link
+              to="/llm-notebooks"
+              className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white hover:text-white rounded-lg font-medium transition-colors"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M14 5l7 7m0 0l-7 7m7-7H3"
-              />
-            </svg>
-          </Link>
+              Explore LLM Notebooks
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </Link>
+            <a
+              href="https://github.com/pranav-k-jha/llm-twin-course/edit/main/README.md"
+              className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white hover:text-white rounded-lg font-medium transition-colors"
+            >
+              Explore LLM Twin Course
+              <svg
+                className="w-4 h-4 ml-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
+              </svg>
+            </a>
+          </div>
         </div>
       </motion.div>
     </div>

@@ -315,38 +315,79 @@ const Navbar = memo(function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden overflow-hidden"
+            transition={{ duration: 0.3, ease: [0.32, 0.72, 0, 1] }}
+            className="lg:hidden overflow-hidden bg-white dark:bg-gray-900 shadow-xl border-t border-gray-100 dark:border-gray-800"
           >
-            <div className="pt-2 pb-3 space-y-1 bg-white dark:bg-gray-900 shadow-lg">
-              {navigationConfig.mainNav.map((item) => (
-                <Link
+            <div className="px-4 py-2 space-y-1">
+              {navigationConfig.mainNav.map((item, index) => (
+                <motion.div
                   key={item.href}
-                  to={item.href}
-                  onClick={toggleMobileMenu}
-                  className={`block px-4 py-3 text-base font-medium ${
-                    isActiveLink(item.href)
-                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }`}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{
+                    delay: 0.1 + index * 0.05,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
                 >
-                  {item.title}
-                </Link>
+                  <Link
+                    to={item.href}
+                    onClick={toggleMobileMenu}
+                    className={`block px-4 py-3.5 rounded-lg text-base font-medium transition-colors duration-200 ${
+                      isActiveLink(item.href)
+                        ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                        : "text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                </motion.div>
               ))}
-              {navigationConfig.moreNav.map((item) => (
-                <Link
+
+              <div className="border-t border-gray-100 dark:border-gray-800 my-2"></div>
+
+              {navigationConfig.moreNav.map((item, index) => (
+                <motion.div
                   key={item.href}
-                  to={item.href}
-                  onClick={toggleMobileMenu}
-                  className={`block px-4 py-3 text-base font-medium ${
-                    isActiveLink(item.href)
-                      ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
-                      : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  }`}
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{
+                    delay:
+                      0.1 + (navigationConfig.mainNav.length + index) * 0.05,
+                    duration: 0.3,
+                    ease: "easeOut",
+                  }}
                 >
-                  {item.title}
-                </Link>
+                  <Link
+                    to={item.href}
+                    onClick={toggleMobileMenu}
+                    className={`block px-4 py-3.5 rounded-lg text-base font-medium transition-colors duration-200 ${
+                      isActiveLink(item.href)
+                        ? "bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400"
+                        : "text-gray-800 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800/70"
+                    }`}
+                  >
+                    {item.title}
+                  </Link>
+                </motion.div>
               ))}
+
+              {/* Social Links */}
+              <div className="flex items-center justify-center space-x-4 py-4">
+                {socialLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                    aria-label={link.name}
+                  >
+                    <span className="sr-only">{link.name}</span>
+                    <link.icon className="h-5 w-5" />
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
         )}

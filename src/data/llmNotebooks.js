@@ -1,5 +1,3 @@
-import { FiExternalLink, FiGithub } from "react-icons/fi";
-
 export const llmNotebooks = {
   tools: [
     {

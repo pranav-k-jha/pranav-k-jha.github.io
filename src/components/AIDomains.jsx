@@ -67,20 +67,20 @@ const AIDomains = () => {
   return (
     <section
       id="ai-domains"
-      className="max-w-7xl mx-auto py-20 bg-transparent dark:bg-gray-900 overflow-x-hidden"
+      className="w-full bg-transparent dark:bg-gray-900 overflow-x-hidden py-16 sm:py-20"
     >
-      <div className="container mx-auto px-6">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-12 sm:mb-16"
         >
-          <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 text-gray-900 dark:text-white">
             AI <span className="font-bold">Domains</span>
           </h2>
-          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
             Specialized expertise in large language models, AI infrastructure,
             and cutting-edge machine learning technologies.
           </p>
@@ -88,7 +88,7 @@ const AIDomains = () => {
 
         {/* Services grid with optimized staggered animations */}
         <motion.div
-          className="grid md:grid-cols-4 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5"
           variants={container}
           initial="hidden"
           whileInView="visible"
@@ -107,20 +107,20 @@ const AIDomains = () => {
                 },
               }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 hover:border-blue-600 dark:hover:border-blue-400 rounded-2xl p-6 transition-colors duration-300 ease-in-out"
+              className="h-full bg-white dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 hover:border-blue-600 dark:hover:border-blue-400 rounded-xl sm:rounded-2xl p-4 sm:p-5 transition-colors duration-300 ease-in-out"
             >
               {/* Service icon */}
               <motion.div
-                className="mb-4 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"
+                className="mb-3 w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <domain.icon className="w-6 h-6 text-blue-600 dark:text-blue-300" />
+                <domain.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-300" />
               </motion.div>
-              <h3 className="text-xl font-semibold mb-2 tracking-tight text-gray-900 dark:text-white">
+              <h3 className="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2 tracking-tight text-gray-900 dark:text-white">
                 {domain.title}
               </h3>
-              <p className="text-gray-700 dark:text-gray-400 text-sm mb-4">
+              <p className="text-gray-700 dark:text-gray-400 text-xs sm:text-sm">
                 {domain.description}
               </p>
             </motion.div>

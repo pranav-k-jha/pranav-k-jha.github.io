@@ -31,7 +31,7 @@ const BentoCard = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.6, delay, ease: [0.25, 0.1, 0.25, 1] }}
-      className={`relative overflow-hidden rounded-2xl p-6 h-full flex flex-col justify-between border border-gray-200 dark:border-gray-700 ${className}`}
+      className={`relative overflow-hidden rounded-xl sm:rounded-2xl p-4 sm:p-5 h-full flex flex-col justify-between border border-gray-200 dark:border-gray-700 ${className}`}
       whileHover={
         prefersReducedMotion
           ? {}
@@ -68,7 +68,7 @@ const BentoCard = ({
 
       <div className="relative z-10">
         <motion.div
-          className="w-12 h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center mb-4"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center mb-3 sm:mb-4"
           whileHover={
             prefersReducedMotion
               ? {}
@@ -78,12 +78,12 @@ const BentoCard = ({
                 }
           }
         >
-          <Icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" />
         </motion.div>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1.5 sm:mb-2">
           {name}
         </h3>
-        <p className="text-gray-600 dark:text-gray-300 text-sm">
+        <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm">
           {description}
         </p>
       </div>
@@ -155,29 +155,31 @@ export function BentoDemo() {
   return (
     <section
       id="projects"
-      className="w-full px-6 md:px-12 py-20 bg-slate-50 dark:bg-black"
+      className="w-full py-16 sm:py-20 bg-slate-50 dark:bg-black"
     >
-      <motion.div
-        className="mx-auto flex flex-col items-center space-y-4 text-center mb-16"
-        initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-      >
-        <h2 className="text-3xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
-          Projects <span className="font-bold">I am interested in</span>
-        </h2>
-        <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto">
-          Exploring the intersection of AI, machine learning, and scalable
-          systems to solve complex problems and drive innovation.
-        </p>
-      </motion.div>
-      {/* Bento grid component for project showcase */}
-      <BentoGrid className="lg:grid-rows-3 max-w-7xl mx-auto">
-        {projects.map((project, index) => (
-          <BentoCard key={project.name} {...project} delay={index * 0.1} />
-        ))}
-      </BentoGrid>
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6">
+        <motion.div
+          className="mx-auto flex flex-col items-center space-y-3 sm:space-y-4 text-center mb-12 sm:mb-16"
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+        >
+          <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 text-gray-900 dark:text-white">
+            Projects <span className="font-bold">I am interested in</span>
+          </h2>
+          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-sm sm:text-base">
+            Exploring the intersection of AI, machine learning, and scalable
+            systems to solve complex problems and drive innovation.
+          </p>
+        </motion.div>
+        {/* Bento grid component for project showcase */}
+        <BentoGrid className="lg:grid-rows-3">
+          {projects.map((project, index) => (
+            <BentoCard key={project.name} {...project} delay={index * 0.1} />
+          ))}
+        </BentoGrid>
+      </div>
     </section>
   );
 }

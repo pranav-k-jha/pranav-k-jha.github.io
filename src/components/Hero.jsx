@@ -162,7 +162,6 @@ const Hero = () => {
             </motion.p>
 
             {/* CTA Buttons */}
-            {/* CTA Buttons */}
             <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4"
               variants={animationVariants.fadeInUp}
@@ -517,7 +516,7 @@ const Hero = () => {
           src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=100&section=footer"
           alt="Wave divider"
           className="w-full h-auto"
-          style={{ transform: "translateY(1px)" }} // Fixes small gap at bottom
+          style={{ transform: "translateY(1px)" }}
         />
       </div>
     </motion.section>

@@ -46,17 +46,17 @@ const BentoCard = ({ Icon, title, children, className = "", delay = 0 }) => {
     >
       <div className="flex items-center mb-2">
         {Icon && (
-          <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mr-2">
-            <Icon className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+          <div className="w-7 h-7 rounded-lg bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center mr-2">
+            <Icon className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
           </div>
         )}
         {title && (
-          <h3 className="text-base font-semibold text-gray-800 dark:text-white">
+          <h3 className="text-sm sm:text-base font-semibold text-gray-800 dark:text-white">
             {title}
           </h3>
         )}
       </div>
-      <div className="relative z-10 text-sm">{children}</div>
+      <div className="relative z-10 text-xs sm:text-sm">{children}</div>
     </motion.div>
   );
 };
@@ -79,7 +79,7 @@ const About = () => {
       id="about"
       className="py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
     >
-      <div className="container max-w-7xl mx-auto px-6 md:px-12">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -88,10 +88,10 @@ const About = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-light tracking-tight mb-3 text-gray-900 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 text-gray-900 dark:text-white">
             About <span className="font-bold">Me</span>
           </h2>
-          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-sm">
+          <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto text-xs sm:text-sm">
             I design and implement AI solutions that bridge the gap between
             research and enterprise applications, with a focus on practical,
             scalable implementations.
@@ -99,7 +99,7 @@ const About = () => {
         </motion.div>
 
         {/* Bento Grid: 5 Clean Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 auto-rows-auto">
           {/* 1. AI Solutions Architect */}
           <BentoCard
             Icon={Brain}
@@ -107,7 +107,7 @@ const About = () => {
             className="lg:col-span-2 lg:row-span-2"
             delay={0.1}
           >
-            <p className="text-gray-800 dark:text-gray-100 text-sm leading-relaxed mb-4 font-medium">
+            <p className="text-gray-800 dark:text-gray-100 text-xs sm:text-sm leading-relaxed mb-3 font-medium">
               Specializing in{" "}
               <span className="font-semibold text-blue-700 dark:text-blue-400">
                 LLMs
@@ -124,12 +124,12 @@ const About = () => {
               production-grade AI architectures.
             </p>
 
-            <div className="p-4 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50 shadow-sm">
-              <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center">
+            <div className="p-3 sm:p-4 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50 shadow-sm">
+              <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center">
                 <Target className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-400" />
                 Current Focus
               </h4>
-              <div className="space-y-3 text-sm">
+              <div className="space-y-2 text-xs sm:text-sm">
                 <p className="flex items-start">
                   <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-full mt-1 mr-2 flex-shrink-0"></span>
                   <span className="text-gray-900 dark:text-gray-100">
@@ -153,7 +153,7 @@ const About = () => {
             className="lg:col-start-3 lg:row-start-1"
             delay={0.2}
           >
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <StatItem
                 icon={BookOpen}
                 label="Blog Posts"
@@ -170,12 +170,12 @@ const About = () => {
             className="lg:row-span-2"
             delay={0.3}
           >
-            <div className="space-y-4">
+            <div className="space-y-3">
               <div>
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1.5">
                   Languages & Frameworks
                 </h4>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1">
                   {["Python", "TypeScript", "React", "Node.js", "FastAPI"].map(
                     (t) => (
                       <TechTag key={t} label={t} />
@@ -185,10 +185,10 @@ const About = () => {
               </div>
 
               <div>
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1.5">
                   AI & ML
                 </h4>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1">
                   {[
                     "PyTorch",
                     "Hugging Face",
@@ -203,10 +203,10 @@ const About = () => {
               </div>
 
               <div>
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1.5">
                   Infra & Ops
                 </h4>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-1">
                   {[
                     "Docker",
                     "Kubernetes",
@@ -230,14 +230,14 @@ const About = () => {
             className="lg:col-span-2"
             delay={0.5}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Multi-Agent */}
               <div>
-                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
                   <Sparkles className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
                   Multi-Agent Pipelines
                 </h4>
-                <ul className="space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
+                <ul className="space-y-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                   {[
                     "Parallel execution with LangGraph",
                     "Embedding caching via FAISS",
@@ -253,11 +253,11 @@ const About = () => {
 
               {/* Enterprise RAG */}
               <div>
-                <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2 flex items-center">
+                <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
                   <Target className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
                   Enterprise RAG
                 </h4>
-                <ul className="space-y-1.5 text-sm text-gray-600 dark:text-gray-300">
+                <ul className="space-y-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                   {[
                     "Hybrid retrieval + vector search",
                     "Monitoring: Prometheus & App Insights",
@@ -273,8 +273,8 @@ const About = () => {
             </div>
 
             {/* Core Stack */}
-            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-              <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-2">
+            <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
+              <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-1.5">
                 Core Stack
               </h4>
               <div className="flex flex-wrap gap-1.5">
@@ -299,7 +299,7 @@ const About = () => {
             className="lg:col-span-3"
             delay={0.7}
           >
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-sm text-gray-600 dark:text-gray-300">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
               {[
                 "Built RAG pipelines with OpenSearch/Milvus for Q&A",
                 "Optimized LLM inference using DeepSpeed & VLLM",

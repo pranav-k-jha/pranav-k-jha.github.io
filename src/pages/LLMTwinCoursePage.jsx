@@ -6,19 +6,6 @@ import { motion } from "framer-motion";
 import { courseAttribution } from "../data/llmTwinModules";
 import llmTwinCourse from "../components/courses/LLMTwinCourse";
 
-// Animation variants for reusability
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-};
-
-const fadeInUpDelayed = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.5 },
-});
-
-// Extracted component for better organization
 const BulletPoint = ({ bullet }) => {
   const linkRegex = /\[(.*?)\]\((.*?)\)/g;
   let match;
@@ -79,14 +66,15 @@ const CourseOverview = () => (
       <div className="space-y-6">
         {/* What You'll Learn */}
         <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
             <span className="mr-2">🎯</span> What you'll learn
           </h3>
-          <div className="space-y-4">
-            <p className="text-gray-700 dark:text-gray-200">
-              {llmTwinCourse.description}
+          <div className="space-y-3">
+            <p className="text-sm text-gray-700 dark:text-gray-200">
+              The architecture of the LLM Twin is split into 4 Python
+              microservices
             </p>
-            <p className="font-medium text-blue-600 dark:text-blue-400">
+            <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
               No more isolated scripts or Notebooks! Learn production ML by
               building and deploying an end-to-end production-grade LLM system.
             </p>
@@ -96,25 +84,25 @@ const CourseOverview = () => (
         <div className="h-px bg-gray-100 dark:bg-gray-700"></div>
 
         {/* About This Course */}
-        <div className="space-y-4">
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white flex items-center">
+        <div className="space-y-3">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
             <span className="mr-2">📖</span> About this course
           </h3>
-          <div className="space-y-4">
-            <p className="text-gray-700 dark:text-gray-200">
+          <div className="space-y-3">
+            <p className="text-sm text-gray-700 dark:text-gray-200">
               You will learn how to architect and build a real-world LLM system
               from start to finish — from data collection to deployment.
             </p>
-            <p className="text-gray-700 dark:text-gray-200">
+            <p className="text-sm text-gray-700 dark:text-gray-200">
               You will also learn to leverage MLOps best practices, such as
               experiment trackers, model registries, prompt monitoring, and
               versioning.
             </p>
-            <p className="font-medium text-gray-800 dark:text-white">
+            <p className="text-sm text-gray-700 dark:text-gray-200">
               The end goal? Build and deploy your own LLM twin.
             </p>
             <div className="bg-blue-50 dark:bg-blue-900/30 border-l-4 border-blue-500 p-4 rounded-r">
-              <p className="text-blue-700 dark:text-blue-200 font-medium">
+              <p className="text-sm text-blue-700 dark:text-blue-200 font-medium">
                 What is an LLM Twin? It is an AI character that learns to write
                 like somebody by incorporating its style and personality into an
                 LLM.
@@ -129,28 +117,28 @@ const CourseOverview = () => (
 
 // Course Architecture Section Component
 const CourseArchitecture = () => (
-  <div className="space-y-6">
-    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+  <div className="space-y-4">
+    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
       Course Architecture
     </h2>
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-      <div className="p-6 md:p-8">
-        <div className="grid md:grid-cols-2 gap-8">
+      <div className="p-4 md:p-6">
+        <div className="grid md:grid-cols-2 gap-6">
           {llmTwinCourse.sections.map((section, index) => (
             <motion.div
               key={index}
-              className="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
-              initial={{ opacity: 0, y: 20 }}
+              className="bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index }}
             >
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
-                <span className="w-6 h-6 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full mr-3 text-sm font-medium">
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                <span className="w-5 h-5 flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-full mr-2 text-xs font-medium">
                   {index + 1}
                 </span>
                 {section.title}
               </h3>
-              <ul className="space-y-2 mt-4">
+              <ul className="space-y-2 mt-4 text-xs">
                 {section.bullets.map((bullet, bulletIndex) => (
                   <BulletPoint key={bulletIndex} bullet={bullet} />
                 ))}
@@ -162,11 +150,10 @@ const CourseArchitecture = () => (
     </div>
   </div>
 );
-
 // Serverless Tools Section Component
 const ServerlessTools = () => (
   <div className="space-y-6">
-    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
       Integrated Serverless Tools
     </h2>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -186,7 +173,7 @@ const ServerlessTools = () => (
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
               {tool.name}
             </h3>
-            <p className="text-gray-600 dark:text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">
               {tool.description}
             </p>
           </div>
@@ -235,17 +222,36 @@ const CallToAction = () => (
 const LLMTwinCoursePage = () => {
   const location = useLocation();
 
+  // Save scroll position before component unmounts
   useEffect(() => {
-    if (location.state?.scrollPosition) {
-      window.scrollTo(0, location.state.scrollPosition);
+    const saveScrollPosition = () => {
+      sessionStorage.setItem("llmTwinCourseScrollPosition", window.scrollY);
+    };
+
+    window.addEventListener("beforeunload", saveScrollPosition);
+    return () => {
+      window.removeEventListener("beforeunload", saveScrollPosition);
+    };
+  }, []);
+
+  // Restore scroll position on mount if coming from a page reload
+  useEffect(() => {
+    if (performance.navigation?.type === 1) {
+      const savedPosition = sessionStorage.getItem(
+        "llmTwinCourseScrollPosition"
+      );
+      if (savedPosition) {
+        window.scrollTo(0, parseInt(savedPosition, 10));
+        sessionStorage.removeItem("llmTwinCourseScrollPosition");
+      }
     }
-  }, [location]);
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <div className="max-w-7xl my-20 mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Header Section */}
-        <div className="space-y-4 mb-16">
+        <div className="space-y-3 sm:space-y-4 mb-12 sm:mb-16">
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -255,7 +261,7 @@ const LLMTwinCoursePage = () => {
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-center"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               LLM TWIN COURSE
@@ -264,7 +270,7 @@ const LLMTwinCoursePage = () => {
 
           {/* Subtitle */}
           <motion.div
-            className="space-y-2 text-center"
+            className="mt-12 sm:mt-16 space-y-4 text-center"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -276,7 +282,7 @@ const LLMTwinCoursePage = () => {
             <h2 className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
               Building Your Production-Ready AI Replica
             </h2>
-            <p className="text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
+            <p className="text-sm sm:text-base text-gray-500 dark:text-gray-400 max-w-3xl mx-auto">
               Learn to architect and implement a production-ready LLM & RAG
               system by building your LLM Twin. From data gathering to
               deployment, master the entire pipeline of creating an AI that
@@ -285,11 +291,11 @@ const LLMTwinCoursePage = () => {
           </motion.div>
 
           {/* Attribution */}
-          <div className="mt-20">
-            <motion.div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4">
+          <div className="mt-12 sm:mt-16">
+            <motion.div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4 sm:p-6">
               <div className="w-full">
                 <motion.p
-                  className="text-gray-700 dark:text-gray-300 text-center whitespace-nowrap overflow-hidden text-ellipsis"
+                  className="text-sm sm:text-base text-gray-700 dark:text-gray-300 text-center whitespace-nowrap overflow-hidden text-ellipsis"
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.6, duration: 0.5 }}

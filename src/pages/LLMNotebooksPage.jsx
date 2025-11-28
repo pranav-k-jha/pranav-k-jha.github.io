@@ -139,18 +139,10 @@ const NotebookSection = React.memo(({ title, notebooks, emoji }) => {
 const LLMNotebooksPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 mt-20">
-        {/* Back Button */}
-        <Link
-          to="/llm-course"
-          className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mb-8 transition-colors"
-        >
-          <FiArrowLeft className="mr-2" />
-          Back to LLM Course
-        </Link>
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Header with Animation */}
         <div className="relative mb-20">
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -159,7 +151,7 @@ const LLMNotebooksPage = () => {
                 delay: 0.2,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center"
+              className="text-2xl sm:text-3xl font-bold tracking-tight text-center"
             >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
                 LLM NOTEBOOKS
@@ -176,7 +168,7 @@ const LLMNotebooksPage = () => {
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
-              <h2 className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
+              <h2 className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 Hands-on, production-ready notebooks for training, optimizing,
                 and deploying LLMs
               </h2>
@@ -186,14 +178,14 @@ const LLMNotebooksPage = () => {
 
         {/* Attribution Section */}
         <motion.div
-          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm"
+          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-4 sm:p-6 mb-8 sm:mb-12 shadow-sm"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
           <div className="max-w-4xl mx-auto">
             <motion.p
-              className="text-gray-700 dark:text-gray-300 mb-4"
+              className="text-gray-700 dark:text-gray-300 text-sm sm:text-base mb-3 sm:mb-4"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
@@ -220,7 +212,7 @@ const LLMNotebooksPage = () => {
               and provide hands-on examples for working with LLMs.
             </motion.p>
 
-            <motion.div className="flex flex-wrap gap-4 mt-5">
+            <motion.div className="flex flex-wrap gap-3 sm:gap-4 mt-4 sm:mt-5">
               <motion.a
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}

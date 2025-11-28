@@ -111,13 +111,13 @@ const AIDomains = () => {
             >
               {/* Service icon */}
               <motion.div
-                className="mb-3 w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"
+                className="mb-3 w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center"
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <domain.icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-300" />
+                <domain.icon className="w-5 h-5 text-blue-600 dark:text-blue-300" />
               </motion.div>
-              <h3 className="text-lg sm:text-xl font-semibold mb-1.5 sm:mb-2 tracking-tight text-gray-900 dark:text-white">
+              <h3 className="text-lg font-semibold mb-1.5 sm:mb-2 tracking-tight text-gray-900 dark:text-white">
                 {domain.title}
               </h3>
               <p className="text-gray-700 dark:text-gray-400 text-xs sm:text-sm">

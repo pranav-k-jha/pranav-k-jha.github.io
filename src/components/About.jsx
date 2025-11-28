@@ -15,7 +15,7 @@ import {
 
 // Reusable Tech Badge
 const TechTag = ({ label }) => (
-  <span className="px-2 py-0.5 text-xs rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800/50">
+  <span className="px-2 py-0.5 text-[0.7rem] rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800/50">
     {label}
   </span>
 );
@@ -107,7 +107,7 @@ const About = () => {
             className="lg:col-span-2 lg:row-span-2"
             delay={0.1}
           >
-            <p className="text-gray-800 dark:text-gray-100 text-xs sm:text-sm leading-relaxed mb-3 font-medium">
+            <p className="text-gray-800 dark:text-gray-100 text-xs leading-relaxed mb-3 font-medium">
               Specializing in{" "}
               <span className="font-semibold text-blue-700 dark:text-blue-400">
                 LLMs
@@ -125,11 +125,11 @@ const About = () => {
             </p>
 
             <div className="p-3 sm:p-4 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800/50 shadow-sm">
-              <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-3 flex items-center">
+              <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-3 flex items-center">
                 <Target className="w-4 h-4 mr-2 text-blue-700 dark:text-blue-400" />
                 Current Focus
               </h4>
-              <div className="space-y-2 text-xs sm:text-sm">
+              <div className="space-y-2 text-xs">
                 <p className="flex items-start">
                   <span className="inline-block w-2.5 h-2.5 bg-blue-600 rounded-full mt-1 mr-2 flex-shrink-0"></span>
                   <span className="text-gray-900 dark:text-gray-100">
@@ -172,7 +172,7 @@ const About = () => {
           >
             <div className="space-y-3">
               <div>
-                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1.5">
+                <h4 className="text-xs font-semibold text-gray-900 dark:text-white mb-1.5">
                   Languages & Frameworks
                 </h4>
                 <div className="flex flex-wrap gap-1">
@@ -185,7 +185,7 @@ const About = () => {
               </div>
 
               <div>
-                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1.5">
+                <h4 className="text-xs font-semibold text-gray-900 dark:text-white mb-1.5">
                   AI & ML
                 </h4>
                 <div className="flex flex-wrap gap-1">
@@ -203,7 +203,7 @@ const About = () => {
               </div>
 
               <div>
-                <h4 className="text-xs sm:text-sm font-semibold text-gray-900 dark:text-white mb-1.5">
+                <h4 className="text-xs font-semibold text-gray-900 dark:text-white mb-1.5">
                   Infra & Ops
                 </h4>
                 <div className="flex flex-wrap gap-1">
@@ -233,11 +233,11 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Multi-Agent */}
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
+                <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
                   <Sparkles className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
                   Multi-Agent Pipelines
                 </h4>
-                <ul className="space-y-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-300">
                   {[
                     "Parallel execution with LangGraph",
                     "Embedding caching via FAISS",
@@ -253,11 +253,11 @@ const About = () => {
 
               {/* Enterprise RAG */}
               <div>
-                <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
+                <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-2 sm:mb-3 flex items-center">
                   <Target className="w-4 h-4 mr-2 text-blue-600 dark:text-blue-400" />
                   Enterprise RAG
                 </h4>
-                <ul className="space-y-1 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+                <ul className="space-y-1 text-xs text-gray-600 dark:text-gray-300">
                   {[
                     "Hybrid retrieval + vector search",
                     "Monitoring: Prometheus & App Insights",
@@ -274,7 +274,7 @@ const About = () => {
 
             {/* Core Stack */}
             <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
-              <h4 className="text-xs sm:text-sm font-bold text-gray-900 dark:text-white mb-1.5">
+              <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-1.5">
                 Core Stack
               </h4>
               <div className="flex flex-wrap gap-1.5">
@@ -299,7 +299,7 @@ const About = () => {
             className="lg:col-span-3"
             delay={0.7}
           >
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-xs sm:text-sm text-gray-600 dark:text-gray-300">
+            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 text-xs text-gray-600 dark:text-gray-300">
               {[
                 "Built RAG pipelines with OpenSearch/Milvus for Q&A",
                 "Optimized LLM inference using DeepSpeed & VLLM",

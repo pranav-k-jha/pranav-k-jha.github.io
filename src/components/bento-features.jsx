@@ -68,7 +68,7 @@ const BentoCard = ({
 
       <div className="relative z-10">
         <motion.div
-          className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center mb-3 sm:mb-4"
+          className="w-10 h-10 rounded-lg bg-white/10 backdrop-blur-md flex items-center justify-center mb-3 sm:mb-4"
           whileHover={
             prefersReducedMotion
               ? {}
@@ -78,7 +78,7 @@ const BentoCard = ({
                 }
           }
         >
-          <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 dark:text-blue-400" />
+          <Icon className="w-5 h-5 text-blue-600 dark:text-blue-400" />
         </motion.div>
         <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1.5 sm:mb-2">
           {name}

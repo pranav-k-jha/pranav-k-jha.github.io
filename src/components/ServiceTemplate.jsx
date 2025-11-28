@@ -136,7 +136,7 @@ const ServiceTemplate = ({
     <div
       className={`min-h-screen bg-gradient-to-br from-white/80 to-white/30 dark:from-gray-950/80 dark:to-gray-950/30 pt-20`}
     >
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-12">
         {/* Back Button */}
         <motion.div
           initial={prefersReducedMotion ? {} : { opacity: 0, x: -10 }}

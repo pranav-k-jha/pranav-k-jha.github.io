@@ -27,7 +27,7 @@ const CoursePageTemplate = ({ courseData }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-800/50 dark:to-purple-900/20 py-12 px-4 sm:px-6">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <button
           onClick={() => navigate("/llm-course")}
           className="flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 mb-8 transition-colors"
@@ -47,7 +47,7 @@ const CoursePageTemplate = ({ courseData }) => {
                 delay: 0.2,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
-              className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center"
+              className="text-2xl sm:text-3xl font-bold tracking-tight text-center"
             >
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
                 {courseData.title.toUpperCase()}
@@ -65,7 +65,7 @@ const CoursePageTemplate = ({ courseData }) => {
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
               >
-                <p className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                <p className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                   {courseData.subtitle}
                 </p>
               </motion.div>

@@ -8,6 +8,7 @@ import {
   FaReact,
   FaMapMarkerAlt,
   FaExternalLinkAlt,
+  FaPhone,
 } from "react-icons/fa";
 import {
   SiTailwindcss,
@@ -170,13 +171,13 @@ const Footer = () => {
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
-                  <FaEnvelope className="text-blue-400 text-sm" />
+                  <FaPhone className="text-blue-400 text-sm" />
                 </div>
                 <a
-                  href="mailto:pranav.jha@mail.concordia.ca"
+                  href="tel:+14388135903"
                   className="hover:text-blue-600 dark:hover:text-blue-400 transition-colors text-sm"
                 >
-                  pranav.jha@mail.concordia.ca
+                  +1 (438) 813-5903
                 </a>
               </motion.div>
             </div>

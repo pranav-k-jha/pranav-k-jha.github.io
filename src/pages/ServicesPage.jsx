@@ -226,19 +226,19 @@ const ServiceCard = ({ service, index }) => {
       animate={isInView ? "visible" : "hidden"}
       variants={fadeInUp(index)}
       whileHover={{
-        y: -6,
+        y: -4,
         transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
-      className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:shadow-xl dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300 isolate"
+      className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:shadow-xl dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300 isolate"
       style={{ transform: "translateZ(0)" }} // GPU layer
     >
       {/* Active Badge with Animated Underline */}
       {service.isActive && (
         <div className="absolute top-4 left-4 z-10 group">
           <div className="relative inline-block">
-            <div className="flex items-center px-4 py-1.5 text-sm font-bold text-yellow-300 bg-black/40 backdrop-blur-sm rounded-full border border-yellow-300/20 transition-colors duration-300 group-hover:bg-yellow-300/10">
+            <div className="flex items-center px-3 py-1 text-xs sm:text-sm font-bold text-yellow-300 bg-black/40 backdrop-blur-sm rounded-full border border-yellow-300/20 transition-colors duration-300 group-hover:bg-yellow-300/10">
               <motion.span
-                className="w-2 h-2 mr-2 bg-yellow-300 rounded-full"
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1.5 sm:mr-2 bg-yellow-300 rounded-full"
                 animate={{
                   scale: [1, 1.3, 1],
                   opacity: [0.7, 1, 0.7],
@@ -269,7 +269,7 @@ const ServiceCard = ({ service, index }) => {
       )}
 
       {/* Image Section */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative h-36 sm:h-40 overflow-hidden">
         <motion.img
           src={service.image}
           alt={service.title}
@@ -286,74 +286,74 @@ const ServiceCard = ({ service, index }) => {
 
         {/* Icon Badge */}
         <motion.div
-          className="absolute top-4 right-4"
-          whileHover={{ y: -4, rotate: 8 }}
+          className="absolute top-3 right-3 sm:top-4 sm:right-4"
+          whileHover={{ y: -2, rotate: 8 }}
           transition={{ duration: 0.3 }}
         >
           <div
-            className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm`}
+            className={`p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm`}
           >
-            <IconComponent className="w-6 h-6 text-white" />
+            <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
           </div>
         </motion.div>
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-4 sm:p-5 flex flex-col flex-1">
         <div className="flex-1">
           <motion.h3
-            className={`text-xl font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent mb-3`}
+            className={`text-lg sm:text-xl font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent mb-2 sm:mb-3`}
             whileHover={{ x: 4 }}
             transition={{ duration: 0.2 }}
           >
             {service.title}
           </motion.h3>
 
-          <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed text-sm">
+          <p className="text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm">
             {service.description}
           </p>
 
           {/* Features */}
-          <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          <div className="mb-3 sm:mb-4">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
               Key Features:
             </h4>
-            <ul className="space-y-1.5">
+            <ul className="space-y-1 sm:space-y-1.5">
               {service.features.slice(0, 3).map((feature, idx) => (
                 <motion.li
                   key={idx}
                   initial={{ opacity: 0, x: -16 }}
                   animate={isInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ delay: idx * 0.1, duration: 0.4 }}
-                  className="flex items-center text-sm text-gray-600 dark:text-gray-400"
+                  className="flex items-start text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                 >
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                  {feature}
+                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 mr-1.5 sm:mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="leading-tight">{feature}</span>
                 </motion.li>
               ))}
             </ul>
           </div>
 
           {/* Technologies */}
-          <div className="mb-6">
-            <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          <div className="mb-4 sm:mb-5">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
               Technologies:
             </h4>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
               {service.technologies.slice(0, 3).map((tech, idx) => (
                 <motion.span
                   key={idx}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={isInView ? { opacity: 1, scale: 1 } : {}}
                   transition={{ delay: idx * 0.05, duration: 0.3 }}
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  className="px-3 py-1 text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full"
+                  whileHover={{ scale: 1.05, y: -1 }}
+                  className="px-2 py-0.5 text-[10px] sm:text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full"
                 >
                   {tech}
                 </motion.span>
               ))}
               {service.technologies.length > 3 && (
-                <span className="px-3 py-1 text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
+                <span className="px-2 py-0.5 text-[10px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
                   +{service.technologies.length - 3}
                 </span>
               )}
@@ -367,15 +367,17 @@ const ServiceCard = ({ service, index }) => {
             <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full py-3 px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center shadow-md hover:shadow-xl transition-all duration-300`}
+              className={`w-full py-2 sm:py-2.5 px-4 sm:px-5 rounded-lg sm:rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center shadow-md hover:shadow-xl transition-all duration-300`}
             >
-              <span className="mr-2">Learn More</span>
+              <span className="mr-1.5 sm:mr-2 text-xs sm:text-sm">
+                Learn More
+              </span>
               <motion.span
                 initial={{ x: 0 }}
-                whileHover={{ x: 6 }}
+                whileHover={{ x: 4 }}
                 transition={{ type: "spring", stiffness: 400, damping: 10 }}
               >
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </motion.span>
             </motion.div>
           </Link>
@@ -406,13 +408,13 @@ export default function ServicesPage() {
           exit="hidden"
         >
           {/* Header */}
-          <div className="max-w-7xl mt-10 mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
             <motion.div className="text-center mb-12">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight"
+                className="text-2xl sm:text-3xl font-bold tracking-tight"
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
                   MY SERVICES
@@ -426,7 +428,7 @@ export default function ServicesPage() {
                   delay: 0.3,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                className="mt-4 text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+                className="mt-3 sm:mt-4 text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
                 I provide freelance services to individuals, startups, and
                 organizations—offering AI solutions, full-stack development, and
@@ -439,7 +441,7 @@ export default function ServicesPage() {
               variants={containerVariants}
               initial="hidden"
               animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             >
               {filteredServices.map((service, index) => (
                 <motion.div
@@ -469,15 +471,15 @@ export default function ServicesPage() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={containerVariants}
-            className="py-20 px-6 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
+            className="py-16 sm:py-20 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
           >
-            <div className="container mx-auto max-w-4xl text-center">
+            <div className="container max-w-4xl mx-auto px-4 sm:px-6 text-center">
               <motion.div variants={itemVariants}>
-                <h2 className="text-3xl sm:text-4xl font-light tracking-tight mb-4 text-gray-900 dark:text-white">
+                <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 sm:mb-4 text-gray-900 dark:text-white">
                   Ready to <span className="font-bold">Transform</span> Your
                   Ideas?
                 </h2>
-                <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto mb-8">
+                <p className="text-gray-700 dark:text-gray-400 max-w-2xl mx-auto mb-6 sm:mb-8 text-sm sm:text-base">
                   Let's discuss how my services can help you achieve your goals
                   and drive innovation in your organization.
                 </p>
@@ -485,15 +487,15 @@ export default function ServicesPage() {
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="inline-flex items-center py-3 px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold shadow-md hover:shadow-xl transition-all duration-300"
+                    className="inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-xl transition-all duration-300"
                   >
                     Get Started
                     <motion.div
                       whileHover={{ x: 4 }}
                       transition={{ duration: 0.2 }}
-                      className="ml-2"
+                      className="ml-1.5 sm:ml-2"
                     >
-                      <ArrowRight className="w-5 h-5" />
+                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                     </motion.div>
                   </motion.div>
                 </Link>

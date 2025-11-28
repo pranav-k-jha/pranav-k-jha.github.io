@@ -52,9 +52,9 @@ const LLMCoursePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <div className="max-w-7xl my-20 mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Header with Animation */}
-        <div className="space-y-4 mb-16">
+        <div className="space-y-3 sm:space-y-4 mb-12 sm:mb-16">
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -64,7 +64,7 @@ const LLMCoursePage = () => {
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-center"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               LARGE LANGUAGE MODELS
@@ -82,7 +82,7 @@ const LLMCoursePage = () => {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            <h2 className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
+            <h2 className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
               A comprehensive guide to understanding and working with Large
               Language Models
             </h2>
@@ -90,18 +90,18 @@ const LLMCoursePage = () => {
 
           {/* Application Areas */}
           <motion.div
-            className="flex flex-wrap justify-center gap-3 mt-6"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mt-4 sm:mt-5"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.5 }}
           >
-            <span className="px-4 py-2 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-sm font-medium">
+            <span className="px-3 py-1.5 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 rounded-full text-xs sm:text-sm font-medium">
               Natural Language Processing
             </span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 rounded-full text-sm font-medium">
+            <span className="px-3 py-1.5 bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300 rounded-full text-xs sm:text-sm font-medium">
               AI Assistants
             </span>
-            <span className="px-4 py-2 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 rounded-full text-sm font-medium">
+            <span className="px-3 py-1.5 bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300 rounded-full text-xs sm:text-sm font-medium">
               Content Generation
             </span>
           </motion.div>
@@ -268,15 +268,15 @@ const LLMCoursePage = () => {
 
         {/* Course Modules Section */}
         <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-center mb-8 sm:mb-10"
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-2">
             Course Modules
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             A structured learning path from LLM fundamentals to advanced
             applications.
           </p>

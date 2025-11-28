@@ -98,7 +98,7 @@ const Navbar = memo(function Navbar() {
       }`}
       onKeyDown={handleKeyDown}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`flex justify-between items-center transition-all duration-300 ${
             scrolled ? "h-14" : "h-16"
@@ -123,7 +123,7 @@ const Navbar = memo(function Navbar() {
               <div className="hidden sm:block">
                 <span
                   className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 transition-all duration-300 ${
-                    scrolled ? "text-base leading-5" : "text-xl leading-7"
+                    scrolled ? "text-sm leading-5" : "text-lg leading-7"
                   }`}
                 >
                   PRANAV K JHA
@@ -151,7 +151,7 @@ const Navbar = memo(function Navbar() {
                   to={item.href}
                   aria-current={isActiveLink(item.href) ? "page" : undefined}
                   className={`block px-1 font-medium transition-all duration-300 relative group ${
-                    scrolled ? "py-2 text-xs" : "py-3 text-sm"
+                    scrolled ? "py-2 text-xs" : "py-3 text-[0.8rem]"
                   } leading-relaxed ${
                     isActiveLink(item.href)
                       ? "text-blue-600 dark:text-blue-400"

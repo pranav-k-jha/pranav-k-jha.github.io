@@ -79,8 +79,8 @@ const Hero = () => {
       animate="show"
       variants={animationVariants.container}
     >
-      <div className="container max-w-7xl mx-auto px-6 md:px-12 relative z-10 ">
-        <div className="grid md:grid-cols-2 gap-12 items-center min-h-[calc(100vh-10rem)]">
+      <div className="container max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
           {/* Left Column - Hero Text */}
           <motion.div
             className="text-center md:text-left space-y-6"
@@ -92,7 +92,7 @@ const Hero = () => {
               variants={animationVariants.fadeInUp}
             >
               <span
-                className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium backdrop-blur-xl border ${
+                className={`inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium backdrop-blur-xl border ${
                   theme === "dark"
                     ? "bg-cyan-500/10 border-cyan-500/20 text-cyan-300"
                     : "bg-blue-500/10 border-blue-500/20 text-blue-700"
@@ -117,17 +117,17 @@ const Hero = () => {
             {/* Main Heading */}
             <motion.div variants={animationVariants.fadeInUp}>
               <h1
-                className={`text-[2.5em] md:text-4xl lg:text-6xl font-black mb-4 ${
+                className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-4 ${
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
-                <span className="block mb-2 font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                <span className="block mb-2 text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                   PRANAV JHA
                 </span>
               </h1>
 
               {/* Animated Roles */}
-              <div className="h-8 md:h-16 flex items-start justify-center md:justify-start">
+              <div className="h-10 sm:h-14 md:h-16 flex items-start justify-center md:justify-start mt-2">
                 <TypeAnimation
                   sequence={[
                     "NLP ENGINEER",
@@ -144,7 +144,7 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="inline-block text-[2em] md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
+                  className="inline-block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
                   style={{ lineHeight: "1.2" }}
                 />
               </div>
@@ -152,7 +152,7 @@ const Hero = () => {
 
             {/* Description */}
             <motion.p
-              className={`text-lg md:text-xl max-w-xl mx-auto md:mx-0 leading-relaxed ${
+              className={`text-base sm:text-lg md:text-xl max-w-xl mx-auto md:mx-0 leading-relaxed ${
                 theme === "dark" ? "text-gray-300" : "text-gray-700"
               }`}
               variants={animationVariants.fadeInUp}
@@ -361,10 +361,10 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="relative w-full max-w-lg mx-auto">
+            <div className="relative w-full max-w-md mx-auto">
               {/* Main Code Card with Glassmorphism */}
               <motion.div
-                className={`relative backdrop-blur-2xl rounded-3xl p-8 shadow-2xl border ${
+                className={`relative backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border ${
                   theme === "dark"
                     ? "bg-white/5 border-white/10"
                     : "bg-white/60 border-white/40"
@@ -390,7 +390,7 @@ const Hero = () => {
                     theme === "dark" ? "bg-slate-950" : "bg-slate-900"
                   }`}
                 >
-                  <pre className="text-sm md:text-base max-h-80 overflow-y-auto">
+                  <pre className="text-xs sm:text-sm max-h-80 overflow-y-auto">
                     <code>
                       <span className="text-purple-400">class</span>{" "}
                       <span className="text-yellow-400">AIEngineer</span>
@@ -443,14 +443,14 @@ const Hero = () => {
               </motion.div>
 
               {/* Floating Tech Stack Pills */}
-              <div className="mt-8 space-y-6">
+              <div className="mt-6 space-y-4">
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6 }}
                 >
                   <p
-                    className={`text-xs font-semibold tracking-wider mb-4 ${
+                    className={`text-xs font-semibold tracking-wider mb-3 ${
                       theme === "dark" ? "text-gray-400" : "text-gray-600"
                     }`}
                   >
@@ -464,7 +464,7 @@ const Hero = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5 + i * 0.1 }}
                         whileHover={{ scale: 1.1, y: -4 }}
-                        className={`px-4 py-2 rounded-xl backdrop-blur-xl border font-medium text-xs shadow-lg ${
+                        className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-xl border font-medium text-xs shadow-lg ${
                           theme === "dark"
                             ? "bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border-cyan-500/20 text-cyan-300"
                             : "bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/20 text-blue-700"
@@ -495,7 +495,7 @@ const Hero = () => {
                     <motion.div
                       key={i}
                       whileHover={{ scale: 1.05 }}
-                      className={`px-4 py-2 rounded-xl backdrop-blur-xl border text-xs font-medium ${
+                      className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-xl border text-xs font-medium ${
                         theme === "dark"
                           ? "bg-white/5 border-white/10 text-gray-300"
                           : "bg-white/60 border-white/40 text-gray-700"

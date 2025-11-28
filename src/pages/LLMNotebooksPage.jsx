@@ -57,11 +57,11 @@ const NotebookCard = React.memo(({ notebook }) => {
           className="h-full flex flex-col bg-white dark:bg-gray-900/95 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-800/50 
                         shadow-lg transition-shadow group-hover:shadow-xl"
         >
-          <div className="flex items-start gap-4 mb-4 min-h-[4rem]">
-            <span className="text-4xl flex-shrink-0">
+          <div className="flex items-start gap-4 min-h-[3rem]">
+            <span className="text-lg flex-shrink-0">
               {notebook.emoji || "📓"}
             </span>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white">
               {notebook.name}
             </h3>
           </div>
@@ -114,8 +114,8 @@ const NotebookSection = React.memo(({ title, notebooks, emoji }) => {
   return (
     <section className="scroll-mt-20 pt-8 pb-20">
       <div className="flex items-center gap-4 mb-8">
-        <span className="text-4xl">{emoji}</span>
-        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
+        <span className="text-2xl">{emoji}</span>
+        <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
           {title}
         </h2>
         <div className="flex-1 h-px bg-gradient-to-r from-transparent via-blue-500/30 to-transparent" />
@@ -185,7 +185,7 @@ const LLMNotebooksPage = () => {
         >
           <div className="max-w-4xl mx-auto">
             <motion.p
-              className="text-gray-700 dark:text-gray-300 text-sm sm:text-base mb-3 sm:mb-4"
+              className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm mb-3 sm:mb-4"
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
@@ -219,7 +219,7 @@ const LLMNotebooksPage = () => {
                 href={courseAttribution.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white 
+                className="group inline-flex items-center px-4 py-2 border border-transparent text-xs sm:text-sm font-medium rounded-md text-white 
                  bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-600 hover:to-blue-800 hover:text-white
                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition shadow-md hover:shadow-lg"
               >

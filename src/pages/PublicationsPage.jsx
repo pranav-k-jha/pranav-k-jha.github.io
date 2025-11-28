@@ -145,14 +145,14 @@ const PublicationsPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50">
-      <main className="min-h-[60vh] py-24 mt-6 px-4 max-w-4xl mx-auto ">
+      <main className="min-h-[60vh] py-16 md:py-20 px-4 max-w-3xl mx-auto">
         <motion.div
           initial="hidden"
           animate="show"
           variants={headerVariants}
           className="mb-12 flex flex-col items-center"
         >
-          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 text-gray-900 dark:text-white">
+          <h1 className="text-2xl md:text-3xl font-bold mb-3 text-gray-900 dark:text-white">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               PUBLICATIONS
             </span>
@@ -166,7 +166,7 @@ const PublicationsPage = () => {
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
           >
-            <p className="text-center text-lg font-light text-gray-600 dark:text-gray-400">
+            <p className="text-center text-sm sm:text-base font-light text-gray-600 dark:text-gray-400">
               Research papers, articles, and academic contributions
             </p>
           </motion.div>
@@ -176,10 +176,10 @@ const PublicationsPage = () => {
           <div className="space-y-6">
             {[...Array(5)].map((_, i) => (
               <motion.div key={i} className="flex items-start space-x-4">
-                <div className="w-16 h-4 bg-gray-300 dark:bg-gray-700 rounded animate-pulse flex-shrink-0" />
-                <div className="flex-1 space-y-2">
-                  <div className="h-4 bg-gray-300 dark:bg-gray-700 rounded w-3/4 animate-pulse" />
-                  <div className="h-3 bg-gray-300 dark:bg-gray-700 rounded w-1/2 animate-pulse" />
+                <div className="w-12 h-3 bg-gray-300 dark:bg-gray-700 rounded animate-pulse flex-shrink-0" />
+                <div className="flex-1 space-y-1.5">
+                  <div className="h-3.5 bg-gray-300 dark:bg-gray-700 rounded w-3/4 animate-pulse" />
+                  <div className="h-2.5 bg-gray-300 dark:bg-gray-700 rounded w-1/2 animate-pulse" />
                 </div>
               </motion.div>
             ))}
@@ -200,7 +200,7 @@ const PublicationsPage = () => {
             initial="hidden"
             animate="show"
             variants={containerVariants}
-            className="space-y-6"
+            className="space-y-4"
           >
             {publications.map((work, index) => {
               const workSummary = work["work-summary"]?.[0] || {};
@@ -225,12 +225,12 @@ const PublicationsPage = () => {
                   whileHover={{ x: 4 }}
                 >
                   <div className="flex items-baseline">
-                    <div className="text-sm font-mono text-gray-500 dark:text-gray-400 w-16 flex-shrink-0">
+                    <div className="text-xs font-mono text-gray-500 dark:text-gray-400 w-12 flex-shrink-0">
                       {year}
                     </div>
                     <div className="flex-1">
                       <h3
-                        className={`text-sm md:text-base lg:text-lg font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
+                        className={`text-sm font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
                           url
                             ? "hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
                             : ""
@@ -241,17 +241,17 @@ const PublicationsPage = () => {
                       </h3>
                       <div className="flex flex-wrap items-center gap-2 mt-1">
                         {journal && (
-                          <span className="text-sm text-gray-600 dark:text-gray-400">
+                          <span className="text-xs text-gray-600 dark:text-gray-400">
                             {journal}
                             {workSummary?.["journal-subtitle"]?.value && (
-                              <span className="ml-2 text-blue-500 dark:text-blue-400">
+                              <span className="ml-1.5 text-blue-500 dark:text-blue-400">
                                 • {workSummary["journal-subtitle"].value}
                               </span>
                             )}
                           </span>
                         )}
                         {type && (
-                          <span className="px-2 py-0.5 text-xs rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
+                          <span className="px-1.5 py-0.5 text-[11px] rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 whitespace-nowrap">
                             {type.replace(/_/g, " ").toLowerCase()}
                           </span>
                         )}
@@ -261,13 +261,13 @@ const PublicationsPage = () => {
                           href={`https://doi.org/${doi}`}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-xs font-mono text-blue-500 dark:text-blue-400 hover:underline block mt-1"
+                          className="text-xs font-mono text-blue-500 dark:text-blue-400 hover:underline inline-block mt-1"
                         >
                           {doi}
                         </a>
                       )}
                       {authors && (
-                        <p className="text-sm text-gray-700 dark:text-gray-300 mt-1">
+                        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
                           {authors}.
                         </p>
                       )}

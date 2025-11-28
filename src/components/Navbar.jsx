@@ -251,7 +251,7 @@ const Navbar = memo(function Navbar() {
                               setIsMoreOpen(false);
                               moreButtonRef.current?.focus();
                             }}
-                            className={`block px-4 py-2 text-sm ${
+                            className={`block px-4 py-2 text-[0.8rem] ${
                               isActiveLink(item.href)
                                 ? "bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
                                 : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"

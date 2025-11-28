@@ -9,10 +9,6 @@ export const navigationConfig = {
       href: "/resources",
     },
     {
-      title: "PUBLICATIONS",
-      href: "/publications",
-    },
-    {
       title: "SERVICES",
       href: "/services",
     },
@@ -20,12 +16,12 @@ export const navigationConfig = {
       title: "RAG",
       href: "/rag",
     },
-  ],
-  moreNav: [
     {
       title: "LLM COURSE",
       href: "/llm-course",
     },
+  ],
+  moreNav: [
     {
       title: "LLM NOTEBOOKS",
       href: "/llm-notebooks",
@@ -33,6 +29,10 @@ export const navigationConfig = {
     {
       title: "LLM TWIN COURSE",
       href: "/llm-twin-course",
+    },
+    {
+      title: "PUBLICATIONS",
+      href: "/publications",
     },
     {
       title: "BLOG",

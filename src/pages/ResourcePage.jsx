@@ -101,15 +101,16 @@ const ResourcePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50 pt-20 pb-12 px-4 sm:px-6">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <motion.div
-        className="max-w-7xl mx-auto"
+        className="container max-w-8xl mx-auto px-4 sm:px-6 py-16 sm:py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         ref={containerRef}
       >
-        <div className="space-y-4 mb-8 mt-10">
+        {/* Header Section */}
+        <div className="space-y-3 sm:space-y-4 mb-8">
           {/* Main Heading */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -119,7 +120,7 @@ const ResourcePage = () => {
               delay: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-center"
+            className="text-2xl sm:text-3xl font-bold tracking-tight text-center"
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
               RESOURCES
@@ -128,6 +129,7 @@ const ResourcePage = () => {
 
           {/* Subtitle */}
           <motion.div
+            className="space-y-2 text-center"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
@@ -135,17 +137,16 @@ const ResourcePage = () => {
               delay: 0.3,
               ease: [0.25, 0.46, 0.45, 0.94],
             }}
-            className="space-y-2 text-center"
           >
-            <h2 className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400">
-              Valuable Assets & Knowledge Repository
+            <h2 className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              A collection of valuable assets and knowledge resources
             </h2>
           </motion.div>
         </div>
 
         {/* Filter Buttons */}
         <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-8"
+          className="flex flex-wrap justify-center gap-2 mb-6"
           variants={container}
           initial="hidden"
           animate="show"
@@ -157,9 +158,9 @@ const ResourcePage = () => {
               onClick={() => handleFilter(category)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
                 activeFilter === category
-                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/20"
+                  ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md shadow-blue-500/10"
                   : "bg-white dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 border border-gray-200 dark:border-gray-700/50"
               }`}
             >

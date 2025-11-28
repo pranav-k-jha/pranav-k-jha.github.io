@@ -109,7 +109,7 @@ const LLMCoursePage = () => {
 
         {/* Attribution Section */}
         <motion.div
-          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm"
+          className="bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-xl p-6 mb-12 shadow-sm text-xs"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
@@ -230,7 +230,7 @@ const LLMCoursePage = () => {
                 href={courseAttribution.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white 
+                className="group inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md text-white 
              bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-600 hover:to-blue-800 hover:text-white
              focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition shadow-md hover:shadow-lg"
               >
@@ -257,7 +257,7 @@ const LLMCoursePage = () => {
                 href={courseAttribution.book.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-sm font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 text-xs font-medium rounded-md text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
               >
                 <FiBookOpen className="mr-2 h-4 w-4" />
                 View Book
@@ -273,7 +273,7 @@ const LLMCoursePage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white mb-2">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white mb-2">
             Course Modules
           </h2>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -294,7 +294,7 @@ const LLMCoursePage = () => {
             <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     LLM Fundamentals
                   </h3>
                   <FiArrowRight className="text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" />
@@ -315,7 +315,7 @@ const LLMCoursePage = () => {
             <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     LLM Scientist
                   </h3>
                   <FiArrowRight className="text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform" />
@@ -336,7 +336,7 @@ const LLMCoursePage = () => {
             <div className="h-full bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
               <div className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white">
                     LLM Engineer
                   </h3>
                   <FiArrowRight className="text-green-600 dark:text-green-400 group-hover:translate-x-1 transition-transform" />

@@ -273,7 +273,7 @@ const LLMCoursePage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-lg sm:text-xl font-bold text-gray-800 dark:text-white mb-2">
+          <h2 className="text-lg sm:text-2xl font-bold text-gray-800 dark:text-white mb-2">
             Course Modules
           </h2>
           <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -299,7 +299,7 @@ const LLMCoursePage = () => {
                   </h3>
                   <FiArrowRight className="text-blue-600 dark:text-blue-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                   Master the core concepts and practical applications of Large
                   Language Models
                 </p>
@@ -320,7 +320,7 @@ const LLMCoursePage = () => {
                   </h3>
                   <FiArrowRight className="text-purple-600 dark:text-purple-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                   Advanced techniques and research in Large Language Models for
                   AI researchers
                 </p>
@@ -341,7 +341,7 @@ const LLMCoursePage = () => {
                   </h3>
                   <FiArrowRight className="text-green-600 dark:text-green-400 group-hover:translate-x-1 transition-transform" />
                 </div>
-                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
                   Build and deploy production-grade LLM applications at scale
                 </p>
                 <div className="flex items-center text-sm text-green-600 dark:text-green-400 font-medium">
@@ -383,7 +383,7 @@ const LLMCoursePage = () => {
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
                       {module.title}
                     </h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       {module.description}
                     </p>
                   </div>

@@ -103,7 +103,7 @@ const ResourcePage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <motion.div
-        className="container max-w-8xl mx-auto px-4 sm:px-6 py-16 sm:py-20"
+        className="container max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-20"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}

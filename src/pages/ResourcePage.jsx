@@ -169,11 +169,11 @@ const ResourcePage = () => {
           ))}
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* Resource List with staggered animations */}
           <motion.div className="md:col-span-1">
             <motion.div
-              className="space-y-3 max-h-[70vh] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
+              className="space-y-3 max-h-[84vh] mx-2 pl-2 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-700 scrollbar-track-transparent"
               layout
             >
               <AnimatePresence mode="popLayout">

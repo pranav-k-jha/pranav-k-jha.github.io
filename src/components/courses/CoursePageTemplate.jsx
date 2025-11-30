@@ -76,7 +76,7 @@ const CoursePageTemplate = ({ courseData }) => {
         <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen opacity-70 animate-blob animation-delay-4000" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Navigation */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}
@@ -101,20 +101,27 @@ const CoursePageTemplate = ({ courseData }) => {
           {/* Header Section */}
           <motion.div
             variants={itemVariants}
-            className="text-center space-y-6 max-w-4xl mx-auto"
+            className="space-y-3 sm:space-y-4 mb-12 sm:mb-16 mt-10 text-center max-w-4xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              ease: [0.25, 0.46, 0.45, 0.94],
+            }}
           >
             <div className="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-semibold tracking-wide uppercase border border-blue-200 dark:border-blue-800">
               Learning Path
             </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-blue-800 to-purple-900 dark:from-white dark:via-blue-200 dark:to-purple-200">
+            <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
                 {courseData.title.toUpperCase()}
               </span>
             </h1>
 
             {courseData.subtitle && (
-              <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg sm:text-xl font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
                 {courseData.subtitle}
               </p>
             )}

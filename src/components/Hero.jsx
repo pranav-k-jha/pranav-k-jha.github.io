@@ -121,7 +121,7 @@ const Hero = () => {
                   theme === "dark" ? "text-white" : "text-gray-900"
                 }`}
               >
-                <span className="block mb-2 text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                <span className="block mb-2 text-5xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                   PRANAV JHA
                 </span>
               </h1>
@@ -144,7 +144,7 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="inline-block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
+                  className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
                   style={{ lineHeight: "1.2" }}
                 />
               </div>

@@ -8,11 +8,11 @@ import {
   Database,
   Brain,
   Smartphone,
-  Zap, // New icon for 'Active'
+  Zap,
 } from "lucide-react";
 import services from "../data/services";
 
-// --- [ ANIMATION VARIANTS - Kept from original ] ---
+// --- [ ANIMATION VARIANTS ] ---
 const pageTransition = {
   hidden: { opacity: 0 },
   visible: {
@@ -36,12 +36,11 @@ const containerVariants = {
 const fadeIn = {
   hidden: {
     opacity: 0,
-    willChange: "opacity",
   },
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.3,
+      duration: 0.4,
       ease: [0.4, 0, 0.2, 1],
     },
   },
@@ -51,28 +50,19 @@ const fadeInUp = (i) => ({
   hidden: {
     opacity: 0,
     y: 10,
-    willChange: "opacity, transform", // Optimize for GPU acceleration
   },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.01, // Minimal stagger
-      duration: 0.4,
-      ease: [0.22, 1, 0.36, 1], // Smoother ease-out
-      opacity: {
-        duration: 0.3,
-        ease: [0.4, 0, 0.2, 1],
-      },
-      y: {
-        duration: 0.4,
-        ease: [0.4, 0, 0.2, 1],
-      },
+      delay: i * 0.01,
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1],
     },
   },
 });
 
-// --- [ DATA - Kept from original ] ---
+// --- [ DATA ] ---
 const SERVICE_CATEGORIES = {
   "AI & ML": {
     name: "AI & ML",
@@ -100,7 +90,7 @@ const SERVICE_CATEGORIES = {
   },
 };
 
-// --- [ HOOKS - Kept from original ] ---
+// --- [ HOOKS ] ---
 const usePreloadImages = () => {
   const [imagesLoaded, setImagesLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -111,7 +101,6 @@ const usePreloadImages = () => {
     let loadedCount = 0;
     let isMounted = true;
 
-    // Skip preloading if no images to load
     if (totalImages === 0) {
       if (isMounted) {
         setIsLoading(false);
@@ -194,20 +183,15 @@ const useServiceFilter = () => {
   };
 };
 
-// --- [ NEW ServiceRow Component ] ---
-
+// --- [ ServiceRow Component - MAXIMUM iOS COMPATIBILITY ] ---
 const ServiceRow = ({ service, index }) => {
   const IconComponent = service.icon;
   const ref = useRef(null);
   const isInView = useInView(ref, {
     once: true,
-    triggerOnce: true,
-    rootMargin: "0px 0px 0px 0px",
-    threshold: 0.01, // Trigger as soon as 1% of the item is visible
+    amount: 0.2,
   });
-  const isReverse = index % 2 !== 0; // Alternate layout
-
-  // Hover state for a ripple effect
+  const isReverse = index % 2 !== 0;
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -216,31 +200,20 @@ const ServiceRow = ({ service, index }) => {
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={fadeIn}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="relative group w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 backdrop-blur-sm transition-all duration-300 overflow-hidden isolate
-             bg-white dark:bg-zinc-900/80 hover:shadow-xl dark:hover:shadow-zinc-800/50"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900/80 hover:shadow-xl dark:hover:shadow-zinc-800/50"
+      style={{
+        transition: "box-shadow 0.3s ease",
+      }}
     >
-      {/* Background Gradient Effect on Hover */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        animate={{
-          opacity: isHovered ? 0.6 : 0,
-          scale: isHovered ? 1.02 : 1,
-        }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+      {/* Background Gradient - NO ANIMATION on iOS */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none rounded-xl transition-opacity duration-300"
         style={{
-          background: `linear-gradient(145deg, 
-        ${
-          isHovered ? "var(--color-start, #f0f9ff)" : "rgba(240, 249, 255, 0)"
-        }, 
-        ${isHovered ? "var(--color-end, #e0f2fe)" : "rgba(224, 242, 254, 0)"})`,
-          "--color-start": isHovered
-            ? "var(--tw-color-blue-50 dark:opacity-20)"
-            : "transparent",
-          "--color-end": isHovered
-            ? "var(--tw-color-blue-100 dark:opacity-10)"
-            : "transparent",
+          background:
+            "linear-gradient(145deg, rgba(240, 249, 255, 0.8), rgba(224, 242, 254, 0.6))",
+          opacity: isHovered ? 0.4 : 0,
         }}
       />
 
@@ -250,48 +223,56 @@ const ServiceRow = ({ service, index }) => {
           isReverse ? "md:flex-row-reverse" : ""
         }`}
       >
-        {/* Image/Visual Section */}
+        {/* Image/Visual Section - NO SCALE ANIMATION */}
         <div className="md:w-5/12 lg:w-4/12 relative flex-shrink-0">
-          <motion.div
-            className="w-full h-48 sm:h-64 md:h-full rounded-lg sm:rounded-xl overflow-hidden shadow-xl"
-            initial={{ scale: 1 }}
-            animate={{ scale: isHovered ? 1.03 : 1 }}
-            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          <div
+            className="w-full h-48 sm:h-64 md:h-full rounded-lg sm:rounded-xl overflow-hidden shadow-xl transition-transform duration-300"
+            style={{
+              transform: isHovered ? "scale(1.02)" : "scale(1)",
+            }}
           >
             <img
               src={service.image}
               alt={service.title}
               className="w-full h-full object-cover"
               loading="lazy"
+              style={{
+                WebkitTransform: "translateZ(0)",
+                transform: "translateZ(0)",
+              }}
             />
             <div
               className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-40`}
             />
-          </motion.div>
-
-          {/* Icon/Active Badge Overlay */}
-          <div className="absolute top-4 left-4">
-            <motion.div
-              className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl backdrop-blur-sm`}
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, duration: 0.3 }}
-            >
-              <IconComponent className="w-6 h-6 text-white" />
-            </motion.div>
           </div>
 
-          {/* Active Badge - Top Right */}
+          {/* Icon Badge Overlay - Simple animation */}
+          <div className="absolute top-4 left-4">
+            <div
+              className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl`}
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? "scale(1)" : "scale(0.9)",
+                transition: "opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s",
+              }}
+            >
+              <IconComponent className="w-6 h-6 text-white" />
+            </div>
+          </div>
+
+          {/* Active Badge */}
           {service.isActive && (
-            <motion.div
+            <div
               className="absolute top-4 right-4 flex items-center px-2 py-1 text-xs font-bold text-yellow-300 bg-black/50 rounded-full border border-yellow-300/30"
-              initial={{ opacity: 0, y: -5 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.3 }}
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? "translateY(0)" : "translateY(-5px)",
+                transition: "opacity 0.3s ease 0.5s, transform 0.3s ease 0.5s",
+              }}
             >
               <Zap className="w-3 h-3 mr-1 text-yellow-300 flex-shrink-0" />
               <span>Active</span>
-            </motion.div>
+            </div>
           )}
         </div>
 
@@ -312,32 +293,29 @@ const ServiceRow = ({ service, index }) => {
               isReverse ? "sm:justify-end" : "sm:justify-start"
             }`}
           >
-            {/* Features List */}
+            {/* Features List - Using CSS transitions instead of Framer Motion */}
             <div className="w-full sm:w-1/2">
               <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
                 Key Deliverables:
               </h4>
               <ul className="space-y-2">
                 {service.features.slice(0, 3).map((feature, idx) => (
-                  <motion.li
+                  <li
                     key={idx}
                     className="flex items-start text-sm text-gray-700 dark:text-gray-400"
-                    initial={{ x: isReverse ? 20 : -20, opacity: 0 }}
-                    animate={
-                      isInView
-                        ? { x: 0, opacity: 1 }
-                        : { x: isReverse ? 20 : -20, opacity: 0 }
-                    }
-                    transition={{
-                      delay: 0.6 + idx * 0.1,
-                      duration: 0.4,
-                      type: "spring",
-                      stiffness: 100,
+                    style={{
+                      opacity: isInView ? 1 : 0,
+                      transform: isInView
+                        ? "translateX(0)"
+                        : `translateX(${isReverse ? "20px" : "-20px"})`,
+                      transition: `opacity 0.4s ease ${
+                        0.6 + idx * 0.1
+                      }s, transform 0.4s ease ${0.6 + idx * 0.1}s`,
                     }}
                   >
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
                     <span className="leading-snug">{feature}</span>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -349,42 +327,41 @@ const ServiceRow = ({ service, index }) => {
               </h4>
               <div className="flex flex-wrap gap-2">
                 {service.technologies.slice(0, 4).map((tech, idx) => (
-                  <motion.span
+                  <span
                     key={idx}
                     className="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full shadow-sm"
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                    transition={{
-                      delay: 0.8 + idx * 0.08,
-                      duration: 0.4,
+                    style={{
+                      opacity: isInView ? 1 : 0,
+                      transform: isInView ? "scale(1)" : "scale(0.9)",
+                      transition: `opacity 0.4s ease ${
+                        0.8 + idx * 0.08
+                      }s, transform 0.4s ease ${0.8 + idx * 0.08}s`,
                     }}
                   >
                     {tech}
-                  </motion.span>
+                  </span>
                 ))}
               </div>
 
-              {/* CTA Button */}
-              <motion.div className="mt-6">
-                <motion.div
-                  whileHover={{
-                    scale: 1.02,
-                    boxShadow:
-                      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+              {/* CTA Button - CSS only */}
+              <div className="mt-6">
+                <div
+                  className={`inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold text-sm shadow-md hover:shadow-xl transition-all duration-300`}
+                  style={{
+                    transform: isHovered ? "scale(1.02)" : "scale(1)",
                   }}
-                  whileTap={{ scale: 0.98 }}
-                  className={`inline-flex items-center py-2.5 px-6 rounded-full bg-gradient-to-r ${service.color} text-white font-bold text-sm shadow-lg transition-all duration-300`}
                 >
                   <span className="mr-2">Explore {service.category}</span>
-                  <motion.span
-                    initial={{ x: 0 }}
-                    animate={{ x: isHovered ? 4 : 0 }}
-                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </motion.span>
-                </motion.div>
-              </motion.div>
+                  <ArrowRight
+                    className="w-4 h-4 transition-transform duration-200"
+                    style={{
+                      transform: isHovered
+                        ? "translateX(4px)"
+                        : "translateX(0)",
+                    }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -393,9 +370,7 @@ const ServiceRow = ({ service, index }) => {
   );
 };
 
-// --- [ ServicesPage Component ] ---
-
-// Loading Skeleton Component
+// --- [ Loading Skeleton Component ] ---
 const ServiceCardSkeleton = ({ count = 4 }) => {
   return (
     <div className="space-y-12 sm:space-y-16">
@@ -409,6 +384,7 @@ const ServiceCardSkeleton = ({ count = 4 }) => {
   );
 };
 
+// --- [ ServicesPage Component ] ---
 export default function ServicesPage() {
   const { filteredServices } = useServiceFilter();
   const { isLoading, imagesLoaded, progress } = usePreloadImages();
@@ -441,7 +417,6 @@ export default function ServicesPage() {
                 </span>
               </motion.h1>
 
-              {/* Subtitle */}
               <motion.div
                 className="space-y-2 text-center"
                 initial={{ opacity: 0, y: 15 }}
@@ -459,7 +434,7 @@ export default function ServicesPage() {
               </motion.div>
             </motion.div>
 
-            {/* Services List - Full Width Rows */}
+            {/* Services List */}
             {isLoading ? (
               <div className="text-center py-12">
                 <div className="w-full max-w-md mx-auto bg-gray-100 dark:bg-gray-800 rounded-full h-2.5 mb-4">
@@ -503,7 +478,7 @@ export default function ServicesPage() {
             )}
           </div>
 
-          {/* CTA Section - Kept from original */}
+          {/* CTA Section */}
           <motion.section
             initial="hidden"
             whileInView="visible"

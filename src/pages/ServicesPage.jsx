@@ -1,10 +1,17 @@
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useMemo, useCallback, useEffect, useState } from "react";
-import { ArrowRight, Code, Database, Brain, Smartphone } from "lucide-react";
-import ServiceCard from "../components/ServiceCard";
+import { useMemo, useCallback, useRef, useEffect, useState } from "react";
+import {
+  ArrowRight,
+  CheckCircle,
+  Code,
+  Database,
+  Brain,
+  Smartphone,
+  Zap, // New icon for 'Active'
+} from "lucide-react";
 
-// Animation variants
+// --- [ ANIMATION VARIANTS - Kept from original ] ---
 const pageTransition = {
   hidden: { opacity: 0 },
   visible: {
@@ -18,19 +25,53 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.1 },
+    transition: {
+      when: "beforeChildren",
+      staggerChildren: 0,
+    },
   },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+const fadeIn = {
+  hidden: {
+    opacity: 0,
+    willChange: "opacity",
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};
+
+const fadeInUp = (i) => ({
+  hidden: {
+    opacity: 0,
+    y: 10,
+    willChange: "opacity, transform", // Optimize for GPU acceleration
+  },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+    transition: {
+      delay: i * 0.01, // Minimal stagger
+      duration: 0.4,
+      ease: [0.22, 1, 0.36, 1], // Smoother ease-out
+      opacity: {
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1],
+      },
+      y: {
+        duration: 0.4,
+        ease: [0.4, 0, 0.2, 1],
+      },
+    },
   },
-};
+});
 
+// --- [ DATA - Kept from original ] ---
 const SERVICE_CATEGORIES = {
   "AI & ML": {
     name: "AI & ML",
@@ -84,7 +125,7 @@ const services = [
       "Scikit-learn",
       "OpenAI API",
     ],
-    color: "from-purple-500 to-pink-500",
+    color: "from-purple-600 to-pink-600",
   },
   {
     id: 2,
@@ -105,7 +146,7 @@ const services = [
       "Performance Optimization",
     ],
     technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS"],
-    color: "from-blue-500 to-cyan-500",
+    color: "from-blue-600 to-cyan-600",
   },
   {
     id: 3,
@@ -125,7 +166,7 @@ const services = [
       "Data Visualization",
     ],
     technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
-    color: "from-orange-500 to-red-500",
+    color: "from-orange-600 to-red-600",
   },
   {
     id: 4,
@@ -151,21 +192,76 @@ const services = [
       "GraphQL",
       "TypeScript",
     ],
-    color: "from-green-500 to-emerald-500",
+    color: "from-teal-600 to-emerald-700",
   },
 ];
 
-// Preload images to prevent flicker on first load
+// --- [ HOOKS - Kept from original ] ---
 const usePreloadImages = () => {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const totalImages = services.length;
+
   useEffect(() => {
-    services.forEach((service) => {
-      const img = new Image();
-      img.src = service.image;
-    });
-  }, []);
+    let loadedCount = 0;
+    let isMounted = true;
+
+    // Skip preloading if no images to load
+    if (totalImages === 0) {
+      if (isMounted) {
+        setIsLoading(false);
+        setImagesLoaded(true);
+      }
+      return;
+    }
+
+    const loadImage = (src) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+          loadedCount++;
+          setProgress(Math.round((loadedCount / totalImages) * 100));
+          resolve();
+        };
+        img.onerror = () => {
+          loadedCount++;
+          setProgress(Math.round((loadedCount / totalImages) * 100));
+          resolve();
+        };
+        img.src = src;
+      });
+    };
+
+    const loadAllImages = async () => {
+      try {
+        await Promise.all(services.map((service) => loadImage(service.image)));
+        if (isMounted) {
+          setImagesLoaded(true);
+        }
+      } catch (error) {
+        console.error("Error loading images:", error);
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadAllImages();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [totalImages]);
+
+  return {
+    isLoading: isLoading || (!imagesLoaded && progress < 100),
+    imagesLoaded,
+    progress,
+  };
 };
 
-// Hook for filtering services
 const useServiceFilter = () => {
   const [activeCategory, setActiveCategory] = useState(null);
 
@@ -194,15 +290,231 @@ const useServiceFilter = () => {
   };
 };
 
-export default function ServicesPage() {
-  const {
-    activeCategory,
-    filteredServices,
-    categoryStats,
-    handleCategoryChange,
-  } = useServiceFilter();
+// --- [ NEW ServiceRow Component ] ---
 
-  usePreloadImages(); // Preload images
+const ServiceRow = ({ service, index }) => {
+  const IconComponent = service.icon;
+  const ref = useRef(null);
+  const isInView = useInView(ref, {
+    once: true,
+    triggerOnce: true,
+    rootMargin: "0px 0px 0px 0px",
+    threshold: 0.01, // Trigger as soon as 1% of the item is visible
+  });
+  const isReverse = index % 2 !== 0; // Alternate layout
+
+  // Hover state for a ripple effect
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeIn}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      className="relative group w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 backdrop-blur-sm transition-all duration-500 overflow-hidden isolate"
+      style={{
+        background:
+          "linear-gradient(145deg, var(--color-start, #ffffff), var(--color-end, #f9fafb))",
+        "--color-start": isHovered ? "var(--tw-color-gray-50)" : "white",
+        "--color-end": isHovered ? "var(--tw-color-blue-50)" : "white",
+      }}
+    >
+      {/* Background Gradient Effect on Hover (Dark Mode) */}
+      <motion.div
+        className="absolute inset-0 z-0 opacity-0 dark:opacity-0 dark:bg-zinc-800/50"
+        animate={{
+          opacity: isHovered ? (isReverse ? 1 : 0.8) : 0,
+          scale: isHovered ? 1.01 : 1,
+        }}
+        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      />
+      {/* Dynamic Background Element */}
+      <motion.div
+        className={`absolute inset-0 z-0 opacity-10 dark:opacity-20`}
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: isHovered ? 1 : 0.3,
+          scale: isHovered ? 1.2 : 1,
+        }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        style={{
+          background: `radial-gradient(circle at ${
+            isReverse ? "0% 50%" : "100% 50%"
+          }, transparent 0%, rgba(200, 200, 255, 0.1) 40%, transparent 100%)`,
+        }}
+      />
+
+      <Link
+        to={`/services/${service.slug}`}
+        className={`relative z-10 flex flex-col md:flex-row items-stretch gap-6 md:gap-10 lg:gap-12 cursor-pointer ${
+          isReverse ? "md:flex-row-reverse" : ""
+        }`}
+      >
+        {/* Image/Visual Section */}
+        <div className="md:w-5/12 lg:w-4/12 relative flex-shrink-0">
+          <motion.div
+            className="w-full h-48 sm:h-64 md:h-full rounded-lg sm:rounded-xl overflow-hidden shadow-xl"
+            initial={{ scale: 1 }}
+            animate={{ scale: isHovered ? 1.03 : 1 }}
+            transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          >
+            <img
+              src={service.image}
+              alt={service.title}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div
+              className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-40`}
+            />
+          </motion.div>
+
+          {/* Icon/Active Badge Overlay */}
+          <div className="absolute top-4 left-4">
+            <motion.div
+              className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl backdrop-blur-sm`}
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 0.3, duration: 0.3 }}
+            >
+              <IconComponent className="w-6 h-6 text-white" />
+            </motion.div>
+          </div>
+
+          {/* Active Badge - Top Right */}
+          {service.isActive && (
+            <motion.div
+              className="absolute top-4 right-4 flex items-center px-2 py-1 text-xs font-bold text-yellow-300 bg-black/50 rounded-full border border-yellow-300/30"
+              initial={{ opacity: 0, y: -5 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.5, duration: 0.3 }}
+            >
+              <Zap className="w-3 h-3 mr-1 text-yellow-300 flex-shrink-0" />
+              <span>Active</span>
+            </motion.div>
+          )}
+        </div>
+
+        {/* Content Section */}
+        <div className="md:w-7/12 lg:w-8/12 flex flex-col justify-center">
+          <h3
+            className={`text-2xl sm:text-3xl font-extrabold mb-3 leading-snug bg-clip-text text-transparent bg-gradient-to-r ${service.color}`}
+          >
+            {service.title}
+          </h3>
+
+          <p className="text-gray-600 dark:text-gray-300 mb-6 text-base sm:text-lg font-light leading-relaxed">
+            {service.description}
+          </p>
+
+          <div
+            className={`flex flex-col sm:flex-row gap-6 ${
+              isReverse ? "sm:justify-end" : "sm:justify-start"
+            }`}
+          >
+            {/* Features List */}
+            <div className="w-full sm:w-1/2">
+              <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+                Key Deliverables:
+              </h4>
+              <ul className="space-y-2">
+                {service.features.slice(0, 3).map((feature, idx) => (
+                  <motion.li
+                    key={idx}
+                    className="flex items-start text-sm text-gray-700 dark:text-gray-400"
+                    initial={{ x: isReverse ? 20 : -20, opacity: 0 }}
+                    animate={
+                      isInView
+                        ? { x: 0, opacity: 1 }
+                        : { x: isReverse ? 20 : -20, opacity: 0 }
+                    }
+                    transition={{
+                      delay: 0.6 + idx * 0.1,
+                      duration: 0.4,
+                      type: "spring",
+                      stiffness: 100,
+                    }}
+                  >
+                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                    <span className="leading-snug">{feature}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Technologies */}
+            <div className="w-full sm:w-1/2">
+              <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+                Core Technologies:
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {service.technologies.slice(0, 4).map((tech, idx) => (
+                  <motion.span
+                    key={idx}
+                    className="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full shadow-sm"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                    transition={{
+                      delay: 0.8 + idx * 0.08,
+                      duration: 0.4,
+                    }}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+
+              {/* CTA Button */}
+              <motion.div className="mt-6">
+                <motion.div
+                  whileHover={{
+                    scale: 1.02,
+                    boxShadow:
+                      "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+                  }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`inline-flex items-center py-2.5 px-6 rounded-full bg-gradient-to-r ${service.color} text-white font-bold text-sm shadow-lg transition-all duration-300`}
+                >
+                  <span className="mr-2">Explore {service.category}</span>
+                  <motion.span
+                    initial={{ x: 0 }}
+                    animate={{ x: isHovered ? 4 : 0 }}
+                    transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                  >
+                    <ArrowRight className="w-4 h-4" />
+                  </motion.span>
+                </motion.div>
+              </motion.div>
+            </div>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+};
+
+// --- [ ServicesPage Component ] ---
+
+// Loading Skeleton Component
+const ServiceCardSkeleton = ({ count = 4 }) => {
+  return (
+    <div className="space-y-12 sm:space-y-16">
+      {Array.from({ length: count }).map((_, index) => (
+        <div
+          key={index}
+          className="h-64 w-full bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"
+        />
+      ))}
+    </div>
+  );
+};
+
+export default function ServicesPage() {
+  const { filteredServices } = useServiceFilter();
+  const { isLoading, imagesLoaded, progress } = usePreloadImages();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
@@ -215,19 +527,26 @@ export default function ServicesPage() {
           exit="hidden"
         >
           {/* Header */}
-          <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
-            <motion.div className="text-center mb-12">
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-10">
+            <motion.div className="text-center mb-16">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-2xl sm:text-3xl font-bold tracking-tight"
+                transition={{
+                  duration: 0.6,
+                  delay: 0.2,
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                }}
+                className="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-3"
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-                  MY SERVICES
+                  SPECIALIZED SERVICES
                 </span>
               </motion.h1>
-              <motion.p
+
+              {/* Subtitle */}
+              <motion.div
+                className="space-y-2 text-center"
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -235,31 +554,46 @@ export default function ServicesPage() {
                   delay: 0.3,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
-                className="mt-3 sm:mt-4 text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
-                I provide freelance services to individuals, startups, and
-                organizations—offering AI solutions, full-stack development, and
-                end-to-end technology support to bring ideas to life.
-              </motion.p>
+                <h2 className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                  End-to-end technology solutions in AI, full-stack development,
+                  and data engineering to power your next big idea.
+                </h2>
+              </motion.div>
             </motion.div>
 
-            {/* Services Grid */}
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            >
-              {filteredServices.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  variants={itemVariants}
-                  className="w-full"
-                >
-                  <ServiceCard service={service} index={index} />
-                </motion.div>
-              ))}
-            </motion.div>
+            {/* Services List - Full Width Rows */}
+            {isLoading ? (
+              <div className="text-center py-12">
+                <div className="w-full max-w-md mx-auto bg-gray-100 dark:bg-gray-800 rounded-full h-2.5 mb-4">
+                  <div
+                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-300 ease-out"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Loading services... {progress}%
+                </p>
+                <ServiceCardSkeleton count={filteredServices.length} />
+              </div>
+            ) : !imagesLoaded ? (
+              <ServiceCardSkeleton count={filteredServices.length} />
+            ) : (
+              <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                className="space-y-12 sm:space-y-16"
+              >
+                {filteredServices.map((service, index) => (
+                  <ServiceRow
+                    key={service.id}
+                    service={service}
+                    index={index}
+                  />
+                ))}
+              </motion.div>
+            )}
 
             {filteredServices.length === 0 && (
               <motion.p
@@ -272,7 +606,7 @@ export default function ServicesPage() {
             )}
           </div>
 
-          {/* CTA Section */}
+          {/* CTA Section - Kept from original */}
           <motion.section
             initial="hidden"
             whileInView="visible"
@@ -281,7 +615,7 @@ export default function ServicesPage() {
             className="py-16 sm:py-20 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
           >
             <div className="container max-w-4xl mx-auto px-4 sm:px-6 text-center">
-              <motion.div variants={itemVariants}>
+              <motion.div variants={fadeInUp(0)}>
                 <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 sm:mb-4 text-gray-900 dark:text-white">
                   Ready to <span className="font-bold">Transform</span> Your
                   Ideas?

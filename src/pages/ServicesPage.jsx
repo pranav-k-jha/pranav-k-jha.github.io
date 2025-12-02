@@ -202,18 +202,19 @@ const ServiceRow = ({ service, index }) => {
       variants={fadeIn}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 overflow-hidden bg-white dark:bg-zinc-900/80 hover:shadow-xl dark:hover:shadow-zinc-800/50"
+      className="relative w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-blue-900/50 overflow-hidden bg-white dark:bg-slate-900 transition-all duration-300"
       style={{
-        transition: "box-shadow 0.3s ease",
+        transform: isHovered ? "translateY(-2px)" : "translateY(0)",
       }}
     >
       {/* Background Gradient - NO ANIMATION on iOS */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none rounded-xl transition-opacity duration-300"
+        className="absolute inset-0 z-0 pointer-events-none rounded-xl transition-all duration-300"
         style={{
-          background:
-            "linear-gradient(145deg, rgba(240, 249, 255, 0.8), rgba(224, 242, 254, 0.6))",
-          opacity: isHovered ? 0.4 : 0,
+          background: "transparent",
+          boxShadow: isHovered
+            ? "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03)"
+            : "0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)",
         }}
       />
 

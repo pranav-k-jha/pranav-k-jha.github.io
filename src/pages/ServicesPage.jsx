@@ -314,36 +314,29 @@ const ServiceRow = ({ service, index }) => {
       variants={fadeIn}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
-      className="relative group w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 backdrop-blur-sm transition-all duration-500 overflow-hidden isolate"
-      style={{
-        background:
-          "linear-gradient(145deg, var(--color-start, #ffffff), var(--color-end, #f9fafb))",
-        "--color-start": isHovered ? "var(--tw-color-gray-50)" : "white",
-        "--color-end": isHovered ? "var(--tw-color-blue-50)" : "white",
-      }}
+      className="relative group w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 dark:border-zinc-800 backdrop-blur-sm transition-all duration-300 overflow-hidden isolate
+             bg-white dark:bg-zinc-900/80 hover:shadow-xl dark:hover:shadow-zinc-800/50"
     >
-      {/* Background Gradient Effect on Hover (Dark Mode) */}
+      {/* Background Gradient Effect on Hover */}
       <motion.div
-        className="absolute inset-0 z-0 opacity-0 dark:opacity-0 dark:bg-zinc-800/50"
+        className="absolute inset-0 z-0"
         animate={{
-          opacity: isHovered ? (isReverse ? 1 : 0.8) : 0,
-          scale: isHovered ? 1.01 : 1,
+          opacity: isHovered ? 0.6 : 0,
+          scale: isHovered ? 1.02 : 1,
         }}
-        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-      />
-      {/* Dynamic Background Element */}
-      <motion.div
-        className={`absolute inset-0 z-0 opacity-10 dark:opacity-20`}
-        initial={{ opacity: 0 }}
-        animate={{
-          opacity: isHovered ? 1 : 0.3,
-          scale: isHovered ? 1.2 : 1,
-        }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
         style={{
-          background: `radial-gradient(circle at ${
-            isReverse ? "0% 50%" : "100% 50%"
-          }, transparent 0%, rgba(200, 200, 255, 0.1) 40%, transparent 100%)`,
+          background: `linear-gradient(145deg, 
+        ${
+          isHovered ? "var(--color-start, #f0f9ff)" : "rgba(240, 249, 255, 0)"
+        }, 
+        ${isHovered ? "var(--color-end, #e0f2fe)" : "rgba(224, 242, 254, 0)"})`,
+          "--color-start": isHovered
+            ? "var(--tw-color-blue-50 dark:opacity-20)"
+            : "transparent",
+          "--color-end": isHovered
+            ? "var(--tw-color-blue-100 dark:opacity-10)"
+            : "transparent",
         }}
       />
 

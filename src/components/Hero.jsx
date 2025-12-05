@@ -79,7 +79,7 @@ const Hero = () => {
       animate="show"
       variants={animationVariants.container}
     >
-      <div className="container max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-12 relative z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
           {/* Left Column - Hero Text */}
           <motion.div
@@ -122,7 +122,7 @@ const Hero = () => {
                 }`}
               >
                 <span className="block mb-2 text-5xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                  PRANAV JHA
+                  PRANAV K JHA
                 </span>
               </h1>
 
@@ -152,7 +152,7 @@ const Hero = () => {
 
             {/* Description */}
             <motion.p
-              className={`text-base sm:text-lg md:text-xl max-w-xl mx-auto md:mx-0 leading-relaxed ${
+              className={`text-base sm:text-lg md:text-xl font-light max-w-xl mx-auto md:mx-0 leading-relaxed ${
                 theme === "dark" ? "text-gray-300" : "text-gray-700"
               }`}
               variants={animationVariants.fadeInUp}
@@ -168,7 +168,7 @@ const Hero = () => {
             >
               <Link
                 to="/services"
-                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
+                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"

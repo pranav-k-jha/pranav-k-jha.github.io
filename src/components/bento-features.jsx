@@ -157,7 +157,7 @@ export function BentoDemo() {
       id="projects"
       className="w-full py-16 sm:py-20 bg-slate-50 dark:bg-black"
     >
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         <motion.div
           className="mx-auto flex flex-col items-center space-y-3 sm:space-y-4 text-center mb-12 sm:mb-16"
           initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}

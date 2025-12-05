@@ -1,4 +1,4 @@
-import { llmScientist } from "../components/courses/llmScientist";
+import { llmScientist } from "../components/courses/LLMScientist";
 import CoursePageTemplate from "../components/courses/CoursePageTemplate";
 
 const LLMScientistPage = () => {

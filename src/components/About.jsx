@@ -79,7 +79,7 @@ const About = () => {
       id="about"
       className="py-16 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950"
     >
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

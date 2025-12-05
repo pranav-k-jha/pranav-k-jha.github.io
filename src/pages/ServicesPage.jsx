@@ -401,7 +401,7 @@ export default function ServicesPage() {
           exit="hidden"
         >
           {/* Header */}
-          <div className="container max-w-6xl mt-10 mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-10">
+          <div className="container max-w-7xl mt-10 mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-10">
             <motion.div className="text-center mb-16">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}

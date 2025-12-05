@@ -76,7 +76,7 @@ const CoursePageTemplate = ({ courseData }) => {
         <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen opacity-70 animate-blob animation-delay-4000" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Navigation */}
         <motion.div
           initial={{ opacity: 0, x: -20 }}

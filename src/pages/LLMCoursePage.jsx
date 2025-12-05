@@ -52,7 +52,7 @@ const LLMCoursePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-      <div className="container max-w-6xl mt-10 mx-auto px-4 sm:px-6 py-16 sm:py-20">
+      <div className="container max-w-7xl mt-10 mx-auto px-4 sm:px-6 py-16 sm:py-20">
         {/* Header with Animation */}
         <div className="space-y-3 sm:space-y-4 mb-12 sm:mb-16">
           {/* Main Heading */}

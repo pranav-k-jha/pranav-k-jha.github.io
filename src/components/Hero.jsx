@@ -79,7 +79,7 @@ const Hero = () => {
       animate="show"
       variants={animationVariants.container}
     >
-      <div className="container max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
           {/* Left Column - Hero Text */}
           <motion.div

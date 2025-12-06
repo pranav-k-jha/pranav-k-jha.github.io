@@ -83,7 +83,7 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
           {/* Left Column - Hero Text */}
           <motion.div
-            className="text-center md:text-left space-y-6"
+            className="text-center md:text-left space-y-6 pl-14"
             variants={animationVariants.container}
           >
             {/* Badge */}
@@ -122,7 +122,7 @@ const Hero = () => {
                 }`}
               >
                 <span className="block mb-2 text-5xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                  PRANAV K JHA
+                  PRANAV JHA
                 </span>
               </h1>
 

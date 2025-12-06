@@ -83,7 +83,7 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
           {/* Left Column - Hero Text */}
           <motion.div
-            className="text-center md:text-left space-y-6 pl-14"
+            className="text-center md:text-left space-y-6 p-2"
             variants={animationVariants.container}
           >
             {/* Badge */}
@@ -168,7 +168,7 @@ const Hero = () => {
             >
               <Link
                 to="/services"
-                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
+                className={`group relative px-5 py-3 rounded-xl font-semibold text-sm sm:text-base text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500"
@@ -194,7 +194,7 @@ const Hero = () => {
 
               <Link
                 to="/llm-course"
-                className={`group relative px-6 py-3 rounded-xl font-semibold text-sm text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
+                className={`group relative px-5 py-3 rounded-xl font-semibold text-sm sm:text-base text-white hover:text-white overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 ${
                   theme === "dark"
                     ? "bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500"
                     : "bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500"

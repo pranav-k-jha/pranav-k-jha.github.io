@@ -230,7 +230,7 @@ const PublicationsPage = () => {
                     </div>
                     <div className="flex-1">
                       <h3
-                        className={`text-sm font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
+                        className={`text-sm md:text-base font-medium leading-snug transition-colors text-gray-900 dark:text-gray-100 ${
                           url
                             ? "hover:text-blue-600 dark:hover:text-blue-400 cursor-pointer"
                             : ""

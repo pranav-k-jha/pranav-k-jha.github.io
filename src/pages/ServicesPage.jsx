@@ -114,12 +114,12 @@ const usePreloadImages = () => {
         const img = new Image();
         img.onload = () => {
           loadedCount++;
-          setProgress(Math.round((loadedCount / totalImages) * 100));
+          if (isMounted) setProgress(Math.round((loadedCount / totalImages) * 100));
           resolve();
         };
         img.onerror = () => {
           loadedCount++;
-          setProgress(Math.round((loadedCount / totalImages) * 100));
+          if (isMounted) setProgress(Math.round((loadedCount / totalImages) * 100));
           resolve();
         };
         img.src = src;
@@ -183,7 +183,7 @@ const useServiceFilter = () => {
   };
 };
 
-// --- [ ServiceRow Component - MAXIMUM iOS COMPATIBILITY ] ---
+// --- [ ServiceRow Component - iOS flicker fixes applied ] ---
 const ServiceRow = ({ service, index }) => {
   const IconComponent = service.icon;
   const ref = useRef(null);
@@ -203,18 +203,27 @@ const ServiceRow = ({ service, index }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="relative w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-blue-900/50 overflow-hidden bg-white dark:bg-slate-900 transition-all duration-300"
+      // Use translateY for hover (instead of scale) to avoid subpixel scaling jitter on iOS
       style={{
-        transform: isHovered ? "translateY(-2px)" : "translateY(0)",
+        transform: isHovered ? "translateY(-2px) translateZ(0)" : "translateY(0) translateZ(0)",
+        willChange: "transform, opacity",
+        WebkitBackfaceVisibility: "hidden",
+        backfaceVisibility: "hidden",
       }}
     >
-      {/* Background Gradient - NO ANIMATION on iOS */}
+      {/* Background Gradient - NO ANIMATED SCALE */}
       <div
-        className="absolute inset-0 z-0 pointer-events-none rounded-xl transition-all duration-300"
+        className="absolute inset-0 z-0 pointer-events-none rounded-xl"
         style={{
           background: "transparent",
           boxShadow: isHovered
             ? "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03)"
             : "0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)",
+          WebkitTransform: "translateZ(0)",
+          transform: "translateZ(0)",
+          willChange: "box-shadow",
+          WebkitBackfaceVisibility: "hidden",
+          backfaceVisibility: "hidden",
         }}
       />
 
@@ -224,12 +233,20 @@ const ServiceRow = ({ service, index }) => {
           isReverse ? "md:flex-row-reverse" : ""
         }`}
       >
-        {/* Image/Visual Section - NO SCALE ANIMATION */}
+        {/* Image/Visual Section - remove scale on hover (use overlay opacity/shadow instead) */}
         <div className="md:w-5/12 lg:w-4/12 relative flex-shrink-0">
           <div
-            className="w-full h-48 sm:h-64 md:h-full rounded-lg sm:rounded-xl overflow-hidden shadow-xl transition-transform duration-300"
+            className="w-full h-48 sm:h-64 md:h-full rounded-lg sm:rounded-xl overflow-hidden shadow-xl transition-shadow duration-300"
             style={{
-              transform: isHovered ? "scale(1.02)" : "scale(1)",
+              // NOTE: removed scale transform which caused iOS jitter
+              WebkitTransform: "translateZ(0)",
+              transform: "translateZ(0)",
+              willChange: "opacity, transform, box-shadow",
+              WebkitBackfaceVisibility: "hidden",
+              backfaceVisibility: "hidden",
+              boxShadow: isHovered
+                ? "0 18px 40px -12px rgba(0,0,0,0.12)"
+                : "0 8px 20px -8px rgba(0,0,0,0.06)",
             }}
           >
             <img
@@ -237,24 +254,38 @@ const ServiceRow = ({ service, index }) => {
               alt={service.title}
               className="w-full h-full object-cover"
               loading="lazy"
+              // Force compositing and hide backface for Safari/iOS to avoid flicker
               style={{
                 WebkitTransform: "translateZ(0)",
                 transform: "translateZ(0)",
+                WebkitBackfaceVisibility: "hidden",
+                backfaceVisibility: "hidden",
+                willChange: "transform, opacity",
+                // Keep image rendering stable: avoid CSS scale on this image
               }}
             />
+            {/* overlay for color/tint - animate opacity only */}
             <div
-              className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-40`}
+              className={`absolute inset-0 bg-gradient-to-t ${service.color}`}
+              style={{
+                opacity: isHovered ? 0.5 : 0.4,
+                transition: "opacity 0.25s ease",
+                WebkitTransform: "translateZ(0)",
+              }}
             />
           </div>
 
-          {/* Icon Badge Overlay - Simple animation */}
+          {/* Icon Badge Overlay - animate opacity/scale with translateZ for smoother paint */}
           <div className="absolute top-4 left-4">
             <div
               className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl`}
               style={{
                 opacity: isInView ? 1 : 0,
-                transform: isInView ? "scale(1)" : "scale(0.9)",
+                transform: isInView ? "translateZ(0) scale(1)" : "translateZ(0) scale(0.96)",
                 transition: "opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s",
+                willChange: "transform, opacity",
+                WebkitBackfaceVisibility: "hidden",
+                backfaceVisibility: "hidden",
               }}
             >
               <IconComponent className="w-6 h-6 text-white" />
@@ -267,8 +298,11 @@ const ServiceRow = ({ service, index }) => {
               className="absolute top-4 right-4 flex items-center px-2 py-1 text-xs font-bold text-yellow-300 bg-black/50 rounded-full border border-yellow-300/30"
               style={{
                 opacity: isInView ? 1 : 0,
-                transform: isInView ? "translateY(0)" : "translateY(-5px)",
+                transform: isInView ? "translateY(0) translateZ(0)" : "translateY(-5px) translateZ(0)",
                 transition: "opacity 0.3s ease 0.5s, transform 0.3s ease 0.5s",
+                willChange: "transform, opacity",
+                WebkitBackfaceVisibility: "hidden",
+                backfaceVisibility: "hidden",
               }}
             >
               <Zap className="w-3 h-3 mr-1 text-yellow-300 flex-shrink-0" />
@@ -281,6 +315,11 @@ const ServiceRow = ({ service, index }) => {
         <div className="md:w-7/12 lg:w-8/12 flex flex-col justify-center">
           <h3
             className={`text-2xl sm:text-3xl font-extrabold mb-3 leading-snug bg-clip-text text-transparent bg-gradient-to-r ${service.color}`}
+            style={{
+              WebkitTransform: "translateZ(0)",
+              transform: "translateZ(0)",
+              willChange: "opacity, transform",
+            }}
           >
             {service.title}
           </h3>
@@ -294,7 +333,7 @@ const ServiceRow = ({ service, index }) => {
               isReverse ? "sm:justify-end" : "sm:justify-start"
             }`}
           >
-            {/* Features List - Using CSS transitions instead of Framer Motion */}
+            {/* Features List - animate only opacity/translate on mount */}
             <div className="w-full sm:w-1/2">
               <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
                 Key Deliverables:
@@ -306,12 +345,11 @@ const ServiceRow = ({ service, index }) => {
                     className="flex items-start text-sm text-gray-700 dark:text-gray-400"
                     style={{
                       opacity: isInView ? 1 : 0,
-                      transform: isInView
-                        ? "translateX(0)"
-                        : `translateX(${isReverse ? "20px" : "-20px"})`,
-                      transition: `opacity 0.4s ease ${
-                        0.6 + idx * 0.1
-                      }s, transform 0.4s ease ${0.6 + idx * 0.1}s`,
+                      transform: isInView ? "translateX(0) translateZ(0)" : `translateX(${isReverse ? "20px" : "-20px"}) translateZ(0)`,
+                      transition: `opacity 0.4s ease ${0.6 + idx * 0.1}s, transform 0.4s ease ${0.6 + idx * 0.1}s`,
+                      willChange: "opacity, transform",
+                      WebkitBackfaceVisibility: "hidden",
+                      backfaceVisibility: "hidden",
                     }}
                   >
                     <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
@@ -333,10 +371,11 @@ const ServiceRow = ({ service, index }) => {
                     className="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full shadow-sm"
                     style={{
                       opacity: isInView ? 1 : 0,
-                      transform: isInView ? "scale(1)" : "scale(0.9)",
-                      transition: `opacity 0.4s ease ${
-                        0.8 + idx * 0.08
-                      }s, transform 0.4s ease ${0.8 + idx * 0.08}s`,
+                      transform: isInView ? "scale(1) translateZ(0)" : "scale(0.96) translateZ(0)",
+                      transition: `opacity 0.4s ease ${0.8 + idx * 0.08}s, transform 0.4s ease ${0.8 + idx * 0.08}s`,
+                      willChange: "transform, opacity",
+                      WebkitBackfaceVisibility: "hidden",
+                      backfaceVisibility: "hidden",
                     }}
                   >
                     {tech}
@@ -349,16 +388,17 @@ const ServiceRow = ({ service, index }) => {
                 <div
                   className={`inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold text-sm shadow-md hover:shadow-xl transition-all duration-300`}
                   style={{
-                    transform: isHovered ? "scale(1.02)" : "scale(1)",
+                    transform: isHovered ? "translateY(-1px) translateZ(0)" : "translateZ(0)",
+                    willChange: "transform, box-shadow",
+                    WebkitBackfaceVisibility: "hidden",
+                    backfaceVisibility: "hidden",
                   }}
                 >
                   <span className="mr-2">Explore {service.category}</span>
                   <ArrowRight
                     className="w-4 h-4 transition-transform duration-200"
                     style={{
-                      transform: isHovered
-                        ? "translateX(4px)"
-                        : "translateX(0)",
+                      transform: isHovered ? "translateX(4px) translateZ(0)" : "translateZ(0)",
                     }}
                   />
                 </div>

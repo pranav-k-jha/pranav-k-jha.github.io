@@ -8,56 +8,47 @@ import {
   Database,
   Brain,
   Smartphone,
-  Zap,
 } from "lucide-react";
-import services from "../data/services";
 
-// ============================================================================
-// ANIMATION VARIANTS - Optimized for 60fps performance
-// ============================================================================
-
+// Animation variants
 const pageTransition = {
-  initial: { opacity: 0 },
-  animate: {
+  hidden: { opacity: 0 },
+  visible: {
     opacity: 1,
-    transition: {
-      duration: 0.3,
-      ease: [0.22, 1, 0.36, 1],
-    },
+    transition: { duration: 0.4, ease: "easeOut" },
   },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.2 },
+  exit: { opacity: 0 },
+};
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
   },
 };
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.1,
-    },
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
   },
 };
 
-const fadeInUp = {
-  initial: {
-    opacity: 0,
-    y: 20,
-  },
-  animate: {
+const fadeInUp = (i) => ({
+  hidden: { opacity: 0, y: 20 },
+  visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
-      ease: [0.22, 1, 0.36, 1],
+      delay: i * 0.1,
+      duration: 0.6,
+      ease: [0.16, 1, 0.3, 1],
     },
   },
-};
-
-// ============================================================================
-// SERVICE CATEGORIES DATA
-// ============================================================================
+});
 
 const SERVICE_CATEGORIES = {
   "AI & ML": {
@@ -86,64 +77,114 @@ const SERVICE_CATEGORIES = {
   },
 };
 
-// ============================================================================
-// CUSTOM HOOKS
-// ============================================================================
+const services = [
+  {
+    id: 1,
+    isActive: true, // Mark this service as active
+    title: "AI & Machine Learning Solutions",
+    slug: "ai-ml",
+    description:
+      "Custom AI models, machine learning pipelines, and intelligent automation solutions tailored to your business needs.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
+    icon: Brain,
+    category: "AI & ML",
+    features: [
+      "Custom ML Model Development",
+      "Natural Language Processing",
+      "Computer Vision Solutions",
+      "Predictive Analytics",
+      "AI Strategy Consulting",
+    ],
+    technologies: [
+      "Python",
+      "TensorFlow",
+      "PyTorch",
+      "Scikit-learn",
+      "OpenAI API",
+    ],
+    color: "from-purple-500 to-pink-500",
+  },
+  {
+    id: 2,
+    isActive: true, //
+    title: "Web Development",
+    slug: "web-development",
+    description:
+      "Modern, scalable web applications built with cutting-edge technologies and best practices.",
+    image:
+      "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&q=80&w=1000",
+    icon: Code,
+    category: "Web Development",
+    features: [
+      "React & Next.js Applications",
+      "Backend API Development",
+      "Database Design & Optimization",
+      "Cloud Deployment",
+      "Performance Optimization",
+    ],
+    technologies: ["React", "Next.js", "Node.js", "PostgreSQL", "AWS"],
+    color: "from-blue-500 to-cyan-500",
+  },
+  {
+    id: 3,
+    title: "Data Engineering & Analytics",
+    slug: "data-engineering",
+    description:
+      "Robust data pipelines, ETL processes, and analytics platforms to unlock insights from your data.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=1000",
+    icon: Database,
+    category: "Data Engineering",
+    features: [
+      "Data Pipeline Development",
+      "ETL/ELT Processes",
+      "Data Warehousing",
+      "Real-time Analytics",
+      "Data Visualization",
+    ],
+    technologies: ["Python", "Apache Airflow", "PostgreSQL", "Redis", "Docker"],
+    color: "from-orange-500 to-red-500",
+  },
+  {
+    id: 4,
+    title: "Mobile App Development",
+    slug: "mobile-app-development",
+    description:
+      "Cross-platform mobile applications built with React Native and Expo Router, powered by a robust Node.js and GraphQL backend.",
+    image:
+      "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&q=80&w=1000",
+    icon: Smartphone,
+    category: "Mobile Development",
+    features: [
+      "Cross-platform iOS & Android Apps",
+      "Expo Router for Navigation",
+      "GraphQL API Integration",
+      "Offline-First Capabilities",
+      "Push Notifications",
+    ],
+    technologies: [
+      "React Native",
+      "Expo Router",
+      "Node.js",
+      "GraphQL",
+      "TypeScript",
+    ],
+    color: "from-green-500 to-emerald-500",
+  },
+];
 
-/**
- * Preload images with progress tracking
- * Optimized for better UX with loading states
- */
+// Preload images to prevent flicker on first load
 const usePreloadImages = () => {
-  const [state, setState] = useState({
-    isLoading: true,
-    progress: 0,
-    imagesLoaded: false,
-  });
-
   useEffect(() => {
-    const totalImages = services.length;
-
-    if (totalImages === 0) {
-      setState({ isLoading: false, progress: 100, imagesLoaded: true });
-      return;
-    }
-
-    let loadedCount = 0;
-    const images = services.map((service) => {
+    services.forEach((service) => {
       const img = new Image();
-
-      const handleLoad = () => {
-        loadedCount++;
-        const progress = Math.round((loadedCount / totalImages) * 100);
-        setState((prev) => ({ ...prev, progress }));
-
-        if (loadedCount === totalImages) {
-          setState({ isLoading: false, progress: 100, imagesLoaded: true });
-        }
-      };
-
-      img.onload = handleLoad;
-      img.onerror = handleLoad; // Count errors as loaded to prevent hanging
       img.src = service.image;
-
-      return img;
     });
-
-    return () => {
-      images.forEach((img) => {
-        img.onload = null;
-        img.onerror = null;
-      });
-    };
   }, []);
-
-  return state;
 };
 
-/**
- * Service filtering hook with category management
- */
+// Hook for filtering services
 const useServiceFilter = () => {
   const [activeCategory, setActiveCategory] = useState(null);
 
@@ -168,232 +209,218 @@ const useServiceFilter = () => {
     filteredServices,
     categoryStats,
     handleCategoryChange,
+    totalServices: services.length,
   };
 };
-
-// ============================================================================
-// SERVICE CARD COMPONENT - Fully optimized for Safari/iOS
-// ============================================================================
 
 const ServiceCard = ({ service, index }) => {
   const IconComponent = service.icon;
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.15 });
-  const isReverse = index % 2 !== 0;
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <motion.article
+    <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-        delay: index * 0.1,
+      custom={index}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={fadeInUp(index)}
+      whileHover={{
+        y: -4,
+        transition: { type: "spring", stiffness: 300, damping: 20 },
       }}
-      className="group relative"
+      className="group relative bg-white dark:bg-zinc-900/80 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-lg dark:shadow-xl dark:hover:shadow-2xl border border-gray-100 dark:border-zinc-800 flex flex-col h-full transition-shadow duration-300 isolate"
+      style={{ transform: "translateZ(0)" }} // GPU layer
     >
-      <Link
-        to={`/services/${service.slug}`}
-        className={`block relative bg-white dark:bg-slate-900 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-blue-900/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}
-        style={{
-          transform: "translate3d(0,0,0)",
-          backfaceVisibility: "hidden",
-          WebkitBackfaceVisibility: "hidden",
-        }}
-      >
+      {/* Active Badge with Animated Underline */}
+      {service.isActive && (
+        <div className="absolute top-4 left-4 z-10 group">
+          <div className="relative inline-block">
+            <div className="flex items-center px-3 py-1 text-xs sm:text-sm font-bold text-yellow-300 bg-black/40 backdrop-blur-sm rounded-full border border-yellow-300/20 transition-colors duration-300 group-hover:bg-yellow-300/10">
+              <motion.span
+                className="w-1.5 h-1.5 sm:w-2 sm:h-2 mr-1.5 sm:mr-2 bg-yellow-300 rounded-full"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  opacity: [0.7, 1, 0.7],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+              />
+              <span>Active</span>
+            </div>
+            <motion.span
+              className="absolute bottom-0 left-0 w-full h-0.5 bg-yellow-300 rounded-full"
+              initial={{ width: "0%", left: "0%" }}
+              animate={{
+                width: ["0%", "100%", "0%"],
+                left: ["0%", "0%", "100%"],
+              }}
+              transition={{
+                duration: 2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Image Section */}
+      <div className="relative h-36 sm:h-40 overflow-hidden">
+        <motion.img
+          src={service.image}
+          alt={service.title}
+          initial={{ scale: 1 }}
+          whileHover={{ scale: 1.2 }}
+          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+          className="w-full h-full object-cover will-change-transform"
+          style={{ transform: "translateZ(0)" }}
+          loading="lazy"
+        />
         <div
-          className={`flex flex-col ${
-            isReverse ? "md:flex-row-reverse" : "md:flex-row"
-          } gap-0`}
+          className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-30`}
+        />
+
+        {/* Icon Badge */}
+        <motion.div
+          className="absolute top-3 right-3 sm:top-4 sm:right-4"
+          whileHover={{ y: -2, rotate: 8 }}
+          transition={{ duration: 0.3 }}
         >
-          {/* Image Section - Fixed for Safari/iOS */}
-          <div className="relative md:w-5/12 lg:w-4/12 flex-shrink-0">
-            <div className="relative w-full h-48 sm:h-64 md:h-full overflow-hidden rounded-lg sm:rounded-xl shadow-xl">
-              {/* Image with proper Safari optimization */}
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                style={{
-                  // Critical iOS/Safari fixes
-                  transform: "translate3d(0,0,0)",
-                  WebkitTransform: "translate3d(0,0,0)",
-                  backfaceVisibility: "hidden",
-                  WebkitBackfaceVisibility: "hidden",
-                  WebkitFontSmoothing: "subpixel-antialiased",
-                }}
-              />
+          <div
+            className={`p-2 sm:p-2.5 rounded-lg sm:rounded-xl bg-gradient-to-r ${service.color} shadow-lg backdrop-blur-sm`}
+          >
+            <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+          </div>
+        </motion.div>
+      </div>
 
-              {/* Gradient Overlay */}
-              <div
-                className={`absolute inset-0 bg-gradient-to-t ${service.color} transition-opacity duration-300`}
-                style={{
-                  opacity: 0.4,
-                  transform: "translate3d(0,0,0)",
-                  backfaceVisibility: "hidden",
-                }}
-              />
+      {/* Content */}
+      <div className="p-4 sm:p-5 flex flex-col flex-1">
+        <div className="flex-1">
+          <motion.h3
+            className={`text-lg sm:text-xl font-bold bg-gradient-to-r ${service.color} bg-clip-text text-transparent mb-2 sm:mb-3`}
+            whileHover={{ x: 4 }}
+            transition={{ duration: 0.2 }}
+          >
+            {service.title}
+          </motion.h3>
 
-              {/* Icon Badge */}
-              <div className="absolute top-4 left-4">
-                <div
-                  className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl`}
-                  style={{
-                    transform: "translate3d(0,0,0)",
-                    backfaceVisibility: "hidden",
-                  }}
+          <p className="text-gray-600 dark:text-gray-400 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm">
+            {service.description}
+          </p>
+
+          {/* Features */}
+          <div className="mb-3 sm:mb-4">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
+              Key Features:
+            </h4>
+            <ul className="space-y-1 sm:space-y-1.5">
+              {service.features.slice(0, 3).map((feature, idx) => (
+                <motion.li
+                  key={idx}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ delay: idx * 0.1, duration: 0.4 }}
+                  className="flex items-start text-xs sm:text-sm text-gray-600 dark:text-gray-400"
                 >
-                  <IconComponent className="w-6 h-6 text-white" />
-                </div>
-              </div>
+                  <CheckCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-green-500 mr-1.5 sm:mr-2 mt-0.5 flex-shrink-0" />
+                  <span className="leading-tight">{feature}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
 
-              {/* Active Badge */}
-              {service.isActive && (
-                <div
-                  className="absolute top-4 right-4 flex items-center px-2 py-1 text-xs font-bold text-yellow-300 bg-black/50 rounded-full border border-yellow-300/30"
-                  style={{
-                    transform: "translate3d(0,0,0)",
-                    backfaceVisibility: "hidden",
-                  }}
+          {/* Technologies */}
+          <div className="mb-4 sm:mb-5">
+            <h4 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5 sm:mb-2">
+              Technologies:
+            </h4>
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
+              {service.technologies.slice(0, 3).map((tech, idx) => (
+                <motion.span
+                  key={idx}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ delay: idx * 0.05, duration: 0.3 }}
+                  whileHover={{ scale: 1.05, y: -1 }}
+                  className="px-2 py-0.5 text-[10px] sm:text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-full"
                 >
-                  <Zap className="w-3 h-3 mr-1 text-yellow-300 flex-shrink-0" />
-                  <span>Active</span>
-                </div>
+                  {tech}
+                </motion.span>
+              ))}
+              {service.technologies.length > 3 && (
+                <span className="px-2 py-0.5 text-[10px] sm:text-xs font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 rounded-full">
+                  +{service.technologies.length - 3}
+                </span>
               )}
             </div>
           </div>
-
-          {/* Content Section */}
-          <div className="md:w-7/12 lg:w-8/12 flex flex-col justify-center p-4 sm:p-6 lg:p-8">
-            {/* Title */}
-            <h3
-              className={`text-2xl sm:text-3xl font-extrabold mb-3 leading-snug bg-clip-text text-transparent bg-gradient-to-r ${service.color}`}
-              style={{
-                transform: "translate3d(0,0,0)",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              {service.title}
-            </h3>
-
-            <p className="text-gray-600 dark:text-gray-300 mb-6 text-base sm:text-lg font-light leading-relaxed">
-              {service.description}
-            </p>
-
-            <div
-              className={`flex flex-col sm:flex-row gap-6 ${
-                isReverse ? "sm:justify-end" : "sm:justify-start"
-              }`}
-            >
-              {/* Key Deliverables */}
-              <div className="w-full sm:w-1/2">
-                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
-                  Key Deliverables:
-                </h4>
-                <ul className="space-y-2">
-                  {service.features.slice(0, 3).map((feature, idx) => (
-                    <li
-                      key={idx}
-                      className="flex items-start text-sm text-gray-700 dark:text-gray-400"
-                    >
-                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="leading-snug">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Core Technologies */}
-              <div className="w-full sm:w-1/2">
-                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
-                  Core Technologies:
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {service.technologies.slice(0, 4).map((tech, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full shadow-sm"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* CTA Button */}
-                <div className="mt-6">
-                  <div
-                    className={`inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold text-sm shadow-md transition-all duration-300 group-hover:shadow-xl`}
-                    style={{
-                      transform: "translate3d(0,0,0)",
-                      backfaceVisibility: "hidden",
-                    }}
-                  >
-                    <span className="mr-2">Explore {service.category}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
-      </Link>
-    </motion.article>
+
+        {/* CTA */}
+        <div className="mt-auto">
+          <Link to={`/services/${service.slug}`}>
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className={`w-full py-2 sm:py-2.5 px-4 sm:px-5 rounded-lg sm:rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold flex items-center justify-center shadow-md hover:shadow-xl transition-all duration-300`}
+            >
+              <span className="mr-1.5 sm:mr-2 text-xs sm:text-sm">
+                Learn More
+              </span>
+              <motion.span
+                initial={{ x: 0 }}
+                whileHover={{ x: 4 }}
+                transition={{ type: "spring", stiffness: 400, damping: 10 }}
+              >
+                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              </motion.span>
+            </motion.div>
+          </Link>
+        </div>
+      </div>
+    </motion.div>
   );
 };
 
-// ============================================================================
-// LOADING SKELETON
-// ============================================================================
-
-const LoadingSkeleton = () => (
-  <div className="space-y-12 sm:space-y-16 mt-8">
-    {[1, 2, 3, 4].map((i) => (
-      <div
-        key={i}
-        className="h-64 w-full bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"
-      />
-    ))}
-  </div>
-);
-
-// ============================================================================
-// MAIN COMPONENT
-// ============================================================================
-
 export default function ServicesPage() {
-  const { filteredServices } = useServiceFilter();
-  const { isLoading, progress, imagesLoaded } = usePreloadImages();
+  const {
+    activeCategory,
+    filteredServices,
+    categoryStats,
+    handleCategoryChange,
+  } = useServiceFilter();
+
+  usePreloadImages(); // Preload images
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-slate-900 dark:to-blue-950/30">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
       <AnimatePresence mode="wait">
         <motion.div
-          key="services-page"
-          {...pageTransition}
-          className="relative"
+          key="services-content"
+          variants={pageTransition}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
         >
-          {/* Hero Header */}
-          <section className="container max-w-7xl mt-10 mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-10">
-            <motion.div className="text-center mb-16">
+          {/* Header */}
+          <div className="container max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-20">
+            <motion.div className="text-center mb-12">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.2,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                className="text-2xl sm:text-3xl font-bold tracking-tight text-center mb-3"
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-2xl sm:text-3xl font-bold tracking-tight"
               >
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-                  SPECIALIZED SERVICES
+                  MY SERVICES
                 </span>
               </motion.h1>
-
-              <motion.div
-                className="space-y-2 text-center"
+              <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
@@ -401,53 +428,33 @@ export default function ServicesPage() {
                   delay: 0.3,
                   ease: [0.25, 0.46, 0.45, 0.94],
                 }}
+                className="mt-3 sm:mt-4 text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
               >
-                <h2 className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                  End-to-end technology solutions in AI, full-stack development,
-                  and data engineering to power your next big idea.
-                </h2>
-              </motion.div>
+                I provide freelance services to individuals, startups, and
+                organizations—offering AI solutions, full-stack development, and
+                end-to-end technology support to bring ideas to life.
+              </motion.p>
             </motion.div>
-          </section>
 
-          {/* Services List */}
-          <section className="container max-w-7xl mx-auto px-4 sm:px-6 pb-10">
-            {/* Loading State */}
-            {isLoading && (
-              <div className="text-center py-12">
-                <div className="w-full max-w-md mx-auto bg-gray-100 dark:bg-gray-800 rounded-full h-2.5 mb-4">
-                  <div
-                    className="bg-blue-600 h-2.5 rounded-full transition-all duration-300 ease-out"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Loading services... {progress}%
-                </p>
-                <LoadingSkeleton />
-              </div>
-            )}
+            {/* Services Grid */}
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+            >
+              {filteredServices.map((service, index) => (
+                <motion.div
+                  key={service.id}
+                  variants={itemVariants}
+                  className="w-full"
+                >
+                  <ServiceCard service={service} index={index} />
+                </motion.div>
+              ))}
+            </motion.div>
 
-            {/* Services List */}
-            {!isLoading && imagesLoaded && (
-              <motion.div
-                variants={staggerContainer}
-                initial="initial"
-                animate="animate"
-                className="space-y-12 sm:space-y-16"
-              >
-                {filteredServices.map((service, index) => (
-                  <ServiceCard
-                    key={service.id}
-                    service={service}
-                    index={index}
-                  />
-                ))}
-              </motion.div>
-            )}
-
-            {/* Empty State */}
-            {!isLoading && filteredServices.length === 0 && (
+            {filteredServices.length === 0 && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -456,18 +463,18 @@ export default function ServicesPage() {
                 No services found in this category.
               </motion.p>
             )}
-          </section>
+          </div>
 
           {/* CTA Section */}
           <motion.section
-            initial="initial"
-            whileInView="animate"
+            initial="hidden"
+            whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            variants={staggerContainer}
+            variants={containerVariants}
             className="py-16 sm:py-20 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
           >
             <div className="container max-w-4xl mx-auto px-4 sm:px-6 text-center">
-              <motion.div variants={fadeInUp}>
+              <motion.div variants={itemVariants}>
                 <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 sm:mb-4 text-gray-900 dark:text-white">
                   Ready to <span className="font-bold">Transform</span> Your
                   Ideas?
@@ -481,10 +488,6 @@ export default function ServicesPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-xl transition-all duration-300"
-                    style={{
-                      transform: "translate3d(0,0,0)",
-                      backfaceVisibility: "hidden",
-                    }}
                   >
                     Get Started
                     <motion.div

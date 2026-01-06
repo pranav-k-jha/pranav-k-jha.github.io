@@ -11,6 +11,7 @@ AI Engineer passionate about building intelligent systems and solving complex pr
 ## 🛠️ Technical Stack
 
 This portfolio website is built with:
+
 - ⚛️ **Frontend**: React 18
 - 🎨 **Styling**: Tailwind CSS
 - ✨ **Animations**: Framer Motion
@@ -22,13 +23,6 @@ This portfolio website is built with:
 - **Technologies**: Python, TensorFlow, PyTorch, Scikit-learn
 - **Development**: Software Engineering, MLOps, Cloud Computing
 - **Research**: Algorithm Development, Data Analysis, Model Optimization
-
-## 🌟 Featured Projects
-
-[//]: # (Add your featured projects here with brief descriptions)
-- **Project 1**: Brief description of your project and its impact
-- **Project 2**: Brief description of your project and its impact
-- **Project 3**: Brief description of your project and its impact
 
 ## 📅 GitHub Contributions
 

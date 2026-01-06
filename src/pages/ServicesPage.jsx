@@ -12,57 +12,53 @@ import {
 } from "lucide-react";
 import services from "../data/services";
 
-// --- [ ANIMATION VARIANTS ] ---
+// ============================================================================
+// ANIMATION VARIANTS - Optimized for 60fps performance
+// ============================================================================
+
 const pageTransition = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-  exit: { opacity: 0 },
-};
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
+  initial: { opacity: 0 },
+  animate: {
     opacity: 1,
     transition: {
-      when: "beforeChildren",
-      staggerChildren: 0,
-    },
-  },
-};
-
-const fadeIn = {
-  hidden: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-    transition: {
-      duration: 0.4,
-      ease: [0.4, 0, 0.2, 1],
-    },
-  },
-};
-
-const fadeInUp = (i) => ({
-  hidden: {
-    opacity: 0,
-    y: 10,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.01,
-      duration: 0.6,
+      duration: 0.3,
       ease: [0.22, 1, 0.36, 1],
     },
   },
-});
+  exit: {
+    opacity: 0,
+    transition: { duration: 0.2 },
+  },
+};
 
-// --- [ DATA ] ---
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const fadeInUp = {
+  initial: {
+    opacity: 0,
+    y: 20,
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+// ============================================================================
+// SERVICE CATEGORIES DATA
+// ============================================================================
+
 const SERVICE_CATEGORIES = {
   "AI & ML": {
     name: "AI & ML",
@@ -90,71 +86,64 @@ const SERVICE_CATEGORIES = {
   },
 };
 
-// --- [ HOOKS ] ---
+// ============================================================================
+// CUSTOM HOOKS
+// ============================================================================
+
+/**
+ * Preload images with progress tracking
+ * Optimized for better UX with loading states
+ */
 const usePreloadImages = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
-  const totalImages = services.length;
+  const [state, setState] = useState({
+    isLoading: true,
+    progress: 0,
+    imagesLoaded: false,
+  });
 
   useEffect(() => {
-    let loadedCount = 0;
-    let isMounted = true;
+    const totalImages = services.length;
 
     if (totalImages === 0) {
-      if (isMounted) {
-        setIsLoading(false);
-        setImagesLoaded(true);
-      }
+      setState({ isLoading: false, progress: 100, imagesLoaded: true });
       return;
     }
 
-    const loadImage = (src) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-          loadedCount++;
-          if (isMounted) setProgress(Math.round((loadedCount / totalImages) * 100));
-          resolve();
-        };
-        img.onerror = () => {
-          loadedCount++;
-          if (isMounted) setProgress(Math.round((loadedCount / totalImages) * 100));
-          resolve();
-        };
-        img.src = src;
-      });
-    };
+    let loadedCount = 0;
+    const images = services.map((service) => {
+      const img = new Image();
 
-    const loadAllImages = async () => {
-      try {
-        await Promise.all(services.map((service) => loadImage(service.image)));
-        if (isMounted) {
-          setImagesLoaded(true);
-        }
-      } catch (error) {
-        console.error("Error loading images:", error);
-      } finally {
-        if (isMounted) {
-          setIsLoading(false);
-        }
-      }
-    };
+      const handleLoad = () => {
+        loadedCount++;
+        const progress = Math.round((loadedCount / totalImages) * 100);
+        setState((prev) => ({ ...prev, progress }));
 
-    loadAllImages();
+        if (loadedCount === totalImages) {
+          setState({ isLoading: false, progress: 100, imagesLoaded: true });
+        }
+      };
+
+      img.onload = handleLoad;
+      img.onerror = handleLoad; // Count errors as loaded to prevent hanging
+      img.src = service.image;
+
+      return img;
+    });
 
     return () => {
-      isMounted = false;
+      images.forEach((img) => {
+        img.onload = null;
+        img.onerror = null;
+      });
     };
-  }, [totalImages]);
+  }, []);
 
-  return {
-    isLoading: isLoading || (!imagesLoaded && progress < 100),
-    imagesLoaded,
-    progress,
-  };
+  return state;
 };
 
+/**
+ * Service filtering hook with category management
+ */
 const useServiceFilter = () => {
   const [activeCategory, setActiveCategory] = useState(null);
 
@@ -179,269 +168,214 @@ const useServiceFilter = () => {
     filteredServices,
     categoryStats,
     handleCategoryChange,
-    totalServices: services.length,
   };
 };
 
-// --- [ ServiceRow Component - iOS flicker fixes applied ] ---
-const ServiceRow = ({ service, index }) => {
+// ============================================================================
+// SERVICE CARD COMPONENT - Fully optimized for Safari/iOS
+// ============================================================================
+
+const ServiceCard = ({ service, index }) => {
   const IconComponent = service.icon;
   const ref = useRef(null);
-  const isInView = useInView(ref, {
-    once: true,
-    amount: 0.2,
-  });
+  const isInView = useInView(ref, { once: true, amount: 0.15 });
   const isReverse = index % 2 !== 0;
-  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
+    <motion.article
       ref={ref}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
-      variants={fadeIn}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-blue-900/50 overflow-hidden bg-white dark:bg-slate-900 transition-all duration-300"
-      // Use translateY for hover (instead of scale) to avoid subpixel scaling jitter on iOS
-      style={{
-        transform: isHovered ? "translateY(-2px) translateZ(0)" : "translateY(0) translateZ(0)",
-        willChange: "transform, opacity",
-        WebkitBackfaceVisibility: "hidden",
-        backfaceVisibility: "hidden",
+      initial={{ opacity: 0, y: 30 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+        delay: index * 0.1,
       }}
+      className="group relative"
     >
-      {/* Background Gradient - NO ANIMATED SCALE */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none rounded-xl"
-        style={{
-          background: "transparent",
-          boxShadow: isHovered
-            ? "0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.03)"
-            : "0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)",
-          WebkitTransform: "translateZ(0)",
-          transform: "translateZ(0)",
-          willChange: "box-shadow",
-          WebkitBackfaceVisibility: "hidden",
-          backfaceVisibility: "hidden",
-        }}
-      />
-
       <Link
         to={`/services/${service.slug}`}
-        className={`relative z-10 flex flex-col md:flex-row items-stretch gap-6 md:gap-10 lg:gap-12 cursor-pointer ${
-          isReverse ? "md:flex-row-reverse" : ""
-        }`}
+        className={`block relative bg-white dark:bg-slate-900 rounded-xl sm:rounded-2xl border border-gray-100 dark:border-blue-900/50 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1`}
+        style={{
+          transform: "translate3d(0,0,0)",
+          backfaceVisibility: "hidden",
+          WebkitBackfaceVisibility: "hidden",
+        }}
       >
-        {/* Image/Visual Section - remove scale on hover (use overlay opacity/shadow instead) */}
-        <div className="md:w-5/12 lg:w-4/12 relative flex-shrink-0">
-          <div
-            className="w-full h-48 sm:h-64 md:h-full rounded-lg sm:rounded-xl overflow-hidden shadow-xl transition-shadow duration-300"
-            style={{
-              // NOTE: removed scale transform which caused iOS jitter
-              WebkitTransform: "translateZ(0)",
-              transform: "translateZ(0)",
-              willChange: "opacity, transform, box-shadow",
-              WebkitBackfaceVisibility: "hidden",
-              backfaceVisibility: "hidden",
-              boxShadow: isHovered
-                ? "0 18px 40px -12px rgba(0,0,0,0.12)"
-                : "0 8px 20px -8px rgba(0,0,0,0.06)",
-            }}
-          >
-            <img
-              src={service.image}
-              alt={service.title}
-              className="w-full h-full object-cover"
-              loading="lazy"
-              // Force compositing and hide backface for Safari/iOS to avoid flicker
-              style={{
-                WebkitTransform: "translateZ(0)",
-                transform: "translateZ(0)",
-                WebkitBackfaceVisibility: "hidden",
-                backfaceVisibility: "hidden",
-                willChange: "transform, opacity",
-                // Keep image rendering stable: avoid CSS scale on this image
-              }}
-            />
-            {/* overlay for color/tint - animate opacity only */}
-            <div
-              className={`absolute inset-0 bg-gradient-to-t ${service.color}`}
-              style={{
-                opacity: isHovered ? 0.5 : 0.4,
-                transition: "opacity 0.25s ease",
-                WebkitTransform: "translateZ(0)",
-              }}
-            />
-          </div>
+        <div
+          className={`flex flex-col ${
+            isReverse ? "md:flex-row-reverse" : "md:flex-row"
+          } gap-0`}
+        >
+          {/* Image Section - Fixed for Safari/iOS */}
+          <div className="relative md:w-5/12 lg:w-4/12 flex-shrink-0">
+            <div className="relative w-full h-48 sm:h-64 md:h-full overflow-hidden rounded-lg sm:rounded-xl shadow-xl">
+              {/* Image with proper Safari optimization */}
+              <img
+                src={service.image}
+                alt={service.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                style={{
+                  // Critical iOS/Safari fixes
+                  transform: "translate3d(0,0,0)",
+                  WebkitTransform: "translate3d(0,0,0)",
+                  backfaceVisibility: "hidden",
+                  WebkitBackfaceVisibility: "hidden",
+                  WebkitFontSmoothing: "subpixel-antialiased",
+                }}
+              />
 
-          {/* Icon Badge Overlay - animate opacity/scale with translateZ for smoother paint */}
-          <div className="absolute top-4 left-4">
-            <div
-              className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl`}
-              style={{
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? "translateZ(0) scale(1)" : "translateZ(0) scale(0.96)",
-                transition: "opacity 0.3s ease 0.3s, transform 0.3s ease 0.3s",
-                willChange: "transform, opacity",
-                WebkitBackfaceVisibility: "hidden",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <IconComponent className="w-6 h-6 text-white" />
-            </div>
-          </div>
+              {/* Gradient Overlay */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-t ${service.color} transition-opacity duration-300`}
+                style={{
+                  opacity: 0.4,
+                  transform: "translate3d(0,0,0)",
+                  backfaceVisibility: "hidden",
+                }}
+              />
 
-          {/* Active Badge */}
-          {service.isActive && (
-            <div
-              className="absolute top-4 right-4 flex items-center px-2 py-1 text-xs font-bold text-yellow-300 bg-black/50 rounded-full border border-yellow-300/30"
-              style={{
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? "translateY(0) translateZ(0)" : "translateY(-5px) translateZ(0)",
-                transition: "opacity 0.3s ease 0.5s, transform 0.3s ease 0.5s",
-                willChange: "transform, opacity",
-                WebkitBackfaceVisibility: "hidden",
-                backfaceVisibility: "hidden",
-              }}
-            >
-              <Zap className="w-3 h-3 mr-1 text-yellow-300 flex-shrink-0" />
-              <span>Active</span>
-            </div>
-          )}
-        </div>
-
-        {/* Content Section */}
-        <div className="md:w-7/12 lg:w-8/12 flex flex-col justify-center">
-          <h3
-            className={`text-2xl sm:text-3xl font-extrabold mb-3 leading-snug bg-clip-text text-transparent bg-gradient-to-r ${service.color}`}
-            style={{
-              WebkitTransform: "translateZ(0)",
-              transform: "translateZ(0)",
-              willChange: "opacity, transform",
-            }}
-          >
-            {service.title}
-          </h3>
-
-          <p className="text-gray-600 dark:text-gray-300 mb-6 text-base sm:text-lg font-light leading-relaxed">
-            {service.description}
-          </p>
-
-          <div
-            className={`flex flex-col sm:flex-row gap-6 ${
-              isReverse ? "sm:justify-end" : "sm:justify-start"
-            }`}
-          >
-            {/* Features List - animate only opacity/translate on mount */}
-            <div className="w-full sm:w-1/2">
-              <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
-                Key Deliverables:
-              </h4>
-              <ul className="space-y-2">
-                {service.features.slice(0, 3).map((feature, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-start text-sm text-gray-700 dark:text-gray-400"
-                    style={{
-                      opacity: isInView ? 1 : 0,
-                      transform: isInView ? "translateX(0) translateZ(0)" : `translateX(${isReverse ? "20px" : "-20px"}) translateZ(0)`,
-                      transition: `opacity 0.4s ease ${0.6 + idx * 0.1}s, transform 0.4s ease ${0.6 + idx * 0.1}s`,
-                      willChange: "opacity, transform",
-                      WebkitBackfaceVisibility: "hidden",
-                      backfaceVisibility: "hidden",
-                    }}
-                  >
-                    <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span className="leading-snug">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Technologies */}
-            <div className="w-full sm:w-1/2">
-              <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
-                Core Technologies:
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                {service.technologies.slice(0, 4).map((tech, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full shadow-sm"
-                    style={{
-                      opacity: isInView ? 1 : 0,
-                      transform: isInView ? "scale(1) translateZ(0)" : "scale(0.96) translateZ(0)",
-                      transition: `opacity 0.4s ease ${0.8 + idx * 0.08}s, transform 0.4s ease ${0.8 + idx * 0.08}s`,
-                      willChange: "transform, opacity",
-                      WebkitBackfaceVisibility: "hidden",
-                      backfaceVisibility: "hidden",
-                    }}
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              {/* CTA Button - CSS only */}
-              <div className="mt-6">
+              {/* Icon Badge */}
+              <div className="absolute top-4 left-4">
                 <div
-                  className={`inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold text-sm shadow-md hover:shadow-xl transition-all duration-300`}
+                  className={`p-3 rounded-xl bg-gradient-to-r ${service.color} shadow-2xl`}
                   style={{
-                    transform: isHovered ? "translateY(-1px) translateZ(0)" : "translateZ(0)",
-                    willChange: "transform, box-shadow",
-                    WebkitBackfaceVisibility: "hidden",
+                    transform: "translate3d(0,0,0)",
                     backfaceVisibility: "hidden",
                   }}
                 >
-                  <span className="mr-2">Explore {service.category}</span>
-                  <ArrowRight
-                    className="w-4 h-4 transition-transform duration-200"
+                  <IconComponent className="w-6 h-6 text-white" />
+                </div>
+              </div>
+
+              {/* Active Badge */}
+              {service.isActive && (
+                <div
+                  className="absolute top-4 right-4 flex items-center px-2 py-1 text-xs font-bold text-yellow-300 bg-black/50 rounded-full border border-yellow-300/30"
+                  style={{
+                    transform: "translate3d(0,0,0)",
+                    backfaceVisibility: "hidden",
+                  }}
+                >
+                  <Zap className="w-3 h-3 mr-1 text-yellow-300 flex-shrink-0" />
+                  <span>Active</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Content Section */}
+          <div className="md:w-7/12 lg:w-8/12 flex flex-col justify-center p-4 sm:p-6 lg:p-8">
+            {/* Title */}
+            <h3
+              className={`text-2xl sm:text-3xl font-extrabold mb-3 leading-snug bg-clip-text text-transparent bg-gradient-to-r ${service.color}`}
+              style={{
+                transform: "translate3d(0,0,0)",
+                backfaceVisibility: "hidden",
+              }}
+            >
+              {service.title}
+            </h3>
+
+            <p className="text-gray-600 dark:text-gray-300 mb-6 text-base sm:text-lg font-light leading-relaxed">
+              {service.description}
+            </p>
+
+            <div
+              className={`flex flex-col sm:flex-row gap-6 ${
+                isReverse ? "sm:justify-end" : "sm:justify-start"
+              }`}
+            >
+              {/* Key Deliverables */}
+              <div className="w-full sm:w-1/2">
+                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+                  Key Deliverables:
+                </h4>
+                <ul className="space-y-2">
+                  {service.features.slice(0, 3).map((feature, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-start text-sm text-gray-700 dark:text-gray-400"
+                    >
+                      <CheckCircle className="w-4 h-4 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="leading-snug">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Core Technologies */}
+              <div className="w-full sm:w-1/2">
+                <h4 className="text-sm font-bold text-gray-800 dark:text-gray-200 mb-2">
+                  Core Technologies:
+                </h4>
+                <div className="flex flex-wrap gap-2">
+                  {service.technologies.slice(0, 4).map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="px-3 py-1 text-xs font-semibold bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 rounded-full shadow-sm"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA Button */}
+                <div className="mt-6">
+                  <div
+                    className={`inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r ${service.color} text-white font-semibold text-sm shadow-md transition-all duration-300 group-hover:shadow-xl`}
                     style={{
-                      transform: isHovered ? "translateX(4px) translateZ(0)" : "translateZ(0)",
+                      transform: "translate3d(0,0,0)",
+                      backfaceVisibility: "hidden",
                     }}
-                  />
+                  >
+                    <span className="mr-2">Explore {service.category}</span>
+                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </Link>
-    </motion.div>
+    </motion.article>
   );
 };
 
-// --- [ Loading Skeleton Component ] ---
-const ServiceCardSkeleton = ({ count = 4 }) => {
-  return (
-    <div className="space-y-12 sm:space-y-16">
-      {Array.from({ length: count }).map((_, index) => (
-        <div
-          key={index}
-          className="h-64 w-full bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"
-        />
-      ))}
-    </div>
-  );
-};
+// ============================================================================
+// LOADING SKELETON
+// ============================================================================
 
-// --- [ ServicesPage Component ] ---
+const LoadingSkeleton = () => (
+  <div className="space-y-12 sm:space-y-16 mt-8">
+    {[1, 2, 3, 4].map((i) => (
+      <div
+        key={i}
+        className="h-64 w-full bg-gray-100 dark:bg-gray-800 rounded-xl animate-pulse"
+      />
+    ))}
+  </div>
+);
+
+// ============================================================================
+// MAIN COMPONENT
+// ============================================================================
+
 export default function ServicesPage() {
   const { filteredServices } = useServiceFilter();
-  const { isLoading, imagesLoaded, progress } = usePreloadImages();
+  const { isLoading, progress, imagesLoaded } = usePreloadImages();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50/30 dark:from-gray-950 dark:via-slate-900 dark:to-blue-950/30">
       <AnimatePresence mode="wait">
         <motion.div
-          key="services-content"
-          variants={pageTransition}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
+          key="services-page"
+          {...pageTransition}
+          className="relative"
         >
-          {/* Header */}
-          <div className="container max-w-7xl mt-10 mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-10">
+          {/* Hero Header */}
+          <section className="container max-w-7xl mt-10 mx-auto px-4 sm:px-6 pt-16 sm:pt-20 pb-10">
             <motion.div className="text-center mb-16">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
@@ -474,9 +408,12 @@ export default function ServicesPage() {
                 </h2>
               </motion.div>
             </motion.div>
+          </section>
 
-            {/* Services List */}
-            {isLoading ? (
+          {/* Services List */}
+          <section className="container max-w-7xl mx-auto px-4 sm:px-6 pb-10">
+            {/* Loading State */}
+            {isLoading && (
               <div className="text-center py-12">
                 <div className="w-full max-w-md mx-auto bg-gray-100 dark:bg-gray-800 rounded-full h-2.5 mb-4">
                   <div
@@ -487,19 +424,20 @@ export default function ServicesPage() {
                 <p className="text-gray-600 dark:text-gray-400">
                   Loading services... {progress}%
                 </p>
-                <ServiceCardSkeleton count={filteredServices.length} />
+                <LoadingSkeleton />
               </div>
-            ) : !imagesLoaded ? (
-              <ServiceCardSkeleton count={filteredServices.length} />
-            ) : (
+            )}
+
+            {/* Services List */}
+            {!isLoading && imagesLoaded && (
               <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
+                variants={staggerContainer}
+                initial="initial"
+                animate="animate"
                 className="space-y-12 sm:space-y-16"
               >
                 {filteredServices.map((service, index) => (
-                  <ServiceRow
+                  <ServiceCard
                     key={service.id}
                     service={service}
                     index={index}
@@ -508,7 +446,8 @@ export default function ServicesPage() {
               </motion.div>
             )}
 
-            {filteredServices.length === 0 && (
+            {/* Empty State */}
+            {!isLoading && filteredServices.length === 0 && (
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -517,18 +456,18 @@ export default function ServicesPage() {
                 No services found in this category.
               </motion.p>
             )}
-          </div>
+          </section>
 
           {/* CTA Section */}
           <motion.section
-            initial="hidden"
-            whileInView="visible"
+            initial="initial"
+            whileInView="animate"
             viewport={{ once: true, margin: "-100px" }}
-            variants={containerVariants}
+            variants={staggerContainer}
             className="py-16 sm:py-20 bg-gradient-to-br from-gray-50/50 via-white to-blue-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-blue-900/50"
           >
             <div className="container max-w-4xl mx-auto px-4 sm:px-6 text-center">
-              <motion.div variants={fadeInUp(0)}>
+              <motion.div variants={fadeInUp}>
                 <h2 className="text-2xl sm:text-3xl font-light tracking-tight mb-3 sm:mb-4 text-gray-900 dark:text-white">
                   Ready to <span className="font-bold">Transform</span> Your
                   Ideas?
@@ -542,6 +481,10 @@ export default function ServicesPage() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className="inline-flex items-center py-2.5 sm:py-3 px-5 sm:px-6 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-500 dark:to-purple-500 text-white font-semibold text-sm sm:text-base shadow-md hover:shadow-xl transition-all duration-300"
+                    style={{
+                      transform: "translate3d(0,0,0)",
+                      backfaceVisibility: "hidden",
+                    }}
                   >
                     Get Started
                     <motion.div

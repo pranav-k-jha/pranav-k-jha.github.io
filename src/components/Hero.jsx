@@ -44,7 +44,7 @@ const Hero = () => {
 
   const techStack = useMemo(
     () => ["Python", "TensorFlow", "NLP", "LLM", "RAG", "Gen AI"],
-    []
+    [],
   );
 
   // Save scroll position before component unmounts
@@ -489,7 +489,7 @@ const Hero = () => {
                   {[
                     { icon: "📚", text: "8+ Publications" },
                     { icon: "🏆", text: "5+ Yrs Exp" },
-                    { icon: "🔄", text: "Updated Nov 2024" },
+                    { icon: "🔄", text: "Updated Jan 2026" },
                   ].map((stat, i) => (
                     <motion.div
                       key={i}

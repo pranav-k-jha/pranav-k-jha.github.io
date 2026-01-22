@@ -36,46 +36,6 @@ const PublicationsPage = () => {
         },
       ],
     },
-    {
-      "work-summary": [
-        {
-          title: {
-            title: {
-              value:
-                "Generative Models for Synthetic Transit Trip Data: A Comparative Study of CTGAN and TVAE for Travel Behavior Analysis",
-            },
-          },
-          "publication-date": { year: { value: "2025" } },
-          "journal-title": { value: "Transportation Research Procedia" },
-          "journal-subtitle": { value: "Submitted" },
-          "work-type": { value: "CONFERENCE_ARTICLE" },
-          type: "CONFERENCE_ARTICLE",
-          url: "",
-          manual: true,
-          "publication-status": "submitted",
-        },
-      ],
-    },
-    {
-      "work-summary": [
-        {
-          title: {
-            title: {
-              value:
-                "Secure and Equitable Transportation Planning in the Quantum Age: A Framework for Privacy-Preserving Mobility Data Using Quantum-Resilient Cryptography",
-            },
-          },
-          "publication-date": { year: { value: "2025" } },
-          "journal-title": { value: "Transportation Research Procedia" },
-          "journal-subtitle": { value: "Submitted" },
-          "work-type": { value: "CONFERENCE_ARTICLE" },
-          type: "CONFERENCE_ARTICLE",
-          url: "",
-          manual: true,
-          "publication-status": "submitted",
-        },
-      ],
-    },
   ];
 
   useEffect(() => {

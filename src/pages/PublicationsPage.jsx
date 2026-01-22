@@ -42,26 +42,6 @@ const PublicationsPage = () => {
           title: {
             title: {
               value:
-                "A Grid-Enabled Framework Integrating Computer Vision and Machine Learning for Real-Time Intersection Intelligence and Autonomous Vehicle Coordination",
-            },
-          },
-          "publication-date": { year: { value: "2025" } },
-          "journal-title": { value: "MDPI Infrastructures" },
-          "journal-subtitle": { value: "Conditionally Accepted" },
-          "work-type": { value: "JOURNAL_ARTICLE" },
-          type: "JOURNAL_ARTICLE",
-          url: { value: "https://www.mdpi.com/journal/applsci" },
-          manual: true,
-          "publication-status": "Conditionally Accepted",
-        },
-      ],
-    },
-    {
-      "work-summary": [
-        {
-          title: {
-            title: {
-              value:
                 "Generative Models for Synthetic Transit Trip Data: A Comparative Study of CTGAN and TVAE for Travel Behavior Analysis",
             },
           },

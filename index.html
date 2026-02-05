@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <head><script>(function () {
   const savedTheme = localStorage.getItem("theme");
 
@@ -14,7 +16,6 @@
   }
 })();
 </script>
-  <!-- Essentials -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#2563eb" />
@@ -22,13 +23,13 @@
   <meta name="author" content="Pranav Jha" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://pranav-k-jha.github.io/" />
+  <link rel="publisher" href="https://github.com/pranav-k-jha" />
 
-  <!-- Primary Meta Tags -->
   <title>Pranav Jha | AI Engineer & ML Researcher</title>
   <meta name="description" content="AI Engineer specializing in Machine Learning, Deep Learning, and Natural Language Processing. Building intelligent systems that solve complex problems at scale." />
   <meta name="keywords" content="AI Engineer, Machine Learning, Deep Learning, NLP, Pranav Jha, ML Researcher, AI Developer" />
 
-  <!-- Open Graph / Facebook -->
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pranav-k-jha.github.io/" />
   <meta property="og:title" content="Pranav Jha | AI Engineer & ML Researcher" />
@@ -45,7 +46,7 @@
   <meta name="twitter:site" content="@pranav_kjha" />
   <meta name="twitter:creator" content="@pranav_kjha" />
   <meta name="twitter:title" content="Pranav Jha | AI Engineer & ML Researcher" />
-  <meta name="twitter:description" content="AI Engineer specializing in Machine Learning, Deep Learning, and Natural Language Processing." />
+  <meta name="twitter:description" content="AI Engineer specializing in Machine Learning, Deep Learning, and Natural Language Processing. Building intelligent systems that solve complex problems at scale." />
   <meta name="twitter:image" content="https://pranav-k-jha.github.io/images/profile.jpg" />
 
   <!-- Structured Data -->
@@ -75,24 +76,23 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Font Preloading (Optimized) -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   </noscript>
 
-  <!-- Google Analytics / gtag.js -->
+  <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-7KZYQ6FXF0"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-7KZYQ6FXF0', { send_page_view: false, anonymize_ip: true });
+    gtag("js", new Date());
+    gtag("config", "G-7KZYQ6FXF0", { send_page_view: false, anonymize_ip: true });
   </script>
 
-  <!-- Theme and Styles -->
   <style>
     html { transition: background-color 0.3s ease, color 0.3s ease; }
     body {
@@ -102,4 +102,26 @@
       text-rendering: optimizeLegibility;
     }
   </style>
+  <script type="module" crossorigin src="/assets/main.B14bW8ZR.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/react-CM8CWKx_.js">
+  <link rel="modulepreload" crossorigin href="/assets/animations-CfQA6OJG.js">
+  <link rel="modulepreload" crossorigin href="/assets/pages-8Nl21UXM.js">
+  <link rel="stylesheet" crossorigin href="/assets/pages.Dbl8kTil.css">
+  <link rel="stylesheet" crossorigin href="/assets/main.C__eMcF7.css">
 </head>
+<body>
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=G-7KZYQ6FXF0" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+  </noscript>
+
+  <div id="root"></div>
+
+  <script>
+    const redirectPath = sessionStorage.getItem("redirectPath");
+    if (redirectPath) {
+      sessionStorage.removeItem("redirectPath");
+      history.replaceState({}, "", "/" + redirectPath);
+    }
+  </script>
+</body>
+</html>

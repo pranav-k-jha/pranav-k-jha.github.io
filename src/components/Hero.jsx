@@ -285,18 +285,6 @@ const Hero = () => {
               </span>
               <div className="flex items-center gap-4">
                 <img
-                  src="/Fujitsu-Logo.png"
-                  alt="Fujitsu"
-                  className="h-8 object-contain opacity-100 hover:opacity-100 transition-opacity"
-                />
-                <span
-                  className={
-                    theme === "dark" ? "text-gray-600" : "text-gray-400"
-                  }
-                >
-                  •
-                </span>
-                <img
                   src="/western-logo.svg"
                   alt="Western University"
                   className="h-8 object-contain opacity-100 dark:opacity-70 hover:opacity-100 transition-opacity rounded-sm"

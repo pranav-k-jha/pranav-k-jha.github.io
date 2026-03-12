@@ -150,7 +150,7 @@ const Footer = () => {
                 <div className="p-2 rounded-lg bg-blue-500/10 dark:bg-blue-500/5">
                   <FaMapMarkerAlt className="text-blue-400 text-sm" />
                 </div>
-                <span className="text-sm">Montreal, QC, Canada</span>
+                <span className="text-sm">London, ON, Canada</span>
               </motion.div>
               <motion.div
                 className="flex items-center space-x-3 text-gray-400"
@@ -217,7 +217,7 @@ const Footer = () => {
                     <FaExternalLinkAlt className="w-3 h-3 mr-2 opacity-0 group-hover:opacity-100 transition-opacity" />
                     {link.name}
                   </Link>
-                )
+                ),
               )}
             </div>
           </motion.div>

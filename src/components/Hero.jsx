@@ -284,6 +284,13 @@ const Hero = () => {
                 Working with
               </span>
               <div className="flex items-center gap-4">
+                <span
+                  className={
+                    theme === "dark" ? "text-gray-600" : "text-gray-400"
+                  }
+                >
+                  •
+                </span>
                 <img
                   src="/western-logo.svg"
                   alt="Western University"

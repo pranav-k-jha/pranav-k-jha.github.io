@@ -17,6 +17,33 @@ const PublicationsPage = () => {
           title: {
             title: {
               value:
+                "Secure and Equitable Transportation Planning in the Quantum Age: A Framework for Privacy-Preserving Mobility Data Using Quantum-Resilient Cryptography",
+            },
+          },
+          "publication-date": {
+            year: { value: "2026" },
+            month: { value: "07" },
+            day: { value: "06" },
+          },
+          "journal-title": { value: "Transportation Research Procedia" },
+          "journal-subtitle": {
+            value: "World Conference on Transport Research - WCTR 2026",
+          },
+          "work-type": { value: "ARTICLE" },
+          type: "ARTICLE",
+          url: { value: "https://www.sciencedirect.com" },
+          manual: true,
+          "publication-status": "published",
+          category: "article",
+        },
+      ],
+    },
+    {
+      "work-summary": [
+        {
+          title: {
+            title: {
+              value:
                 "Adversarial Machine Learning: Attacks, Defenses, and Open Challenges",
             },
           },
@@ -149,7 +176,7 @@ const PublicationsPage = () => {
               const year = workSummary?.["publication-date"]?.year?.value;
               const journal = workSummary?.["journal-title"]?.value;
               const doi = workSummary?.["external-ids"]?.["external-id"]?.find(
-                (id) => id["external-id-type"] === "doi"
+                (id) => id["external-id-type"] === "doi",
               )?.["external-id-value"];
               const type = work["work-summary"]?.[0]?.type;
               const authors = work["work-summary"]?.[0]?.["contributors"]?.[

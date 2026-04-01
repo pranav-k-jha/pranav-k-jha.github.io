@@ -9,8 +9,8 @@ export const navigationConfig = {
       href: "/resources",
     },
     {
-      title: "SERVICES",
-      href: "/services",
+      title: "PUBLICATIONS",
+      href: "/publications",
     },
     {
       title: "RAG",
@@ -31,8 +31,8 @@ export const navigationConfig = {
       href: "/llm-twin-course",
     },
     {
-      title: "PUBLICATIONS",
-      href: "/publications",
+      title: "SERVICES",
+      href: "/services",
     },
     {
       title: "BLOG",
@@ -49,6 +49,6 @@ export const allNavItems = [
   ...navigationConfig.mainNav,
   ...navigationConfig.mainNav.reduce(
     (acc, item) => acc.concat(item.dropdown || []),
-    []
+    [],
   ),
 ];

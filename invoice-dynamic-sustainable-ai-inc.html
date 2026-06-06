@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice - Dynamic Sustainable AI Inc.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .invoice-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            min-height: auto;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .billing-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        
+        .items-table th {
+            background-color: #f8f9fa;
+            padding: 10px;
+            text-align: left;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .items-table td {
+            padding: 10px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .total-section {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+        
+        .payment-status {
+            text-align: center;
+            padding: 15px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .website-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .qr-section {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .qr-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .qr-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .qr-code {
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 3px;
+            background-color: white;
+            width: 100px;
+            height: 100px;
+        }
+        
+        .footer {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+                margin: 0;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 15mm;
+                margin: 0;
+                width: 210mm;
+                height: 277mm;
+                box-sizing: border-box;
+                overflow: hidden;
+            }
+            
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            .header {
+                margin-bottom: 20px;
+                padding-bottom: 10px;
+            }
+            
+            .billing-section {
+                margin-bottom: 20px;
+            }
+            
+            .items-table th,
+            .items-table td {
+                padding: 8px;
+            }
+            
+            .total-section {
+                margin-bottom: 15px;
+            }
+            
+            .payment-status {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .website-info,
+            .qr-section {
+                padding: 10px;
+                margin-bottom: 15px;
+            }
+            
+            .qr-code {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .footer {
+                margin-top: 15px;
+                padding-top: 10px;
+                font-size: 10px;
+            }
+        }
+        
+        .invoice-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .invoice-number {
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+        
+        .invoice-date {
+            font-size: 16px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .billing-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+        
+        .bill-to, .bill-from {
+            flex: 1;
+        }
+        
+        .bill-to {
+            padding-right: 20px;
+        }
+        
+        .bill-from {
+            padding-left: 20px;
+            text-align: right;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: bold;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .client-name, .provider-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .address {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+        
+        .items-table th {
+            background-color: #f8f9fa;
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            color: #2c3e50;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .items-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .items-table .description {
+            flex: 1;
+        }
+        
+        .items-table .amount {
+            text-align: right;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .total-section {
+            text-align: right;
+            margin-bottom: 30px;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 10px;
+        }
+        
+        .total-label {
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            font-weight: bold;
+            color: #2c3e50;
+            min-width: 150px;
+            text-align: right;
+        }
+        
+        .total-amount {
+            padding: 10px 20px;
+            font-weight: bold;
+            color: #2c3e50;
+            min-width: 150px;
+            text-align: right;
+            font-size: 18px;
+        }
+        
+        .grand-total .total-label {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .grand-total .total-amount {
+            background-color: #2c3e50;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .payment-status {
+            text-align: center;
+            padding: 20px;
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .paid-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        
+        .website-info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .website-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .website-url {
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        .website-url:hover {
+            text-decoration: underline;
+        }
+        
+        .qr-section {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .qr-label {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        
+        .qr-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .qr-code {
+            border: 2px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 5px;
+            background-color: white;
+        }
+        
+        .qr-text {
+            max-width: 300px;
+            text-align: left;
+        }
+        
+        .qr-text p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        @media print {
+            body {
+                background-color: white;
+                padding: 0;
+            }
+            
+            .invoice-container {
+                box-shadow: none;
+                border-radius: 0;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <div class="invoice-title">INVOICE</div>
+                <div class="invoice-number">Invoice #: DSAI-2026-001</div>
+                <div class="invoice-date">Date: April 16, 2026</div>
+            </div>
+        </div>
+
+        <!-- Billing Information -->
+        <div class="billing-section">
+            <div class="bill-to">
+                <div class="section-title">Bill To</div>
+                <div class="client-name">Dynamic Sustainable AI Inc.</div>
+                <div class="address">
+                    Client<br>
+                    For Website Development Services
+                </div>
+            </div>
+            <div class="bill-from">
+                <div class="section-title">Bill From</div>
+                <div class="provider-name">Pranav K Jha</div>
+                <div class="address">
+                    700 King Street, N5W 0A6<br>
+                    London, ON Canada<br>
+                    Email: pjha7@uwo.ca
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Table -->
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="description">
+                        <strong>Website Development Services</strong><br>
+                        Complete website development including design, implementation, and deployment
+                    </td>
+                    <td class="amount">$1,800.00 CAD</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Total Section -->
+        <div class="total-section">
+            <div class="total-row">
+                <div class="total-label">Subtotal:</div>
+                <div class="total-amount">$1,600.00 CAD</div>
+            </div>
+            <div class="total-row">
+                <div class="total-label">Tax (HST 13%):</div>
+                <div class="total-amount">$200.00 CAD</div>
+            </div>
+            <div class="total-row grand-total">
+                <div class="total-label">Total:</div>
+                <div class="total-amount">$1,800.00 CAD</div>
+            </div>
+        </div>
+
+        <!-- Payment Status -->
+        <div class="payment-status">
+            <div class="paid-badge">PAID IN FULL</div>
+        </div>
+
+        <!-- QR Code Verification -->
+        <div class="qr-section">
+            <div class="qr-label">Scan to Verify Work:</div>
+            <div class="qr-container">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://4c-research-group.github.io/" alt="QR Code for Website Verification" class="qr-code">
+                <div class="qr-text">
+                    <p>Scan this QR code to visit the deployed website and verify the completed work.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Thank you for your business! This invoice serves as proof of payment.</p>
+            <p>For any questions, please contact Pranav K Jha</p>
+        </div>
+    </div>
+</body>
+</html>

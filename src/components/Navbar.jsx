@@ -34,7 +34,7 @@ const Navbar = memo(function Navbar() {
         ? cur === path
         : cur === path || cur.startsWith(`${path}/`);
     },
-    [location.pathname]
+    [location.pathname],
   );
 
   // Effects
@@ -91,10 +91,10 @@ const Navbar = memo(function Navbar() {
   return (
     <header
       ref={navRef}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 navbar-gradient ${
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-white/90 dark:bg-gray-900/90 backdrop-blur-xl shadow-md py-0"
-          : "py-2"
+          ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-md py-0"
+          : "bg-transparent backdrop-blur-md py-2"
       }`}
       onKeyDown={handleKeyDown}
     >
@@ -122,14 +122,14 @@ const Navbar = memo(function Navbar() {
               />
               <div className="hidden sm:block">
                 <span
-                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-purple-600 to-emerald-600 dark:from-blue-400 dark:via-purple-400 dark:to-emerald-400 transition-all duration-300 ${
+                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 transition-all duration-300 ${
                     scrolled ? "text-sm leading-5" : "text-lg leading-7"
                   }`}
                 >
                   PRANAV K JHA
                 </span>
                 <p
-                  className={`text-gray-500 dark:text-gray-400 transition-all duration-300 ${
+                  className={`text-gray-300 transition-all duration-300 ${
                     scrolled ? "text-xs opacity-90" : "text-sm opacity-100"
                   }`}
                 >
@@ -154,14 +154,14 @@ const Navbar = memo(function Navbar() {
                     scrolled ? "py-2 text-xs" : "py-3 text-[0.8rem]"
                   } leading-relaxed ${
                     isActiveLink(item.href)
-                      ? "text-blue-600 dark:text-blue-400"
-                      : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                      ? "text-blue-400"
+                      : "text-gray-200 hover:text-white"
                   }`}
                 >
                   <div className="relative">
                     <div className="flex items-center">{item.title}</div>
                     <span
-                      className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 dark:bg-blue-400 transition-all duration-300 group-hover:w-full"
+                      className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"
                       aria-hidden="true"
                     ></span>
                   </div>
@@ -187,8 +187,8 @@ const Navbar = memo(function Navbar() {
                     }}
                     className={`p-2 rounded-full transition-all duration-200 ${
                       isMoreOpen
-                        ? "bg-gray-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400"
-                        : "text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200"
+                        ? "bg-white/20 text-blue-400"
+                        : "text-gray-300 hover:bg-white/20 hover:text-white"
                     }`}
                     aria-expanded={isMoreOpen}
                     aria-haspopup="true"
@@ -292,7 +292,7 @@ const Navbar = memo(function Navbar() {
             <ThemeToggle />
             <motion.button
               onClick={toggleMobileMenu}
-              className="p-2 rounded-md bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors"
+              className="p-2 rounded-md bg-white/20 backdrop-blur-md text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors"
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}

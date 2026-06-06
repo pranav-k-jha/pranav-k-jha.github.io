@@ -32,6 +32,26 @@ const Hero = () => {
   const { theme } = useTheme();
   const location = useLocation();
   const [isScrolling, setIsScrolling] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const westernImages = [
+    "/western/western-1.jpg",
+    "/western/western-2.jpg",
+    "/western/western-3.jpg",
+    "/western/western-4.jpg",
+    "/western/western-5.jpg",
+    "/western/western-6.jpg",
+    "/western/western-7.jpg",
+    "/western/western-8.jpg",
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % westernImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -74,13 +94,48 @@ const Hero = () => {
   return (
     <motion.section
       id="home"
-      className="relative min-h-screen pt-12 md:pt-20 pb-20 overflow-hidden font-sans bg-gradient-to-br from-blue-50/50 via-white to-purple-50/50 dark:from-gray-900/50 dark:via-gray-950 dark:to-purple-900/50"
+      className="relative h-screen overflow-hidden font-sans"
       initial="hidden"
       animate="show"
       variants={animationVariants.container}
     >
-      <div className="container max-w-7xl mx-auto px-4 sm:px-12 relative z-10">
-        <div className="grid md:grid-cols-2 gap-8 items-center min-h-[calc(100vh-8rem)]">
+      {/* Full-height Background Carousel */}
+      <div className="absolute inset-0 overflow-hidden">
+        {westernImages.map((image, index) => (
+          <motion.img
+            key={image}
+            src={image}
+            alt={`Western University ${index + 1}`}
+            className="absolute top-0 left-0 w-full h-full object-cover"
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{
+              opacity: index === currentImageIndex ? 1 : 0,
+              scale: index === currentImageIndex ? 1 : 1.1,
+            }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          />
+        ))}
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/75 via-black/65 to-black/75" />
+      </div>
+
+      {/* Carousel Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+        {westernImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              index === currentImageIndex
+                ? "bg-white w-8"
+                : "bg-white/40 hover:bg-white/60"
+            }`}
+          />
+        ))}
+      </div>
+
+      <div className="container max-w-7xl mx-auto px-4 sm:px-12 relative z-10 h-screen flex items-center">
+        <div className="grid md:grid-cols-2 gap-8 items-center w-full">
           {/* Left Column - Hero Text */}
           <motion.div
             className="text-center md:text-left space-y-6 p-2"
@@ -91,24 +146,10 @@ const Hero = () => {
               className="inline-flex items-center gap-2"
               variants={animationVariants.fadeInUp}
             >
-              <span
-                className={`inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium backdrop-blur-xl border ${
-                  theme === "dark"
-                    ? "bg-cyan-500/10 border-cyan-500/20 text-cyan-300"
-                    : "bg-blue-500/10 border-blue-500/20 text-blue-700"
-                }`}
-              >
+              <span className="inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-medium backdrop-blur-xl border bg-white/10 border-white/20 text-white">
                 <span className="relative flex h-2 w-2 mr-2">
-                  <span
-                    className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${
-                      theme === "dark" ? "bg-cyan-400" : "bg-blue-600"
-                    }`}
-                  ></span>
-                  <span
-                    className={`relative inline-flex rounded-full h-2 w-2 ${
-                      theme === "dark" ? "bg-cyan-500" : "bg-blue-600"
-                    }`}
-                  ></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-cyan-400"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
                 </span>
                 Available for opportunities
               </span>
@@ -116,12 +157,8 @@ const Hero = () => {
 
             {/* Main Heading */}
             <motion.div variants={animationVariants.fadeInUp}>
-              <h1
-                className={`text-4xl sm:text-5xl lg:text-6xl font-black mb-4 ${
-                  theme === "dark" ? "text-white" : "text-gray-900"
-                }`}
-              >
-                <span className="block mb-2 text-5xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-cyan-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black mb-4 text-white">
+                <span className="block mb-2 text-5xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                   PRANAV JHA
                 </span>
               </h1>
@@ -144,7 +181,7 @@ const Hero = () => {
                   wrapper="span"
                   speed={50}
                   repeat={Infinity}
-                  className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 dark:from-purple-400 dark:via-pink-400 dark:to-orange-400 bg-clip-text text-transparent"
+                  className="inline-block text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent"
                   style={{ lineHeight: "1.2" }}
                 />
               </div>
@@ -152,9 +189,7 @@ const Hero = () => {
 
             {/* Description */}
             <motion.p
-              className={`text-base sm:text-lg md:text-xl font-light max-w-xl mx-auto md:mx-0 leading-relaxed ${
-                theme === "dark" ? "text-gray-300" : "text-gray-700"
-              }`}
+              className="text-base sm:text-lg md:text-xl font-light max-w-xl mx-auto md:mx-0 leading-relaxed text-gray-200"
               variants={animationVariants.fadeInUp}
             >
               Transforming complex AI research into scalable, production-ready
@@ -276,25 +311,15 @@ const Hero = () => {
               className="flex items-center justify-center md:justify-start gap-6 pt-6"
               variants={animationVariants.fadeInUp}
             >
-              <span
-                className={`text-sm font-medium ${
-                  theme === "dark" ? "text-gray-400" : "text-gray-600"
-                }`}
-              >
+              <span className="text-sm font-medium text-gray-300">
                 Working with
               </span>
               <div className="flex items-center gap-4">
-                <span
-                  className={
-                    theme === "dark" ? "text-gray-600" : "text-gray-400"
-                  }
-                >
-                  •
-                </span>
+                <span className="text-gray-500">•</span>
                 <img
                   src="/western-logo.svg"
                   alt="Western University"
-                  className="h-8 object-contain opacity-100 dark:opacity-70 hover:opacity-100 transition-opacity rounded-sm"
+                  className="h-8 object-contain opacity-80 hover:opacity-100 transition-opacity rounded-sm"
                 />
               </div>
             </motion.div>
@@ -310,19 +335,13 @@ const Hero = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-110 hover:-translate-y-1 ${
-                    theme === "dark"
-                      ? "bg-white/5 border-white/10 hover:bg-white/10"
-                      : "bg-white/50 border-gray-200 hover:bg-white"
-                  } ${social.color}`}
+                  className="p-3 rounded-xl backdrop-blur-xl border transition-all duration-300 hover:scale-110 hover:-translate-y-1 bg-white/10 border-white/20 hover:bg-white/20"
                   aria-label={social.label}
                 >
                   {social.label === "GitHub" && (
                     <FaGithub
                       className="w-5 h-5"
-                      style={{
-                        color: theme === "dark" ? "#f0f0f0" : "#181717",
-                      }}
+                      style={{ color: "#f0f0f0" }}
                     />
                   )}
                   {social.label === "LinkedIn" && (
@@ -358,11 +377,7 @@ const Hero = () => {
             <div className="relative w-full max-w-md mx-auto">
               {/* Main Code Card with Glassmorphism */}
               <motion.div
-                className={`relative backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border ${
-                  theme === "dark"
-                    ? "bg-white/5 border-white/10"
-                    : "bg-white/60 border-white/40"
-                }`}
+                className="relative backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl border bg-white/10 border-white/20"
                 whileHover={{ scale: 1.02, rotateY: 5 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 style={{
@@ -443,11 +458,7 @@ const Hero = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6 }}
                 >
-                  <p
-                    className={`text-xs font-semibold tracking-wider mb-3 ${
-                      theme === "dark" ? "text-gray-400" : "text-gray-600"
-                    }`}
-                  >
+                  <p className="text-xs font-semibold tracking-wider mb-3 text-gray-400">
                     TECH STACK
                   </p>
                   <div className="flex flex-wrap gap-3">
@@ -458,11 +469,7 @@ const Hero = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.5 + i * 0.1 }}
                         whileHover={{ scale: 1.1, y: -4 }}
-                        className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-xl border font-medium text-xs shadow-lg ${
-                          theme === "dark"
-                            ? "bg-gradient-to-br from-cyan-500/10 to-purple-500/10 border-cyan-500/20 text-cyan-300"
-                            : "bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-blue-500/20 text-blue-700"
-                        }`}
+                        className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-xl border font-medium text-xs shadow-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border-cyan-500/30 text-cyan-300"
                         style={{
                           willChange: "transform",
                           backfaceVisibility: "hidden",
@@ -489,11 +496,7 @@ const Hero = () => {
                     <motion.div
                       key={i}
                       whileHover={{ scale: 1.05 }}
-                      className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-xl border text-xs font-medium ${
-                        theme === "dark"
-                          ? "bg-white/5 border-white/10 text-gray-300"
-                          : "bg-white/60 border-white/40 text-gray-700"
-                      }`}
+                      className="px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-xl border text-xs font-medium bg-white/10 border-white/20 text-gray-200"
                     >
                       <span className="mr-2">{stat.icon}</span>
                       {stat.text}

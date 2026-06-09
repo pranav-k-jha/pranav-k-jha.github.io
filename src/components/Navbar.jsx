@@ -95,7 +95,9 @@ const Navbar = memo(function Navbar() {
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-xl shadow-md py-0"
-          : "bg-transparent backdrop-blur-md py-2"
+          : location.pathname === "/"
+            ? "bg-transparent backdrop-blur-md py-2"
+            : "bg-white/80 dark:bg-transparent backdrop-blur-md py-2"
       }`}
       onKeyDown={handleKeyDown}
     >
@@ -159,10 +161,12 @@ const Navbar = memo(function Navbar() {
                     scrolled ? "py-2 text-xs" : "py-3 text-[0.8rem]"
                   } leading-relaxed ${
                     isActiveLink(item.href)
-                      ? scrolled && theme === "light"
+                      ? (scrolled || location.pathname !== "/") &&
+                        theme === "light"
                         ? "text-blue-600"
                         : "text-blue-400"
-                      : scrolled && theme === "light"
+                      : (scrolled || location.pathname !== "/") &&
+                          theme === "light"
                         ? "text-gray-700 hover:text-gray-900"
                         : "text-gray-200 hover:text-white"
                   }`}
@@ -171,7 +175,8 @@ const Navbar = memo(function Navbar() {
                     <div className="flex items-center">{item.title}</div>
                     <span
                       className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
-                        scrolled && theme === "light"
+                        (scrolled || location.pathname !== "/") &&
+                        theme === "light"
                           ? "bg-blue-600"
                           : "bg-blue-400"
                       }`}

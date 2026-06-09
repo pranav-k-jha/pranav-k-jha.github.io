@@ -279,22 +279,12 @@ const Hero = () => {
                   repeatType: "loop",
                 }}
               >
-                <span
-                  className={`text-xs mb-1 ${
-                    theme === "dark" ? "text-white/80" : "text-gray-700"
-                  }`}
-                >
+                <span className="text-xs mb-1 text-white/80">
                   Scroll to explore
                 </span>
-                <div
-                  className={`w-5 h-8 border-2 rounded-full flex justify-center p-1 ${
-                    theme === "dark" ? "border-white/50" : "border-gray-600/50"
-                  }`}
-                >
+                <div className="w-5 h-8 border-2 rounded-full flex justify-center p-1 border-white/50">
                   <motion.div
-                    className={`w-1 h-2 rounded-full ${
-                      theme === "dark" ? "bg-white/80" : "bg-gray-700"
-                    }`}
+                    className="w-1 h-2 rounded-full bg-white/80"
                     animate={{ y: [0, 5, 0] }}
                     transition={{
                       duration: 1.5,

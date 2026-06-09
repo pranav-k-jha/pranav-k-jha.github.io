@@ -126,18 +126,22 @@ const Navbar = memo(function Navbar() {
               <div className="hidden sm:block">
                 <span
                   className={`font-bold text-transparent bg-clip-text bg-gradient-to-r transition-all duration-300 ${
-                    scrolled && theme === "light"
-                      ? "from-blue-600 via-purple-600 to-emerald-600 text-sm leading-5"
-                      : "from-blue-400 via-purple-400 to-emerald-400 text-lg leading-7"
+                    scrolled ? "text-sm leading-5" : "text-lg leading-7"
+                  } ${
+                    (scrolled || location.pathname !== "/") && theme === "light"
+                      ? "from-blue-600 via-purple-600 to-emerald-600"
+                      : "from-blue-400 via-purple-400 to-emerald-400"
                   }`}
                 >
                   PRANAV K JHA
                 </span>
                 <p
                   className={`transition-all duration-300 ${
-                    scrolled && theme === "light"
-                      ? "text-gray-600 text-xs opacity-90"
-                      : "text-gray-300 text-sm opacity-100"
+                    scrolled ? "text-xs opacity-90" : "text-sm opacity-100"
+                  } ${
+                    (scrolled || location.pathname !== "/") && theme === "light"
+                      ? "text-gray-600"
+                      : "text-gray-300"
                   }`}
                 >
                   AI Engineer

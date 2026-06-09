@@ -159,10 +159,10 @@ const Navbar = memo(function Navbar() {
                     scrolled ? "py-2 text-xs" : "py-3 text-[0.8rem]"
                   } leading-relaxed ${
                     isActiveLink(item.href)
-                      ? theme === "light"
+                      ? scrolled && theme === "light"
                         ? "text-blue-600"
                         : "text-blue-400"
-                      : theme === "light"
+                      : scrolled && theme === "light"
                         ? "text-gray-700 hover:text-gray-900"
                         : "text-gray-200 hover:text-white"
                   }`}

@@ -6,10 +6,12 @@ import { navigationConfig, allNavItems } from "../lib/navigation";
 import { Link, useLocation } from "react-router-dom";
 import { socialLinks } from "../lib/socialLinks";
 import ThemeToggle from "../context/ToggleButton";
+import { useTheme } from "../context/ThemeContext";
 
 // Memoize the Navbar to prevent unnecessary re-renders
 const Navbar = memo(function Navbar() {
   const location = useLocation();
+  const { theme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isMoreOpen, setIsMoreOpen] = useState(false);
@@ -122,15 +124,19 @@ const Navbar = memo(function Navbar() {
               />
               <div className="hidden sm:block">
                 <span
-                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-emerald-400 transition-all duration-300 ${
-                    scrolled ? "text-sm leading-5" : "text-lg leading-7"
+                  className={`font-bold text-transparent bg-clip-text bg-gradient-to-r transition-all duration-300 ${
+                    scrolled && theme === "light"
+                      ? "from-blue-600 via-purple-600 to-emerald-600 text-sm leading-5"
+                      : "from-blue-400 via-purple-400 to-emerald-400 text-lg leading-7"
                   }`}
                 >
                   PRANAV K JHA
                 </span>
                 <p
-                  className={`text-gray-300 transition-all duration-300 ${
-                    scrolled ? "text-xs opacity-90" : "text-sm opacity-100"
+                  className={`transition-all duration-300 ${
+                    scrolled && theme === "light"
+                      ? "text-gray-600 text-xs opacity-90"
+                      : "text-gray-300 text-sm opacity-100"
                   }`}
                 >
                   AI Engineer
@@ -154,14 +160,22 @@ const Navbar = memo(function Navbar() {
                     scrolled ? "py-2 text-xs" : "py-3 text-[0.8rem]"
                   } leading-relaxed ${
                     isActiveLink(item.href)
-                      ? "text-blue-400"
-                      : "text-gray-200 hover:text-white"
+                      ? scrolled && theme === "light"
+                        ? "text-blue-600"
+                        : "text-blue-400"
+                      : scrolled && theme === "light"
+                        ? "text-gray-700 hover:text-gray-900"
+                        : "text-gray-200 hover:text-white"
                   }`}
                 >
                   <div className="relative">
                     <div className="flex items-center">{item.title}</div>
                     <span
-                      className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-400 transition-all duration-300 group-hover:w-full"
+                      className={`absolute -bottom-1 left-0 w-0 h-0.5 transition-all duration-300 group-hover:w-full ${
+                        scrolled && theme === "light"
+                          ? "bg-blue-600"
+                          : "bg-blue-400"
+                      }`}
                       aria-hidden="true"
                     ></span>
                   </div>
@@ -187,8 +201,12 @@ const Navbar = memo(function Navbar() {
                     }}
                     className={`p-2 rounded-full transition-all duration-200 ${
                       isMoreOpen
-                        ? "bg-white/20 text-blue-400"
-                        : "text-gray-300 hover:bg-white/20 hover:text-white"
+                        ? scrolled && theme === "light"
+                          ? "bg-gray-100 text-blue-600"
+                          : "bg-white/20 text-blue-400"
+                        : scrolled && theme === "light"
+                          ? "text-gray-500 hover:bg-gray-100 hover:text-gray-700"
+                          : "text-gray-300 hover:bg-white/20 hover:text-white"
                     }`}
                     aria-expanded={isMoreOpen}
                     aria-haspopup="true"
@@ -292,7 +310,11 @@ const Navbar = memo(function Navbar() {
             <ThemeToggle />
             <motion.button
               onClick={toggleMobileMenu}
-              className="p-2 rounded-md bg-white/20 backdrop-blur-md text-white focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors"
+              className={`p-2 rounded-md backdrop-blur-md focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-opacity-50 transition-colors ${
+                scrolled && theme === "light"
+                  ? "bg-gray-100 text-gray-700"
+                  : "bg-white/20 text-white"
+              }`}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
               aria-expanded={mobileMenuOpen}

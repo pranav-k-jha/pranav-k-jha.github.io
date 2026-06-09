@@ -134,7 +134,7 @@ const Hero = () => {
         ))}
       </div>
 
-      <div className="container max-w-7xl mx-auto px-4 sm:px-12 relative z-10 h-screen flex items-center">
+      <div className="container max-w-7xl mx-auto px-4 sm:px-12 relative z-10 h-full flex items-center">
         <div className="grid md:grid-cols-2 gap-8 items-center w-full">
           {/* Left Column - Hero Text */}
           <motion.div

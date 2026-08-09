@@ -1,543 +1,1558 @@
-import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { Loader2, ArrowRight, ShieldAlert } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  ArrowRight,
+  CheckCircle2,
+  Clock3,
+  Loader2,
+  Mail,
+  MessageSquare,
+  Send,
+  ShieldCheck,
+  Sparkles,
+  UserRound,
+  BriefcaseBusiness,
+  ChevronDown,
+  CircleCheck,
+  AlertCircle,
+} from "lucide-react";
+
 import emailjs from "@emailjs/browser";
 
-/* ------------------------------------------------------------------ */
-/*  Configuration constants                                            */
-/* ------------------------------------------------------------------ */
-const PROFANE_WORDS = [
-  // add real words here
-  "badword1",
-  "badword2",
-];
+/* -------------------------------------------------------------------------- */
+/*                               Configuration                                */
+/* -------------------------------------------------------------------------- */
+
+const PROFANE_WORDS = ["badword1", "badword2"];
 
 const RATE_LIMIT = {
   MAX_REQUESTS: 3,
-  WINDOW_MS: 10 * 60 * 1000, // 10 minutes
+  WINDOW_MS: 10 * 60 * 1000,
 };
 
-const MIN_PARAGRAPHS = 2; // at least 2 real paragraphs
-const MIN_WORDS = 20; // total words
-const MAX_WORDS = 500; // optional upper bound
+const MIN_WORDS = 10;
+const MAX_WORDS = 500;
 
-/* ------------------------------------------------------------------ */
-/*  Animation variants                                                 */
-/* ------------------------------------------------------------------ */
-const pageTransition = {
-  hidden: { opacity: 0 },
+/* -------------------------------------------------------------------------- */
+/*                                Animations                                  */
+/* -------------------------------------------------------------------------- */
+
+const pageVariants = {
+  hidden: {
+    opacity: 0,
+  },
+
   visible: {
     opacity: 1,
-    transition: { duration: 0.4, ease: "easeOut" },
+
+    transition: {
+      duration: 0.45,
+      ease: [0.25, 0.1, 0.25, 1],
+      staggerChildren: 0.08,
+    },
   },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 25 },
-  visible: (i = 0) => ({
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+
+  visible: {
     opacity: 1,
     y: 0,
+
     transition: {
-      delay: i * 0.15,
-      type: "spring",
-      stiffness: 80,
-      damping: 14,
+      duration: 0.45,
+      ease: [0.25, 0.1, 0.25, 1],
     },
-  }),
+  },
 };
 
-/* ------------------------------------------------------------------ */
-/*  Simple math question for bot protection                           */
-/* ------------------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                            Utility Functions                               */
+/* -------------------------------------------------------------------------- */
+
 const generateMathQuestion = () => {
   const num1 = Math.floor(Math.random() * 10) + 1;
   const num2 = Math.floor(Math.random() * 5) + 1;
-  return { question: `What is ${num1} + ${num2}?`, answer: num1 + num2 };
+
+  return {
+    question: `${num1} + ${num2}`,
+    answer: num1 + num2,
+  };
 };
 
-/* ------------------------------------------------------------------ */
-/*  Helper – word count (ignores extra spaces)                        */
-/* ------------------------------------------------------------------ */
-const countWords = (text) => {
-  return text
-    .trim()
-    .split(/\s+/)
-    .filter((w) => w.length > 0).length;
+const countWords = (text = "") => {
+  return text.trim().split(/\s+/).filter(Boolean).length;
 };
 
-/* ------------------------------------------------------------------ */
-/*  Main component                                                     */
-/* ------------------------------------------------------------------ */
+/* -------------------------------------------------------------------------- */
+/*                               Contact Page                                 */
+/* -------------------------------------------------------------------------- */
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    projectType: "",
     subject: "",
     message: "",
-    website: "", // honeypot
+    website: "",
     botCheck: "",
   });
 
+  const [mathQuestion, setMathQuestion] = useState(generateMathQuestion);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
+
   const [submitStatus, setSubmitStatus] = useState({
     success: null,
     message: "",
   });
-  const [mathQuestion, setMathQuestion] = useState(generateMathQuestion());
+
   const [lastSubmitTime, setLastSubmitTime] = useState(0);
+
+  const [reducedMotion, setReducedMotion] = useState(false);
+
   const submitTimeoutRef = useRef(null);
 
-  /* ---------------------------------------------------------------- */
-  /*  Load / save rate‑limit timestamps from localStorage            */
-  /* ---------------------------------------------------------------- */
+  /* ------------------------------------------------------------------------ */
+  /*                           Reduced Motion                                 */
+  /* ------------------------------------------------------------------------ */
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+    const updateMotionPreference = () => {
+      setReducedMotion(mediaQuery.matches);
+    };
+
+    updateMotionPreference();
+
+    mediaQuery.addEventListener?.("change", updateMotionPreference);
+
+    return () => {
+      mediaQuery.removeEventListener?.("change", updateMotionPreference);
+    };
+  }, []);
+
+  /* ------------------------------------------------------------------------ */
+  /*                            Rate Limiting                                 */
+  /* ------------------------------------------------------------------------ */
+
   const [requestTimestamps, setRequestTimestamps] = useState(() => {
-    const saved = localStorage.getItem("contactFormTimestamps");
-    return saved ? JSON.parse(saved) : [];
+    try {
+      const saved = localStorage.getItem("contactFormTimestamps");
+
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
   });
 
   useEffect(() => {
     localStorage.setItem(
       "contactFormTimestamps",
-      JSON.stringify(requestTimestamps)
+      JSON.stringify(requestTimestamps),
     );
   }, [requestTimestamps]);
 
-  /* ---------------------------------------------------------------- */
-  /*  Clean up timeout on unmount                                     */
-  /* ---------------------------------------------------------------- */
+  /* ------------------------------------------------------------------------ */
+  /*                           Timeout Cleanup                                */
+  /* ------------------------------------------------------------------------ */
+
   useEffect(() => {
     return () => {
-      if (submitTimeoutRef.current) clearTimeout(submitTimeoutRef.current);
+      if (submitTimeoutRef.current) {
+        clearTimeout(submitTimeoutRef.current);
+      }
     };
   }, []);
 
-  /* ---------------------------------------------------------------- */
-  /*  Input sanitisation & profanity check                           */
-  /* ---------------------------------------------------------------- */
-  const cleanInput = (str) => {
-    if (!str) return "";
-    return String(str)
+  /* ------------------------------------------------------------------------ */
+  /*                              Validation                                  */
+  /* ------------------------------------------------------------------------ */
+
+  const cleanInput = (value) => {
+    if (!value) return "";
+
+    return String(value)
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
   };
 
-  const containsProfanity = (text) => {
-    const lower = text.toLowerCase();
-    return PROFANE_WORDS.some((w) => lower.includes(w));
+  const containsProfanity = (text = "") => {
+    const normalized = text.toLowerCase();
+
+    return PROFANE_WORDS.some((word) => normalized.includes(word));
+  };
+
+  const validateEmail = (email) => {
+    const expression = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    return expression.test(String(email).toLowerCase());
   };
 
   const isRateLimited = () => {
     const now = Date.now();
-    const recent = requestTimestamps.filter(
-      (t) => now - t < RATE_LIMIT.WINDOW_MS
+
+    const recentRequests = requestTimestamps.filter(
+      (timestamp) => now - timestamp < RATE_LIMIT.WINDOW_MS,
     );
-    return recent.length >= RATE_LIMIT.MAX_REQUESTS;
+
+    return recentRequests.length >= RATE_LIMIT.MAX_REQUESTS;
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: cleanInput(value) }));
+  /* ------------------------------------------------------------------------ */
+  /*                               Handlers                                   */
+  /* ------------------------------------------------------------------------ */
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: cleanInput(value),
+    }));
+
+    if (submitStatus.message) {
+      setSubmitStatus({
+        success: null,
+        message: "",
+      });
+    }
   };
 
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(String(email).toLowerCase());
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  /* ---------------------------------------------------------------- */
-  /*  Form submission                                                */
-  /* ---------------------------------------------------------------- */
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    /* ---- 5‑second debounce ---- */
     const now = Date.now();
+
+    /* -------------------------------------------------------------------- */
+    /* Debounce                                                             */
+    /* -------------------------------------------------------------------- */
+
     if (now - lastSubmitTime < 5000) {
       setSubmitStatus({
         success: false,
-        message: "Please wait a moment before sending another message.",
+        message: "Please wait a few seconds before sending another message.",
       });
+
       return;
     }
 
-    /* ---- Honeypot ---- */
+    /* -------------------------------------------------------------------- */
+    /* Honeypot                                                             */
+    /* -------------------------------------------------------------------- */
+
     if (formData.website) {
-      console.log("Bot detected (honeypot)");
       return;
     }
 
-    /* ---- Math question ---- */
-    if (parseInt(formData.botCheck, 10) !== mathQuestion.answer) {
+    /* -------------------------------------------------------------------- */
+    /* Bot Verification                                                     */
+    /* -------------------------------------------------------------------- */
+
+    if (Number.parseInt(formData.botCheck, 10) !== mathQuestion.answer) {
       setSubmitStatus({
         success: false,
-        message: "Please answer the math question correctly.",
+        message: "Please answer the verification question correctly.",
       });
+
       setMathQuestion(generateMathQuestion());
+
+      setFormData((previous) => ({
+        ...previous,
+        botCheck: "",
+      }));
+
       return;
     }
 
-    /* ---- Required fields ---- */
+    /* -------------------------------------------------------------------- */
+    /* Required Fields                                                      */
+    /* -------------------------------------------------------------------- */
+
     if (!formData.name || !formData.email || !formData.message) {
       setSubmitStatus({
         success: false,
-        message: "Please fill in all required fields.",
+        message: "Please complete all required fields.",
       });
+
       return;
     }
+
     if (!validateEmail(formData.email)) {
       setSubmitStatus({
         success: false,
         message: "Please enter a valid email address.",
       });
+
       return;
     }
 
-    /* ---- Paragraph & word‑count validation ---- */
-    const paragraphs = formData.message
-      .split(/\n/)
-      .filter((p) => p.trim().length > 0);
+    /* -------------------------------------------------------------------- */
+    /* Message Length                                                       */
+    /* -------------------------------------------------------------------- */
+
     const totalWords = countWords(formData.message);
 
-    if (paragraphs.length < MIN_PARAGRAPHS) {
-      setSubmitStatus({
-        success: false,
-        message: `Your message must contain at least ${MIN_PARAGRAPHS} paragraphs (use a blank line to separate).`,
-      });
-      return;
-    }
     if (totalWords < MIN_WORDS) {
       setSubmitStatus({
         success: false,
-        message: `Message too short – please write at least ${MIN_WORDS} words (you have ${totalWords}).`,
+        message: `Please provide a little more detail. Your message should contain at least ${MIN_WORDS} words.`,
       });
+
       return;
     }
+
     if (totalWords > MAX_WORDS) {
       setSubmitStatus({
         success: false,
-        message: `Message too long – keep it under ${MAX_WORDS} words.`,
+        message: `Please keep your message under ${MAX_WORDS} words.`,
       });
+
       return;
     }
 
-    /* ---- Rate limiting ---- */
+    /* -------------------------------------------------------------------- */
+    /* Rate Limit                                                           */
+    /* -------------------------------------------------------------------- */
+
     if (isRateLimited()) {
       setSubmitStatus({
         success: false,
-        message: "Too many requests. Try again later.",
+        message:
+          "Too many messages have been submitted recently. Please try again later.",
       });
+
       return;
     }
 
-    /* ---- Profanity ---- */
+    /* -------------------------------------------------------------------- */
+    /* Profanity Check                                                      */
+    /* -------------------------------------------------------------------- */
+
     if (
       containsProfanity(formData.name) ||
-      containsProfanity(formData.message) ||
-      containsProfanity(formData.subject)
+      containsProfanity(formData.subject) ||
+      containsProfanity(formData.message)
     ) {
       setSubmitStatus({
         success: false,
-        message: "Your message contains inappropriate language.",
+        message: "Your message contains language that cannot be submitted.",
       });
+
       return;
     }
 
-    /* ---- Submit ---- */
+    /* -------------------------------------------------------------------- */
+    /* EmailJS                                                              */
+    /* -------------------------------------------------------------------- */
+
     setIsSubmitting(true);
-    setSubmitStatus({ success: null, message: "" });
-    setLastSubmitTime(now);
-    setRequestTimestamps((prev) => [...prev, now]);
+
+    setSubmitStatus({
+      success: null,
+      message: "",
+    });
 
     try {
       const { website, botCheck, ...emailData } = formData;
+
       await emailjs.send(
         import.meta.env.VITE_EMAILJS_SERVICE_ID,
         import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         emailData,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
       );
+
+      setLastSubmitTime(now);
+
+      setRequestTimestamps((previous) => [...previous, now]);
 
       setSubmitStatus({
         success: true,
-        message: "Your message has been sent! I'll reply soon.",
+        message:
+          "Thanks! Your message has been sent successfully. I'll get back to you as soon as possible.",
       });
 
       setFormData({
         name: "",
         email: "",
+        projectType: "",
         subject: "",
         message: "",
         website: "",
         botCheck: "",
       });
+
       setMathQuestion(generateMathQuestion());
-    } catch (err) {
-      console.error(err);
+
+      submitTimeoutRef.current = setTimeout(() => {
+        setSubmitStatus({
+          success: null,
+          message: "",
+        });
+      }, 7000);
+    } catch (error) {
+      console.error("Contact form error:", error);
+
       setSubmitStatus({
         success: false,
-        message: "Failed to send. Try again later or email me directly.",
+        message:
+          "The message could not be sent right now. Please try again later.",
       });
     } finally {
       setIsSubmitting(false);
-      if (submitStatus.success) {
-        submitTimeoutRef.current = setTimeout(() => {
-          setSubmitStatus({ success: null, message: "" });
-        }, 5000);
-      }
     }
   };
 
-  /* ---------------------------------------------------------------- */
-  /*  Render                                                          */
-  /* ---------------------------------------------------------------- */
+  const totalWords = countWords(formData.message);
+
+  /* ------------------------------------------------------------------------ */
+  /*                                  UI                                      */
+  /* ------------------------------------------------------------------------ */
+
   return (
-    <motion.div
-      className="min-h-screen mt-10 bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 flex items-center justify-center"
-      variants={pageTransition}
+    <motion.main
+      variants={pageVariants}
       initial="hidden"
       animate="visible"
+      className="
+        relative
+        min-h-screen
+        overflow-hidden
+        bg-white
+        pt-24
+        text-gray-950
+
+        dark:bg-gray-950
+        dark:text-white
+      "
     >
-      <div className="flex flex-col items-center justify-center w-full px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
-        <div className="w-full max-w-4xl mt-10 text-center mb-12">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="text-2xl sm:text-3xl font-bold tracking-tight"
-          >
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 dark:from-purple-400 dark:via-blue-400 dark:to-emerald-400">
-              GET IN TOUCH
-            </span>
-          </motion.h1>
+      {/* ================================================================ */}
+      {/* BACKGROUND                                                       */}
+      {/* ================================================================ */}
 
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            className="space-y-2"
-          >
-            <p className="text-base sm:text-lg font-light text-gray-600 dark:text-gray-400">
-              Have a project in mind or want to discuss potential opportunities?
-            </p>
-            <p className="text-gray-600 dark:text-gray-400">
-              I'll get back to you as soon as possible.
-            </p>
-          </motion.div>
-        </div>
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-x-0
+          top-0
+          h-[760px]
+          bg-gradient-to-br
+          from-purple-50
+          via-blue-50
+          to-cyan-50
 
-        {/* Form Card */}
+          dark:from-purple-950/20
+          dark:via-blue-950/20
+          dark:to-cyan-950/20
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -left-36
+          top-24
+          h-[420px]
+          w-[420px]
+          rounded-full
+          bg-purple-500/10
+          blur-3xl
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          -right-40
+          top-16
+          h-[460px]
+          w-[460px]
+          rounded-full
+          bg-cyan-500/10
+          blur-3xl
+        "
+      />
+
+      <div
+        className="
+          pointer-events-none
+          absolute
+          inset-0
+          opacity-[0.022]
+
+          dark:opacity-[0.035]
+
+          [background-image:linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)]
+          [background-size:48px_48px]
+        "
+      />
+
+      {/* ================================================================ */}
+      {/* CONTENT                                                          */}
+      {/* ================================================================ */}
+
+      <div
+        className="
+          relative
+          mx-auto
+          max-w-7xl
+          px-4
+          pb-24
+          sm:px-6
+          lg:px-8
+        "
+      >
+        {/* ============================================================= */}
+        {/* PAGE HEADER                                                   */}
+        {/* ============================================================= */}
+
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-            hidden: { opacity: 0, y: 20 },
-          }}
-          className="w-full max-w-3xl bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-lg dark:shadow-gray-800/10"
+          variants={fadeUp}
+          className="
+            mx-auto
+            mb-14
+            max-w-3xl
+            text-center
+          "
         >
-          {/* Status message */}
-          {submitStatus.message && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ type: "spring", stiffness: 80, damping: 12 }}
-              className={`mb-4 p-3 rounded-lg text-sm ${
-                submitStatus.success
-                  ? "bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-200"
-                  : "bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-200"
-              }`}
+          <div
+            className="
+              mb-5
+              inline-flex
+              items-center
+              gap-2
+              rounded-full
+              border
+              border-blue-200/70
+              bg-white/70
+              px-4
+              py-2
+              text-xs
+              font-bold
+              uppercase
+              tracking-[0.16em]
+              text-blue-600
+              shadow-sm
+              backdrop-blur-xl
+
+              dark:border-blue-800/50
+              dark:bg-gray-900/60
+              dark:text-blue-400
+            "
+          >
+            <Sparkles className="h-3.5 w-3.5" />
+            Let's Work Together
+          </div>
+
+          <h1
+            className="
+              text-4xl
+              font-bold
+              tracking-tight
+              text-gray-950
+
+              sm:text-5xl
+              lg:text-6xl
+
+              dark:text-white
+            "
+          >
+            Have a project in mind?
+            <span
+              className="
+                mt-2
+                block
+                bg-gradient-to-r
+                from-purple-600
+                via-blue-600
+                to-cyan-500
+                bg-clip-text
+                text-transparent
+
+                dark:from-purple-400
+                dark:via-blue-400
+                dark:to-cyan-400
+              "
             >
-              {submitStatus.message}
-            </motion.div>
-          )}
+              Let's talk.
+            </span>
+          </h1>
 
-          <form onSubmit={handleSubmit} className="space-y-4 relative">
-            {/* Honeypot */}
-            <div
-              style={{ position: "absolute", left: "-5000px" }}
-              aria-hidden="true"
-            >
-              <label htmlFor="website">Leave blank if human</label>
-              <input
-                type="text"
-                id="website"
-                name="website"
-                tabIndex="-1"
-                value={formData.website}
-                onChange={handleChange}
-              />
-            </div>
+          <p
+            className="
+              mx-auto
+              mt-6
+              max-w-2xl
+              text-base
+              leading-8
+              text-gray-600
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {/* Name */}
-              <motion.div
-                variants={fadeUp}
-                custom={0}
-                whileHover={{ scale: 1.02 }}
-              >
-                <label
-                  htmlFor="name"
-                  className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  Name <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
-                />
-              </motion.div>
+              sm:text-lg
 
-              {/* Email */}
-              <motion.div
-                variants={fadeUp}
-                custom={1}
-                whileHover={{ scale: 1.02 }}
-              >
-                <label
-                  htmlFor="email"
-                  className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  Email <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  required
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="you@example.com"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
-                />
-              </motion.div>
-
-              {/* Subject */}
-              <motion.div
-                variants={fadeUp}
-                custom={2}
-                className="sm:col-span-2"
-              >
-                <label
-                  htmlFor="subject"
-                  className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  Subject
-                </label>
-                <input
-                  type="text"
-                  id="subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="How can I help?"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
-                />
-              </motion.div>
-
-              {/* Message */}
-              <motion.div
-                variants={fadeUp}
-                custom={3}
-                className="sm:col-span-2"
-              >
-                <label
-                  htmlFor="message"
-                  className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1"
-                >
-                  Message <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  rows={5}
-                  required
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Write your message..."
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200 resize-none"
-                />
-                {/* Live counter */}
-                <div className="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                  {countWords(formData.message)} words •{" "}
-                  {formData.message.split(/\n/).filter((p) => p.trim()).length}{" "}
-                  paragraph(s)
-                </div>
-              </motion.div>
-
-              {/* Bot check */}
-              <motion.div
-                variants={fadeUp}
-                custom={4}
-                className="sm:col-span-2 space-y-2"
-              >
-                <label
-                  htmlFor="botCheck"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-                >
-                  {mathQuestion.question}{" "}
-                  <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="number"
-                  id="botCheck"
-                  name="botCheck"
-                  required
-                  value={formData.botCheck}
-                  onChange={handleChange}
-                  placeholder="Answer"
-                  className="block w-full px-3 py-2 text-sm rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white/50 dark:bg-gray-800/80 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 transition-all duration-200"
-                />
-                <p className="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1">
-                  <ShieldAlert className="w-3 h-3" />
-                  Spam protection
-                </p>
-              </motion.div>
-            </div>
-
-            {/* Submit button */}
-            <motion.div variants={fadeUp} custom={5} className="pt-2">
-              <motion.button
-                type="submit"
-                disabled={isSubmitting}
-                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
-                className={`relative w-full flex items-center justify-center px-5 py-2.5 rounded-xl text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm hover:shadow-md ${
-                  isSubmitting ? "opacity-85 cursor-not-allowed" : ""
-                }`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="animate-spin -ml-1 mr-2 h-4 w-4" />
-                    Sending…
-                  </>
-                ) : (
-                  <>
-                    Send Message
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </motion.button>
-            </motion.div>
-          </form>
+              dark:text-gray-400
+            "
+          >
+            Tell me what you're building, improving, or exploring. Share as much
+            detail as you can, and I'll respond with the best way to move
+            forward.
+          </p>
         </motion.div>
+
+        {/* ============================================================= */}
+        {/* CONTACT GRID                                                  */}
+        {/* ============================================================= */}
+
+        <div
+          className="
+            grid
+            gap-8
+
+            lg:grid-cols-[380px_minmax(0,1fr)]
+            lg:gap-10
+          "
+        >
+          {/* =========================================================== */}
+          {/* LEFT INFORMATION                                           */}
+          {/* =========================================================== */}
+
+          <motion.aside
+            variants={fadeUp}
+            className="
+              space-y-5
+
+              lg:sticky
+              lg:top-24
+              lg:self-start
+            "
+          >
+            {/* Intro Card */}
+
+            <div
+              className="
+                relative
+                overflow-hidden
+                rounded-[28px]
+                bg-gradient-to-br
+                from-purple-600
+                via-blue-600
+                to-cyan-500
+                p-7
+                text-white
+                shadow-2xl
+                shadow-blue-500/20
+              "
+            >
+              <div
+                className="
+                  absolute
+                  -right-16
+                  -top-20
+                  h-52
+                  w-52
+                  rounded-full
+                  bg-white/10
+                  blur-2xl
+                "
+              />
+
+              <div
+                className="
+                  relative
+                  z-10
+                "
+              >
+                <div
+                  className="
+                    mb-5
+                    flex
+                    h-12
+                    w-12
+                    items-center
+                    justify-center
+                    rounded-2xl
+                    border
+                    border-white/20
+                    bg-white/10
+                    backdrop-blur
+                  "
+                >
+                  <MessageSquare className="h-6 w-6" />
+                </div>
+
+                <h2
+                  className="
+                    text-2xl
+                    font-bold
+                  "
+                >
+                  Start a conversation
+                </h2>
+
+                <p
+                  className="
+                    mt-3
+                    text-sm
+                    leading-7
+                    text-white/80
+                  "
+                >
+                  Whether you need a complete application, AI solution, data
+                  platform, mobile app, technical consultation, or help
+                  improving an existing system, send me the details.
+                </p>
+              </div>
+            </div>
+
+            {/* Contact Information */}
+
+            <div
+              className="
+                rounded-[24px]
+                border
+                border-gray-200/70
+                bg-white/80
+                p-6
+                shadow-lg
+                shadow-gray-900/[0.04]
+                backdrop-blur-xl
+
+                dark:border-gray-800
+                dark:bg-gray-900/70
+              "
+            >
+              <h3
+                className="
+                  text-sm
+                  font-bold
+                  uppercase
+                  tracking-[0.12em]
+                  text-gray-400
+                "
+              >
+                What to expect
+              </h3>
+
+              <div className="mt-6 space-y-5">
+                <ContactDetail
+                  icon={Clock3}
+                  title="Quick Response"
+                  description="I review project inquiries as soon as possible."
+                />
+
+                <ContactDetail
+                  icon={ShieldCheck}
+                  title="Private Discussion"
+                  description="Project information is treated professionally and confidentially."
+                />
+
+                <ContactDetail
+                  icon={BriefcaseBusiness}
+                  title="Flexible Projects"
+                  description="Available for new development, improvements, integrations, and consulting."
+                />
+              </div>
+            </div>
+
+            {/* Process */}
+
+            <div
+              className="
+                rounded-[24px]
+                border
+                border-gray-200/70
+                bg-white/70
+                p-6
+                backdrop-blur-xl
+
+                dark:border-gray-800
+                dark:bg-gray-900/50
+              "
+            >
+              <h3
+                className="
+                  mb-5
+                  font-semibold
+                  text-gray-950
+
+                  dark:text-white
+                "
+              >
+                What happens next?
+              </h3>
+
+              <div className="space-y-4">
+                {[
+                  "Send your project details",
+                  "I review your requirements",
+                  "We discuss the best approach",
+                ].map((item, index) => (
+                  <div
+                    key={item}
+                    className="
+                      flex
+                      items-center
+                      gap-3
+                    "
+                  >
+                    <div
+                      className="
+                        flex
+                        h-7
+                        w-7
+                        shrink-0
+                        items-center
+                        justify-center
+                        rounded-full
+                        bg-blue-50
+                        text-xs
+                        font-bold
+                        text-blue-600
+
+                        dark:bg-blue-950/40
+                        dark:text-blue-400
+                      "
+                    >
+                      {index + 1}
+                    </div>
+
+                    <span
+                      className="
+                        text-sm
+                        text-gray-600
+
+                        dark:text-gray-300
+                      "
+                    >
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.aside>
+
+          {/* =========================================================== */}
+          {/* FORM                                                        */}
+          {/* =========================================================== */}
+
+          <motion.section
+            variants={fadeUp}
+            className="
+              overflow-hidden
+              rounded-[30px]
+              border
+              border-gray-200/70
+              bg-white/85
+              shadow-2xl
+              shadow-gray-900/[0.06]
+              backdrop-blur-2xl
+
+              dark:border-gray-800
+              dark:bg-gray-900/80
+            "
+          >
+            {/* Form Heading */}
+
+            <div
+              className="
+                border-b
+                border-gray-100
+                px-6
+                py-7
+
+                sm:px-8
+
+                dark:border-gray-800
+              "
+            >
+              <div
+                className="
+                  flex
+                  items-start
+                  justify-between
+                  gap-5
+                "
+              >
+                <div>
+                  <h2
+                    className="
+                      text-2xl
+                      font-bold
+                      tracking-tight
+                      text-gray-950
+
+                      dark:text-white
+                    "
+                  >
+                    Tell me about your project
+                  </h2>
+
+                  <p
+                    className="
+                      mt-2
+                      max-w-2xl
+                      text-sm
+                      leading-6
+                      text-gray-500
+
+                      dark:text-gray-400
+                    "
+                  >
+                    The more context you provide, the easier it is to understand
+                    your requirements.
+                  </p>
+                </div>
+
+                <div
+                  className="
+                    hidden
+                    h-11
+                    w-11
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-xl
+                    bg-gradient-to-br
+                    from-blue-600
+                    to-cyan-500
+                    text-white
+                    shadow-lg
+                    shadow-blue-500/20
+
+                    sm:flex
+                  "
+                >
+                  <Send className="h-5 w-5" />
+                </div>
+              </div>
+            </div>
+
+            <div className="p-6 sm:p-8">
+              {/* ======================================================= */}
+              {/* STATUS                                                  */}
+              {/* ======================================================= */}
+
+              <AnimatePresence mode="wait">
+                {submitStatus.message && (
+                  <motion.div
+                    key={submitStatus.message}
+                    initial={{
+                      opacity: 0,
+                      y: -8,
+                    }}
+                    animate={{
+                      opacity: 1,
+                      y: 0,
+                    }}
+                    exit={{
+                      opacity: 0,
+                      y: -8,
+                    }}
+                    className={`
+                      mb-6
+                      flex
+                      items-start
+                      gap-3
+                      rounded-xl
+                      border
+                      p-4
+                      text-sm
+                      leading-6
+
+                      ${
+                        submitStatus.success
+                          ? `
+                            border-emerald-200
+                            bg-emerald-50
+                            text-emerald-700
+
+                            dark:border-emerald-900
+                            dark:bg-emerald-950/30
+                            dark:text-emerald-300
+                          `
+                          : `
+                            border-red-200
+                            bg-red-50
+                            text-red-700
+
+                            dark:border-red-900
+                            dark:bg-red-950/30
+                            dark:text-red-300
+                          `
+                      }
+                    `}
+                  >
+                    {submitStatus.success ? (
+                      <CircleCheck className="mt-0.5 h-5 w-5 shrink-0" />
+                    ) : (
+                      <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
+                    )}
+
+                    <span>{submitStatus.message}</span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* ======================================================= */}
+              {/* FORM                                                    */}
+              {/* ======================================================= */}
+
+              <form onSubmit={handleSubmit} className="relative space-y-6">
+                {/* Honeypot */}
+
+                <div
+                  className="
+                    absolute
+                    left-[-9999px]
+                    top-auto
+                    h-px
+                    w-px
+                    overflow-hidden
+                  "
+                  aria-hidden="true"
+                >
+                  <label htmlFor="website">Website</label>
+
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.website}
+                    onChange={handleChange}
+                  />
+                </div>
+
+                {/* Name / Email */}
+
+                <div
+                  className="
+                    grid
+                    gap-5
+
+                    md:grid-cols-2
+                  "
+                >
+                  <FormField label="Your name" required icon={UserRound}>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      required
+                      autoComplete="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="John Doe"
+                      className={inputClasses}
+                    />
+                  </FormField>
+
+                  <FormField label="Email address" required icon={Mail}>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      autoComplete="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="you@example.com"
+                      className={inputClasses}
+                    />
+                  </FormField>
+                </div>
+
+                {/* Project Type */}
+
+                <FormField
+                  label="What can I help with?"
+                  icon={BriefcaseBusiness}
+                >
+                  <div className="relative">
+                    <select
+                      id="projectType"
+                      name="projectType"
+                      value={formData.projectType}
+                      onChange={handleChange}
+                      className={`
+                        ${inputClasses}
+                        appearance-none
+                        pr-10
+                      `}
+                    >
+                      <option value="">Select a service</option>
+
+                      <option value="Web Development">Web Development</option>
+
+                      <option value="AI & Machine Learning">
+                        AI & Machine Learning
+                      </option>
+
+                      <option value="Data Engineering">
+                        Data Engineering & Analytics
+                      </option>
+
+                      <option value="Mobile App Development">
+                        Mobile App Development
+                      </option>
+
+                      <option value="Software Development">
+                        Custom Software Development
+                      </option>
+
+                      <option value="Consulting">Technical Consulting</option>
+
+                      <option value="Other">Something Else</option>
+                    </select>
+
+                    <ChevronDown
+                      className="
+                        pointer-events-none
+                        absolute
+                        right-4
+                        top-1/2
+                        h-4
+                        w-4
+                        -translate-y-1/2
+                        text-gray-400
+                      "
+                    />
+                  </div>
+                </FormField>
+
+                {/* Subject */}
+
+                <FormField label="Subject" icon={MessageSquare}>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    placeholder="Briefly describe your project"
+                    className={inputClasses}
+                  />
+                </FormField>
+
+                {/* Message */}
+
+                <FormField
+                  label="Project details"
+                  required
+                  icon={MessageSquare}
+                >
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={7}
+                    required
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project, what you're trying to achieve, important features, existing systems, or anything else that would help me understand your requirements."
+                    className={`
+                      ${inputClasses}
+                      min-h-[180px]
+                      resize-y
+                    `}
+                  />
+
+                  <div
+                    className="
+                      mt-2
+                      flex
+                      items-center
+                      justify-between
+                      gap-4
+                      text-xs
+                    "
+                  >
+                    <span
+                      className={
+                        totalWords > MAX_WORDS
+                          ? "text-red-500"
+                          : "text-gray-400"
+                      }
+                    >
+                      {totalWords} / {MAX_WORDS} words
+                    </span>
+
+                    <span className="text-gray-400">
+                      Minimum {MIN_WORDS} words
+                    </span>
+                  </div>
+                </FormField>
+
+                {/* Verification */}
+
+                <div
+                  className="
+                    rounded-2xl
+                    border
+                    border-gray-200
+                    bg-gray-50/80
+                    p-5
+
+                    dark:border-gray-800
+                    dark:bg-gray-950/40
+                  "
+                >
+                  <div
+                    className="
+                      flex
+                      flex-col
+                      gap-4
+
+                      sm:flex-row
+                      sm:items-end
+                      sm:justify-between
+                    "
+                  >
+                    <div className="flex-1">
+                      <div
+                        className="
+                          mb-2
+                          flex
+                          items-center
+                          gap-2
+                        "
+                      >
+                        <ShieldCheck
+                          className="
+                            h-4
+                            w-4
+                            text-emerald-500
+                          "
+                        />
+
+                        <label
+                          htmlFor="botCheck"
+                          className="
+                            text-sm
+                            font-semibold
+                            text-gray-700
+
+                            dark:text-gray-300
+                          "
+                        >
+                          Quick verification
+                        </label>
+                      </div>
+
+                      <p
+                        className="
+                          text-xs
+                          leading-5
+                          text-gray-500
+
+                          dark:text-gray-400
+                        "
+                      >
+                        Help prevent automated spam by answering this simple
+                        question.
+                      </p>
+                    </div>
+
+                    <div
+                      className="
+                        flex
+                        items-center
+                        gap-3
+                      "
+                    >
+                      <span
+                        className="
+                          whitespace-nowrap
+                          rounded-lg
+                          bg-white
+                          px-4
+                          py-3
+                          text-sm
+                          font-bold
+                          text-gray-700
+                          shadow-sm
+
+                          dark:bg-gray-900
+                          dark:text-gray-200
+                        "
+                      >
+                        {mathQuestion.question} =
+                      </span>
+
+                      <input
+                        type="number"
+                        id="botCheck"
+                        name="botCheck"
+                        required
+                        value={formData.botCheck}
+                        onChange={handleChange}
+                        placeholder="?"
+                        aria-label="Verification answer"
+                        className="
+                          h-11
+                          w-20
+                          rounded-lg
+                          border
+                          border-gray-300
+                          bg-white
+                          px-3
+                          text-center
+                          text-sm
+                          font-semibold
+                          text-gray-900
+                          outline-none
+                          transition-all
+
+                          focus:border-blue-500
+                          focus:ring-4
+                          focus:ring-blue-500/10
+
+                          dark:border-gray-700
+                          dark:bg-gray-900
+                          dark:text-white
+                        "
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submit */}
+
+                <motion.button
+                  type="submit"
+                  disabled={isSubmitting}
+                  whileHover={
+                    reducedMotion || isSubmitting
+                      ? {}
+                      : {
+                          y: -2,
+                        }
+                  }
+                  whileTap={
+                    reducedMotion || isSubmitting
+                      ? {}
+                      : {
+                          scale: 0.99,
+                        }
+                  }
+                  className={`
+                    group
+                    flex
+                    w-full
+                    items-center
+                    justify-center
+                    gap-2
+                    rounded-xl
+                    bg-gradient-to-r
+                    from-purple-600
+                    via-blue-600
+                    to-cyan-500
+                    px-6
+                    py-3.5
+                    text-sm
+                    font-semibold
+                    text-white
+                    shadow-lg
+                    shadow-blue-500/20
+                    transition-all
+                    duration-300
+
+                    hover:from-purple-700
+                    hover:via-blue-700
+                    hover:to-cyan-600
+                    hover:shadow-xl
+                    hover:shadow-blue-500/25
+
+                    focus:outline-none
+                    focus:ring-4
+                    focus:ring-blue-500/20
+
+                    ${isSubmitting ? "cursor-not-allowed opacity-70" : ""}
+                  `}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending Message...
+                    </>
+                  ) : (
+                    <>
+                      Send Message
+                      <ArrowRight
+                        className="
+                          h-4
+                          w-4
+                          transition-transform
+                          duration-200
+
+                          group-hover:translate-x-1
+                        "
+                      />
+                    </>
+                  )}
+                </motion.button>
+
+                {/* Footer */}
+
+                <div
+                  className="
+                    flex
+                    items-center
+                    justify-center
+                    gap-2
+                    text-center
+                    text-xs
+                    leading-5
+                    text-gray-400
+                  "
+                >
+                  <ShieldCheck className="h-3.5 w-3.5 shrink-0" />
+                  Your information is used only to respond to your inquiry.
+                </div>
+              </form>
+            </div>
+          </motion.section>
+        </div>
       </div>
-    </motion.div>
+    </motion.main>
   );
 }
+
+/* -------------------------------------------------------------------------- */
+/*                              Form Components                               */
+/* -------------------------------------------------------------------------- */
+
+const inputClasses = `
+  block
+  w-full
+  rounded-xl
+  border
+  border-gray-300
+  bg-white/80
+  px-4
+  py-3
+  text-sm
+  text-gray-900
+  outline-none
+  transition-all
+  duration-200
+
+  placeholder:text-gray-400
+
+  hover:border-gray-400
+
+  focus:border-blue-500
+  focus:ring-4
+  focus:ring-blue-500/10
+
+  dark:border-gray-700
+  dark:bg-gray-950/60
+  dark:text-white
+  dark:placeholder:text-gray-600
+  dark:hover:border-gray-600
+  dark:focus:border-blue-500
+`;
+
+const FormField = ({ label, required = false, icon: Icon, children }) => {
+  return (
+    <div>
+      <label
+        className="
+          mb-2
+          flex
+          items-center
+          gap-2
+          text-sm
+          font-semibold
+          text-gray-700
+
+          dark:text-gray-300
+        "
+      >
+        {Icon && (
+          <Icon
+            className="
+              h-4
+              w-4
+              text-gray-400
+            "
+          />
+        )}
+
+        {label}
+
+        {required && <span className="text-red-500">*</span>}
+      </label>
+
+      {children}
+    </div>
+  );
+};
+
+/* -------------------------------------------------------------------------- */
+/*                             Contact Detail                                 */
+/* -------------------------------------------------------------------------- */
+
+const ContactDetail = ({ icon: Icon, title, description }) => {
+  return (
+    <div className="flex gap-3.5">
+      <div
+        className="
+          flex
+          h-10
+          w-10
+          shrink-0
+          items-center
+          justify-center
+          rounded-xl
+          bg-blue-50
+          text-blue-600
+
+          dark:bg-blue-950/40
+          dark:text-blue-400
+        "
+      >
+        <Icon className="h-5 w-5" />
+      </div>
+
+      <div>
+        <h4
+          className="
+            text-sm
+            font-semibold
+            text-gray-900
+
+            dark:text-white
+          "
+        >
+          {title}
+        </h4>
+
+        <p
+          className="
+            mt-1
+            text-xs
+            leading-5
+            text-gray-500
+
+            dark:text-gray-400
+          "
+        >
+          {description}
+        </p>
+      </div>
+    </div>
+  );
+};

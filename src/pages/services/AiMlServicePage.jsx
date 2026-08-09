@@ -1,28 +1,37 @@
 import React from "react";
 import ServiceTemplate from "../../components/ServiceTemplate";
-import { Brain, Code, Database, Shield, Zap } from "lucide-react";
+import { Brain } from "lucide-react";
 
 const AiMlServicePage = () => {
   const serviceData = {
     title: "AI & Machine Learning Solutions",
+
+    eyebrow: "Artificial Intelligence & Machine Learning",
+
     description:
-      "Transform your business with custom AI and machine learning solutions. From predictive analytics to computer vision, we build intelligent systems that drive innovation and efficiency.",
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000",
+      "Build intelligent, production-ready AI and machine learning solutions tailored to real business problems. From predictive analytics and natural language processing to computer vision and intelligent automation, I design systems that improve decision-making, efficiency, and scalability.",
+
     icon: Brain,
+
     features: [
-      "Custom ML Model Development",
-      "Natural Language Processing (NLP) Solutions",
-      "Computer Vision Applications",
-      "Predictive Analytics & Forecasting",
-      "AI Strategy & Consulting",
-      "Model Optimization & Deployment",
-      "AI Integration with Existing Systems",
+      "Custom machine learning model development",
+      "Natural language processing solutions",
+      "Computer vision applications",
+      "Predictive analytics and forecasting",
+      "Recommendation and ranking systems",
+      "AI-powered workflow automation",
+      "Large language model integration",
+      "Model fine-tuning and optimization",
+      "AI integration with existing applications",
+      "Model deployment and production monitoring",
+      "Data preprocessing and feature engineering",
+      "AI strategy and technical consulting",
     ],
+
     technologies: [
       "Python",
-      "TensorFlow",
       "PyTorch",
+      "TensorFlow",
       "Scikit-learn",
       "OpenAI API",
       "Hugging Face",
@@ -30,91 +39,137 @@ const AiMlServicePage = () => {
       "Pandas",
       "NumPy",
       "OpenCV",
-      "NLTK",
       "spaCy",
+      "NLTK",
+      "LangChain",
+      "FastAPI",
+      "Docker",
+      "AWS",
     ],
-    pricing: [
+
+    process: [
       {
-        name: "Starter",
-        description: "Perfect for small projects and MVPs",
-        price: "99",
-        type: "hourly",
-        features: [
-          "Basic ML model development",
-          "Pre-trained model fine-tuning",
-          "Standard model deployment",
-          "Email support",
-          "2 revision rounds",
-        ],
-        popular: false,
+        title: "Problem & Data Discovery",
+        description:
+          "We begin by defining the business problem, expected outcomes, available data, technical constraints, evaluation criteria, and how AI can realistically provide value.",
       },
+
       {
-        name: "Professional",
-        description: "Ideal for growing businesses",
-        price: "149",
-        type: "hourly",
-        features: [
-          "Custom ML model development",
-          "NLP or Computer Vision solutions",
-          "Cloud deployment",
-          "Priority support",
-          "4 revision rounds",
-          "1 month maintenance",
-        ],
-        popular: true,
+        title: "Data Preparation",
+        description:
+          "Data is reviewed, cleaned, transformed, and prepared for modeling. This may include feature engineering, labeling strategies, dataset validation, augmentation, or synthetic data generation where appropriate.",
       },
+
       {
-        name: "Enterprise",
-        description: "Custom solutions for large-scale needs",
-        price: "Contact",
-        type: "project",
-        features: [
-          "End-to-end AI solutions",
-          "Custom research & development",
-          "Dedicated team",
-          "24/7 support",
-          "Unlimited revisions",
-          "Ongoing maintenance",
-          "Performance optimization",
-        ],
-        popular: false,
+        title: "Model Design & Development",
+        description:
+          "Appropriate machine learning, deep learning, or foundation-model approaches are selected and developed based on the problem, available data, performance requirements, and deployment environment.",
+      },
+
+      {
+        title: "Evaluation & Optimization",
+        description:
+          "Models are evaluated using suitable metrics and validation strategies. Performance, robustness, latency, interpretability, and computational requirements are analyzed and optimized before deployment.",
+      },
+
+      {
+        title: "Integration & Deployment",
+        description:
+          "The selected model is integrated into your application, API, data pipeline, or cloud environment with the required inference, authentication, monitoring, and infrastructure components.",
+      },
+
+      {
+        title: "Monitoring & Improvement",
+        description:
+          "Post-deployment monitoring can track model quality, data drift, latency, failures, and changing business requirements so the system can be maintained and improved over time.",
       },
     ],
+
     faqs: [
       {
-        question: "What types of AI/ML projects are typically handled?",
+        question: "What types of AI and ML projects do you handle?",
         answer:
-          "Common AI/ML projects include natural language processing, computer vision, predictive analytics, and recommendation systems. The field encompasses both traditional machine learning and deep learning approaches.",
+          "Projects can include predictive analytics, classification, forecasting, recommendation systems, natural language processing, computer vision, intelligent automation, anomaly detection, generative AI applications, and AI integration with existing software systems.",
       },
+
       {
-        question: "How long does it take to develop a custom ML model?",
+        question: "Do I need a large dataset to use machine learning?",
         answer:
-          "Development time varies by complexity. Simple models typically take 2-4 weeks, while more complex solutions may require 2-6 months. A detailed timeline can be provided after evaluating specific requirements.",
+          "Not always. The amount of data required depends on the problem, model type, complexity, and desired accuracy. Some projects can use transfer learning, pre-trained models, existing foundation models, or carefully designed smaller datasets.",
       },
+
       {
-        question: "Is ongoing maintenance and support available?",
+        question: "Can you integrate AI into an existing application?",
         answer:
-          "Yes, various support and maintenance options are typically available, including maintenance periods and custom support agreements based on project needs.",
+          "Yes. AI capabilities can be integrated into existing web applications, mobile applications, APIs, enterprise systems, databases, cloud environments, and internal business workflows.",
       },
+
+      {
+        question: "Can you build solutions using large language models?",
+        answer:
+          "Yes. Large language model solutions can include AI assistants, document analysis, retrieval-augmented generation, summarization, classification, information extraction, conversational interfaces, and workflow automation.",
+      },
+
+      {
+        question: "Do you build custom models or use existing models?",
+        answer:
+          "Both approaches are possible. Depending on the project, I may use traditional machine learning, build a custom deep learning model, fine-tune an existing model, or integrate a hosted foundation model. The approach is selected based on accuracy, cost, latency, privacy, and maintenance requirements.",
+      },
+
+      {
+        question: "How long does an AI project take?",
+        answer:
+          "Timelines depend heavily on data readiness, modeling complexity, integration requirements, evaluation needs, and deployment infrastructure. A focused proof of concept may take a few weeks, while a production AI platform can require multiple development phases.",
+      },
+
       {
         question: "What data is needed for an AI project?",
         answer:
-          "Requirements vary by project. Supervised learning generally requires labeled training data. Assistance is often available for assessing data needs, data collection, or generating synthetic data when necessary.",
+          "Data requirements depend on the machine learning problem. Supervised learning may require labeled examples, while other approaches can use unlabeled data, historical records, images, text, sensor data, logs, transactions, or external data sources.",
+      },
+
+      {
+        question: "Can you help if my data is not ready?",
+        answer:
+          "Yes. Early project work can include data assessment, preprocessing, labeling strategies, feature engineering, quality analysis, dataset design, and determining whether the available data is suitable for the proposed AI solution.",
+      },
+
+      {
+        question: "How do you evaluate whether an AI model is performing well?",
+        answer:
+          "Evaluation depends on the problem. Metrics may include accuracy, precision, recall, F1 score, ROC-AUC, mean absolute error, root mean squared error, latency, robustness, calibration, or business-specific success measures.",
+      },
+
+      {
+        question: "Do you provide deployment and ongoing support?",
+        answer:
+          "Yes. Support can include API deployment, cloud infrastructure, containerization, monitoring, model updates, performance optimization, bug fixes, retraining workflows, and integration improvements.",
       },
     ],
-    color: "from-purple-500 to-pink-500",
   };
 
   return (
     <ServiceTemplate
       {...serviceData}
+      showPricing={false}
       theme={{
-        gradient: "from-purple-500 to-pink-500",
-        hoverGradient: "hover:from-purple-600 hover:to-pink-600",
-        text: "text-purple-600",
-        border: "border-purple-500",
+        gradient: "from-purple-600 via-fuchsia-500 to-pink-500",
+
+        softGradient:
+          "from-purple-50 via-fuchsia-50 to-pink-50 dark:from-purple-950/20 dark:via-fuchsia-950/20 dark:to-pink-950/20",
+
+        hoverGradient:
+          "hover:from-purple-700 hover:via-fuchsia-600 hover:to-pink-600",
+
+        text: "text-purple-600 dark:text-purple-400",
+
+        border: "border-purple-500 dark:border-purple-400",
+
+        softBorder: "border-purple-200/70 dark:border-purple-800/50",
+
         bg: "bg-purple-50 dark:bg-purple-900/20",
-        iconBg: "bg-gradient-to-r from-purple-500 to-pink-500",
+
+        iconBg: "bg-gradient-to-br from-purple-600 via-fuchsia-500 to-pink-500",
       }}
     />
   );
